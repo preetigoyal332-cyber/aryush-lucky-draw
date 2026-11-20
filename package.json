@@ -1,0 +1,15 @@
+{
+  "name": "aryush-lucky-draw",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aryush Foods Mega Lucky Draw Coupon Allotment & Prize Report App (Cloudflare Workers + D1)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init:remote": "wrangler d1 execute aryush_lucky_draw_db --remote --file=./schema.sql",
+    "db:init:local": "wrangler d1 execute aryush_lucky_draw_db --local --file=./schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.99.0"
+  }
+}

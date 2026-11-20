@@ -1,0 +1,11 @@
+name = "aryush-lucky-draw"
+main = "src/worker.js"
+compatibility_date = "2025-01-01"
+
+# Cloudflare D1 Database Binding
+# Step 1: Cloudflare Dashboard -> Storage & Databases -> D1 SQL Database -> Create Database ("aryush_lucky_draw_db")
+# Step 2: Copy the database_id and paste it below replacing PASTE_YOUR_D1_DATABASE_ID_HERE
+[[d1_databases]]
+binding = "DB"
+database_name = "aryush_lucky_draw_db"
+database_id = "PASTE_YOUR_D1_DATABASE_ID_HERE"

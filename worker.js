@@ -1,26 +1,67 @@
-// Aryush Foods — Lucky Draw Coupon & 301 Prize ERP (v2.0 Pro)
-// Cloudflare Worker + D1 Backend (Auto-migrates v1 -> v2 seamlessly)
+// Aryush Foods — Lucky Draw & 301 Prize ERP v6.0 AI Pro (Cloudflare Worker + D1 + Gemini AI)
 
 const OFFICIAL_301_SEGMENTS = [
-  [1, "1st Prize - Maruti Suzuki Alto K10 LXi", 1, "🚗"],
-  [2, "2nd Prize - Honda Activa", 2, "🛵"],
-  [3, "3rd Prize - Hero HF Deluxe Bike", 2, "🏍️"],
-  [4, "4th Prize - Chandi (Silver) 200g", 2, "🥈"],
-  [5, "5th Prize - Chandi (Silver) 100g", 5, "🪙"],
-  [6, "6th Prize - Lloyd Refrigerator (180L)", 10, "🧊"],
-  [7, "7th Prize - Chandi (Silver) 50g", 11, "🪙"],
-  [8, "8th Prize - Voltas Washing Machine (6 kg)", 21, "🧺"],
-  [9, "9th Prize - Chandi (Silver) 30g", 25, "✨"],
-  [10, "10th Prize - Chandi (Silver) 25g", 30, "✨"],
-  [11, "11th Prize - Chandi (Silver) 20g", 40, "✨"],
-  [12, "12th Prize - Rasoi Dhan Haldi Powder (25 kg)", 51, "🟡"],
-  [13, "13th Prize - Rasoi Dhan Dhaniya Powder (30 kg)", 101, "🟢"]
+  { rank: 1, title: '1st Prize - Maruti Suzuki Alto K10 LXi', target_qty: 1, icon: '🚗' },
+  { rank: 2, title: '2nd Prize - Honda Activa', target_qty: 2, icon: '🛵' },
+  { rank: 3, title: '3rd Prize - Hero HF Deluxe Bike', target_qty: 2, icon: '🏍️' },
+  { rank: 4, title: '4th Prize - Chandi (Silver) 200g', target_qty: 2, icon: '🥈' },
+  { rank: 5, title: '5th Prize - Chandi (Silver) 100g', target_qty: 5, icon: '🪙' },
+  { rank: 6, title: '6th Prize - Lloyd Refrigerator (180L)', target_qty: 10, icon: '🧊' },
+  { rank: 7, title: '7th Prize - Chandi (Silver) 50g', target_qty: 11, icon: '🪙' },
+  { rank: 8, title: '8th Prize - Voltas Washing Machine (6 kg)', target_qty: 21, icon: '🧺' },
+  { rank: 9, title: '9th Prize - Chandi (Silver) 30g', target_qty: 25, icon: '✨' },
+  { rank: 10, title: '10th Prize - Chandi (Silver) 25g', target_qty: 30, icon: '✨' },
+  { rank: 11, title: '11th Prize - Chandi (Silver) 20g', target_qty: 40, icon: '✨' },
+  { rank: 12, title: '12th Prize - Rasoi Dhan Haldi Powder (25 kg)', target_qty: 51, icon: '🟡' },
+  { rank: 13, title: '13th Prize - Rasoi Dhan Dhaniya Powder (30 kg)', target_qty: 101, icon: '🟢' }
 ];
 
-let schemaInitialized = false;
+const DEFAULT_SETTINGS = {
+  company_name: 'ARYUSH FOODS',
+  campaign_name: 'MEGA ALTO LUCKY DRAW',
+  kg_per_coupon: '210',
+  kg_per_bag: '30',
+  max_coupons: '301',
+  coupon_prefix: '',
+  signatory: 'For Aryush Foods (Kailaras, Morena)'
+};
 
-async function ensureSchema(db) {
-  if (schemaInitialized) return;
+function jsonResp(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    }
+  });
+}
+
+function guessArea(name) {
+  const generic = new Set([
+    'KIRANA','STORE','STORES','PROVIJAN','PROVISION','TRADERS','TRADER','BAZAR','BAZAAR',
+    'BHANDAR','GENERAL','MART','SHOP','AGENCY','AGENCIES','ENTERPRISES','BROTHERS','BROS',
+    'SONS','AND','CO','COMPANY','FOODS','SWEETS','DAIRY','MEDICAL','CENTRE','CENTER'
+  ]);
+  const parts = String(name || '').trim().toUpperCase().split(/\s+/).filter(Boolean);
+  if (parts.length >= 3) {
+    const last = parts[parts.length - 1].replace(/[^A-Z]/g, '');
+    if (last.length >= 3 && !generic.has(last)) return last;
+  }
+  return '';
+}
+
+function randomDlCode() {
+  return 'DL-' + Math.random().toString(16).slice(2, 8).toUpperCase();
+}
+
+function padCoupon(num, maxC = 301, prefix = '') {
+  const digits = Number(maxC) >= 1000 ? 4 : 3;
+  return (prefix || '') + String(num).padStart(digits, '0');
+}
+
+async function ensureSchemaAndDefaults(db) {
   await db.batch([
     db.prepare(`CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL)`),
     db.prepare(`CREATE TABLE IF NOT EXISTS retailers (
@@ -39,7 +80,8 @@ async function ensureSchema(db) {
       loose_kg REAL NOT NULL DEFAULT 0,
       total_kg REAL NOT NULL DEFAULT 0,
       remarks TEXT DEFAULT '',
-      created_at TEXT DEFAULT (datetime('now'))
+      created_at TEXT DEFAULT (datetime('now')),
+      FOREIGN KEY (retailer_id) REFERENCES retailers(id) ON DELETE CASCADE
     )`),
     db.prepare(`CREATE TABLE IF NOT EXISTS coupons (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,7 +96,8 @@ async function ensureSchema(db) {
       draw_date TEXT DEFAULT '',
       prize_status TEXT DEFAULT 'NONE',
       remarks TEXT DEFAULT '',
-      created_at TEXT DEFAULT (datetime('now'))
+      created_at TEXT DEFAULT (datetime('now')),
+      FOREIGN KEY (retailer_id) REFERENCES retailers(id) ON DELETE CASCADE
     )`),
     db.prepare(`CREATE TABLE IF NOT EXISTS prize_segments (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -63,639 +106,552 @@ async function ensureSchema(db) {
       target_qty INTEGER NOT NULL DEFAULT 1,
       icon TEXT DEFAULT '🏆',
       created_at TEXT DEFAULT (datetime('now'))
-    )`),
-    db.prepare(`CREATE INDEX IF NOT EXISTS idx_deliveries_retailer ON deliveries(retailer_id)`),
-    db.prepare(`CREATE INDEX IF NOT EXISTS idx_coupons_retailer ON coupons(retailer_id)`)
+    )`)
   ]);
 
-  // Seed or auto-upgrade old placeholder segments to Official Aryush 301 Prize List
-  const segRows = await db.prepare("SELECT * FROM prize_segments ORDER BY rank ASC").all();
-  const existingSegs = segRows.results || [];
-  const isOldPlaceholder = existingSegs.length === 6 && existingSegs.some(s => String(s.title).includes("Assured / Consolation Gift Prize"));
-  if (existingSegs.length === 0 || isOldPlaceholder) {
-    await db.prepare("DELETE FROM prize_segments").run();
-    await db.batch(
-      OFFICIAL_301_SEGMENTS.map(([r, t, q, ic]) =>
-        db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)").bind(r, t, q, ic)
-      )
+  const segCountRow = await db.prepare(`SELECT COUNT(*) AS cnt FROM prize_segments`).first();
+  if (!segCountRow || Number(segCountRow.cnt) === 0) {
+    const stmts = OFFICIAL_301_SEGMENTS.map(s =>
+      db.prepare(`INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)`)
+        .bind(s.rank, s.title, s.target_qty, s.icon)
     );
+    await db.batch(stmts);
   }
-
-  schemaInitialized = true;
 }
 
-function jsonResp(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type"
-    }
-  });
-}
-
-async function getSettingsObj(db) {
-  const defaults = {
-    company_name: "ARYUSH FOODS",
-    campaign_name: "MEGA ALTO LUCKY DRAW",
-    kg_per_coupon: 210,
-    kg_per_bag: 30,
-    max_coupons: 301,
-    coupon_prefix: "",
-    signatory: "For Aryush Foods (Kailaras, Morena)"
-  };
-  const rows = await db.prepare("SELECT key, value FROM settings").all();
+async function getSettingsMap(db) {
+  const rows = await db.prepare(`SELECT key, value FROM settings`).all();
+  const map = { ...DEFAULT_SETTINGS };
   for (const r of (rows.results || [])) {
-    if (["kg_per_coupon", "kg_per_bag", "max_coupons"].includes(r.key)) {
-      defaults[r.key] = Number(r.value);
-    } else {
-      defaults[r.key] = r.value;
+    map[r.key] = r.value;
+  }
+  return {
+    ...map,
+    kg_per_coupon: Number(map.kg_per_coupon) || 210,
+    kg_per_bag: Number(map.kg_per_bag) || 30,
+    max_coupons: Number(map.max_coupons) || 301,
+    gemini_key_saved: Boolean(map.gemini_api_key && String(map.gemini_api_key).trim().length > 10)
+  };
+}
+
+async function getGeminiKey(env, db) {
+  if (env.GEMINI_API_KEY && String(env.GEMINI_API_KEY).trim().length > 10) {
+    return String(env.GEMINI_API_KEY).trim();
+  }
+  const row = await db.prepare(`SELECT value FROM settings WHERE key = 'gemini_api_key'`).first();
+  if (row && row.value && String(row.value).trim().length > 10) {
+    return String(row.value).trim();
+  }
+  return '';
+}
+
+async function callGeminiAPI(apiKey, parts, expectJson = true) {
+  if (!apiKey) {
+    throw new Error('Gemini API Key set nahi hai! Settings (PDF/Tools tab) me apni free Google AI Studio Gemini API Key save karein ya Cloudflare secret GEMINI_API_KEY lagayein.');
+  }
+  const models = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+  let lastErr = 'Gemini request failed';
+
+  for (const model of models) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const payload = {
+      contents: [{ role: 'user', parts }],
+      generationConfig: expectJson
+        ? { temperature: 0.15, responseMimeType: 'application/json' }
+        : { temperature: 0.3 }
+    };
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (res.ok && data.candidates?.[0]?.content?.parts?.[0]?.text) {
+      const txt = data.candidates[0].content.parts[0].text.trim();
+      if (!expectJson) return txt;
+      const cleaned = txt.replace(/^```json\s*/i, '').replace(/```$/i, '').trim();
+      return JSON.parse(cleaned);
     }
+    lastErr = data?.error?.message || `HTTP ${res.status}`;
   }
-  return defaults;
-}
-
-function guessAreaFromShopName(name) {
-  const genericWords = new Set([
-    "KIRANA", "STORE", "STORES", "PROVIJAN", "PROVISION", "TRADERS", "TRADER",
-    "BAZAR", "BAZAAR", "BHANDAR", "GENERAL", "MART", "SHOP", "AGENCY", "AGENCIES",
-    "ENTERPRISES", "BROTHERS", "BROS", "SONS", "AND", "CO", "COMPANY", "FOODS",
-    "SWEETS", "DAIRY", "MEDICAL", "CENTRE", "CENTER", "COLLECTION", "HOUSE", "POINT"
-  ]);
-  const parts = String(name || "").trim().toUpperCase().split(/\s+/).filter(Boolean);
-  if (parts.length >= 3) {
-    const last = parts[parts.length - 1].replace(/[^A-Z]/g, "");
-    if (last.length >= 3 && !genericWords.has(last)) {
-      return last;
-    }
-  }
-  return "";
-}
-
-async function getOrCreateRetailerId(db, nameRaw, areaRaw = "", phoneRaw = "") {
-  const name = String(nameRaw || "").trim().toUpperCase();
-  if (!name) throw new Error("Retailer name is required");
-  const area = String(areaRaw || "").trim().toUpperCase();
-  const phone = String(phoneRaw || "").trim();
-
-  const existing = await db.prepare("SELECT id, area, phone FROM retailers WHERE UPPER(name) = ?").bind(name).first();
-  if (existing) {
-    if ((area && area !== existing.area) || (phone && phone !== existing.phone)) {
-      await db.prepare(
-        "UPDATE retailers SET area = COALESCE(NULLIF(?, ''), area), phone = COALESCE(NULLIF(?, ''), phone) WHERE id = ?"
-      ).bind(area, phone, existing.id).run();
-    }
-    return existing.id;
-  }
-  const finalArea = area || guessAreaFromShopName(name);
-  const ins = await db.prepare("INSERT INTO retailers (name, area, phone) VALUES (?, ?, ?) RETURNING id")
-    .bind(name, finalArea, phone).first();
-  return ins.id;
-}
-
-function randomDlCode() {
-  const bytes = new Uint8Array(5);
-  crypto.getRandomValues(bytes);
-  return "DL-" + Array.from(bytes).map(b => b.toString(16).padStart(2, "0")).join("").toUpperCase();
-}
-
-// Parse CSV text properly with quoted strings
-function parseCSV(text) {
-  const rows = [];
-  let row = [];
-  let cur = "";
-  let inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    const next = text[i + 1];
-    if (inQuotes) {
-      if (ch === '"' && next === '"') {
-        cur += '"';
-        i++;
-      } else if (ch === '"') {
-        inQuotes = false;
-      } else {
-        cur += ch;
-      }
-    } else {
-      if (ch === '"') {
-        inQuotes = true;
-      } else if (ch === ',') {
-        row.push(cur.trim());
-        cur = "";
-      } else if (ch === '\n' || (ch === '\r' && next === '\n')) {
-        if (ch === '\r') i++;
-        row.push(cur.trim());
-        rows.push(row);
-        row = [];
-        cur = "";
-      } else if (ch !== '\r') {
-        cur += ch;
-      }
-    }
-  }
-  if (cur.length > 0 || row.length > 0) {
-    row.push(cur.trim());
-    rows.push(row);
-  }
-  return rows;
-}
-
-function arrayBufferToBase64(buffer) {
-  let binary = "";
-  const bytes = new Uint8Array(buffer);
-  const chunkSize = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunkSize) {
-    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
-  }
-  return btoa(binary);
+  throw new Error(lastErr);
 }
 
 export default {
   async fetch(request, env) {
+    if (request.method === 'OPTIONS') return jsonResp({ ok: true });
+
     const url = new URL(request.url);
-    if (request.method === "OPTIONS") return jsonResp({ ok: true });
+    const path = url.pathname;
 
-    if (!url.pathname.startsWith("/api/")) {
-      if (env.ASSETS) {
-        return env.ASSETS.fetch(request);
-      }
-      return new Response("Static assets binding missing.", { status: 404 });
+    if (!path.startsWith('/api/')) {
+      if (env.ASSETS) return env.ASSETS.fetch(request);
+      return new Response('Not Found', { status: 404 });
     }
 
-    if (!env.DB) {
-      return jsonResp({ error: "Cloudflare D1 binding 'DB' missing in Worker Settings -> Bindings." }, 500);
-    }
+    const db = env.DB;
+    if (!db) return jsonResp({ error: 'Cloudflare D1 binding DB missing in wrangler.toml' }, 500);
 
     try {
-      await ensureSchema(env.DB);
-      const db = env.DB;
+      await ensureSchemaAndDefaults(db);
 
-      // 1. GET /api/bootstrap
-      if (url.pathname === "/api/bootstrap" && request.method === "GET") {
-        const [settings, retailers, deliveries, coupons, segments] = await Promise.all([
-          getSettingsObj(db),
-          db.prepare("SELECT * FROM retailers ORDER BY name ASC").all(),
-          db.prepare("SELECT * FROM deliveries ORDER BY entry_date DESC, id DESC").all(),
-          db.prepare("SELECT * FROM coupons ORDER BY coupon_num ASC").all(),
-          db.prepare("SELECT * FROM prize_segments ORDER BY rank ASC, id ASC").all()
+      // 1. BOOTSTRAP ALL DATA
+      if (path === '/api/bootstrap' && request.method === 'GET') {
+        const settings = await getSettingsMap(db);
+        const safeSettings = { ...settings };
+        delete safeSettings.gemini_api_key;
+
+        const [retRes, delRes, cupRes, segRes] = await Promise.all([
+          db.prepare(`SELECT * FROM retailers ORDER BY name ASC`).all(),
+          db.prepare(`SELECT * FROM deliveries ORDER BY id DESC`).all(),
+          db.prepare(`SELECT * FROM coupons ORDER BY coupon_num ASC`).all(),
+          db.prepare(`SELECT * FROM prize_segments ORDER BY rank ASC, id ASC`).all()
         ]);
+
         return jsonResp({
-          settings,
-          retailers: retailers.results || [],
-          deliveries: deliveries.results || [],
-          coupons: coupons.results || [],
-          segments: segments.results || []
+          settings: safeSettings,
+          ai_ready: Boolean(env.GEMINI_API_KEY || settings.gemini_key_saved),
+          retailers: retRes.results || [],
+          deliveries: delRes.results || [],
+          coupons: cupRes.results || [],
+          segments: segRes.results || []
         });
       }
 
-      // 2. POST /api/settings
-      if (url.pathname === "/api/settings" && request.method === "POST") {
+      // 2. SAVE SETTINGS (including optional gemini_api_key)
+      if (path === '/api/settings' && request.method === 'POST') {
         const body = await request.json();
-        const stmts = Object.entries(body).map(([k, v]) =>
-          db.prepare("INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value")
-            .bind(k, String(v ?? ""))
+        const allowedKeys = [
+          'company_name', 'campaign_name', 'kg_per_coupon', 'kg_per_bag',
+          'max_coupons', 'coupon_prefix', 'signatory', 'gemini_api_key'
+        ];
+        const stmts = [];
+        for (const k of allowedKeys) {
+          if (body[k] !== undefined && body[k] !== null) {
+            if (k === 'gemini_api_key' && String(body[k]).trim() === '') continue;
+            stmts.push(
+              db.prepare(`INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value`)
+                .bind(k, String(body[k]))
+            );
+          }
+        }
+        if (stmts.length) await db.batch(stmts);
+        const updated = await getSettingsMap(db);
+        delete updated.gemini_api_key;
+        return jsonResp({ ok: true, settings: updated });
+      }
+
+      // 3. RETAILERS ADD / UPDATE / BULK AREA / DELETE / MERGE DUPLICATES
+      if (path === '/api/retailers' && request.method === 'POST') {
+        const body = await request.json();
+        const name = String(body.name || '').trim().toUpperCase();
+        const area = String(body.area || guessArea(name)).trim().toUpperCase();
+        const phone = String(body.phone || '').trim();
+        if (!name) return jsonResp({ error: 'Party name required' }, 400);
+
+        if (body.id) {
+          await db.prepare(`UPDATE retailers SET name = ?, area = ?, phone = ? WHERE id = ?`)
+            .bind(name, area, phone, Number(body.id)).run();
+        } else {
+          await db.prepare(`INSERT INTO retailers (name, area, phone) VALUES (?, ?, ?)
+            ON CONFLICT(name) DO UPDATE SET
+              area = CASE WHEN excluded.area != '' THEN excluded.area ELSE retailers.area END,
+              phone = CASE WHEN excluded.phone != '' THEN excluded.phone ELSE retailers.phone END`)
+            .bind(name, area, phone).run();
+        }
+        return jsonResp({ ok: true });
+      }
+
+      if (path === '/api/retailers/bulk-area' && request.method === 'POST') {
+        const body = await request.json();
+        const updates = body.updates || [];
+        const stmts = updates.map(u =>
+          db.prepare(`UPDATE retailers SET area = ? WHERE id = ?`)
+            .bind(String(u.area || '').trim().toUpperCase(), Number(u.id))
         );
         if (stmts.length) await db.batch(stmts);
-        return jsonResp({ ok: true, settings: await getSettingsObj(db) });
+        return jsonResp({ ok: true });
       }
 
-      // 3. POST /api/retailers
-      if (url.pathname === "/api/retailers" && request.method === "POST") {
-        const body = await request.json();
-        if (body.id) {
-          await db.prepare("UPDATE retailers SET name = ?, area = ?, phone = ? WHERE id = ?")
-            .bind(
-              String(body.name || "").trim().toUpperCase(),
-              String(body.area || "").trim().toUpperCase(),
-              String(body.phone || "").trim(),
-              Number(body.id)
-            ).run();
-          return jsonResp({ ok: true });
+      if (path === '/api/retailers/merge' && request.method === 'POST') {
+        const { keep_id, remove_id } = await request.json();
+        if (!keep_id || !remove_id || Number(keep_id) === Number(remove_id)) {
+          return jsonResp({ error: 'Valid keep_id and remove_id required' }, 400);
         }
-        const id = await getOrCreateRetailerId(db, body.name, body.area || "", body.phone || "");
-        const retailer = await db.prepare("SELECT * FROM retailers WHERE id = ?").bind(id).first();
-        return jsonResp({ ok: true, retailer });
-      }
-
-      // 4. POST /api/retailers/bulk-area (Auto-detect or bulk assign area)
-      if (url.pathname === "/api/retailers/bulk-area" && request.method === "POST") {
-        const body = await request.json();
-        const updates = body.updates || []; // [{ id, area }]
-        const stmts = updates.map(u =>
-          db.prepare("UPDATE retailers SET area = ? WHERE id = ?")
-            .bind(String(u.area || "").trim().toUpperCase(), Number(u.id))
-        );
-        for (let i = 0; i < stmts.length; i += 80) {
-          await db.batch(stmts.slice(i, i + 80));
-        }
-        return jsonResp({ ok: true, updated: stmts.length });
-      }
-
-      // 5. DELETE /api/retailers/:id
-      if (url.pathname.startsWith("/api/retailers/") && request.method === "DELETE") {
-        const id = Number(url.pathname.split("/").pop());
         await db.batch([
-          db.prepare("DELETE FROM coupons WHERE retailer_id = ?").bind(id),
-          db.prepare("DELETE FROM deliveries WHERE retailer_id = ?").bind(id),
-          db.prepare("DELETE FROM retailers WHERE id = ?").bind(id)
+          db.prepare(`UPDATE deliveries SET retailer_id = ? WHERE retailer_id = ?`).bind(Number(keep_id), Number(remove_id)),
+          db.prepare(`UPDATE coupons SET retailer_id = ? WHERE retailer_id = ?`).bind(Number(keep_id), Number(remove_id)),
+          db.prepare(`DELETE FROM retailers WHERE id = ?`).bind(Number(remove_id))
         ]);
         return jsonResp({ ok: true });
       }
 
-      // 6. POST /api/deliveries
-      if (url.pathname === "/api/deliveries" && request.method === "POST") {
-        const body = await request.json();
-        const retailerId = body.retailer_id
-          ? Number(body.retailer_id)
-          : await getOrCreateRetailerId(db, body.retailer_name, body.area || "", body.phone || "");
+      if (path.startsWith('/api/retailers/') && request.method === 'DELETE') {
+        const id = Number(path.split('/').pop());
+        await db.batch([
+          db.prepare(`DELETE FROM deliveries WHERE retailer_id = ?`).bind(id),
+          db.prepare(`DELETE FROM coupons WHERE retailer_id = ?`).bind(id),
+          db.prepare(`DELETE FROM retailers WHERE id = ?`).bind(id)
+        ]);
+        return jsonResp({ ok: true });
+      }
 
+      // 4. DELIVERIES ADD / EDIT / DELETE
+      if (path === '/api/deliveries' && request.method === 'POST') {
+        const body = await request.json();
+        const nm = String(body.retailer_name || '').trim().toUpperCase();
+        const area = String(body.area || guessArea(nm)).trim().toUpperCase();
+        const total_kg = Number(body.total_kg) || 0;
         const bags = Number(body.bags) || 0;
         const loose_kg = Number(body.loose_kg) || 0;
-        const total_kg = Number(body.total_kg) || 0;
         const entry_date = String(body.entry_date || new Date().toISOString().slice(0, 10));
-        const remarks = String(body.remarks || "");
+        const remarks = String(body.remarks || '').trim();
+
+        if (!nm || total_kg <= 0) return jsonResp({ error: 'Party name and valid KG required' }, 400);
+
+        await db.prepare(`INSERT INTO retailers (name, area) VALUES (?, ?)
+          ON CONFLICT(name) DO UPDATE SET area = CASE WHEN retailers.area = '' AND excluded.area != '' THEN excluded.area ELSE retailers.area END`)
+          .bind(nm, area).run();
+
+        const ret = await db.prepare(`SELECT id FROM retailers WHERE name = ?`).bind(nm).first();
+        if (!ret) return jsonResp({ error: 'Could not resolve retailer' }, 500);
 
         if (body.id) {
-          await db.prepare(
-            "UPDATE deliveries SET entry_date = ?, retailer_id = ?, bags = ?, loose_kg = ?, total_kg = ?, remarks = ? WHERE id = ?"
-          ).bind(entry_date, retailerId, bags, loose_kg, total_kg, remarks, Number(body.id)).run();
+          await db.prepare(`UPDATE deliveries SET entry_date = ?, retailer_id = ?, bags = ?, loose_kg = ?, total_kg = ?, remarks = ? WHERE id = ?`)
+            .bind(entry_date, ret.id, bags, loose_kg, total_kg, remarks, Number(body.id)).run();
         } else {
-          await db.prepare(
-            "INSERT INTO deliveries (dl_code, entry_date, retailer_id, bags, loose_kg, total_kg, remarks) VALUES (?, ?, ?, ?, ?, ?, ?)"
-          ).bind(randomDlCode(), entry_date, retailerId, bags, loose_kg, total_kg, remarks).run();
+          await db.prepare(`INSERT INTO deliveries (dl_code, entry_date, retailer_id, bags, loose_kg, total_kg, remarks) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+            .bind(randomDlCode(), entry_date, ret.id, bags, loose_kg, total_kg, remarks).run();
         }
         return jsonResp({ ok: true });
       }
 
-      // 7. DELETE /api/deliveries/:id
-      if (url.pathname.startsWith("/api/deliveries/") && request.method === "DELETE") {
-        const id = Number(url.pathname.split("/").pop());
-        await db.prepare("DELETE FROM deliveries WHERE id = ?").bind(id).run();
+      if (path.startsWith('/api/deliveries/') && request.method === 'DELETE') {
+        const id = Number(path.split('/').pop());
+        await db.prepare(`DELETE FROM deliveries WHERE id = ?`).bind(id).run();
         return jsonResp({ ok: true });
       }
 
-      // 8A. POST /api/segments/reset-official
-      if (url.pathname === "/api/segments/reset-official" && request.method === "POST") {
-        await db.prepare("DELETE FROM prize_segments").run();
-        await db.batch(
-          OFFICIAL_301_SEGMENTS.map(([r, t, q, ic]) =>
-            db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)").bind(r, t, q, ic)
-          )
+      // 5. SEGMENTS
+      if (path === '/api/segments/reset-official' && request.method === 'POST') {
+        await db.prepare(`DELETE FROM prize_segments`).run();
+        const stmts = OFFICIAL_301_SEGMENTS.map(s =>
+          db.prepare(`INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)`)
+            .bind(s.rank, s.title, s.target_qty, s.icon)
         );
+        await db.batch(stmts);
         return jsonResp({ ok: true });
       }
 
-      // 8. POST /api/segments & DELETE /api/segments/:id
-      if (url.pathname === "/api/segments" && request.method === "POST") {
+      if (path === '/api/segments' && request.method === 'POST') {
         const body = await request.json();
         const rank = Number(body.rank) || 1;
-        const title = String(body.title || "").trim();
-        const target_qty = Math.max(1, Number(body.target_qty) || 1);
-        const icon = String(body.icon || "🏆").trim();
-        if (!title) return jsonResp({ error: "Segment prize title required" }, 400);
+        const title = String(body.title || '').trim();
+        const target_qty = Number(body.target_qty) || 1;
+        const icon = String(body.icon || '🎁').trim();
+        if (!title) return jsonResp({ error: 'Segment title required' }, 400);
 
         if (body.id) {
-          await db.prepare("UPDATE prize_segments SET rank = ?, title = ?, target_qty = ?, icon = ? WHERE id = ?")
+          await db.prepare(`UPDATE prize_segments SET rank = ?, title = ?, target_qty = ?, icon = ? WHERE id = ?`)
             .bind(rank, title, target_qty, icon, Number(body.id)).run();
         } else {
-          await db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)")
+          await db.prepare(`INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)`)
             .bind(rank, title, target_qty, icon).run();
         }
         return jsonResp({ ok: true });
       }
 
-      if (url.pathname.startsWith("/api/segments/") && request.method === "DELETE") {
-        const id = Number(url.pathname.split("/").pop());
-        await db.prepare("DELETE FROM prize_segments WHERE id = ?").bind(id).run();
+      if (path.startsWith('/api/segments/') && request.method === 'DELETE') {
+        const id = Number(path.split('/').pop());
+        await db.prepare(`DELETE FROM prize_segments WHERE id = ?`).bind(id).run();
         return jsonResp({ ok: true });
       }
 
-      // 9. POST /api/coupons/allot
-      if (url.pathname === "/api/coupons/allot" && request.method === "POST") {
+      // 6. COUPONS ALLOT / REVOKE / BULK PRIZE
+      if (path === '/api/coupons/allot' && request.method === 'POST') {
         const body = await request.json();
-        const settings = await getSettingsObj(db);
+        const settings = await getSettingsMap(db);
         const maxC = Number(settings.max_coupons) || 301;
-        const prefix = settings.coupon_prefix || "";
-        const digits = maxC >= 1000 ? 4 : 3;
-        const issueDate = String(body.issue_date || new Date().toISOString().slice(0, 10));
+        const prefix = settings.coupon_prefix || '';
+        const issue_date = String(body.issue_date || new Date().toISOString().slice(0, 10));
 
-        const existingRows = await db.prepare("SELECT coupon_num FROM coupons").all();
-        const usedSet = new Set((existingRows.results || []).map(r => Number(r.coupon_num)));
+        const existingRows = await db.prepare(`SELECT coupon_num FROM coupons`).all();
+        const used = new Set((existingRows.results || []).map(x => Number(x.coupon_num)));
 
         if (body.manual_coupon_num) {
-          const num = Number(body.manual_coupon_num);
-          if (num < 1 || num > maxC) return jsonResp({ error: `Coupon number 1 se ${maxC} ke beech hona chahiye` }, 400);
-          if (usedSet.has(num)) return jsonResp({ error: `Coupon #${num} pehle se allot ho chuka hai!` }, 400);
-          const code = prefix + String(num).padStart(digits, "0");
-          await db.prepare(
-            "INSERT INTO coupons (coupon_num, coupon_code, retailer_id, issue_date, batch_ref) VALUES (?, ?, ?, ?, 'MANUAL')"
-          ).bind(num, code, Number(body.retailer_id), issueDate).run();
+          const n = Number(body.manual_coupon_num);
+          if (n < 1 || n > maxC) return jsonResp({ error: `Coupon # must be between 1 and ${maxC}` }, 400);
+          if (used.has(n)) return jsonResp({ error: `Coupon #${padCoupon(n, maxC, prefix)} is already allotted!` }, 400);
+          await db.prepare(`INSERT INTO coupons (coupon_num, coupon_code, retailer_id, issue_date, prize_rank, prize_title, prize_status) VALUES (?, ?, ?, ?, 999, '', 'NONE')`)
+            .bind(n, padCoupon(n, maxC, prefix), Number(body.retailer_id), issue_date).run();
           return jsonResp({ ok: true, allotted: 1 });
         }
 
-        const allocations = body.allocations || [];
-        const totalNeeded = allocations.reduce((s, a) => s + (Number(a.count) || 0), 0);
-        if (totalNeeded <= 0) return jsonResp({ error: "Allot karne ke liye koi pending coupon nahi hai" }, 400);
-
-        const available = [];
-        for (let i = 1; i <= maxC; i++) {
-          if (!usedSet.has(i)) available.push(i);
-        }
-
-        if (totalNeeded > available.length) {
-          return jsonResp({
-            error: `Pool me sirf ${available.length} coupons bache hain (Max ${maxC}), jabki ${totalNeeded} allot karne hain. Settings me Max Coupons badha sakte hain.`
-          }, 400);
-        }
-
-        if (body.mode === "random") {
-          for (let i = available.length - 1; i > 0; i--) {
+        const avail = [];
+        for (let i = 1; i <= maxC; i++) if (!used.has(i)) avail.push(i);
+        if (body.mode === 'random') {
+          for (let i = avail.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [available[i], available[j]] = [available[j], available[i]];
+            [avail[i], avail[j]] = [avail[j], avail[i]];
           }
         }
 
-        const batchRef = "BATCH-" + Date.now().toString(36).toUpperCase();
         const stmts = [];
-        let ptr = 0;
-        for (const item of allocations) {
-          const cnt = Number(item.count) || 0;
-          const rId = Number(item.retailer_id);
+        let p = 0;
+        for (const a of (body.allocations || [])) {
+          const cnt = Number(a.count) || 0;
           for (let k = 0; k < cnt; k++) {
-            const num = available[ptr++];
-            const code = prefix + String(num).padStart(digits, "0");
+            if (p >= avail.length) break;
+            const n = avail[p++];
             stmts.push(
-              db.prepare("INSERT INTO coupons (coupon_num, coupon_code, retailer_id, issue_date, batch_ref) VALUES (?, ?, ?, ?, ?)")
-                .bind(num, code, rId, issueDate, batchRef)
+              db.prepare(`INSERT INTO coupons (coupon_num, coupon_code, retailer_id, issue_date, prize_rank, prize_title, prize_status) VALUES (?, ?, ?, ?, 999, '', 'NONE')`)
+                .bind(n, padCoupon(n, maxC, prefix), Number(a.retailer_id), issue_date)
             );
           }
         }
-
-        for (let i = 0; i < stmts.length; i += 80) {
-          await db.batch(stmts.slice(i, i + 80));
-        }
-
-        return jsonResp({ ok: true, allotted: totalNeeded });
+        if (stmts.length) await db.batch(stmts);
+        return jsonResp({ ok: true, allotted: stmts.length });
       }
 
-      // 10. DELETE /api/coupons/:id
-      if (url.pathname.startsWith("/api/coupons/") && request.method === "DELETE") {
-        const id = Number(url.pathname.split("/").pop());
-        await db.prepare("DELETE FROM coupons WHERE id = ?").bind(id).run();
+      if (path.startsWith('/api/coupons/') && request.method === 'DELETE') {
+        const id = Number(path.split('/').pop());
+        await db.prepare(`DELETE FROM coupons WHERE id = ?`).bind(id).run();
         return jsonResp({ ok: true });
       }
 
-      // 11. POST /api/coupons/prize (single) & POST /api/coupons/prize-bulk (segment multi-entry!)
-      if (url.pathname === "/api/coupons/prize" && request.method === "POST") {
+      if (path === '/api/coupons/prize-bulk' && request.method === 'POST') {
         const body = await request.json();
-        const title = String(body.prize_title || "").trim();
-        const rank = title ? (Number(body.prize_rank) || 99) : 999;
-        const status = title ? String(body.prize_status || "WON") : "NONE";
-        const drawDate = String(body.draw_date || "");
-        const remarks = String(body.remarks || "");
+        const draw_date = String(body.draw_date || new Date().toISOString().slice(0, 10));
 
-        await db.prepare(
-          "UPDATE coupons SET prize_title = ?, prize_rank = ?, draw_date = ?, prize_status = ?, remarks = ? WHERE id = ?"
-        ).bind(title, rank, drawDate, status, remarks, Number(body.coupon_id)).run();
-        return jsonResp({ ok: true });
-      }
-
-      if (url.pathname === "/api/coupons/prize-bulk" && request.method === "POST") {
-        const body = await request.json();
-        const mode = body.mode || "LIST";
-        const drawDate = String(body.draw_date || new Date().toISOString().slice(0, 10));
-
-        if (mode === "REMAINING") {
-          const title = String(body.prize_title || "").trim();
-          const rank = Number(body.prize_rank) || 99;
-          const status = String(body.prize_status || "WON");
-          if (!title) return jsonResp({ error: "Prize title required" }, 400);
-          const res = await db.prepare(
-            "UPDATE coupons SET prize_title = ?, prize_rank = ?, draw_date = ?, prize_status = ? WHERE prize_status = 'NONE' OR prize_title = ''"
-          ).bind(title, rank, drawDate, status).run();
+        if (body.mode === 'REMAINING') {
+          const res = await db.prepare(`UPDATE coupons SET prize_rank = ?, prize_title = ?, prize_status = ?, draw_date = ? WHERE prize_title = '' OR prize_status = 'NONE'`)
+            .bind(Number(body.prize_rank) || 999, String(body.prize_title || ''), String(body.prize_status || 'WON'), draw_date).run();
           return jsonResp({ ok: true, updated: res.meta?.changes || 0 });
         }
 
-        if (mode === "CLEAR_SEGMENT") {
-          const title = String(body.prize_title || "").trim();
-          const res = await db.prepare(
-            "UPDATE coupons SET prize_title = '', prize_rank = 999, draw_date = '', prize_status = 'NONE' WHERE prize_title = ?"
-          ).bind(title).run();
-          return jsonResp({ ok: true, updated: res.meta?.changes || 0 });
-        }
-
-        if (mode === "HANDOVER") {
-          const ids = body.coupon_ids || [];
-          const newStatus = String(body.prize_status || "DELIVERED");
+        if (body.mode === 'HANDOVER') {
+          const ids = (body.coupon_ids || []).map(Number).filter(Boolean);
           const stmts = ids.map(id =>
-            db.prepare("UPDATE coupons SET prize_status = ? WHERE id = ?").bind(newStatus, Number(id))
+            db.prepare(`UPDATE coupons SET prize_status = ? WHERE id = ?`).bind(String(body.prize_status || 'DELIVERED'), id)
           );
-          for (let i = 0; i < stmts.length; i += 80) {
-            await db.batch(stmts.slice(i, i + 80));
-          }
+          if (stmts.length) await db.batch(stmts);
           return jsonResp({ ok: true, updated: stmts.length });
         }
 
-        // Default mode === "LIST": assign prize to array of coupon_nums
-        const nums = (body.coupon_nums || []).map(n => Number(n)).filter(n => n > 0);
-        if (nums.length === 0) return jsonResp({ error: "Kam se kam 1 coupon number chunein" }, 400);
-        const title = String(body.prize_title || "").trim();
-        const rank = title ? (Number(body.prize_rank) || 99) : 999;
-        const status = title ? String(body.prize_status || "WON") : "NONE";
-
-        const stmts = nums.map(num =>
-          db.prepare(
-            "UPDATE coupons SET prize_title = ?, prize_rank = ?, draw_date = ?, prize_status = ? WHERE coupon_num = ?"
-          ).bind(title, rank, drawDate, status, num)
+        const nums = (body.coupon_nums || []).map(Number).filter(Boolean);
+        const title = String(body.prize_title || '').trim();
+        const rank = title ? (Number(body.prize_rank) || 999) : 999;
+        const status = title ? String(body.prize_status || 'WON') : 'NONE';
+        const stmts = nums.map(n =>
+          db.prepare(`UPDATE coupons SET prize_rank = ?, prize_title = ?, prize_status = ?, draw_date = ? WHERE coupon_num = ?`)
+            .bind(rank, title, status, title ? draw_date : '', n)
         );
-        for (let i = 0; i < stmts.length; i += 80) {
-          await db.batch(stmts.slice(i, i + 80));
-        }
-        return jsonResp({ ok: true, updated: nums.length });
+        if (stmts.length) await db.batch(stmts);
+        return jsonResp({ ok: true, updated: stmts.length });
       }
 
-      // 12. POST /api/import/gsheet (Downloads full .xlsx workbook from Google Sheets so merged cells NEVER break!)
-      if (url.pathname === "/api/import/gsheet" && request.method === "POST") {
-        const body = await request.json();
-        const rawUrl = String(body.sheet_url || "").trim();
-        const idMatch = rawUrl.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/) || rawUrl.match(/^([a-zA-Z0-9-_]{20,})$/);
-        if (!idMatch) {
-          return jsonResp({ error: "Valid Google Sheet link paste karein!" }, 400);
-        }
-        const sheetId = idMatch[1];
-        const exportUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=xlsx`;
-
-        const res = await fetch(exportUrl, {
-          redirect: "follow",
-          headers: { "User-Agent": "Mozilla/5.0" }
-        });
-
-        const ct = (res.headers.get("content-type") || "").toLowerCase();
-        const finalUrl = (res.url || "").toLowerCase();
-
-        // Detect private sheet (redirected to Google login or HTML response)
-        if (!res.ok || ct.includes("text/html") || finalUrl.includes("accounts.google.com") || finalUrl.includes("servicelogin")) {
-          return jsonResp({
-            authRequired: true,
-            error: "Sheet abhi Private (Restricted) hai! Google Sheet me Share -> 'Anyone with the link' (Viewer) on karein, YA bagal wale '1. Excel File' tab se file seedha select kar lein."
-          }, 403);
-        }
-
-        const buf = await res.arrayBuffer();
-        if (!buf || buf.byteLength < 200) {
-          return jsonResp({ error: "Sheet khali mili ya download nahi ho saki. '1. Excel File' tab use karein." }, 400);
-        }
-
-        // Check ZIP/XLSX magic header PK (0x50, 0x4b)
-        const magic = new Uint8Array(buf.slice(0, 4));
-        if (magic[0] !== 0x50 || magic[1] !== 0x4B) {
-          return jsonResp({
-            authRequired: true,
-            error: "Google Sheet abhi Private hai! Share setting 'Anyone with the link' karein, ya '1. Excel File' tab se .xlsx upload karein."
-          }, 403);
-        }
-
-        return jsonResp({
-          ok: true,
-          xlsx_base64: arrayBufferToBase64(buf)
-        });
+      // 7. IMPORT FROM GOOGLE SHEET URL OR BULK PAYLOAD
+      if (path === '/api/import/gsheet' && request.method === 'POST') {
+        const { sheet_url } = await request.json();
+        const m = String(sheet_url || '').match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+        if (!m) return jsonResp({ error: 'Invalid Google Sheet URL' }, 400);
+        const exportUrl = `https://docs.google.com/spreadsheets/d/${m[1]}/export?format=xlsx`;
+        const resp = await fetch(exportUrl);
+        if (!resp.ok) return jsonResp({ error: 'Sheet private hai. Share -> Anyone with the link (Viewer) karein ya Excel download karke upload karein.' }, 400);
+        const buf = await resp.arrayBuffer();
+        const bytes = new Uint8Array(buf);
+        let binary = '';
+        for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+        return jsonResp({ ok: true, xlsx_base64: btoa(binary) });
       }
 
-      // 13. POST /api/import (Fast Batched Import for Sheet / Excel / Paste / JSON Restore)
-      if (url.pathname === "/api/import" && request.method === "POST") {
+      if (path === '/api/import' && request.method === 'POST') {
         const body = await request.json();
+        const settings = await getSettingsMap(db);
+        const maxC = Number(settings.max_coupons) || 301;
+        const prefix = settings.coupon_prefix || '';
 
         if (body.full_restore) {
           await db.batch([
-            db.prepare("DELETE FROM coupons"),
-            db.prepare("DELETE FROM deliveries"),
-            db.prepare("DELETE FROM retailers")
+            db.prepare(`DELETE FROM deliveries`),
+            db.prepare(`DELETE FROM coupons`),
+            db.prepare(`DELETE FROM retailers`),
+            db.prepare(`DELETE FROM prize_segments`)
           ]);
-          if (body.settings) {
-            const sStmts = Object.entries(body.settings).map(([k, v]) =>
-              db.prepare("INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").bind(k, String(v ?? ""))
-            );
-            if (sStmts.length) await db.batch(sStmts);
+          if (body.segments?.length) {
+            await db.batch(body.segments.map(s =>
+              db.prepare(`INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)`)
+                .bind(s.rank, s.title, s.target_qty, s.icon || '🎁')
+            ));
           }
-          if (body.segments && body.segments.length) {
-            await db.prepare("DELETE FROM prize_segments").run();
-            const segStmts = body.segments.map(s =>
-              db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)").bind(s.rank || 1, s.title, s.target_qty || 1, s.icon || "🏆")
-            );
-            await db.batch(segStmts);
+          for (const r of (body.retailers || [])) {
+            await db.prepare(`INSERT INTO retailers (id, name, area, phone) VALUES (?, ?, ?, ?)`)
+              .bind(r.id, String(r.name).toUpperCase(), String(r.area || '').toUpperCase(), String(r.phone || '')).run();
           }
-          const retStmts = (body.retailers || []).map(r =>
-            db.prepare("INSERT INTO retailers (id, name, area, phone) VALUES (?, ?, ?, ?)").bind(r.id, r.name, r.area || "", r.phone || "")
-          );
-          for (let i = 0; i < retStmts.length; i += 80) await db.batch(retStmts.slice(i, i + 80));
-
-          const delStmts = (body.deliveries || []).map(d =>
-            db.prepare("INSERT INTO deliveries (id, dl_code, entry_date, retailer_id, bags, loose_kg, total_kg, remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
-              .bind(d.id, d.dl_code || randomDlCode(), d.entry_date, d.retailer_id, d.bags || 0, d.loose_kg || 0, d.total_kg || 0, d.remarks || "")
-          );
-          for (let i = 0; i < delStmts.length; i += 80) await db.batch(delStmts.slice(i, i + 80));
-
-          const cupStmts = (body.coupons || []).map(c =>
-            db.prepare("INSERT INTO coupons (id, coupon_num, coupon_code, retailer_id, issue_date, batch_ref, prize_rank, prize_title, prize_value, draw_date, prize_status, remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-              .bind(c.id, c.coupon_num, c.coupon_code, c.retailer_id, c.issue_date, c.batch_ref || "", c.prize_rank ?? 999, c.prize_title || "", c.prize_value || 0, c.draw_date || "", c.prize_status || "NONE", c.remarks || "")
-          );
-          for (let i = 0; i < cupStmts.length; i += 80) await db.batch(cupStmts.slice(i, i + 80));
-
+          for (const d of (body.deliveries || [])) {
+            await db.prepare(`INSERT INTO deliveries (dl_code, entry_date, retailer_id, bags, loose_kg, total_kg, remarks) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+              .bind(d.dl_code || randomDlCode(), d.entry_date, d.retailer_id, d.bags || 0, d.loose_kg || 0, d.total_kg || 0, d.remarks || '').run();
+          }
+          for (const c of (body.coupons || [])) {
+            await db.prepare(`INSERT INTO coupons (coupon_num, coupon_code, retailer_id, issue_date, prize_rank, prize_title, prize_status, draw_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+              .bind(c.coupon_num, c.coupon_code || padCoupon(c.coupon_num, maxC, prefix), c.retailer_id, c.issue_date || '', c.prize_rank || 999, c.prize_title || '', c.prize_status || 'NONE', c.draw_date || '').run();
+          }
           return jsonResp({ ok: true });
         }
 
-        // Incremental Smart Import (Retailers + Deliveries + Coupons)
-        const allShopNames = new Map(); // UPPER_NAME -> area
         for (const r of (body.retailers || [])) {
-          if (typeof r === "string") {
-            const clean = r.trim().toUpperCase();
-            if (clean) allShopNames.set(clean, guessAreaFromShopName(clean));
-          } else if (r && r.name) {
-            const clean = String(r.name).trim().toUpperCase();
-            if (clean) allShopNames.set(clean, String(r.area || guessAreaFromShopName(clean)).trim().toUpperCase());
-          }
+          const nm = String(typeof r === 'string' ? r : r.name || '').trim().toUpperCase();
+          if (!nm) continue;
+          const ar = String(r.area || guessArea(nm)).trim().toUpperCase();
+          const ph = String(r.phone || '').trim();
+          await db.prepare(`INSERT INTO retailers (name, area, phone) VALUES (?, ?, ?)
+            ON CONFLICT(name) DO UPDATE SET
+              area = CASE WHEN retailers.area = '' AND excluded.area != '' THEN excluded.area ELSE retailers.area END,
+              phone = CASE WHEN retailers.phone = '' AND excluded.phone != '' THEN excluded.phone ELSE retailers.phone END`)
+            .bind(nm, ar, ph).run();
         }
+
+        const allRets = await db.prepare(`SELECT id, name FROM retailers`).all();
+        const rByName = new Map((allRets.results || []).map(x => [x.name.toUpperCase(), x.id]));
+
         for (const d of (body.deliveries || [])) {
-          const clean = String(d.retailer_name || "").trim().toUpperCase();
-          if (clean && !allShopNames.has(clean)) {
-            allShopNames.set(clean, String(d.area || guessAreaFromShopName(clean)).trim().toUpperCase());
+          const nm = String(d.retailer_name || '').trim().toUpperCase();
+          if (!nm || !(Number(d.total_kg) > 0)) continue;
+          let rid = rByName.get(nm);
+          if (!rid) {
+            await db.prepare(`INSERT OR IGNORE INTO retailers (name, area) VALUES (?, ?)`).bind(nm, guessArea(nm)).run();
+            const nr = await db.prepare(`SELECT id FROM retailers WHERE name = ?`).bind(nm).first();
+            rid = nr?.id;
+            if (rid) rByName.set(nm, rid);
+          }
+          if (rid) {
+            await db.prepare(`INSERT OR IGNORE INTO deliveries (dl_code, entry_date, retailer_id, bags, loose_kg, total_kg, remarks) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+              .bind(d.dl_code || randomDlCode(), d.entry_date || new Date().toISOString().slice(0, 10), rid, Number(d.bags) || 0, Number(d.loose_kg) || 0, Number(d.total_kg) || 0, String(d.remarks || '')).run();
           }
         }
+
         for (const c of (body.coupons || [])) {
-          const clean = String(c.retailer_name || "").trim().toUpperCase();
-          if (clean && !allShopNames.has(clean)) {
-            allShopNames.set(clean, guessAreaFromShopName(clean));
-          }
-        }
-
-        // Upsert retailers in batches
-        const rUpserts = [];
-        for (const [name, area] of allShopNames.entries()) {
-          rUpserts.push(
-            db.prepare(
-              "INSERT INTO retailers (name, area) VALUES (?, ?) ON CONFLICT(name) DO UPDATE SET area = CASE WHEN retailers.area = '' THEN excluded.area ELSE retailers.area END"
-            ).bind(name, area)
-          );
-        }
-        for (let i = 0; i < rUpserts.length; i += 80) {
-          await db.batch(rUpserts.slice(i, i + 80));
-        }
-
-        // Fetch full retailer map
-        const retRows = await db.prepare("SELECT id, name FROM retailers").all();
-        const retMap = new Map((retRows.results || []).map(r => [String(r.name).toUpperCase(), r.id]));
-
-        // Insert deliveries (skip existing dl_code via ON CONFLICT DO NOTHING)
-        const dStmts = [];
-        for (const d of (body.deliveries || [])) {
-          const rId = retMap.get(String(d.retailer_name || "").trim().toUpperCase());
-          if (!rId || !(Number(d.total_kg) > 0)) continue;
-          const dlCode = d.dl_code && String(d.dl_code).startsWith("DL-") ? String(d.dl_code).trim() : randomDlCode();
-          dStmts.push(
-            db.prepare(
-              "INSERT INTO deliveries (dl_code, entry_date, retailer_id, bags, loose_kg, total_kg, remarks) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT(dl_code) DO NOTHING"
-            ).bind(dlCode, d.entry_date || new Date().toISOString().slice(0, 10), rId, Number(d.bags) || 0, Number(d.loose_kg) || 0, Number(d.total_kg) || 0, String(d.remarks || ""))
-          );
-        }
-        for (let i = 0; i < dStmts.length; i += 80) {
-          await db.batch(dStmts.slice(i, i + 80));
-        }
-
-        // Insert coupons if provided
-        const settings = await getSettingsObj(db);
-        const digits = (Number(settings.max_coupons) || 301) >= 1000 ? 4 : 3;
-        const prefix = settings.coupon_prefix || "";
-        const cStmts = [];
-        for (const c of (body.coupons || [])) {
-          const rId = retMap.get(String(c.retailer_name || "").trim().toUpperCase());
+          const nm = String(c.retailer_name || '').trim().toUpperCase();
           const num = Number(c.coupon_num);
-          if (!rId || !(num > 0)) continue;
-          const code = prefix + String(num).padStart(digits, "0");
-          const pTitle = String(c.prize_title || "").trim();
-          cStmts.push(
-            db.prepare(
-              "INSERT INTO coupons (coupon_num, coupon_code, retailer_id, issue_date, batch_ref, prize_rank, prize_title, prize_status) VALUES (?, ?, ?, ?, 'IMPORT', ?, ?, ?) ON CONFLICT(coupon_num) DO NOTHING"
-            ).bind(num, code, rId, c.issue_date || new Date().toISOString().slice(0, 10), pTitle ? 10 : 999, pTitle, pTitle ? "WON" : "NONE")
-          );
+          const rid = rByName.get(nm);
+          if (rid && num >= 1) {
+            const pTitle = String(c.prize_title || '').trim();
+            await db.prepare(`INSERT OR IGNORE INTO coupons (coupon_num, coupon_code, retailer_id, issue_date, prize_rank, prize_title, prize_status) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+              .bind(num, padCoupon(num, maxC, prefix), rid, c.issue_date || new Date().toISOString().slice(0, 10), 999, pTitle, pTitle ? 'WON' : 'NONE').run();
+          }
         }
-        for (let i = 0; i < cStmts.length; i += 80) {
-          await db.batch(cStmts.slice(i, i + 80));
-        }
-
-        return jsonResp({
-          ok: true,
-          imported_retailers: allShopNames.size,
-          imported_deliveries: dStmts.length,
-          imported_coupons: cStmts.length
-        });
+        return jsonResp({ ok: true });
       }
 
-      return jsonResp({ error: "API route not found" }, 404);
+      // ==================== GEMINI AI ENDPOINTS ====================
+
+      // AI 1: VOICE COMMAND PARSER (Delivery Entry OR Bulk Prize Numbers)
+      if (path === '/api/ai/parse-voice' && request.method === 'POST') {
+        const { transcript, context_mode, retailer_names, bag_kg, today } = await request.json();
+        const apiKey = await getGeminiKey(env, db);
+
+        if (context_mode === 'PRIZES') {
+          const parsed = await callGeminiAPI(apiKey, [{
+            text: `Extract all winning coupon numbers spoken in this Hindi/Hinglish voice transcript: "${transcript}".
+Return strict JSON: {"coupon_nums": [number, ...], "segment_hint": "optional prize keyword mentioned"}`
+          }], true);
+          return jsonResp({ ok: true, ...parsed });
+        }
+
+        const prompt = `You are a smart Hindi/Hinglish ERP data-entry parser for Aryush Foods (1 Bag = ${bag_kg || 30} kg).
+Today's date is ${today || new Date().toISOString().slice(0, 10)}.
+Existing retailer names list: ${JSON.stringify((retailer_names || []).slice(0, 350))}.
+
+Spoken Hindi/Hinglish text: "${transcript}"
+
+Match the spoken shop name to the closest existing retailer name if it clearly refers to one; otherwise return the clean uppercase shop name and village/area.
+Calculate bags, loose_kg, and total_kg accurately (e.g., "7 bori" or "7 bag" = 7 bags, 210 total_kg; "5 bag aur 15 kilo" = 5 bags, 15 loose_kg, 165 total_kg).
+Return strict JSON:
+{
+  "retailer_name": "UPPERCASE SHOP NAME",
+  "matched_existing": true,
+  "area": "UPPERCASE AREA OR EMPTY",
+  "bags": 0,
+  "loose_kg": 0,
+  "total_kg": 0,
+  "entry_date": "YYYY-MM-DD",
+  "remarks": "bill no or note if spoken"
+}`;
+        const parsed = await callGeminiAPI(apiKey, [{ text: prompt }], true);
+        return jsonResp({ ok: true, ...parsed });
+      }
+
+      // AI 2: CAMERA BILL / KANTA PARCHI SCANNER (Single or Multi-Row)
+      if (path === '/api/ai/scan-bill' && request.method === 'POST') {
+        const { image_base64, mime_type, retailer_names, bag_kg, today } = await request.json();
+        const apiKey = await getGeminiKey(env, db);
+
+        const prompt = `You are an expert OCR & handwritten Hindi/English bill scanner for Aryush Foods (1 Bag = ${bag_kg || 30} kg).
+Default date if not visible on bill: ${today || new Date().toISOString().slice(0, 10)}.
+Existing retailers list for exact name matching: ${JSON.stringify((retailer_names || []).slice(0, 300))}.
+
+Read the uploaded bill / parchi / register page carefully. Extract ALL party delivery entries visible.
+If bags/bori/katta are written without kg, multiply by ${bag_kg || 30} to get total_kg. If kg is written directly, compute bags = floor(total_kg / ${bag_kg || 30}) and loose_kg = remainder.
+Match each shop name to the closest existing retailer name when applicable.
+Return strict JSON:
+{
+  "entries": [
+    {
+      "entry_date": "YYYY-MM-DD",
+      "retailer_name": "UPPERCASE SHOP NAME",
+      "area": "UPPERCASE AREA",
+      "bags": 0,
+      "loose_kg": 0,
+      "total_kg": 0,
+      "remarks": "Bill No if visible"
+    }
+  ]
+}`;
+        const parsed = await callGeminiAPI(apiKey, [
+          { text: prompt },
+          { inlineData: { mimeType: mime_type || 'image/jpeg', data: image_base64 } }
+        ], true);
+        return jsonResp({ ok: true, entries: parsed.entries || [] });
+      }
+
+      // AI 3: STAGE DRAW PARCHI PHOTO READER (51 / 101 Coupon Numbers in 1 Photo!)
+      if (path === '/api/ai/scan-prizes' && request.method === 'POST') {
+        const { image_base64, mime_type, max_coupons } = await request.json();
+        const apiKey = await getGeminiKey(env, db);
+
+        const prompt = `Read ALL handwritten or printed winning coupon numbers from this lucky draw sheet / parchi image.
+Valid coupon numbers are integers between 1 and ${max_coupons || 301}. Ignore serial indices like 1), 2) if there is clearly a 2-3 digit coupon number next to them, otherwise extract all valid coupon numbers in order.
+Return strict JSON:
+{
+  "coupon_nums": [12, 45, 108]
+}`;
+        const parsed = await callGeminiAPI(apiKey, [
+          { text: prompt },
+          { inlineData: { mimeType: mime_type || 'image/jpeg', data: image_base64 } }
+        ], true);
+        return jsonResp({ ok: true, coupon_nums: parsed.coupon_nums || [] });
+      }
+
+      // AI 4: ASK MUNIM AI (Hinglish Business & Lucky Draw Assistant)
+      if (path === '/api/ai/ask-munim' && request.method === 'POST') {
+        const { question, stats_context } = await request.json();
+        const apiKey = await getGeminiKey(env, db);
+
+        const prompt = `Tum "Smart Munim AI" ho — Aryush Foods (Kailaras, Morena) ke Lucky Draw & Party Khata ERP ke samajhdar Hinglish assistant.
+Niche live database summary diya gaya hai:
+${JSON.stringify(stats_context)}
+
+User ka sawal: "${question}"
+
+Bilkul saaf, friendly Hinglish me point-wise jawab do (exact numbers, party names, area aur bags/kg ke sath). Chhota aur kaam ka jawab rakho.`;
+        const answer = await callGeminiAPI(apiKey, [{ text: prompt }], false);
+        return jsonResp({ ok: true, answer });
+      }
+
+      return jsonResp({ error: 'Unknown API route: ' + path }, 404);
     } catch (err) {
-      return jsonResp({ error: err.message || "Internal Worker Error" }, 500);
+      return jsonResp({ error: err.message || 'Server error' }, 500);
     }
   }
 };

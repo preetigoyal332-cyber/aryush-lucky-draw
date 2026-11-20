@@ -187,44 +187,14 @@ function parseCSV(text) {
   return rows;
 }
 
-function parseFlexibleDate(raw) {
-  const s = String(raw || "").trim();
-  if (!s) return "";
-  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
-  // DD-MMM-YYYY e.g. 27-Nov-2026 or 7-Nov-2026
-  const mMap = { jan:"01", feb:"02", mar:"03", apr:"04", may:"05", jun:"06", jul:"07", aug:"08", sep:"09", oct:"10", nov:"11", dec:"12" };
-  const dmyAlpha = s.match(/^(\d{1,2})[-\/\s]([A-Za-z]{3,})[-\/\s](\d{2,4})$/);
-  if (dmyAlpha) {
-    const dd = dmyAlpha[1].padStart(2, "0");
-    const mm = mMap[dmyAlpha[2].slice(0, 3).toLowerCase()];
-    const yyyy = dmyAlpha[3].length === 2 ? "20" + dmyAlpha[3] : dmyAlpha[3];
-    if (mm) return `${yyyy}-${mm}-${dd}`;
+function arrayBufferToBase64(buffer) {
+  let binary = "";
+  const bytes = new Uint8Array(buffer);
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
   }
-  // DD/MM/YYYY or DD-MM-YYYY
-  const dmyNum = s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
-  if (dmyNum) {
-    const p1 = Number(dmyNum[1]), p2 = Number(dmyNum[2]);
-    const dd = String(p1 > 12 ? p1 : p1).padStart(2, "0");
-    const mm = String(p2 <= 12 ? p2 : p1).padStart(2, "0");
-    return `${dmyNum[3]}-${mm}-${dd}`;
-  }
-  const d = new Date(s);
-  if (!isNaN(d.getTime())) {
-    return d.toISOString().slice(0, 10);
-  }
-  return "";
-}
-
-async function fetchSheetTabCSV(sheetId, tabName) {
-  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tabName)}`;
-  const res = await fetch(url, { redirect: "follow" });
-  if (!res.ok) return null;
-  const ct = res.headers.get("content-type") || "";
-  const txt = await res.text();
-  if (ct.includes("text/html") || txt.trim().startsWith("<!DOCTYPE") || txt.trim().startsWith("<html")) {
-    return { authRequired: true };
-  }
-  return { rows: parseCSV(txt) };
+  return btoa(binary);
 }
 
 export default {
@@ -520,120 +490,50 @@ export default {
         return jsonResp({ ok: true, updated: nums.length });
       }
 
-      // 12. POST /api/import/gsheet (Direct Google Sheet Link Fetcher!)
+      // 12. POST /api/import/gsheet (Downloads full .xlsx workbook from Google Sheets so merged cells NEVER break!)
       if (url.pathname === "/api/import/gsheet" && request.method === "POST") {
         const body = await request.json();
         const rawUrl = String(body.sheet_url || "").trim();
         const idMatch = rawUrl.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/) || rawUrl.match(/^([a-zA-Z0-9-_]{20,})$/);
         if (!idMatch) {
-          return jsonResp({ error: "Valid Google Sheet link paste karein (e.g. https://docs.google.com/spreadsheets/d/...)" }, 400);
+          return jsonResp({ error: "Valid Google Sheet link paste karein!" }, 400);
         }
         const sheetId = idMatch[1];
+        const exportUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=xlsx`;
 
-        // Fetch Delivery Log, Summary, Previous Table, Coupons
-        const [delTab, prevTab, sumTab, cupTab] = await Promise.all([
-          fetchSheetTabCSV(sheetId, "Delivery Log"),
-          fetchSheetTabCSV(sheetId, "Previous Table"),
-          fetchSheetTabCSV(sheetId, "Summary"),
-          fetchSheetTabCSV(sheetId, "Coupons")
-        ]);
+        const res = await fetch(exportUrl, {
+          redirect: "follow",
+          headers: { "User-Agent": "Mozilla/5.0" }
+        });
 
-        if (delTab?.authRequired || sumTab?.authRequired) {
+        const ct = (res.headers.get("content-type") || "").toLowerCase();
+        const finalUrl = (res.url || "").toLowerCase();
+
+        // Detect private sheet (redirected to Google login or HTML response)
+        if (!res.ok || ct.includes("text/html") || finalUrl.includes("accounts.google.com") || finalUrl.includes("servicelogin")) {
           return jsonResp({
             authRequired: true,
-            error: "Sheet abhi Private hai! Google Sheet me Share -> 'Anyone with the link' (Viewer) on karein, YA niche 'Excel (.xlsx) File Upload' tab se file seedha upload kar dein."
+            error: "Sheet abhi Private (Restricted) hai! Google Sheet me Share -> 'Anyone with the link' (Viewer) on karein, YA bagal wale '1. Excel File' tab se file seedha select kar lein."
           }, 403);
         }
 
-        const retailersSet = new Set();
-        const deliveries = [];
-        const coupons = [];
-
-        // Extract master retailers from Summary tab (Column A or Column Z)
-        if (sumTab?.rows) {
-          for (const r of sumTab.rows) {
-            const zVal = String(r[25] || "").trim().toUpperCase();
-            if (zVal && zVal.length > 2 && !zVal.includes("RETAILER") && !zVal.includes("OVERVIEW")) {
-              retailersSet.add(zVal);
-            }
-            const aVal = String(r[0] || "").trim().toUpperCase();
-            if (aVal && aVal.length > 2 && !aVal.includes("LUCKY DRAW") && !aVal.includes("TOTAL KG") && !aVal.includes("ONE COUPON") && !aVal.includes("RETAILER")) {
-              // Check if col B has numeric kg
-              if (!isNaN( parseFloat(r[1]) ) && parseFloat(r[1]) >= 0) {
-                retailersSet.add(aVal);
-              }
-            }
-          }
+        const buf = await res.arrayBuffer();
+        if (!buf || buf.byteLength < 200) {
+          return jsonResp({ error: "Sheet khali mili ya download nahi ho saki. '1. Excel File' tab use karein." }, 400);
         }
 
-        // Helper to parse delivery rows from Delivery Log or Previous Table
-        const parseDelRows = (rows) => {
-          if (!rows) return;
-          for (const r of rows) {
-            const dt = parseFlexibleDate(r[0]);
-            const shop = String(r[1] || "").trim().toUpperCase();
-            if (!dt || !shop || shop.includes("RETAILER") || shop.includes("DELIVERY")) continue;
-            // Delivery Log might be: Date | Retailer | Total KG | Bags | DL-ID  OR  Date | Retailer | 30kg Bags | Loose KG | Total KG
-            const c2 = parseFloat(String(r[2] || "").replace(/[^0-9.]/g, "")) || 0;
-            const c3 = parseFloat(String(r[3] || "").replace(/[^0-9.]/g, "")) || 0;
-            const c4 = parseFloat(String(r[4] || "").replace(/[^0-9.]/g, "")) || 0;
-            const dlCell = r.find(x => String(x || "").startsWith("DL-")) || "";
-
-            let total_kg = 0, bags = 0, loose_kg = 0;
-            if (c4 > 0 && Math.abs((c2 * 30 + c3) - c4) < 1) {
-              bags = c2; loose_kg = c3; total_kg = c4;
-            } else if (c2 > 0 && c3 > 0 && Math.abs(c2 / 30 - c3) < 0.2) {
-              total_kg = c2; bags = Math.floor(c2 / 30); loose_kg = Math.round((c2 - bags * 30) * 100) / 100;
-            } else if (c2 > 0 && String(r[2]).toLowerCase().includes("kg")) {
-              total_kg = c2; bags = Math.floor(c2 / 30); loose_kg = Math.round((c2 - bags * 30) * 100) / 100;
-            } else if (c2 > 0 && c3 === 0) {
-              total_kg = c2; bags = Math.floor(c2 / 30); loose_kg = Math.round((c2 - bags * 30) * 100) / 100;
-            } else if (c2 >= 0 && c3 >= 0) {
-              // If Delivery Log col C is kg and col D is bags
-              if (c2 >= 15 && c3 < c2) {
-                total_kg = c2; bags = Math.floor(c2 / 30); loose_kg = Math.round((c2 - bags * 30) * 100) / 100;
-              } else {
-                bags = c2; loose_kg = c3; total_kg = c2 * 30 + c3;
-              }
-            }
-            if (total_kg > 0) {
-              retailersSet.add(shop);
-              deliveries.push({ entry_date: dt, retailer_name: shop, bags, loose_kg, total_kg, dl_code: dlCell });
-            }
-          }
-        };
-
-        parseDelRows(delTab?.rows);
-        if (deliveries.length === 0) parseDelRows(prevTab?.rows);
-
-        // Parse allotted coupons if any exist in Coupons tab
-        if (cupTab?.rows) {
-          for (const r of cupTab.rows) {
-            const num = parseInt(String(r[0] || "").replace(/[^0-9]/g, ""), 10);
-            const dt = parseFlexibleDate(r[1]) || parseFlexibleDate(r[2]) || new Date().toISOString().slice(0, 10);
-            // Retailer could be in col B or col C
-            const candB = String(r[1] || "").trim().toUpperCase();
-            const candC = String(r[2] || "").trim().toUpperCase();
-            const shop = (!parseFlexibleDate(candB) && candB.length > 2 && !candB.includes("RETAILER") && !candB.includes("COUPON")) ? candB :
-                         (!parseFlexibleDate(candC) && candC.length > 2 && !candC.includes("RETAILER")) ? candC : "";
-            const prize = String(r[3] || r[4] || "").trim();
-            if (num > 0 && shop) {
-              retailersSet.add(shop);
-              coupons.push({ coupon_num: num, retailer_name: shop, issue_date: dt, prize_title: prize });
-            }
-          }
+        // Check ZIP/XLSX magic header PK (0x50, 0x4b)
+        const magic = new Uint8Array(buf.slice(0, 4));
+        if (magic[0] !== 0x50 || magic[1] !== 0x4B) {
+          return jsonResp({
+            authRequired: true,
+            error: "Google Sheet abhi Private hai! Share setting 'Anyone with the link' karein, ya '1. Excel File' tab se .xlsx upload karein."
+          }, 403);
         }
-
-        const retailers = Array.from(retailersSet).map(name => ({
-          name,
-          area: guessAreaFromShopName(name)
-        }));
 
         return jsonResp({
           ok: true,
-          retailers,
-          deliveries,
-          coupons
+          xlsx_base64: arrayBufferToBase64(buf)
         });
       }
 

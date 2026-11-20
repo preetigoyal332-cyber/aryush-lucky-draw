@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods — Lucky Draw & 301 Prize ERP v2.0</title>
+  <title>Aryush Foods — Lucky Draw & 301 Prize ERP v3.0</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -83,13 +83,27 @@
     .screen.active { display: block; }
     @keyframes fade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* KPIs (Compact 2-col on mobile, 6-col on desktop) */
+    /* Interactive Clickable KPIs (2-col on mobile, 4-col on desktop) */
     .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; margin-bottom: 14px; }
-    @media (min-width: 820px) { .kpi-grid { grid-template-columns: repeat(6, 1fr); } }
+    @media (min-width: 820px) { .kpi-grid { grid-template-columns: repeat(4, 1fr); } }
     .kpi {
-      background: var(--card); border: 1px solid var(--border); border-radius: 13px;
+      background: var(--card); border: 1.5px solid var(--border); border-radius: 13px;
       padding: 11px 13px; box-shadow: var(--shadow); border-left: 4px solid var(--navy);
+      cursor: pointer; transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+      position: relative; user-select: none;
     }
+    .kpi:hover { border-color: #94a3b8; box-shadow: 0 5px 16px rgba(15,23,42,0.11); transform: translateY(-1px); }
+    .kpi:active { transform: scale(0.98); }
+    .kpi.purple { border-left-color: #7c3aed; }
+    .kpi-tap {
+      position: absolute; top: 9px; right: 10px; font-size: 10px; font-weight: 800;
+      color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 999px;
+    }
+    .khata-row {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      padding: 10px 12px; border: 1px solid var(--border); border-radius: 11px; background: #fff;
+    }
+    .khata-row:nth-child(even) { background: #f8fafc; }
     .kpi.teal { border-left-color: var(--teal); }
     .kpi.blue { border-left-color: var(--blue); }
     .kpi.amber { border-left-color: var(--gold); }
@@ -287,7 +301,7 @@
         <div>
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag">v2.0 Pro</span>
+            <span class="ver-tag">v3.0 Pro</span>
           </div>
           <div class="brand-sub" id="hdrSub">1 Coupon / 210 kg (7 Bags) • Pool: 301 Prizes</div>
         </div>
@@ -316,36 +330,57 @@
 
     <!-- ==================== TAB 1: HOME & RETAILERS ==================== -->
     <section id="screen-overview" class="screen active">
+      <div style="font-size:11.5px;font-weight:800;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;">
+        <span>📊 LIVE OVERVIEW (Kisi bhi card ko tap karke uski puri detail dekhein)</span>
+      </div>
       <div class="kpi-grid">
-        <div class="kpi">
-          <div class="kpi-lbl">Total Maal (KG)</div>
+        <div class="kpi purple" onclick="openOverviewDetail('ACTIVE_RETAILERS')">
+          <span class="kpi-tap">Tap ↗</span>
+          <div class="kpi-lbl">🏪 Active Retailers</div>
+          <div class="kpi-val" id="kActiveRet">0</div>
+          <div class="kpi-sub" id="kActiveRetSub">of 0 Total Shops</div>
+        </div>
+        <div class="kpi" onclick="openOverviewDetail('TOTAL_KG')">
+          <span class="kpi-tap">Tap ↗</span>
+          <div class="kpi-lbl">⚖️ Total Maal (KG)</div>
           <div class="kpi-val" id="kTotalKg">0</div>
           <div class="kpi-sub" id="kTotalBags">0 Bags (30kg)</div>
         </div>
-        <div class="kpi teal">
-          <div class="kpi-lbl">Coupons Earned</div>
+        <div class="kpi teal" onclick="openOverviewDetail('EARNED')">
+          <span class="kpi-tap">Tap ↗</span>
+          <div class="kpi-lbl">🎯 Coupons Earned</div>
           <div class="kpi-val" id="kEarned">0</div>
           <div class="kpi-sub" id="kEarnedSub">210 kg = 1 Cup</div>
         </div>
-        <div class="kpi blue">
-          <div class="kpi-lbl">Coupons Allotted</div>
+        <div class="kpi blue" onclick="openOverviewDetail('ALLOTTED')">
+          <span class="kpi-tap">Tap ↗</span>
+          <div class="kpi-lbl">🎟️ Coupons Allotted</div>
           <div class="kpi-val" id="kAllotted">0</div>
-          <div class="kpi-sub" id="kPoolLeft">301 Left</div>
+          <div class="kpi-sub" id="kAllottedSub">Issued to Shops</div>
         </div>
-        <div class="kpi amber">
-          <div class="kpi-lbl">Pending Allot</div>
+        <div class="kpi amber" onclick="openOverviewDetail('PENDING_ALLOT')">
+          <span class="kpi-tap">Tap ↗</span>
+          <div class="kpi-lbl">⏳ Pending Allot</div>
           <div class="kpi-val" id="kPending">0</div>
-          <div class="kpi-sub"><a href="javascript:void(0)" onclick="switchTab('allot')" style="color:#b45309;font-weight:800;">Ek Sath Allot →</a></div>
+          <div class="kpi-sub" style="color:#b45309;font-weight:800;">Tap to View & Allot →</div>
         </div>
-        <div class="kpi orange">
-          <div class="kpi-lbl">Prizes Entered</div>
+        <div class="kpi green" onclick="openOverviewDetail('POOL_LEFT')">
+          <span class="kpi-tap">Tap ↗</span>
+          <div class="kpi-lbl">📦 Coupons Available</div>
+          <div class="kpi-val" id="kPoolLeftVal">301</div>
+          <div class="kpi-sub" id="kPoolLeftSub">Remaining in Pool</div>
+        </div>
+        <div class="kpi orange" onclick="openOverviewDetail('PRIZES_WON')">
+          <span class="kpi-tap">Tap ↗</span>
+          <div class="kpi-lbl">🏆 Prizes Declared</div>
           <div class="kpi-val" id="kPrizes">0</div>
           <div class="kpi-sub" id="kPrizeSub">0 Unassigned</div>
         </div>
-        <div class="kpi green">
-          <div class="kpi-lbl">Handed Over ✅</div>
+        <div class="kpi green" onclick="openOverviewDetail('HANDED_OVER')">
+          <span class="kpi-tap">Tap ↗</span>
+          <div class="kpi-lbl">✅ Handed Over</div>
           <div class="kpi-val" id="kDelivered">0</div>
-          <div class="kpi-sub" id="kRetailerCnt">0 Shops</div>
+          <div class="kpi-sub" id="kDeliveredSub">0 Delivery Pending</div>
         </div>
       </div>
 
@@ -389,6 +424,8 @@
           </select>
           <select id="homeStatusFilter" onchange="renderHome()">
             <option value="ALL">All Retailers</option>
+            <option value="ACTIVE">✅ Active Retailers (Maal > 0 kg)</option>
+            <option value="INACTIVE">⚪ Inactive / 0 kg Retailers</option>
             <option value="PENDING_ALLOT">Pending Coupon Allotment (>0)</option>
             <option value="EARNED">Coupons Earned (>0)</option>
             <option value="NEAR">Near Next Coupon (≥150 kg)</option>
@@ -937,6 +974,71 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL 7: RETAILER KHATA / PASSBOOK (DATE-WISE LEDGER) ==================== -->
+  <div class="modal-bg" id="retailerKhataModal">
+    <div class="modal" style="max-width:720px;">
+      <div class="modal-hd">
+        <div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--navy);" id="khataShopName">📒 Retailer Khata</h3>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;" id="khataShopMeta"></div>
+        </div>
+        <button class="btn btn-outline btn-xs" onclick="closeModal('retailerKhataModal')">✕</button>
+      </div>
+
+      <!-- Khata Summary Strip -->
+      <div id="khataSummaryBoxes" style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px;"></div>
+
+      <!-- Action & Date Filter Bar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;background:#f8fafc;padding:9px 11px;border-radius:11px;border:1px solid var(--border);margin-bottom:12px;">
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+          <label style="font-size:11px;font-weight:800;color:var(--muted);">From:</label>
+          <input type="date" id="khataFromDate" onchange="renderKhataEntries()" style="width:132px;padding:5px 8px;font-size:12px;" />
+          <label style="font-size:11px;font-weight:800;color:var(--muted);">To:</label>
+          <input type="date" id="khataToDate" onchange="renderKhataEntries()" style="width:132px;padding:5px 8px;font-size:12px;" />
+          <button class="btn btn-outline btn-xs" onclick="clearKhataDateFilter()">All Dates</button>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn btn-brand btn-xs" id="btnKhataNewEntry">+ Add Maal Entry</button>
+          <button class="btn btn-wa btn-xs" id="btnKhataSharePdf">📲 WhatsApp Khata PDF</button>
+          <button class="btn btn-navy btn-xs" id="btnKhataDownloadPdf">⬇️ PDF</button>
+        </div>
+      </div>
+
+      <!-- Coupons & Prizes Section inside Khata -->
+      <div id="khataCouponsBlock" style="margin-bottom:12px;"></div>
+
+      <!-- Date-wise Entries Passbook -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+        <div style="font-size:13px;font-weight:900;color:var(--navy);">📅 Date-Wise Maal / Delivery Entries (Running Balance ke sath)</div>
+        <select id="khataSortOrder" onchange="renderKhataEntries()" style="width:145px;padding:5px 8px;font-size:11.5px;font-weight:700;">
+          <option value="DESC">Newest First (↓)</option>
+          <option value="ASC">Oldest First (↑)</option>
+        </select>
+      </div>
+      <div id="khataEntriesList" style="display:flex;flex-direction:column;gap:7px;max-height:44vh;overflow-y:auto;padding-right:2px;"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 8: INTERACTIVE OVERVIEW KPI DETAIL MODAL ==================== -->
+  <div class="modal-bg" id="overviewDetailModal">
+    <div class="modal" style="max-width:700px;">
+      <div class="modal-hd">
+        <div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--navy);" id="ovDetTitle">📊 Overview Details</h3>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;" id="ovDetSub"></div>
+        </div>
+        <button class="btn btn-outline btn-xs" onclick="closeModal('overviewDetailModal')">✕</button>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        <input type="text" id="ovDetSearch" placeholder="🔍 Search inside this list..." oninput="renderOverviewDetailList()" style="flex:1;min-width:180px;padding:8px 11px;font-size:13px;" />
+        <div id="ovDetActionSlot" style="display:flex;gap:6px;"></div>
+      </div>
+
+      <div id="ovDetBody" style="display:flex;flex-direction:column;gap:7px;max-height:56vh;overflow-y:auto;"></div>
+    </div>
+  </div>
+
 <script>
   // ==================== GLOBAL STATE ====================
   const IS_LOCAL_PREVIEW = (window.location.protocol === 'file:');
@@ -1292,28 +1394,40 @@
     keepVal('pdfAreaSelect', '🌍 All Areas (Grouped Area-Wise)');
   }
 
-  // ==================== TAB 1: HOME & RETAILERS ====================
+  // ==================== TAB 1: HOME, ACTIVE RETAILERS, DRILL-DOWN & KHATA ====================
+  let CURRENT_KHATA_RET_ID = null;
+  let CURRENT_OV_DETAIL_MODE = 'ACTIVE_RETAILERS';
+
   function renderHome() {
     const s = STATE.settings;
     const maxC = Number(s.max_coupons) || 301;
+    const totalShops = STATE.summaryRows.length;
+    const activeShops = STATE.summaryRows.filter(r => r.total_kg > 0).length;
+    const inactiveShops = Math.max(0, totalShops - activeShops);
     const totalKg = STATE.summaryRows.reduce((a, r) => a + r.total_kg, 0);
     const earned = STATE.summaryRows.reduce((a, r) => a + r.earned, 0);
     const allotted = STATE.coupons.length;
+    const poolLeft = Math.max(0, maxC - allotted);
     const pending = STATE.summaryRows.reduce((a, r) => a + r.pending, 0);
     const winners = STATE.coupons.filter(c => c.prize_status !== 'NONE' && c.prize_title);
     const delivered = winners.filter(c => c.prize_status === 'DELIVERED').length;
+    const pendingHandover = Math.max(0, winners.length - delivered);
 
+    document.getElementById('kActiveRet').textContent = activeShops;
+    document.getElementById('kActiveRetSub').textContent = `of ${totalShops} Shops (${inactiveShops} Inactive)`;
     document.getElementById('kTotalKg').textContent = `${Math.round(totalKg * 10) / 10} kg`;
-    document.getElementById('kTotalBags').textContent = `${Math.round((totalKg / (s.kg_per_bag || 30)) * 10) / 10} Bags`;
+    document.getElementById('kTotalBags').textContent = `${Math.round((totalKg / (s.kg_per_bag || 30)) * 10) / 10} Bags (${STATE.deliveries.length} Entries)`;
     document.getElementById('kEarned').textContent = earned;
     document.getElementById('kEarnedSub').textContent = `${s.kg_per_coupon} kg = 1 Cup`;
     document.getElementById('kAllotted').textContent = allotted;
-    document.getElementById('kPoolLeft').textContent = `${Math.max(0, maxC - allotted)} of ${maxC} Left`;
+    document.getElementById('kAllottedSub').textContent = `${Math.min(100, Math.round((allotted / maxC) * 100))}% of ${maxC} Pool`;
     document.getElementById('kPending').textContent = pending;
-    document.getElementById('kPrizes').textContent = `${winners.length} / ${allotted || maxC}`;
-    document.getElementById('kPrizeSub').textContent = `${Math.max(0, allotted - winners.length)} Unassigned`;
+    document.getElementById('kPoolLeftVal').textContent = poolLeft;
+    document.getElementById('kPoolLeftSub').textContent = `Out of ${maxC} Total Pool`;
+    document.getElementById('kPrizes').textContent = `${winners.length}`;
+    document.getElementById('kPrizeSub').textContent = `${Math.max(0, allotted - winners.length)} Coupons Unassigned`;
     document.getElementById('kDelivered').textContent = `${delivered} / ${winners.length}`;
-    document.getElementById('kRetailerCnt').textContent = `${STATE.retailers.length} Retailers`;
+    document.getElementById('kDeliveredSub').textContent = `${pendingHandover} Handover Pending`;
 
     ['dBadgePending', 'mBadgePending'].forEach(id => {
       const b = document.getElementById(id);
@@ -1331,6 +1445,8 @@
         if (areaF === 'UNASSIGNED' && r.area) return false;
         if (areaF !== 'UNASSIGNED' && r.area !== areaF) return false;
       }
+      if (statF === 'ACTIVE' && r.total_kg <= 0) return false;
+      if (statF === 'INACTIVE' && r.total_kg > 0) return false;
       if (statF === 'PENDING_ALLOT' && r.pending <= 0) return false;
       if (statF === 'EARNED' && r.earned <= 0) return false;
       if (statF === 'NEAR' && r.rem_kg < nearKg) return false;
@@ -1353,8 +1469,15 @@
       return;
     }
 
+    // Count delivery entries per retailer for display badge
+    const delCountMap = new Map();
+    for (const d of STATE.deliveries) {
+      delCountMap.set(d.retailer_id, (delCountMap.get(d.retailer_id) || 0) + 1);
+    }
+
     box.innerHTML = list.map(r => {
       const needKg = Math.round(((s.kg_per_coupon || 210) - r.rem_kg) * 10) / 10;
+      const entryCnt = delCountMap.get(r.id) || 0;
       const cupBadges = r.coupons.map(c =>
         c.prize_title
           ? `<span class="badge b-green">#${esc(c.coupon_code)} 🏆 ${esc(c.prize_title)}</span>`
@@ -1362,10 +1485,15 @@
       ).join('');
 
       return `<div class="ret-item">
-        <div class="ret-top">
+        <div class="ret-top" onclick="openRetailerKhata(${r.id})" style="cursor:pointer;" title="Tap to open Date-Wise Khata">
           <div>
-            <div class="ret-name">${esc(r.name)}</div>
-            <div class="ret-meta">
+            <div class="ret-name" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span>${esc(r.name)}</span>
+              ${r.total_kg > 0
+                ? `<span class="badge b-green" style="font-size:10px;">● Active (${entryCnt} Entries)</span>`
+                : `<span class="badge b-gray" style="font-size:10px;">0 Entries</span>`}
+            </div>
+            <div class="ret-meta" onclick="event.stopPropagation()">
               <span class="badge b-area" onclick="openEditRetailer(${r.id})" title="Tap to edit Area/Phone">
                 📍 ${esc(r.area || 'Set Area +')}
               </span>
@@ -1377,11 +1505,11 @@
           </div>
           <div class="ret-kg-box">
             <div class="ret-kg-val">${r.total_kg} kg</div>
-            <div class="ret-bag-val">${r.bags_eq} Bags</div>
+            <div class="ret-bag-val">${r.bags_eq} Bags • <span style="color:var(--blue);text-decoration:underline;">Khata ↗</span></div>
           </div>
         </div>
 
-        <div style="margin-top:8px;">
+        <div style="margin-top:8px;" onclick="openRetailerKhata(${r.id})">
           <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:700;">
             <span>Next Coupon: ${r.rem_kg} / ${s.kg_per_coupon} kg</span>
             <span>${needKg} kg baki</span>
@@ -1393,17 +1521,363 @@
 
         <div class="ret-actions">
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn btn-navy btn-xs" onclick="openRetailerKhata(${r.id})">📒 Khata (${entryCnt})</button>
             <button class="btn btn-brand btn-xs" onclick="jumpToDelivery('${esc(r.name)}')">+ Maal Entry</button>
-            <button class="btn btn-outline btn-xs" onclick="openEditRetailer(${r.id})">✏️ Edit</button>
+            <button class="btn btn-outline btn-xs" onclick="openEditRetailer(${r.id})">✏️</button>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn btn-wa btn-xs" onclick="shareRetailerSlipPDF(${r.id}, true)">📲 Share PDF</button>
-            <button class="btn btn-outline btn-xs" onclick="shareRetailerSlipPDF(${r.id}, false)">⬇️ PDF</button>
+            <button class="btn btn-wa btn-xs" onclick="shareRetailerSlipPDF(${r.id}, true)">📲 Khata PDF</button>
             <button class="btn btn-outline btn-xs" onclick="sendRetailerWhatsAppText(${r.id})">💬 Msg</button>
           </div>
         </div>
       </div>`;
     }).join('');
+  }
+
+  // ==================== RETAILER DATE-WISE KHATA (PASSBOOK) ENGINE ====================
+  function openRetailerKhata(retailerId) {
+    const r = STATE.summaryRows.find(x => x.id === retailerId);
+    if (!r) return;
+    CURRENT_KHATA_RET_ID = retailerId;
+    document.getElementById('khataFromDate').value = '';
+    document.getElementById('khataToDate').value = '';
+
+    document.getElementById('khataShopName').textContent = `📒 ${r.name}`;
+    document.getElementById('khataShopMeta').innerHTML =
+      `📍 Area: <b>${esc(r.area || 'Not Set')}</b> &nbsp;|&nbsp; 📞 Mobile: <b>${esc(r.phone || '-')}</b>`;
+
+    document.getElementById('khataSummaryBoxes').innerHTML = `
+      <div style="background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:8px 10px;text-align:center;">
+        <div style="font-size:10px;font-weight:800;color:var(--muted);">TOTAL MAAL</div>
+        <div style="font-size:15px;font-weight:900;color:var(--navy);">${r.total_kg} kg</div>
+        <div style="font-size:10.5px;color:var(--muted);">${r.bags_eq} Bags</div>
+      </div>
+      <div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:10px;padding:8px 10px;text-align:center;">
+        <div style="font-size:10px;font-weight:800;color:#0f766e;">EARNED</div>
+        <div style="font-size:15px;font-weight:900;color:#0f766e;">${r.earned}</div>
+        <div style="font-size:10.5px;color:#0f766e;">Coupons</div>
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:8px 10px;text-align:center;">
+        <div style="font-size:10px;font-weight:800;color:#1d4ed8;">ALLOTTED</div>
+        <div style="font-size:15px;font-weight:900;color:#1d4ed8;">${r.issued}</div>
+        <div style="font-size:10.5px;color:#1d4ed8;">${r.pending} Pending</div>
+      </div>
+      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:8px 10px;text-align:center;">
+        <div style="font-size:10px;font-weight:800;color:#b45309;">NEXT COUPON</div>
+        <div style="font-size:15px;font-weight:900;color:#b45309;">${r.rem_kg} kg</div>
+        <div style="font-size:10.5px;color:#b45309;">of ${STATE.settings.kg_per_coupon} kg</div>
+      </div>
+    `;
+
+    document.getElementById('btnKhataNewEntry').onclick = () => {
+      closeModal('retailerKhataModal');
+      jumpToDelivery(r.name);
+    };
+    document.getElementById('btnKhataSharePdf').onclick = () => shareRetailerSlipPDF(r.id, true);
+    document.getElementById('btnKhataDownloadPdf').onclick = () => shareRetailerSlipPDF(r.id, false);
+
+    // Coupons & Prizes block inside Khata
+    const cBlock = document.getElementById('khataCouponsBlock');
+    if (r.coupons.length > 0) {
+      cBlock.innerHTML = `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:11px;padding:9px 11px;">
+        <div style="font-size:11.5px;font-weight:800;color:#166534;margin-bottom:5px;">🎟️ Allotted Coupons & Prizes (${r.coupons.length}):</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          ${r.coupons.map(c => c.prize_title
+            ? `<span class="badge b-green">#${esc(c.coupon_code)} 🏆 ${esc(c.prize_title)} (${c.prize_status === 'DELIVERED' ? 'Delivered ✅' : 'Declared'})</span>`
+            : `<span class="badge b-navy">#${esc(c.coupon_code)} (${fmtDate(c.issue_date)})</span>`
+          ).join('')}
+        </div>
+      </div>`;
+    } else {
+      cBlock.innerHTML = '';
+    }
+
+    renderKhataEntries();
+    openModal('retailerKhataModal');
+  }
+
+  function clearKhataDateFilter() {
+    document.getElementById('khataFromDate').value = '';
+    document.getElementById('khataToDate').value = '';
+    renderKhataEntries();
+  }
+
+  function renderKhataEntries() {
+    if (!CURRENT_KHATA_RET_ID) return;
+    const fromD = document.getElementById('khataFromDate').value;
+    const toD = document.getElementById('khataToDate').value;
+    const sortDir = document.getElementById('khataSortOrder').value;
+    const cupKg = Math.max(1, Number(STATE.settings.kg_per_coupon) || 210);
+
+    // First sort chronologically (Oldest -> Newest) to compute accurate Running KG & Coupon Unlock milestones!
+    const allShopDels = STATE.deliveries
+      .filter(d => d.retailer_id === CURRENT_KHATA_RET_ID)
+      .sort((a, b) => a.entry_date.localeCompare(b.entry_date) || a.id - b.id);
+
+    let runningKg = 0;
+    const enriched = allShopDels.map((d, idx) => {
+      const prevCoupons = Math.floor((runningKg + 1e-9) / cupKg);
+      runningKg = Math.round((runningKg + (Number(d.total_kg) || 0)) * 100) / 100;
+      const nowCoupons = Math.floor((runningKg + 1e-9) / cupKg);
+      return {
+        ...d,
+        sr: idx + 1,
+        running_kg: runningKg,
+        unlocked_here: Math.max(0, nowCoupons - prevCoupons),
+        cum_coupons: nowCoupons
+      };
+    });
+
+    let filtered = enriched.filter(d => {
+      if (fromD && d.entry_date < fromD) return false;
+      if (toD && d.entry_date > toD) return false;
+      return true;
+    });
+
+    if (sortDir === 'DESC') filtered.reverse();
+
+    const listEl = document.getElementById('khataEntriesList');
+    if (filtered.length === 0) {
+      listEl.innerHTML = `<div style="text-align:center;padding:24px;color:var(--muted);font-size:13px;border:1px dashed var(--border);border-radius:11px;">
+        Is date range me koi maal/delivery entry nahi hai.
+      </div>`;
+      return;
+    }
+
+    listEl.innerHTML = filtered.map(d => `
+      <div class="khata-row">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <span class="badge b-navy">📅 ${fmtDate(d.entry_date)}</span>
+            <span style="font-size:13.5px;font-weight:900;color:var(--navy);">+${d.total_kg} kg</span>
+            <span style="font-size:11.5px;color:var(--muted);font-weight:700;">(${d.bags || 0} Bag${d.loose_kg ? ` + ${d.loose_kg} kg` : ''})</span>
+            ${d.unlocked_here > 0 ? `<span class="badge b-green">🎉 +${d.unlocked_here} Coupon Unlocked!</span>` : ''}
+          </div>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">
+            Ref: <b>${esc(d.dl_code)}</b> ${d.remarks ? `• Bill/Note: <b>${esc(d.remarks)}</b>` : ''}
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-size:11px;color:var(--muted);font-weight:700;">Running Total</div>
+          <div style="font-size:14px;font-weight:900;color:#0f766e;">${d.running_kg} kg</div>
+          <div style="display:flex;gap:4px;justify-content:flex-end;margin-top:4px;">
+            <button class="btn btn-outline btn-xs" onclick="closeModal('retailerKhataModal');switchTab('deliveries');editDelRow(${d.id});" title="Edit Entry">✏️</button>
+            <button class="btn btn-danger btn-xs" onclick="deleteEntryFromKhata(${d.id})" title="Delete Entry">🗑️</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  async function deleteEntryFromKhata(delId) {
+    if (!confirm('Yeh delivery entry khate se delete karein?')) return;
+    try {
+      await api('/api/deliveries/' + delId, 'DELETE');
+      toast('Entry deleted');
+      const keepRetId = CURRENT_KHATA_RET_ID;
+      await refreshAll();
+      if (keepRetId) openRetailerKhata(keepRetId);
+    } catch (e) { toast(e.message, true); }
+  }
+
+  // ==================== INTERACTIVE OVERVIEW KPI DRILL-DOWN MODAL ====================
+  function openOverviewDetail(mode) {
+    CURRENT_OV_DETAIL_MODE = mode;
+    document.getElementById('ovDetSearch').value = '';
+    renderOverviewDetailList();
+    openModal('overviewDetailModal');
+  }
+
+  function renderOverviewDetailList() {
+    const mode = CURRENT_OV_DETAIL_MODE;
+    const q = document.getElementById('ovDetSearch').value.trim().toLowerCase();
+    const titleEl = document.getElementById('ovDetTitle');
+    const subEl = document.getElementById('ovDetSub');
+    const actSlot = document.getElementById('ovDetActionSlot');
+    const bodyEl = document.getElementById('ovDetBody');
+    const rMap = new Map(STATE.summaryRows.map(r => [r.id, r]));
+    const maxC = Number(STATE.settings.max_coupons) || 301;
+
+    actSlot.innerHTML = '';
+
+    // 1. ACTIVE RETAILERS
+    if (mode === 'ACTIVE_RETAILERS') {
+      const active = STATE.summaryRows.filter(r => r.total_kg > 0 && (!q || r.name.toLowerCase().includes(q) || r.area.toLowerCase().includes(q)));
+      const inactive = STATE.summaryRows.filter(r => r.total_kg <= 0 && (!q || r.name.toLowerCase().includes(q) || r.area.toLowerCase().includes(q)));
+      titleEl.textContent = `🏪 Active Retailers (${active.length} Active / ${STATE.summaryRows.length} Total)`;
+      subEl.textContent = 'Kisi bhi dukandar par tap karke unka Date-Wise Khata kholein';
+      actSlot.innerHTML = `<button class="btn btn-navy btn-xs" onclick="closeModal('overviewDetailModal');openRetailerModal();">+ Add Shop</button>`;
+
+      bodyEl.innerHTML = active.map((r, i) => `
+        <div class="khata-row" onclick="closeModal('overviewDetailModal');openRetailerKhata(${r.id});" style="cursor:pointer;">
+          <div>
+            <div style="font-weight:800;font-size:13.5px;color:var(--navy);">${i + 1}. ${esc(r.name)}</div>
+            <div style="font-size:11.5px;color:var(--muted);">📍 ${esc(r.area || 'No Area')} • Earned: <b>${r.earned}</b> • Allotted: <b>${r.issued}</b></div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-weight:900;color:#15803d;">${r.total_kg} kg</div>
+            <span class="badge b-blue">📒 Khata ↗</span>
+          </div>
+        </div>
+      `).join('') + (inactive.length > 0 ? `
+        <div style="font-size:12px;font-weight:800;color:var(--muted);margin-top:8px;padding:4px;">⚪ Inactive / 0 kg Retailers (${inactive.length}):</div>
+        ${inactive.map(r => `
+          <div class="khata-row" style="opacity:0.75;">
+            <div><b>${esc(r.name)}</b> <span style="font-size:11px;color:var(--muted);">(${esc(r.area || 'No Area')})</span></div>
+            <button class="btn btn-brand btn-xs" onclick="closeModal('overviewDetailModal');jumpToDelivery('${esc(r.name)}');">+ Add Maal</button>
+          </div>
+        `).join('')}
+      ` : '');
+      return;
+    }
+
+    // 2. TOTAL MAAL (KG) — Date-wise & Shop-wise Breakdown
+    if (mode === 'TOTAL_KG') {
+      const dels = STATE.deliveries.filter(d => {
+        const r = rMap.get(d.retailer_id);
+        return !q || (r?.name || '').toLowerCase().includes(q) || (r?.area || '').toLowerCase().includes(q) || d.entry_date.includes(q);
+      });
+      const sumKg = dels.reduce((s, d) => s + (Number(d.total_kg) || 0), 0);
+      titleEl.textContent = `⚖️ Total Maal Delivered (${Math.round(sumKg * 10) / 10} kg)`;
+      subEl.textContent = `${dels.length} Date-wise Delivery Entries — Tap shop to open Khata`;
+      actSlot.innerHTML = `<button class="btn btn-brand btn-xs" onclick="closeModal('overviewDetailModal');switchTab('deliveries');">+ New Entry</button>`;
+
+      bodyEl.innerHTML = dels.slice(0, 200).map(d => {
+        const r = rMap.get(d.retailer_id);
+        return `<div class="khata-row" onclick="closeModal('overviewDetailModal');openRetailerKhata(${d.retailer_id});" style="cursor:pointer;">
+          <div>
+            <div style="font-weight:800;font-size:13.5px;color:var(--navy);">${esc(r?.name || 'Unknown')}</div>
+            <div style="font-size:11.5px;color:var(--muted);">📅 ${fmtDate(d.entry_date)} • 📍 ${esc(r?.area || '-')} • ${esc(d.dl_code)}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-weight:900;color:var(--navy);">${d.total_kg} kg</div>
+            <div style="font-size:11px;color:var(--muted);">${d.bags || 0} Bags</div>
+          </div>
+        </div>`;
+      }).join('') || `<div style="text-align:center;padding:20px;color:var(--muted);">No deliveries yet.</div>`;
+      return;
+    }
+
+    // 3. COUPONS EARNED
+    if (mode === 'EARNED') {
+      const rows = STATE.summaryRows.filter(r => r.earned > 0 && (!q || r.name.toLowerCase().includes(q) || r.area.toLowerCase().includes(q)));
+      const totE = rows.reduce((s, r) => s + r.earned, 0);
+      titleEl.textContent = `🎯 Coupons Earned Breakdown (${totE} Earned)`;
+      subEl.textContent = `${rows.length} Retailers jinhone ${STATE.settings.kg_per_coupon} kg target pura kiya`;
+      bodyEl.innerHTML = rows.map(r => `
+        <div class="khata-row" onclick="closeModal('overviewDetailModal');openRetailerKhata(${r.id});" style="cursor:pointer;">
+          <div>
+            <div style="font-weight:800;color:var(--navy);">${esc(r.name)}</div>
+            <div style="font-size:11.5px;color:var(--muted);">📍 ${esc(r.area || '-')} • Purchase: <b>${r.total_kg} kg</b></div>
+          </div>
+          <div style="text-align:right;">
+            <span class="badge b-teal">Earned: ${r.earned}</span>
+            <span class="badge b-blue">Issued: ${r.issued}</span>
+          </div>
+        </div>
+      `).join('') || `<div style="text-align:center;padding:20px;color:var(--muted);">Abhi kisi shop ne coupon earn nahi kiya hai.</div>`;
+      return;
+    }
+
+    // 4. COUPONS ALLOTTED
+    if (mode === 'ALLOTTED') {
+      const cups = [...STATE.coupons].sort((a, b) => a.coupon_num - b.coupon_num).filter(c => {
+        const r = rMap.get(c.retailer_id);
+        return !q || c.coupon_code.toLowerCase().includes(q) || (r?.name || '').toLowerCase().includes(q) || (r?.area || '').toLowerCase().includes(q);
+      });
+      titleEl.textContent = `🎟️ Allotted Coupons List (${cups.length})`;
+      subEl.textContent = 'Sabhi jaari kiye gaye coupon numbers aur unke dukandar';
+      actSlot.innerHTML = `<button class="btn btn-navy btn-xs" onclick="closeModal('overviewDetailModal');downloadFullRegisterPDF(false);">⬇️ Register PDF</button>`;
+      bodyEl.innerHTML = cups.slice(0, 305).map(c => {
+        const r = rMap.get(c.retailer_id);
+        return `<div class="khata-row" onclick="closeModal('overviewDetailModal');openRetailerKhata(${c.retailer_id});" style="cursor:pointer;">
+          <div>
+            <span class="badge b-navy">#${esc(c.coupon_code)}</span>
+            <b style="margin-left:6px;">${esc(r?.name || '-')}</b>
+            <span style="font-size:11.5px;color:var(--muted);">(${esc(r?.area || '-')})</span>
+          </div>
+          <div style="font-size:11.5px;color:var(--muted);">${c.prize_title ? `<span class="badge b-green">🏆 ${esc(c.prize_title)}</span>` : fmtDate(c.issue_date)}</div>
+        </div>`;
+      }).join('') || `<div style="text-align:center;padding:20px;color:var(--muted);">No coupons allotted yet.</div>`;
+      return;
+    }
+
+    // 5. PENDING ALLOTMENT
+    if (mode === 'PENDING_ALLOT') {
+      const rows = STATE.summaryRows.filter(r => r.pending > 0 && (!q || r.name.toLowerCase().includes(q) || r.area.toLowerCase().includes(q)));
+      const totP = rows.reduce((s, r) => s + r.pending, 0);
+      titleEl.textContent = `⏳ Pending Coupon Allotment (${totP} Coupons)`;
+      subEl.textContent = `${rows.length} Retailers jinke coupons allot hona baki hain`;
+      if (totP > 0) {
+        actSlot.innerHTML = `<button class="btn btn-brand btn-xs" onclick="closeModal('overviewDetailModal');switchTab('allot');openEkSathModal();">⚡ Ek Sath Allot</button>`;
+      }
+      bodyEl.innerHTML = rows.map(r => `
+        <div class="khata-row">
+          <div onclick="closeModal('overviewDetailModal');openRetailerKhata(${r.id});" style="cursor:pointer;">
+            <div style="font-weight:800;color:var(--navy);">${esc(r.name)}</div>
+            <div style="font-size:11.5px;color:var(--muted);">Purchase: <b>${r.total_kg} kg</b> • Earned: ${r.earned} • Issued: ${r.issued}</div>
+          </div>
+          <button class="btn btn-brand btn-xs" onclick="allotOneShop(${r.id}, ${r.pending});closeModal('overviewDetailModal');">Allot ${r.pending}</button>
+        </div>
+      `).join('') || `<div style="text-align:center;padding:22px;color:#15803d;font-weight:800;">✓ Sabhi earned coupons allot ho chuke hain!</div>`;
+      return;
+    }
+
+    // 6. COUPONS AVAILABLE (UNALLOTTED POOL NUMBERS)
+    if (mode === 'POOL_LEFT') {
+      const used = new Set(STATE.coupons.map(c => Number(c.coupon_num)));
+      const freeNums = [];
+      for (let i = 1; i <= maxC; i++) {
+        const code = padCup(i);
+        if (!used.has(i) && (!q || code.toLowerCase().includes(q))) freeNums.push(code);
+      }
+      titleEl.textContent = `📦 Available Unallotted Coupons (${freeNums.length} of ${maxC})`;
+      subEl.textContent = 'Yeh coupon numbers abhi khali hain aur allot kiye ja sakte hain';
+      bodyEl.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:6px;padding:6px;">` +
+        (freeNums.map(code => `<span class="badge b-gray" style="font-size:12px;padding:5px 9px;">#${esc(code)}</span>`).join('') || 'Pool full!') +
+        `</div>`;
+      return;
+    }
+
+    // 7 & 8. PRIZES DECLARED / HANDED OVER
+    const allWinners = STATE.coupons.filter(c => c.prize_status !== 'NONE' && c.prize_title);
+    let targetList = mode === 'HANDED_OVER' ? allWinners : allWinners;
+    if (q) {
+      targetList = targetList.filter(c => {
+        const r = rMap.get(c.retailer_id);
+        return c.coupon_code.toLowerCase().includes(q) || (r?.name || '').toLowerCase().includes(q) || (r?.area || '').toLowerCase().includes(q) || c.prize_title.toLowerCase().includes(q);
+      });
+    }
+    targetList.sort((a, b) => {
+      if (mode === 'HANDED_OVER' && a.prize_status !== b.prize_status) return a.prize_status === 'WON' ? -1 : 1;
+      return (a.prize_rank || 999) - (b.prize_rank || 999) || a.coupon_num - b.coupon_num;
+    });
+
+    titleEl.textContent = mode === 'HANDED_OVER'
+      ? `✅ Prize Handover Status (${allWinners.filter(x => x.prize_status === 'DELIVERED').length} Delivered / ${allWinners.filter(x => x.prize_status !== 'DELIVERED').length} Pending)`
+      : `🏆 Declared Prize Winners (${allWinners.length})`;
+    subEl.textContent = mode === 'HANDED_OVER'
+      ? 'Yahin se 1-Tap me Pending prize ko Handed Over mark karein'
+      : 'Segment aur Rank ke hisab se sabhi winners';
+    actSlot.innerHTML = `<button class="btn btn-navy btn-xs" onclick="closeModal('overviewDetailModal');switchTab('prizes');">🏆 Open 301 Studio</button>`;
+
+    bodyEl.innerHTML = targetList.slice(0, 305).map(c => {
+      const r = rMap.get(c.retailer_id);
+      return `<div class="khata-row">
+        <div onclick="closeModal('overviewDetailModal');openRetailerKhata(${c.retailer_id});" style="cursor:pointer;">
+          <div><span class="badge b-navy">#${esc(c.coupon_code)}</span> <b style="margin-left:5px;">${esc(r?.name || '-')}</b> <span style="font-size:11px;color:var(--muted);">(${esc(r?.area || '-')})</span></div>
+          <div style="font-size:12px;font-weight:800;color:#b45309;margin-top:3px;">🏆 ${esc(c.prize_title)}</div>
+        </div>
+        <button class="btn ${c.prize_status === 'DELIVERED' ? 'btn-green' : 'btn-outline'} btn-xs" onclick="toggleWinnerHandoverFromModal(${c.id}, '${c.prize_status}')">
+          ${c.prize_status === 'DELIVERED' ? '✅ Delivered' : '⏳ Mark Delivered'}
+        </button>
+      </div>`;
+    }).join('') || `<div style="text-align:center;padding:22px;color:var(--muted);">Abhi koi prize winner declare nahi hua hai.</div>`;
+  }
+
+  async function toggleWinnerHandoverFromModal(couponId, curStatus) {
+    await toggleWinnerHandover(couponId, curStatus);
+    renderOverviewDetailList();
   }
 
   // ==================== TAB 2: FAST DELIVERY ENTRY ====================
@@ -2233,105 +2707,272 @@
       return new Date(raw.getTime() - raw.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
     }
     if (typeof raw === 'number' && raw > 30000 && raw < 70000) {
-      // Excel serial date
       const utc = new Date(Math.round((raw - 25569) * 86400 * 1000));
       return utc.toISOString().slice(0, 10);
     }
     const s = String(raw ?? '').trim();
-    if (!s) return '';
-    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+    if (!s || s.length < 6) return '';
+    if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
+
+    const mMap = { jan:'01', feb:'02', mar:'03', apr:'04', may:'05', jun:'06', jul:'07', aug:'08', sep:'09', oct:'10', nov:'11', dec:'12' };
+    // e.g. 27-Nov-2026, 07 Nov 2026, 7/Nov/26
+    const dmyAlpha = s.match(/^(\d{1,2})[-\/\s.]+([A-Za-z]{3,})[-\/\s.,]+(\d{2,4})$/);
+    if (dmyAlpha) {
+      const dd = dmyAlpha[1].padStart(2, '0');
+      const mm = mMap[dmyAlpha[2].slice(0, 3).toLowerCase()];
+      const yyyy = dmyAlpha[3].length === 2 ? '20' + dmyAlpha[3] : dmyAlpha[3];
+      if (mm) return `${yyyy}-${mm}-${dd}`;
+    }
+    // e.g. Nov 27, 2026
+    const mdyAlpha = s.match(/^([A-Za-z]{3,})[-\/\s.]+(\d{1,2})[-\/\s.,]+(\d{2,4})$/);
+    if (mdyAlpha) {
+      const mm = mMap[mdyAlpha[1].slice(0, 3).toLowerCase()];
+      const dd = mdyAlpha[2].padStart(2, '0');
+      const yyyy = mdyAlpha[3].length === 2 ? '20' + mdyAlpha[3] : mdyAlpha[3];
+      if (mm) return `${yyyy}-${mm}-${dd}`;
+    }
+    // e.g. 27/11/2026 or 27-11-2026 (Indian DD/MM/YYYY priority)
+    const dmyNum = s.match(/^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{2,4})$/);
+    if (dmyNum) {
+      let p1 = parseInt(dmyNum[1], 10), p2 = parseInt(dmyNum[2], 10);
+      const yyyy = dmyNum[3].length === 2 ? '20' + dmyNum[3] : dmyNum[3];
+      let dd = p1, mm = p2;
+      if (p2 > 12 && p1 <= 12) { mm = p1; dd = p2; }
+      if (mm >= 1 && mm <= 12 && dd >= 1 && dd <= 31) {
+        return `${yyyy}-${String(mm).padStart(2, '0')}-${String(dd).padStart(2, '0')}`;
+      }
+    }
     const d = new Date(s);
-    if (!isNaN(d.getTime())) return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    if (!isNaN(d.getTime()) && d.getFullYear() >= 2020 && d.getFullYear() <= 2035) {
+      return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    }
     return '';
+  }
+
+  function isLikelyShopName(str) {
+    const s = String(str ?? '').trim().toUpperCase();
+    if (s.length < 3 || s.length > 90) return false;
+    if (/^\d+([.,]\d+)?(\s*KG|\s*BAGS?)?$/.test(s)) return false;
+    if (s.startsWith('DL-') || s.startsWith('HTTP') || s.startsWith('=')) return false;
+    const blocked = [
+      'DELIVERY ENTRY', 'DELIVERY LOG', 'EDIT DELIVERY', 'LUCKY DRAW', 'OVERVIEW',
+      'TOTAL KG', 'COUPONS EARNED', 'COUPONS ISSUED', 'RETAILERS BUYING', 'COUPONS AVAILABLE',
+      'RETAILER NAME', 'RETAILER', 'SHOP NAME', 'SAVED DELIVERIES', 'ONE COUPON',
+      'BATCH COUPON', 'COUPON ALLOTMENT', 'MEGA ALTO', 'PRIZE REGISTER', 'DELIVERY RECORDS',
+      'CHOOSE A SAVED', 'FILL ONE DELIVERY', 'ENTER ONE DELIVERY', 'COUPON NO', 'ISSUE DATE',
+      'PRIZE WON', 'TOTAL', 'GRAND TOTAL', 'SUMMARY', 'DATE', 'BAGS', 'LOOSE KG', 'CODE.GS'
+    ];
+    for (const b of blocked) {
+      if (s === b || s.startsWith(b + ' ') || s.includes('TAP THE SAVE') || s.includes('CALCULATE AUTOMATICALLY')) return false;
+    }
+    if (parseFlexDateClient(s)) return false;
+    return /[A-Z]{2,}/.test(s);
+  }
+
+  function parseWorkbookUniversal(wb) {
+    const retailersSet = new Set();
+    const deliveries = [];
+    const seenDlCodes = new Set();
+    const coupons = [];
+    const seenCupNums = new Set();
+    const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+
+    // 1. Scan Summary & Batch Allotment for full Master Retailers list
+    for (const sName of wb.SheetNames) {
+      if (/summary|batch allotment/i.test(sName)) {
+        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sName], { header: 1, defval: '' });
+        for (const r of rows) {
+          // Check Col Z (index 25) in Summary where master shop dropdown list is stored!
+          if (r[25] && isLikelyShopName(r[25])) retailersSet.add(String(r[25]).trim().toUpperCase());
+          // Check Col A (index 0) if Col B or Col C has numbers
+          if (r[0] && isLikelyShopName(r[0])) {
+            const bRaw = String(r[1] ?? '').replace(/[^0-9.]/g, '');
+            if (bRaw !== '' && !isNaN(parseFloat(bRaw))) {
+              retailersSet.add(String(r[0]).trim().toUpperCase());
+            }
+          }
+        }
+      }
+    }
+
+    // 2. Scan Delivery tabs: Delivery Log, Previous Table, Entry Table (Hidden)
+    const delTabs = wb.SheetNames.filter(n => /delivery log|previous table|entry table/i.test(n));
+    const tabsToCheck = delTabs.length ? delTabs : wb.SheetNames.filter(n => !/script|summary|print|coupon|allot|form/i.test(n));
+
+    for (const sName of tabsToCheck) {
+      const rows = XLSX.utils.sheet_to_json(wb.Sheets[sName], { header: 1, defval: '' });
+      // Detect header columns dynamically if header row exists
+      let colDate = 0, colShop = 1, colKgOrBags = 2, colSecondNum = 3;
+      let mode = 'AUTO'; // 'KG_BAGS' (Delivery Log: Date, Retailer, Kg, Bags, ID) or 'BAGS_LOOSE_KG' (Previous Table: Date, Retailer, 30kg Bags, Loose Kg, Total Kg)
+
+      for (let i = 0; i < Math.min(rows.length, 10); i++) {
+        const hdr = rows[i].map(x => String(x || '').trim().toLowerCase());
+        const dIdx = hdr.findIndex(h => h === 'date' || h.includes('delivery date') || h.includes('entry date'));
+        const rIdx = hdr.findIndex(h => h.includes('retailer') || h.includes('shop') || h.includes('party'));
+        if (dIdx !== -1 && rIdx !== -1) {
+          colDate = dIdx;
+          colShop = rIdx;
+          const totKgIdx = hdr.findIndex(h => h.includes('total kg') || h === 'kg' || h === 'quantity (kg)' || h === 'weight (kg)');
+          const bagsIdx = hdr.findIndex(h => h.includes('bag'));
+          const looseIdx = hdr.findIndex(h => h.includes('loose'));
+          if (bagsIdx !== -1 && looseIdx !== -1 && totKgIdx !== -1) {
+            mode = 'BAGS_LOOSE_TOTAL';
+            colKgOrBags = bagsIdx;
+            colSecondNum = looseIdx;
+          } else if (totKgIdx !== -1) {
+            mode = 'DIRECT_KG';
+            colKgOrBags = totKgIdx;
+          }
+          break;
+        }
+      }
+
+      for (const r of rows) {
+        if (!r || r.length < 2) continue;
+        // Also support pipe-delimited summary strings if present anywhere
+        const dt = parseFlexDateClient(r[colDate]);
+        const shopRaw = String(r[colShop] ?? '').trim().toUpperCase();
+        if (!dt || !isLikelyShopName(shopRaw)) continue;
+
+        const dlMatch = r.map(x => String(x ?? '').trim()).find(x => /^DL-[A-Z0-9]+$/i.test(x)) || '';
+        if (dlMatch && seenDlCodes.has(dlMatch.toUpperCase())) continue;
+
+        const parseNum = (v) => {
+          if (typeof v === 'number') return v;
+          const cl = String(v ?? '').replace(/,/g, '').replace(/[^0-9.-]/g, '');
+          return parseFloat(cl) || 0;
+        };
+
+        let total_kg = 0, bags = 0, loose_kg = 0;
+        const n1 = parseNum(r[colKgOrBags]);
+        const n2 = parseNum(r[colSecondNum]);
+        const n3 = parseNum(r[colSecondNum + 1]);
+
+        if (mode === 'DIRECT_KG') {
+          total_kg = n1;
+          bags = Math.floor(total_kg / bagKg);
+          loose_kg = Math.round((total_kg - bags * bagKg) * 100) / 100;
+        } else if (mode === 'BAGS_LOOSE_TOTAL') {
+          bags = n1;
+          loose_kg = n2;
+          total_kg = n3 > 0 ? n3 : (bags * bagKg + loose_kg);
+        } else {
+          // Smart AUTO detection between (Kg, Bags) vs (Bags, Loose, TotalKg)
+          if (n3 > 0 && Math.abs((n1 * bagKg + n2) - n3) < 1) {
+            bags = n1; loose_kg = n2; total_kg = n3;
+          } else if (n1 > 0 && n2 > 0 && Math.abs((n1 / bagKg) - n2) < 0.25) {
+            // Delivery Log: Col C = Kg (e.g. 30, 60, 210), Col D = Bags (1, 2, 7)
+            total_kg = n1;
+            bags = Math.floor(total_kg / bagKg);
+            loose_kg = Math.round((total_kg - bags * bagKg) * 100) / 100;
+          } else if (n1 > 0 && n2 === 0) {
+            total_kg = n1;
+            bags = Math.floor(total_kg / bagKg);
+            loose_kg = Math.round((total_kg - bags * bagKg) * 100) / 100;
+          } else if (n1 >= 15 && n2 < n1) {
+            total_kg = n1;
+            bags = Math.floor(total_kg / bagKg);
+            loose_kg = Math.round((total_kg - bags * bagKg) * 100) / 100;
+          } else {
+            bags = n1; loose_kg = n2; total_kg = (n1 * bagKg) + n2;
+          }
+        }
+
+        if (total_kg > 0) {
+          retailersSet.add(shopRaw);
+          if (dlMatch) seenDlCodes.add(dlMatch.toUpperCase());
+          deliveries.push({
+            entry_date: dt,
+            retailer_name: shopRaw,
+            bags,
+            loose_kg,
+            total_kg: Math.round(total_kg * 100) / 100,
+            dl_code: dlMatch ? dlMatch.toUpperCase() : ''
+          });
+        }
+      }
+    }
+
+    // 3. Fallback: Scan "Edit Entry" helper column (e.g. `27-Nov-2026 | POOJA KIRANA BAZAR FARAK | 30 kg | DL-DE76C2E16BBA`)
+    const editTab = wb.SheetNames.find(n => /edit entry/i.test(n));
+    if (editTab && deliveries.length === 0) {
+      const rows = XLSX.utils.sheet_to_json(wb.Sheets[editTab], { header: 1, defval: '' });
+      for (const r of rows) {
+        for (const cell of r) {
+          const s = String(cell ?? '').trim();
+          if (s.includes('|') && s.includes('DL-')) {
+            const parts = s.split('|').map(p => p.trim());
+            if (parts.length >= 3) {
+              const dt = parseFlexDateClient(parts[0]) || todayISO();
+              const shop = parts[1].toUpperCase();
+              const kg = parseFloat(parts[2].replace(/[^0-9.]/g, '')) || 0;
+              const dl = (parts[3] || '').toUpperCase();
+              if (isLikelyShopName(shop) && kg > 0 && (!dl || !seenDlCodes.has(dl))) {
+                retailersSet.add(shop);
+                if (dl) seenDlCodes.add(dl);
+                const bags = Math.floor(kg / bagKg);
+                deliveries.push({
+                  entry_date: dt,
+                  retailer_name: shop,
+                  bags,
+                  loose_kg: Math.round((kg - bags * bagKg) * 100) / 100,
+                  total_kg: kg,
+                  dl_code: dl
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // 4. Scan "Coupons" & "Print List" for already-allotted coupons & prizes
+    for (const sName of wb.SheetNames) {
+      if (/^coupons$|^print list$/i.test(sName.trim())) {
+        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sName], { header: 1, defval: '' });
+        for (const r of rows) {
+          if (!r || r.length < 2) continue;
+          const rawNum = String(r[0] ?? '').trim();
+          if (!rawNum || /[a-z]{4,}/i.test(rawNum)) continue;
+          const num = parseInt(rawNum.replace(/[^0-9]/g, ''), 10);
+          if (!num || num < 1 || num > 5000 || seenCupNums.has(num)) continue;
+
+          // Find shop name & date among columns 1..4
+          let shop = '', dt = '', prize = '';
+          const d1 = parseFlexDateClient(r[1]);
+          const d2 = parseFlexDateClient(r[2]);
+          if (d1 && isLikelyShopName(r[2])) {
+            dt = d1; shop = String(r[2]).trim().toUpperCase(); prize = String(r[3] || r[4] || '').trim();
+          } else if (isLikelyShopName(r[1])) {
+            shop = String(r[1]).trim().toUpperCase(); dt = d2 || parseFlexDateClient(r[3]) || todayISO();
+            prize = String(d2 ? (r[3] || r[4] || '') : (r[2] || r[3] || '')).trim();
+          }
+          if (prize && /unallotted|blank|manual entry|none|^-$|^\d+$/i.test(prize)) prize = '';
+
+          if (shop) {
+            seenCupNums.add(num);
+            retailersSet.add(shop);
+            coupons.push({ coupon_num: num, retailer_name: shop, issue_date: dt || todayISO(), prize_title: prize });
+          }
+        }
+      }
+    }
+
+    const retailers = Array.from(retailersSet).map(name => ({ name, area: guessAreaClient(name) }));
+    return { retailers, deliveries, coupons };
   }
 
   async function handleExcelFileSelect(ev) {
     const file = ev.target.files[0];
     if (!file) return;
     if (!window.XLSX) return toast('Excel reader loading, try again in 2s', true);
-
     try {
       const buf = await file.arrayBuffer();
       const wb = XLSX.read(buf, { type: 'array', cellDates: true });
-      const retailersSet = new Set();
-      const deliveries = [];
-      const coupons = [];
-      const bagKg = Number(STATE.settings.kg_per_bag) || 30;
-
-      // 1. Check Summary tab for master retailers
-      const sumName = wb.SheetNames.find(n => n.toLowerCase().includes('summary'));
-      if (sumName) {
-        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sumName], { header: 1, defval: '' });
-        for (const r of rows) {
-          const z = String(r[25] || '').trim().toUpperCase();
-          if (z.length > 2 && !z.includes('RETAILER') && !z.includes('OVERVIEW')) retailersSet.add(z);
-          const a = String(r[0] || '').trim().toUpperCase();
-          if (a.length > 2 && !a.includes('LUCKY DRAW') && !a.includes('TOTAL') && !a.includes('RETAILER') && !a.includes('ONE COUPON') && typeof r[1] === 'number') {
-            retailersSet.add(a);
-          }
-        }
-      }
-
-      // 2. Check Delivery Log / Previous Table / first sheet
-      const delSheetNames = wb.SheetNames.filter(n => /delivery log|previous table|entry table/i.test(n));
-      const sheetsToScan = delSheetNames.length ? delSheetNames : [wb.SheetNames[0]];
-
-      for (const sName of sheetsToScan) {
-        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sName], { header: 1, defval: '' });
-        for (const r of rows) {
-          const dt = parseFlexDateClient(r[0]);
-          const shop = String(r[1] || '').trim().toUpperCase();
-          if (!dt || !shop || shop.includes('RETAILER') || shop.includes('DELIVERY')) continue;
-
-          const c2 = parseFloat(String(r[2] ?? '').replace(/[^0-9.]/g, '')) || 0;
-          const c3 = parseFloat(String(r[3] ?? '').replace(/[^0-9.]/g, '')) || 0;
-          const c4 = parseFloat(String(r[4] ?? '').replace(/[^0-9.]/g, '')) || 0;
-          const dlCode = r.find(x => String(x || '').startsWith('DL-')) || '';
-
-          let total_kg = 0, bags = 0, loose_kg = 0;
-          if (c4 > 0 && Math.abs((c2 * bagKg + c3) - c4) < 1) {
-            bags = c2; loose_kg = c3; total_kg = c4;
-          } else if (c2 > 0 && c3 > 0 && Math.abs(c2 / bagKg - c3) < 0.25) {
-            total_kg = c2; bags = Math.floor(c2 / bagKg); loose_kg = Math.round((c2 - bags * bagKg) * 100) / 100;
-          } else if (c2 > 0 && c3 === 0) {
-            total_kg = c2; bags = Math.floor(c2 / bagKg); loose_kg = Math.round((c2 - bags * bagKg) * 100) / 100;
-          } else if (c2 >= 15 && c3 < c2) {
-            total_kg = c2; bags = Math.floor(c2 / bagKg); loose_kg = Math.round((c2 - bags * bagKg) * 100) / 100;
-          } else {
-            bags = c2; loose_kg = c3; total_kg = (c2 * bagKg) + c3;
-          }
-
-          if (total_kg > 0) {
-            retailersSet.add(shop);
-            deliveries.push({ entry_date: dt, retailer_name: shop, bags, loose_kg, total_kg, dl_code: String(dlCode) });
-          }
-        }
-        if (deliveries.length > 0) break;
-      }
-
-      // 3. Check Coupons sheet
-      const cupName = wb.SheetNames.find(n => /^coupons$/i.test(n));
-      if (cupName) {
-        const rows = XLSX.utils.sheet_to_json(wb.Sheets[cupName], { header: 1, defval: '' });
-        for (const r of rows) {
-          const num = parseInt(String(r[0] ?? '').replace(/[^0-9]/g, ''), 10);
-          const dt = parseFlexDateClient(r[1]) || parseFlexDateClient(r[2]) || todayISO();
-          const b = String(r[1] || '').trim().toUpperCase();
-          const c = String(r[2] || '').trim().toUpperCase();
-          const shop = (!parseFlexDateClient(r[1]) && b.length > 2 && !b.includes('RETAILER') && !b.includes('COUPON')) ? b :
-                       (!parseFlexDateClient(r[2]) && c.length > 2 && !c.includes('RETAILER')) ? c : '';
-          const prz = String(r[3] || r[4] || '').trim();
-          if (num > 0 && shop) {
-            retailersSet.add(shop);
-            coupons.push({ coupon_num: num, retailer_name: shop, issue_date: dt, prize_title: prz });
-          }
-        }
-      }
-
-      const retailers = Array.from(retailersSet).map(name => ({ name, area: guessAreaClient(name) }));
-      showImportPreview({ retailers, deliveries, coupons });
+      const parsed = parseWorkbookUniversal(wb);
+      showImportPreview(parsed);
     } catch (e) {
-      toast('Excel file padhne me error: ' + e.message, true);
+      toast('File padhne me error: ' + e.message, true);
     }
     ev.target.value = '';
   }
@@ -2339,12 +2980,22 @@
   async function fetchFromGoogleSheetUrl() {
     const sheet_url = document.getElementById('gsheetUrlInp').value.trim();
     if (!sheet_url) return toast('Google Sheet link paste karein!', true);
+    if (!window.XLSX) return toast('Sheet reader loading, 2 second baad dabayein', true);
     const btn = document.getElementById('btnFetchGsheet');
     btn.disabled = true;
-    btn.textContent = '⏳ Fetching Sheet...';
+    btn.textContent = '⏳ Reading Full Google Sheet...';
     try {
       const res = await api('/api/import/gsheet', 'POST', { sheet_url });
-      showImportPreview({ retailers: res.retailers || [], deliveries: res.deliveries || [], coupons: res.coupons || [] });
+      if (res.xlsx_base64) {
+        const binStr = atob(res.xlsx_base64);
+        const bytes = new Uint8Array(binStr.length);
+        for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+        const wb = XLSX.read(bytes, { type: 'array', cellDates: true });
+        const parsed = parseWorkbookUniversal(wb);
+        showImportPreview(parsed);
+      } else {
+        showImportPreview({ retailers: res.retailers || [], deliveries: res.deliveries || [], coupons: res.coupons || [] });
+      }
     } catch (e) {
       toast(e.message, true);
     } finally {
@@ -2587,22 +3238,42 @@
       }
     });
 
-    // Recent Deliveries mini-ledger
-    const rDels = STATE.deliveries.filter(d => d.retailer_id === r.id).slice(0, 25);
+    // Full Date-Wise Khata Ledger with Running Balance KG
+    const rDels = STATE.deliveries
+      .filter(d => d.retailer_id === r.id)
+      .sort((a, b) => a.entry_date.localeCompare(b.entry_date) || a.id - b.id);
     if (rDels.length > 0) {
-      const startY2 = doc.lastAutoTable.finalY + 10;
+      const startY2 = doc.lastAutoTable.finalY + 9;
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(10);
       doc.setTextColor(15, 23, 42);
-      doc.text('Purchase / Delivery Statement:', 12, startY2);
+      doc.text(`Date-Wise Purchase Khata (${rDels.length} Entries):`, 12, startY2);
+
+      let runKg = 0;
+      const delRows = rDels.map((d, i) => {
+        runKg = Math.round((runKg + (Number(d.total_kg) || 0)) * 100) / 100;
+        return [
+          i + 1,
+          fmtDate(d.entry_date),
+          d.bags || 0,
+          d.loose_kg || 0,
+          `+${d.total_kg} kg`,
+          `${runKg} kg`,
+          cleanPdfStr(d.remarks || d.dl_code)
+        ];
+      });
 
       doc.autoTable({
         startY: startY2 + 3,
-        head: [['Date', '30kg Bags', 'Loose KG', 'Total KG', 'Ref ID']],
-        body: rDels.map(d => [fmtDate(d.entry_date), d.bags || 0, d.loose_kg || 0, `${d.total_kg} kg`, cleanPdfStr(d.dl_code)]),
-        theme: 'striped',
-        headStyles: { fillColor: [51, 65, 85], textColor: [255, 255, 255], fontSize: 8.5 },
+        head: [['#', 'Date', '30kg Bags', 'Loose KG', 'Entry KG', 'Running Total', 'Ref / Note']],
+        body: delRows,
+        theme: 'grid',
+        headStyles: { fillColor: [30, 41, 59], textColor: [255, 255, 255], fontSize: 8.5 },
         bodyStyles: { fontSize: 8.2 },
+        columnStyles: {
+          4: { fontStyle: 'bold' },
+          5: { fontStyle: 'bold', textColor: [15, 118, 110] }
+        },
         margin: { bottom: 16 }
       });
     }

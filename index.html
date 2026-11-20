@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Aryush Foods — Lucky Draw Coupon & Prize Manager</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0f172a" />
+  <!-- jsPDF & AutoTable for crisp, multi-page vector PDF generation (never blank!) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    :root {
+      --navy: #0f172a;
+      --navy-light: #1e293b;
+      --brand: #d97706;
+      --brand-dark: #b45309;
+      --brand-soft: #fef3c7;
+      --teal: #0d9488;
+      --teal-soft: #ccfbf1;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 14px;
+      --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 84px; min-height: 100vh; }
+
+    /* Top Header */
+    .topbar {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #fff;
+      padding: 14px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 16px rgba(15,23,42,0.18);
+    }
+    .topbar-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 19px; color: #fff;
+      box-shadow: 0 3px 10px rgba(245,158,11,0.35);
+      flex-shrink: 0;
+    }
+    .brand-title { font-size: 16px; font-weight: 800; letter-spacing: 0.3px; color: #fbbf24; }
+    .brand-sub { font-size: 12.5px; color: #cbd5e1; margin-top: 1px; }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .sync-pill {
+      font-size: 11.5px; font-weight: 600; padding: 5px 10px; border-radius: 999px;
+      background: rgba(16,185,129,0.16); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.35);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .sync-pill.local { background: rgba(245,158,11,0.18); color: #fcd34d; border-color: rgba(245,158,11,0.35); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+    /* Desktop Nav Tabs */
+    .nav-tabs {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 70px;
+      z-index: 40;
+    }
+    .nav-tabs-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 6px 14px;
+      scrollbar-width: none;
+    }
+    .nav-tabs-inner::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      border: none; background: transparent; color: var(--muted);
+      padding: 9px 15px; border-radius: 10px; font-size: 13.5px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 7px;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover { background: #f8fafc; color: var(--navy); }
+    .tab-btn.active { background: var(--navy); color: #fbbf24; box-shadow: 0 2px 6px rgba(15,23,42,0.15); }
+    .tab-badge {
+      background: #ef4444; color: #fff; font-size: 11px; font-weight: 800;
+      padding: 1px 6px; border-radius: 999px;
+    }
+
+    /* Main Container */
+    .container { max-width: 1220px; margin: 18px auto; padding: 0 14px; }
+    .screen { display: none; animation: fadeIn 0.16s ease; }
+    .screen.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .kpi-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 14px 16px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .kpi-card::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--navy);
+    }
+    .kpi-card.amber::before { background: var(--brand); }
+    .kpi-card.green::before { background: var(--green); }
+    .kpi-card.teal::before { background: var(--teal); }
+    .kpi-card.blue::before { background: var(--blue); }
+    .kpi-card.red::before { background: var(--red); }
+    .kpi-label { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: var(--muted); }
+    .kpi-val { font-size: 25px; font-weight: 800; color: var(--text); margin: 5px 0 3px; }
+    .kpi-sub { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+    /* Cards */
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px;
+    }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 11px; border-bottom: 1px solid var(--border);
+    }
+    .card-title { font-size: 16px; font-weight: 800; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+    .card-sub { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+    /* Forms & Inputs */
+    .form-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; align-items: end;
+    }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 12px; font-weight: 700; color: #334155; }
+    input, select, textarea {
+      width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px;
+      font-size: 14px; color: var(--text); background: #fff; outline: none; transition: border-color 0.15s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(217,119,6,0.12); }
+
+    /* Buttons */
+    .btn {
+      border: none; border-radius: 10px; padding: 10px 16px; font-size: 13.5px; font-weight: 700;
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      transition: all 0.15s ease; text-decoration: none;
+    }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-primary { background: var(--navy); color: #fbbf24; }
+    .btn-primary:hover:not(:disabled) { background: #1e293b; }
+    .btn-brand { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; box-shadow: 0 3px 10px rgba(217,119,6,0.28); }
+    .btn-brand:hover:not(:disabled) { filter: brightness(1.05); }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-green:hover:not(:disabled) { background: #15803d; }
+    .btn-outline { background: #fff; color: var(--navy); border: 1.5px solid #cbd5e1; }
+    .btn-outline:hover:not(:disabled) { background: #f8fafc; border-color: #94a3b8; }
+    .btn-danger { background: var(--red-soft); color: var(--red); }
+    .btn-danger:hover:not(:disabled) { background: #fecaca; }
+    .btn-sm { padding: 6px 11px; font-size: 12px; border-radius: 8px; }
+
+    /* Chips */
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .chip {
+      border: 1px solid #cbd5e1; background: #f8fafc; color: #334155;
+      padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; cursor: pointer;
+    }
+    .chip:hover { background: var(--brand-soft); border-color: var(--brand); color: var(--brand-dark); }
+
+    /* Tables */
+    .table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: 11px; }
+    table { width: 100%; border-collapse: collapse; min-width: 640px; background: #fff; }
+    th {
+      background: #f8fafc; color: #475569; font-size: 11.5px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.4px; padding: 11px 12px; text-align: left;
+      border-bottom: 1.5px solid var(--border);
+    }
+    td { padding: 10px 12px; font-size: 13.5px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fcfcfd; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px;
+      border-radius: 999px; font-size: 11.5px; font-weight: 700;
+    }
+    .badge-green { background: var(--green-soft); color: #15803d; }
+    .badge-amber { background: var(--brand-soft); color: #b45309; }
+    .badge-blue { background: var(--blue-soft); color: #1d4ed8; }
+    .badge-teal { background: var(--teal-soft); color: #0f766e; }
+    .badge-gray { background: #f1f5f9; color: #475569; }
+    .badge-red { background: var(--red-soft); color: var(--red); }
+
+    /* Progress bar */
+    .prog-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-top: 4px; }
+    .prog-fill { height: 100%; background: linear-gradient(90deg, #0d9488, #16a34a); border-radius: 999px; transition: width 0.25s ease; }
+    .prog-fill.amber { background: linear-gradient(90deg, #f59e0b, #d97706); }
+
+    /* Hero Allot Box */
+    .hero-box {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1.5px solid #fcd34d; border-radius: var(--radius); padding: 18px; margin-bottom: 16px;
+    }
+    .winner-preview-box {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 1.5px solid #6ee7b7; border-radius: 12px; padding: 13px 15px; margin-top: 10px;
+    }
+
+    /* Bottom Mobile Bar */
+    .bottom-nav {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #fff;
+      border-top: 1px solid var(--border); z-index: 60; box-shadow: 0 -3px 12px rgba(15,23,42,0.08);
+    }
+    .bottom-nav-inner { display: grid; grid-template-columns: repeat(5, 1fr); }
+    .bnav-btn {
+      border: none; background: transparent; padding: 8px 4px; display: flex; flex-direction: column;
+      align-items: center; gap: 3px; color: var(--muted); font-size: 10.5px; font-weight: 700; cursor: pointer;
+    }
+    .bnav-btn .ico { font-size: 18px; }
+    .bnav-btn.active { color: var(--brand-dark); background: #fffbeb; }
+
+    /* Modals */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.58);
+      z-index: 100; align-items: center; justify-content: center; padding: 14px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: #fff; border-radius: 16px; width: 100%; max-width: 650px; max-height: 90vh;
+      overflow-y: auto; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 88px; right: 16px; background: #0f172a; color: #fff;
+      padding: 11px 16px; border-radius: 11px; font-size: 13.5px; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22); z-index: 200; display: none;
+    }
+
+    /* Report Grid */
+    .report-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 14px; }
+    .report-card {
+      border: 1.5px solid var(--border); border-radius: 13px; padding: 16px; background: #fff;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
+    }
+
+    /* Print Area */
+    #printSection { display: none; }
+    @media (max-width: 768px) {
+      .nav-tabs { display: none; }
+      .bottom-nav { display: block; }
+      .kpi-val { font-size: 21px; }
+    }
+    @media print {
+      body * { visibility: hidden !important; }
+      #printSection, #printSection * { visibility: visible !important; }
+      #printSection {
+        display: block !important; position: absolute; left: 0; top: 0; width: 100%;
+        background: #fff; color: #000; padding: 10px;
+      }
+      .print-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+      .print-table th, .print-table td { border: 1px solid #334155; padding: 6px 8px; font-size: 11.5px; text-align: left; }
+      .print-table th { background: #e2e8f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-wrap">
+        <div class="brand-logo">AF</div>
+        <div>
+          <div class="brand-title" id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</div>
+          <div class="brand-sub" id="hdrSub">1 Coupon per 210 kg (7 Bags × 30 kg) • Pool: 300 Coupons</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span class="sync-pill" id="syncBadge"><span class="dot"></span> <span id="syncText">Connecting...</span></span>
+        <button class="btn btn-outline btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="refreshAll()">↻ Sync</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Desktop Navigation -->
+  <nav class="nav-tabs">
+    <div class="nav-tabs-inner">
+      <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">📊 Overview & Summary</button>
+      <button class="tab-btn" data-tab="deliveries" onclick="switchTab('deliveries')">🚚 Delivery Entry & Log</button>
+      <button class="tab-btn" data-tab="allot" onclick="switchTab('allot')">🎟️ Allot Coupons (Ek Sath) <span class="tab-badge" id="navPendingBadge" style="display:none">0</span></button>
+      <button class="tab-btn" data-tab="prizes" onclick="switchTab('prizes')">🏆 Lucky Draw & Prize Entry</button>
+      <button class="tab-btn" data-tab="reports" onclick="switchTab('reports')">📄 PDF Reports & Settings</button>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- ================= TAB 1: OVERVIEW ================= -->
+    <section id="screen-overview" class="screen active">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Total KG Delivered</div>
+          <div class="kpi-val" id="kpiTotalKg">0 kg</div>
+          <div class="kpi-sub" id="kpiTotalBags">0 Bags (30 kg)</div>
+        </div>
+        <div class="kpi-card teal">
+          <div class="kpi-label">Coupons Earned</div>
+          <div class="kpi-val" id="kpiEarned">0</div>
+          <div class="kpi-sub" id="kpiEarnedSub">Target: 210 kg / coupon</div>
+        </div>
+        <div class="kpi-card blue">
+          <div class="kpi-label">Coupons Allotted</div>
+          <div class="kpi-val" id="kpiIssued">0</div>
+          <div class="kpi-sub" id="kpiPoolPct">0% of 300 pool</div>
+        </div>
+        <div class="kpi-card amber">
+          <div class="kpi-label">Pending to Allot</div>
+          <div class="kpi-val" id="kpiPending">0</div>
+          <div class="kpi-sub"><a href="javascript:void(0)" onclick="switchTab('allot')" style="color:var(--brand-dark);font-weight:700;">Allot Ek Sath →</a></div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-label">Coupons Available</div>
+          <div class="kpi-val" id="kpiAvailable">300</div>
+          <div class="kpi-sub" id="kpiRetailerCount">0 Retailers buying</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-label">Prizes Declared</div>
+          <div class="kpi-val" id="kpiWinners">0</div>
+          <div class="kpi-sub"><a href="javascript:void(0)" onclick="switchTab('reports')" style="color:var(--red);font-weight:700;">Download Prize PDF →</a></div>
+        </div>
+      </div>
+
+      <!-- Overall Pool Completion Banner -->
+      <div class="card" style="padding:14px 18px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div>
+            <strong id="poolBannerTitle" style="font-size:14.5px;">Scheme Coupon Pool Progress (0 / 300 Earned)</strong>
+            <div style="font-size:12.5px;color:var(--muted);" id="poolBannerSub">Jab coupons pure ho jayein, 'Allot Coupons' tab se 1-Click me ek sath allot karein.</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-brand btn-sm" onclick="switchTab('deliveries')">+ New Delivery</button>
+            <button class="btn btn-primary btn-sm" onclick="switchTab('allot')">🎟️ Allot Ek Sath</button>
+          </div>
+        </div>
+        <div class="prog-track" style="height:10px;margin-top:10px;">
+          <div class="prog-fill amber" id="poolProgBar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Retailer Summary Table -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🏪 Retailer-wise Purchase & Coupon Summary</div>
+            <div class="card-sub">Har retailer ka kul maal (kg/bags), agle coupon ki progress, earned aur allotted coupon numbers</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="text" id="sumSearch" placeholder="🔍 Search retailer or area..." oninput="renderOverview()" style="width:210px;" />
+            <select id="sumFilter" onchange="renderOverview()" style="width:175px;">
+              <option value="ALL">All Retailers</option>
+              <option value="PENDING">Pending Allotment (>0)</option>
+              <option value="EARNED">Coupons Earned (>0)</option>
+              <option value="NEAR">Near Next Coupon (≥150 kg)</option>
+              <option value="WINNERS">Prize Winners 🏆</option>
+            </select>
+            <button class="btn btn-outline btn-sm" onclick="openRetailerModal()">+ Add Retailer</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Retailer Name</th>
+                <th class="num">Bags (30kg)</th>
+                <th class="num">Total KG</th>
+                <th>Next Coupon Progress</th>
+                <th class="num">Earned</th>
+                <th class="num">Issued</th>
+                <th class="num">Pending</th>
+                <th>Allotted Coupon Nos.</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="summaryTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 2: DELIVERIES ================= -->
+    <section id="screen-deliveries" class="screen">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title" id="delFormTitle">🚚 New Delivery Entry</div>
+            <div class="card-sub">1 Bag = <span class="lblBagKg">30</span> kg • <span class="lblCouponKg">210</span> kg = 1 Coupon (Coupons allot tab me ek sath honge)</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-outline btn-sm" onclick="openRetailerModal()">+ New Retailer</button>
+            <button class="btn btn-outline btn-sm" onclick="openBulkImportModal()">📋 Sheet se Bulk Paste</button>
+          </div>
+        </div>
+
+        <input type="hidden" id="editDeliveryId" value="" />
+        <div class="form-grid">
+          <div class="field">
+            <label>Delivery Date *</label>
+            <input type="date" id="delDate" />
+          </div>
+          <div class="field" style="grid-column: span 2; min-width: 240px;">
+            <label>Select or Type Retailer Name *</label>
+            <input type="text" id="delRetailerInput" list="retailerDatalist" placeholder="Type shop name (auto-creates if new)..." oninput="updateLiveDeliveryPreview()" />
+            <datalist id="retailerDatalist"></datalist>
+          </div>
+          <div class="field">
+            <label>30 kg Bags</label>
+            <input type="number" id="delBags" step="1" min="0" value="" placeholder="0" oninput="calcFromBagsLoose()" />
+            <div class="chip-row">
+              <span class="chip" onclick="quickBags(1)">+1 Bag</span>
+              <span class="chip" onclick="quickBags(2)">+2</span>
+              <span class="chip" onclick="quickBags(5)">+5</span>
+              <span class="chip" onclick="quickBags(7)">+7 (210kg)</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Loose KG</label>
+            <input type="number" id="delLoose" step="0.5" min="0" value="" placeholder="0" oninput="calcFromBagsLoose()" />
+          </div>
+          <div class="field">
+            <label>Total KG *</label>
+            <input type="number" id="delTotalKg" step="0.5" min="0.5" placeholder="Auto or direct KG" oninput="calcFromTotalKg()" style="font-weight:800;color:var(--navy);background:#fffbeb;" />
+          </div>
+          <div class="field">
+            <label>Remarks / Bill No.</label>
+            <input type="text" id="delRemarks" placeholder="Optional bill/note" />
+          </div>
+          <div class="field" style="display:flex;flex-direction:row;gap:8px;">
+            <button class="btn btn-brand" style="flex:1;" onclick="saveDelivery()" id="btnSaveDelivery">✓ Save Delivery</button>
+            <button class="btn btn-outline" id="btnCancelEdit" style="display:none;" onclick="resetDeliveryForm()">Cancel</button>
+          </div>
+        </div>
+
+        <div id="liveDelPreview" style="display:none;margin-top:12px;padding:10px 14px;border-radius:10px;background:#f8fafc;border:1px solid var(--border);font-size:13px;"></div>
+      </div>
+
+      <!-- Delivery Log -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">📜 Saved Delivery Log</div>
+            <div class="card-sub" id="delLogCount">0 deliveries recorded</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="text" id="delSearch" placeholder="🔍 Search shop or DL-ID..." oninput="renderDeliveries()" style="width:210px;" />
+            <input type="date" id="delFilterDate" onchange="renderDeliveries()" style="width:155px;" />
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('delFilterDate').value='';document.getElementById('delSearch').value='';renderDeliveries();">Reset</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Retailer Name</th>
+                <th class="num">30kg Bags</th>
+                <th class="num">Loose KG</th>
+                <th class="num">Total KG</th>
+                <th>Remarks</th>
+                <th>Delivery ID</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="deliveryTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: ALLOT COUPONS (EK SATH) ================= -->
+    <section id="screen-allot" class="screen">
+      <!-- 1-Click Bulk Allot Hero -->
+      <div class="hero-box">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+          <div style="max-width:680px;">
+            <div style="font-size:18px;font-weight:800;color:#78350f;display:flex;align-items:center;gap:8px;">
+              ⚡ Ek Sath Sabhi Pending Coupons Allot Karein (1-Click Bulk Allotment)
+            </div>
+            <p style="font-size:13.5px;color:#92400e;margin-top:4px;line-height:1.45;" id="allotHeroDesc">
+              Jab retailers ke 210 kg ke hisab se coupons pure ho jayein (ya pure 300 coupons complete ho jayein), yahan se ek hi click me sabhi pending coupons ek sath allot karein.
+            </p>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <span class="badge badge-amber" style="font-size:13px;padding:6px 12px;" id="allotPoolStatusBadge">Pool: 0 / 300 Allotted</span>
+          </div>
+        </div>
+
+        <div class="form-grid" style="margin-top:14px;background:rgba(255,255,255,0.78);padding:14px;border-radius:12px;border:1px solid #fde68a;">
+          <div class="field">
+            <label>Allotment / Issue Date</label>
+            <input type="date" id="bulkIssueDate" />
+          </div>
+          <div class="field">
+            <label>Coupon Numbering Mode</label>
+            <select id="bulkNumberMode">
+              <option value="sequential">Sequential (Kram se: 001, 002, 003...)</option>
+              <option value="random">Random Lucky Shuffle (Available pool me se random)</option>
+            </select>
+          </div>
+          <div class="field" style="grid-column: span 2;">
+            <button class="btn btn-brand" style="width:100%;padding:12px 18px;font-size:14.5px;" onclick="openBulkAllotPreview()" id="btnBulkAllotAll">
+              🎟️ Preview & Allot All Pending Coupons Ek Sath
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selective / Retailer-wise Batch Allotment Table -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">📋 Retailer-wise Batch Coupon Allotment</div>
+            <div class="card-sub">Chahein to kisi ek retailer ya chune hue retailers ko custom sankhya me bhi allot kar sakte hain</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn btn-primary btn-sm" onclick="allotSelectedCustomRows()">✓ Allot Entered Quantities</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Retailer Name</th>
+                <th class="num">Total KG</th>
+                <th class="num">Earned</th>
+                <th class="num">Already Issued</th>
+                <th class="num">Pending</th>
+                <th style="width:130px;">Allot Qty Now</th>
+                <th>Existing Coupons</th>
+                <th>Single Action</th>
+              </tr>
+            </thead>
+            <tbody id="batchAllotTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Issued Coupons Master Table -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🎟️ Allotted Coupons Register</div>
+            <div class="card-sub" id="issuedListSub">Total 0 coupons allotted</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="text" id="couponSearch" placeholder="🔍 Search Coupon # or Shop..." oninput="renderAllotScreen()" style="width:220px;" />
+            <button class="btn btn-outline btn-sm" onclick="openManualSingleCouponModal()">+ Manual Coupon # Allot</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Coupon No.</th>
+                <th>Retailer Name</th>
+                <th>Area / Mobile</th>
+                <th>Issue Date</th>
+                <th>Prize Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="issuedCouponsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 4: LUCKY DRAW & PRIZE ENTRY ================= -->
+    <section id="screen-prizes" class="screen">
+      <!-- Quick Prize Winner Entry Card -->
+      <div class="card" style="border: 1.5px solid #86efac;">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🏆 Lucky Draw Winner & Prize Entry (Prize Chadhayein)</div>
+            <div class="card-sub">Draw nikalne ke baad Coupon No. dalein — Retailer ka naam apne aap aa jayega, phir Prize save karein</div>
+          </div>
+          <button class="btn btn-green btn-sm" onclick="downloadWinnersPDF()">📄 Winners PDF Nikalein</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label>Winning Coupon No. *</label>
+            <input type="text" id="przCouponInput" list="allottedCouponsDatalist" placeholder="e.g. 001 or 45" oninput="lookupWinningCoupon()" style="font-weight:800;font-size:16px;" />
+            <datalist id="allottedCouponsDatalist"></datalist>
+          </div>
+          <div class="field" style="grid-column: span 2;">
+            <label>Prize Name / Item Won *</label>
+            <input type="text" id="przTitleInput" placeholder="e.g. 1st Prize - Maruti Alto Car / LED TV / Mixer" />
+            <div class="chip-row">
+              <span class="chip" onclick="setPrizePreset(1, '1st Mega Prize - Maruti Alto Car')">🥇 1st: Alto Car</span>
+              <span class="chip" onclick="setPrizePreset(2, '2nd Prize')">🥈 2nd Prize</span>
+              <span class="chip" onclick="setPrizePreset(3, '3rd Prize')">🥉 3rd Prize</span>
+              <span class="chip" onclick="setPrizePreset(4, 'LED TV')">📺 LED TV</span>
+              <span class="chip" onclick="setPrizePreset(5, 'Mixer Grinder')">🎁 Mixer Grinder</span>
+              <span class="chip" onclick="setPrizePreset(10, 'Consolation Prize')">⭐ Consolation</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Prize Rank (1 = Top)</label>
+            <input type="number" id="przRankInput" min="1" max="999" value="1" />
+          </div>
+          <div class="field">
+            <label>Draw Date</label>
+            <input type="date" id="przDrawDate" />
+          </div>
+          <div class="field">
+            <label>Handover Status</label>
+            <select id="przStatusSelect">
+              <option value="WON">🏆 Winner Declared</option>
+              <option value="DELIVERED">✅ Prize Handed Over</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Remarks (Optional)</label>
+            <input type="text" id="przRemarksInput" placeholder="Stage / Token note" />
+          </div>
+          <div class="field">
+            <button class="btn btn-green" style="width:100%;padding:11px;" onclick="savePrizeFromCard()">🏆 Save Winner Prize</button>
+          </div>
+        </div>
+
+        <div id="przMatchedBox" class="winner-preview-box" style="display:none;"></div>
+      </div>
+
+      <!-- Winners List & Fast Inline Register -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🎉 Prize Register & Fast Table Entry</div>
+            <div class="card-sub">Yahan se direct har coupon ke samne bhi Prize likh kar Save kar sakte hain</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="text" id="przTableSearch" placeholder="🔍 Search Coupon #, Shop or Prize..." oninput="renderPrizeScreen()" style="width:220px;" />
+            <select id="przTableFilter" onchange="renderPrizeScreen()" style="width:185px;">
+              <option value="WINNERS">🏆 Winners Only</option>
+              <option value="ALL">All Allotted Coupons</option>
+              <option value="UNWON">Pending / No Prize Yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Coupon No.</th>
+                <th>Retailer Name</th>
+                <th>Area / Mobile</th>
+                <th style="min-width:210px;">Prize Won</th>
+                <th style="width:140px;">Status</th>
+                <th>Save / Clear</th>
+              </tr>
+            </thead>
+            <tbody id="prizeRegisterTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 5: PDF REPORTS & SETTINGS ================= -->
+    <section id="screen-reports" class="screen">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">📄 Professional PDF Reports (Download, WhatsApp Share & Print)</div>
+            <div class="card-sub">Sabhi PDF multi-page A4 crisp format me generate hoti hain — mobile aur PC dono par 1-click download & share</div>
+          </div>
+        </div>
+
+        <div class="report-grid">
+          <!-- Report 1 -->
+          <div class="report-card" style="border-color:#86efac;background:#f0fdf4;">
+            <div>
+              <span class="badge badge-green">Post-Draw Main Report</span>
+              <h3 style="font-size:15.5px;margin:8px 0 4px;color:var(--navy);">🏆 Final Lucky Draw Prize Winners Report</h3>
+              <p style="font-size:12.5px;color:var(--muted);line-height:1.45;">
+                Draw ke baad jeetne wale sabhi Coupon Numbers, Retailer ka naam, gaon/area, Prize ka naam, Status aur Signatory ke sath official PDF report.
+              </p>
+            </div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;">
+              <button class="btn btn-green btn-sm" onclick="downloadWinnersPDF(false)">⬇️ Download PDF</button>
+              <button class="btn btn-outline btn-sm" onclick="downloadWinnersPDF(true)">📲 WhatsApp Share</button>
+              <button class="btn btn-outline btn-sm" onclick="printHTMLReport('WINNERS')">🖨️ Print A4</button>
+            </div>
+          </div>
+
+          <!-- Report 2 -->
+          <div class="report-card" style="border-color:#fde68a;background:#fffbeb;">
+            <div>
+              <span class="badge badge-amber">Stage & Audit Sheet</span>
+              <h3 style="font-size:15.5px;margin:8px 0 4px;color:var(--navy);">📋 Complete 300 Coupon & Prize Register</h3>
+              <p style="font-size:12.5px;color:var(--muted);line-height:1.45;">
+                Sheet ke 'Print List' jaisa pura Coupon #001 se #300 register. Draw se pehle khali Prize column ke sath stage ke liye aur draw ke baad bhare hue prizes ke sath!
+              </p>
+            </div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;">
+              <button class="btn btn-brand btn-sm" onclick="downloadFullRegisterPDF(false)">⬇️ Download PDF</button>
+              <button class="btn btn-outline btn-sm" onclick="downloadFullRegisterPDF(true)">📲 WhatsApp Share</button>
+              <button class="btn btn-outline btn-sm" onclick="printHTMLReport('REGISTER')">🖨️ Print A4</button>
+            </div>
+          </div>
+
+          <!-- Report 3 -->
+          <div class="report-card">
+            <div>
+              <span class="badge badge-blue">Purchase & Ledger</span>
+              <h3 style="font-size:15.5px;margin:8px 0 4px;color:var(--navy);">🏪 Retailer Purchase & Coupon Summary</h3>
+              <p style="font-size:12.5px;color:var(--muted);line-height:1.45;">
+                Har dukandar ka kul KG, 30kg Bags, Earned Coupons, Allotted Coupon Numbers aur जीते हुए Prizes ka pura hisab.
+              </p>
+            </div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;">
+              <button class="btn btn-primary btn-sm" onclick="downloadRetailerSummaryPDF(false)">⬇️ Download PDF</button>
+              <button class="btn btn-outline btn-sm" onclick="downloadRetailerSummaryPDF(true)">📲 WhatsApp Share</button>
+              <button class="btn btn-outline btn-sm" onclick="printHTMLReport('SUMMARY')">🖨️ Print A4</button>
+            </div>
+          </div>
+
+          <!-- Report 4 -->
+          <div class="report-card">
+            <div>
+              <span class="badge badge-teal">Handover Receipt</span>
+              <h3 style="font-size:15.5px;margin:8px 0 4px;color:var(--navy);">🎟️ Retailer Coupon Handover Slips</h3>
+              <p style="font-size:12.5px;color:var(--muted);line-height:1.45;">
+                Ek sath coupon allot karne ke baad har retailer ko kaun-kaun se coupon number mile uski printable parchi / distribution list.
+              </p>
+            </div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;">
+              <button class="btn btn-outline btn-sm" onclick="downloadHandoverSlipsPDF(false)">⬇️ Download PDF</button>
+              <button class="btn btn-outline btn-sm" onclick="downloadHandoverSlipsPDF(true)">📲 WhatsApp Share</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scheme Settings & Backup -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">⚙️ Scheme Configuration & Data Backup</div>
+            <div class="card-sub">Company title, 210 kg rule, 300 max coupons aur JSON backup manage karein</div>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Company Name</label>
+            <input type="text" id="setCompany" value="ARYUSH FOODS" />
+          </div>
+          <div class="field">
+            <label>Campaign / Draw Name</label>
+            <input type="text" id="setCampaign" value="MEGA ALTO LUCKY DRAW" />
+          </div>
+          <div class="field">
+            <label>KG per 1 Coupon</label>
+            <input type="number" id="setKgPerCoupon" value="210" min="1" />
+          </div>
+          <div class="field">
+            <label>KG per 1 Bag</label>
+            <input type="number" id="setKgPerBag" value="30" min="1" />
+          </div>
+          <div class="field">
+            <label>Max Coupons Pool</label>
+            <input type="number" id="setMaxCoupons" value="300" min="10" />
+          </div>
+          <div class="field">
+            <label>Coupon Prefix (Optional, e.g. AF-)</label>
+            <input type="text" id="setPrefix" placeholder="Blank = 001, 002..." />
+          </div>
+          <div class="field">
+            <label>Authorized Signatory Footer</label>
+            <input type="text" id="setSignatory" value="For Aryush Foods (Kailaras, Morena)" />
+          </div>
+          <div class="field">
+            <button class="btn btn-primary" style="width:100%;" onclick="saveSettings()">💾 Save Settings</button>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-outline btn-sm" onclick="exportBackupJSON()">⬇️ Full JSON Backup</button>
+            <label class="btn btn-outline btn-sm" style="cursor:pointer;">
+              ⬆️ Restore Backup JSON
+              <input type="file" accept=".json" style="display:none" onchange="importBackupJSON(event)" />
+            </label>
+            <button class="btn btn-outline btn-sm" onclick="exportDeliveriesCSV()">📊 Export Deliveries CSV</button>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="openRetailerManageModal()">🏪 Manage Retailers List</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Mobile Navigation -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button class="bnav-btn active" data-tab="overview" onclick="switchTab('overview')"><span class="ico">📊</span><span>Overview</span></button>
+      <button class="bnav-btn" data-tab="deliveries" onclick="switchTab('deliveries')"><span class="ico">🚚</span><span>Delivery</span></button>
+      <button class="bnav-btn" data-tab="allot" onclick="switchTab('allot')"><span class="ico">🎟️</span><span>Allot</span></button>
+      <button class="bnav-btn" data-tab="prizes" onclick="switchTab('prizes')"><span class="ico">🏆</span><span>Prizes</span></button>
+      <button class="bnav-btn" data-tab="reports" onclick="switchTab('reports')"><span class="ico">📄</span><span>PDF</span></button>
+    </div>
+  </nav>
+
+  <!-- Print Container -->
+  <div id="printSection"></div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <!-- MODAL 1: Add / Manage Retailer -->
+  <div class="modal-backdrop" id="retailerModal">
+    <div class="modal" style="max-width:500px;">
+      <div class="modal-head">
+        <h3 style="font-size:16px;font-weight:800;">🏪 Add New Retailer</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('retailerModal')">✕</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        <div class="field">
+          <label>Retailer / Shop Name *</label>
+          <input type="text" id="modRetName" placeholder="e.g. POOJA KIRANA BAZAR FARAK" />
+        </div>
+        <div class="field">
+          <label>Area / Village / Market</label>
+          <input type="text" id="modRetArea" placeholder="e.g. Kailaras / Dongarpur" />
+        </div>
+        <div class="field">
+          <label>Mobile Number</label>
+          <input type="tel" id="modRetPhone" placeholder="10-digit mobile (optional)" />
+        </div>
+        <button class="btn btn-brand" onclick="createRetailerFromModal()">✓ Save Retailer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Manage All Retailers -->
+  <div class="modal-backdrop" id="retailerManageModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 style="font-size:16px;font-weight:800;">🏪 Manage Retailers</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('retailerManageModal')">✕</button>
+      </div>
+      <div class="table-wrap" style="max-height:60vh;overflow-y:auto;">
+        <table style="min-width:450px;">
+          <thead><tr><th>Shop Name</th><th>Area</th><th>Mobile</th><th>Action</th></tr></thead>
+          <tbody id="manageRetTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Bulk Allot Preview Modal -->
+  <div class="modal-backdrop" id="bulkAllotModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 style="font-size:16.5px;font-weight:800;">🎟️ Confirm Ek Sath Coupon Allotment</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('bulkAllotModal')">✕</button>
+      </div>
+      <p id="bulkPreviewSummary" style="font-size:13.5px;color:var(--muted);margin-bottom:12px;"></p>
+      <div class="table-wrap" style="max-height:52vh;overflow-y:auto;margin-bottom:14px;">
+        <table style="min-width:420px;">
+          <thead>
+            <tr><th>Retailer Name</th><th class="num">Total KG</th><th class="num">Coupons to Allot</th></tr>
+          </thead>
+          <tbody id="bulkPreviewTbody"></tbody>
+        </table>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;">
+        <button class="btn btn-outline" onclick="closeModal('bulkAllotModal')">Cancel</button>
+        <button class="btn btn-brand" id="btnConfirmBulkNow" onclick="executeBulkAllotNow()">⚡ Confirm & Allot Ek Sath</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Manual Single Coupon Allot -->
+  <div class="modal-backdrop" id="manualCouponModal">
+    <div class="modal" style="max-width:460px;">
+      <div class="modal-head">
+        <h3 style="font-size:16px;font-weight:800;">🎟️ Manual Specific Coupon # Allot</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('manualCouponModal')">✕</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        <div class="field">
+          <label>Select Retailer *</label>
+          <select id="manCupRetailer"></select>
+        </div>
+        <div class="field">
+          <label>Specific Coupon Number (1 to <span id="lblMaxCupModal">300</span>) *</label>
+          <input type="number" id="manCupNumber" min="1" placeholder="e.g. 51" />
+        </div>
+        <div class="field">
+          <label>Issue Date</label>
+          <input type="date" id="manCupDate" />
+        </div>
+        <button class="btn btn-primary" onclick="saveManualSingleCoupon()">✓ Allot Coupon Number</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: Bulk Paste from Google Sheet -->
+  <div class="modal-backdrop" id="bulkImportModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 style="font-size:16px;font-weight:800;">📋 Bulk Paste from Google Sheet</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('bulkImportModal')">✕</button>
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:10px;line-height:1.45;">
+        Apni Google Sheet se seedha rows copy karke yahan paste karein:<br/>
+        • <b>Sirf Retailers ke naam</b> (ek line me ek dukaan ka naam), YA<br/>
+        • <b>Delivery Log rows</b>: <code>Date [Tab] Retailer Name [Tab] Total KG</code> (ya <code>Date [Tab] Retailer [Tab] Bags [Tab] Loose KG</code>)
+      </p>
+      <div class="field" style="margin-bottom:10px;">
+        <label>Import Type</label>
+        <select id="importTypeSelect">
+          <option value="DELIVERIES">🚚 Deliveries (Date, Retailer, Total KG) — Tab/Comma separated</option>
+          <option value="RETAILERS">🏪 Only Retailer Names (1 shop per line)</option>
+        </select>
+      </div>
+      <div class="field" style="margin-bottom:12px;">
+        <textarea id="bulkPasteArea" rows="7" placeholder="2026-11-07&#9;POOJA KIRANA BAZAR FARAK&#9;30&#10;2026-11-15&#9;GOYAL PROVIJAN DONGARPUR&#9;210"></textarea>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button class="btn btn-outline" onclick="closeModal('bulkImportModal')">Cancel</button>
+        <button class="btn btn-brand" onclick="processBulkPaste()">⬆️ Import Now</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ================= STATE & CONFIG =================
+  const IS_LOCAL_PREVIEW = (window.location.protocol === 'file:');
+  let STATE = {
+    settings: {
+      company_name: 'ARYUSH FOODS',
+      campaign_name: 'MEGA ALTO LUCKY DRAW',
+      kg_per_coupon: 210,
+      kg_per_bag: 30,
+      max_coupons: 300,
+      coupon_prefix: '',
+      signatory: 'For Aryush Foods (Kailaras, Morena)'
+    },
+    retailers: [],
+    deliveries: [],
+    coupons: [],
+    summaryRows: []
+  };
+
+  function todayISO() {
+    const d = new Date();
+    const tzOffset = d.getTimezoneOffset() * 60000;
+    return new Date(d.getTime() - tzOffset).toISOString().slice(0, 10);
+  }
+
+  function formatDateDisplay(iso) {
+    if (!iso) return '-';
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const parts = String(iso).slice(0,10).split('-');
+    if (parts.length !== 3) return iso;
+    const m = parseInt(parts[1], 10) - 1;
+    return `${parts[2]}-${months[m] || parts[1]}-${parts[0]}`;
+  }
+
+  function padCouponNum(num) {
+    const maxC = Number(STATE.settings.max_coupons) || 300;
+    const digits = maxC >= 1000 ? 4 : 3;
+    const prefix = STATE.settings.coupon_prefix || '';
+    return prefix + String(num).padStart(digits, '0');
+  }
+
+  function toast(msg, isError = false) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.style.background = isError ? '#dc2626' : '#0f172a';
+    el.style.display = 'block';
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => { el.style.display = 'none'; }, 3200);
+  }
+
+  function esc(str) {
+    return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  // ================= API / LOCAL STORAGE ADAPTER =================
+  const LOCAL_KEY = 'aryush_lucky_draw_local_v1';
+
+  function loadLocalDB() {
+    try {
+      const raw = localStorage.getItem(LOCAL_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return {
+      settings: { ...STATE.settings },
+      retailers: [],
+      deliveries: [],
+      coupons: [],
+      seq: { retailer: 1, delivery: 1, coupon: 1 }
+    };
+  }
+
+  function saveLocalDB(db) {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(db));
+  }
+
+  async function apiCall(path, method = 'GET', body = null) {
+    if (!IS_LOCAL_PREVIEW) {
+      try {
+        const opts = { method, headers: { 'Content-Type': 'application/json' } };
+        if (body) opts.body = JSON.stringify(body);
+        const res = await fetch(path, opts);
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Server error');
+        return data;
+      } catch (err) {
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          throw err;
+        }
+        throw err;
+      }
+    }
+
+    // LocalStorage Mock Engine (for standalone-preview.html offline testing)
+    const db = loadLocalDB();
+    if (path === '/api/bootstrap' && method === 'GET') {
+      return { settings: db.settings, retailers: db.retailers, deliveries: db.deliveries, coupons: db.coupons };
+    }
+    if (path === '/api/settings' && method === 'POST') {
+      db.settings = { ...db.settings, ...body };
+      saveLocalDB(db);
+      return { ok: true, settings: db.settings };
+    }
+    if (path === '/api/retailers' && method === 'POST') {
+      const name = String(body.name || '').trim().toUpperCase();
+      if (!name) throw new Error('Retailer name required');
+      let existing = db.retailers.find(r => r.name.toUpperCase() === name);
+      if (existing) {
+        existing.area = body.area ?? existing.area;
+        existing.phone = body.phone ?? existing.phone;
+        saveLocalDB(db);
+        return { ok: true, retailer: existing };
+      }
+      const r = { id: db.seq.retailer++, name, area: String(body.area||'').trim(), phone: String(body.phone||'').trim() };
+      db.retailers.push(r);
+      saveLocalDB(db);
+      return { ok: true, retailer: r };
+    }
+    if (path.startsWith('/api/retailers/') && method === 'DELETE') {
+      const id = Number(path.split('/').pop());
+      db.retailers = db.retailers.filter(r => r.id !== id);
+      db.deliveries = db.deliveries.filter(d => d.retailer_id !== id);
+      db.coupons = db.coupons.filter(c => c.retailer_id !== id);
+      saveLocalDB(db);
+      return { ok: true };
+    }
+    if (path === '/api/deliveries' && method === 'POST') {
+      const rName = String(body.retailer_name || '').trim().toUpperCase();
+      let ret = db.retailers.find(r => r.id === Number(body.retailer_id)) || db.retailers.find(r => r.name.toUpperCase() === rName);
+      if (!ret) {
+        if (!rName) throw new Error('Select or enter retailer');
+        ret = { id: db.seq.retailer++, name: rName, area: '', phone: '' };
+        db.retailers.push(ret);
+      }
+      if (body.id) {
+        const idx = db.deliveries.findIndex(d => d.id === Number(body.id));
+        if (idx === -1) throw new Error('Delivery not found');
+        db.deliveries[idx] = {
+          ...db.deliveries[idx],
+          entry_date: body.entry_date,
+          retailer_id: ret.id,
+          bags: Number(body.bags) || 0,
+          loose_kg: Number(body.loose_kg) || 0,
+          total_kg: Number(body.total_kg) || 0,
+          remarks: String(body.remarks || '')
+        };
+      } else {
+        const dl_code = 'DL-' + Math.random().toString(16).slice(2, 10).toUpperCase();
+        db.deliveries.unshift({
+          id: db.seq.delivery++,
+          dl_code,
+          entry_date: body.entry_date,
+          retailer_id: ret.id,
+          bags: Number(body.bags) || 0,
+          loose_kg: Number(body.loose_kg) || 0,
+          total_kg: Number(body.total_kg) || 0,
+          remarks: String(body.remarks || '')
+        });
+      }
+      saveLocalDB(db);
+      return { ok: true };
+    }
+    if (path.startsWith('/api/deliveries/') && method === 'DELETE') {
+      const id = Number(path.split('/').pop());
+      db.deliveries = db.deliveries.filter(d => d.id !== id);
+      saveLocalDB(db);
+      return { ok: true };
+    }
+    if (path === '/api/coupons/allot' && method === 'POST') {
+      const maxC = Number(db.settings.max_coupons) || 300;
+      const prefix = db.settings.coupon_prefix || '';
+      const digits = maxC >= 1000 ? 4 : 3;
+      const usedSet = new Set(db.coupons.map(c => Number(c.coupon_num)));
+
+      if (body.manual_coupon_num) {
+        const num = Number(body.manual_coupon_num);
+        if (num < 1 || num > maxC) throw new Error(`Coupon number must be between 1 and ${maxC}`);
+        if (usedSet.has(num)) throw new Error(`Coupon #${num} is already allotted!`);
+        db.coupons.push({
+          id: db.seq.coupon++,
+          coupon_num: num,
+          coupon_code: prefix + String(num).padStart(digits, '0'),
+          retailer_id: Number(body.retailer_id),
+          issue_date: body.issue_date || todayISO(),
+          batch_ref: 'MANUAL',
+          prize_rank: 999, prize_title: '', prize_value: 0, draw_date: '', prize_status: 'NONE', remarks: ''
+        });
+        saveLocalDB(db);
+        return { ok: true, allotted: 1 };
+      }
+
+      const items = body.allocations || [];
+      const totalNeeded = items.reduce((s, x) => s + (Number(x.count) || 0), 0);
+      const available = [];
+      for (let i = 1; i <= maxC; i++) if (!usedSet.has(i)) available.push(i);
+      if (totalNeeded > available.length) {
+        throw new Error(`Only ${available.length} coupons left in pool, cannot allot ${totalNeeded}. Increase Max Coupons in Settings if needed.`);
+      }
+      if (body.mode === 'random') {
+        for (let i = available.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [available[i], available[j]] = [available[j], available[i]];
+        }
+      }
+      let ptr = 0;
+      const batchRef = 'BATCH-' + Date.now().toString(36).toUpperCase();
+      for (const item of items) {
+        const cnt = Number(item.count) || 0;
+        for (let k = 0; k < cnt; k++) {
+          const num = available[ptr++];
+          db.coupons.push({
+            id: db.seq.coupon++,
+            coupon_num: num,
+            coupon_code: prefix + String(num).padStart(digits, '0'),
+            retailer_id: Number(item.retailer_id),
+            issue_date: body.issue_date || todayISO(),
+            batch_ref: batchRef,
+            prize_rank: 999, prize_title: '', prize_value: 0, draw_date: '', prize_status: 'NONE', remarks: ''
+          });
+        }
+      }
+      saveLocalDB(db);
+      return { ok: true, allotted: totalNeeded };
+    }
+    if (path.startsWith('/api/coupons/') && method === 'DELETE') {
+      const id = Number(path.split('/').pop());
+      db.coupons = db.coupons.filter(c => c.id !== id);
+      saveLocalDB(db);
+      return { ok: true };
+    }
+    if (path === '/api/coupons/prize' && method === 'POST') {
+      const c = db.coupons.find(x => x.id === Number(body.coupon_id) || x.coupon_num === Number(body.coupon_num));
+      if (!c) throw new Error('Coupon not found');
+      c.prize_title = String(body.prize_title || '').trim();
+      c.prize_rank = c.prize_title ? (Number(body.prize_rank) || 99) : 999;
+      c.draw_date = body.draw_date || todayISO();
+      c.prize_status = c.prize_title ? (body.prize_status || 'WON') : 'NONE';
+      c.remarks = String(body.remarks || '');
+      saveLocalDB(db);
+      return { ok: true };
+    }
+    if (path === '/api/import' && method === 'POST') {
+      if (body.full_restore) {
+        saveLocalDB({
+          settings: body.settings || db.settings,
+          retailers: body.retailers || [],
+          deliveries: body.deliveries || [],
+          coupons: body.coupons || [],
+          seq: { retailer: 5000, delivery: 50000, coupon: 50000 }
+        });
+        return { ok: true };
+      }
+      for (const name of (body.retailers || [])) {
+        const clean = String(name).trim().toUpperCase();
+        if (clean && !db.retailers.find(r => r.name.toUpperCase() === clean)) {
+          db.retailers.push({ id: db.seq.retailer++, name: clean, area: '', phone: '' });
+        }
+      }
+      for (const d of (body.deliveries || [])) {
+        const clean = String(d.retailer_name || '').trim().toUpperCase();
+        if (!clean) continue;
+        let ret = db.retailers.find(r => r.name.toUpperCase() === clean);
+        if (!ret) {
+          ret = { id: db.seq.retailer++, name: clean, area: '', phone: '' };
+          db.retailers.push(ret);
+        }
+        db.deliveries.push({
+          id: db.seq.delivery++,
+          dl_code: 'DL-' + Math.random().toString(16).slice(2, 10).toUpperCase(),
+          entry_date: d.entry_date || todayISO(),
+          retailer_id: ret.id,
+          bags: Number(d.bags) || 0,
+          loose_kg: Number(d.loose_kg) || 0,
+          total_kg: Number(d.total_kg) || 0,
+          remarks: d.remarks || ''
+        });
+      }
+      saveLocalDB(db);
+      return { ok: true };
+    }
+    throw new Error('Unknown route');
+  }
+
+  // ================= COMPUTE SUMMARY ENGINE =================
+  function computeDerivedState() {
+    const kgPerCup = Math.max(1, Number(STATE.settings.kg_per_coupon) || 210);
+    const kgPerBag = Math.max(1, Number(STATE.settings.kg_per_bag) || 30);
+
+    const retMap = new Map();
+    for (const r of STATE.retailers) {
+      retMap.set(r.id, {
+        ...r,
+        total_kg: 0,
+        equiv_bags: 0,
+        earned: 0,
+        issued: 0,
+        pending: 0,
+        next_rem_kg: 0,
+        next_pct: 0,
+        coupons: [],
+        prizes: []
+      });
+    }
+
+    for (const d of STATE.deliveries) {
+      const r = retMap.get(d.retailer_id);
+      if (r) r.total_kg = Math.round((r.total_kg + (Number(d.total_kg) || 0)) * 100) / 100;
+    }
+
+    const sortedCoupons = [...STATE.coupons].sort((a, b) => a.coupon_num - b.coupon_num);
+    for (const c of sortedCoupons) {
+      const r = retMap.get(c.retailer_id);
+      if (r) {
+        r.coupons.push(c);
+        if (c.prize_status !== 'NONE' && c.prize_title) r.prizes.push(c);
+      }
+    }
+
+    const rows = [];
+    for (const r of retMap.values()) {
+      r.equiv_bags = Math.round((r.total_kg / kgPerBag) * 100) / 100;
+      r.earned = Math.floor((r.total_kg + 1e-9) / kgPerCup);
+      r.issued = r.coupons.length;
+      r.pending = Math.max(0, r.earned - r.issued);
+      const rem = Math.round((r.total_kg % kgPerCup) * 100) / 100;
+      r.next_rem_kg = rem;
+      r.next_pct = Math.min(100, Math.round((rem / kgPerCup) * 100));
+      rows.push(r);
+    }
+
+    rows.sort((a, b) => b.total_kg - a.total_kg || a.name.localeCompare(b.name));
+    STATE.summaryRows = rows;
+  }
+
+  async function refreshAll() {
+    try {
+      const data = await apiCall('/api/bootstrap');
+      STATE.settings = { ...STATE.settings, ...(data.settings || {}) };
+      STATE.retailers = data.retailers || [];
+      STATE.deliveries = data.deliveries || [];
+      STATE.coupons = data.coupons || [];
+
+      const badge = document.getElementById('syncBadge');
+      const syncTxt = document.getElementById('syncText');
+      if (IS_LOCAL_PREVIEW) {
+        badge.className = 'sync-pill local';
+        syncTxt.textContent = 'Local Preview Mode';
+      } else {
+        badge.className = 'sync-pill';
+        syncTxt.textContent = 'Cloudflare D1 Live';
+      }
+
+      computeDerivedState();
+      renderHeaderAndSettings();
+      renderOverview();
+      renderDeliveries();
+      renderAllotScreen();
+      renderPrizeScreen();
+    } catch (err) {
+      toast('Error loading data: ' + err.message, true);
+    }
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + tab).classList.add('active');
+    document.querySelectorAll('.tab-btn, .bnav-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.tab === tab);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderHeaderAndSettings() {
+    const s = STATE.settings;
+    document.getElementById('hdrCompany').textContent = `${s.company_name} — ${s.campaign_name}`;
+    document.getElementById('hdrSub').textContent = `1 Coupon per ${s.kg_per_coupon} kg (${Math.round((s.kg_per_coupon / s.kg_per_bag)*10)/10} Bags × ${s.kg_per_bag} kg) • Pool: ${s.max_coupons} Coupons`;
+    document.querySelectorAll('.lblBagKg').forEach(el => el.textContent = s.kg_per_bag);
+    document.querySelectorAll('.lblCouponKg').forEach(el => el.textContent = s.kg_per_coupon);
+    document.getElementById('lblMaxCupModal').textContent = s.max_coupons;
+
+    document.getElementById('setCompany').value = s.company_name || '';
+    document.getElementById('setCampaign').value = s.campaign_name || '';
+    document.getElementById('setKgPerCoupon').value = s.kg_per_coupon || 210;
+    document.getElementById('setKgPerBag').value = s.kg_per_bag || 30;
+    document.getElementById('setMaxCoupons').value = s.max_coupons || 300;
+    document.getElementById('setPrefix').value = s.coupon_prefix || '';
+    document.getElementById('setSignatory').value = s.signatory || '';
+
+    // Datalist for retailers
+    const dl = document.getElementById('retailerDatalist');
+    dl.innerHTML = STATE.retailers.map(r => `<option value="${esc(r.name)}">${esc(r.area || '')}</option>`).join('');
+  }
+
+  // ================= RENDER 1: OVERVIEW =================
+  function renderOverview() {
+    const s = STATE.settings;
+    const maxC = Number(s.max_coupons) || 300;
+    const totalKg = STATE.summaryRows.reduce((a, r) => a + r.total_kg, 0);
+    const totalEarned = STATE.summaryRows.reduce((a, r) => a + r.earned, 0);
+    const totalIssued = STATE.coupons.length;
+    const totalPending = STATE.summaryRows.reduce((a, r) => a + r.pending, 0);
+    const available = Math.max(0, maxC - totalIssued);
+    const activeBuyers = STATE.summaryRows.filter(r => r.total_kg > 0).length;
+    const winnersCount = STATE.coupons.filter(c => c.prize_status !== 'NONE' && c.prize_title).length;
+
+    document.getElementById('kpiTotalKg').textContent = `${Math.round(totalKg * 100) / 100} kg`;
+    document.getElementById('kpiTotalBags').textContent = `${Math.round((totalKg / (s.kg_per_bag || 30)) * 10) / 10} Bags (${s.kg_per_bag} kg)`;
+    document.getElementById('kpiEarned').textContent = totalEarned;
+    document.getElementById('kpiEarnedSub').textContent = `Target: ${s.kg_per_coupon} kg / coupon`;
+    document.getElementById('kpiIssued').textContent = totalIssued;
+    document.getElementById('kpiPoolPct').textContent = `${Math.min(100, Math.round((totalIssued / maxC) * 100))}% of ${maxC} pool`;
+    document.getElementById('kpiPending').textContent = totalPending;
+    document.getElementById('kpiAvailable').textContent = available;
+    document.getElementById('kpiRetailerCount').textContent = `${activeBuyers} Retailers buying`;
+    document.getElementById('kpiWinners').textContent = winnersCount;
+
+    const navBadge = document.getElementById('navPendingBadge');
+    if (totalPending > 0) {
+      navBadge.style.display = 'inline-block';
+      navBadge.textContent = totalPending;
+    } else {
+      navBadge.style.display = 'none';
+    }
+
+    const earnedPct = Math.min(100, Math.round((totalEarned / maxC) * 100));
+    document.getElementById('poolProgBar').style.width = earnedPct + '%';
+    document.getElementById('poolBannerTitle').textContent =
+      totalEarned >= maxC
+        ? `🎉 Target Complete! ${totalEarned} / ${maxC} Coupons Pure Ho Chuke Hain!`
+        : `Scheme Coupon Pool Progress: ${totalEarned} Earned / ${totalIssued} Allotted (Pool: ${maxC})`;
+
+    const q = document.getElementById('sumSearch').value.trim().toLowerCase();
+    const flt = document.getElementById('sumFilter').value;
+    const nearThreshold = (Number(s.kg_per_coupon) || 210) * 0.7;
+
+    const filtered = STATE.summaryRows.filter(r => {
+      if (q && !r.name.toLowerCase().includes(q) && !(r.area || '').toLowerCase().includes(q)) return false;
+      if (flt === 'PENDING' && r.pending <= 0) return false;
+      if (flt === 'EARNED' && r.earned <= 0) return false;
+      if (flt === 'NEAR' && r.next_rem_kg < nearThreshold) return false;
+      if (flt === 'WINNERS' && r.prizes.length === 0) return false;
+      return true;
+    });
+
+    const tbody = document.getElementById('summaryTbody');
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:28px;color:var(--muted);">Abhi koi retailer entry nahi hai. 'New Delivery' ya '+ Add Retailer' se shuru karein.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = filtered.map((r, i) => {
+      const cList = r.coupons.map(c => c.prize_title ? `<span class="badge badge-green" title="${esc(c.prize_title)}">#${esc(c.coupon_code)} 🏆</span>` : `<span class="badge badge-gray">#${esc(c.coupon_code)}</span>`).join(' ');
+      const needMore = Math.round(((s.kg_per_coupon || 210) - r.next_rem_kg) * 100) / 100;
+      return `<tr>
+        <td>${i + 1}</td>
+        <td>
+          <div style="font-weight:700;color:var(--navy);">${esc(r.name)}</div>
+          ${r.area || r.phone ? `<div style="font-size:11.5px;color:var(--muted);">${esc(r.area)}${r.area && r.phone ? ' • ' : ''}${esc(r.phone)}</div>` : ''}
+        </td>
+        <td class="num">${r.equiv_bags}</td>
+        <td class="num" style="font-weight:800;">${r.total_kg} kg</td>
+        <td style="min-width:155px;">
+          <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);">
+            <span>${r.next_rem_kg} / ${s.kg_per_coupon} kg</span>
+            <span>Need ${needMore} kg</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:${r.next_pct}%"></div></div>
+        </td>
+        <td class="num"><span class="badge badge-teal">${r.earned}</span></td>
+        <td class="num"><span class="badge badge-blue">${r.issued}</span></td>
+        <td class="num">${r.pending > 0 ? `<span class="badge badge-amber">${r.pending} Pending</span>` : `<span style="color:#94a3b8;">0</span>`}</td>
+        <td style="max-width:230px;">${cList || '<span style="color:#94a3b8;font-size:12px;">Not allotted yet</span>'}</td>
+        <td>
+          <button class="btn btn-outline btn-sm" onclick="quickStartDeliveryFor('${esc(r.name)}')">+ Delivery</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  function quickStartDeliveryFor(name) {
+    switchTab('deliveries');
+    document.getElementById('delRetailerInput').value = name;
+    document.getElementById('delBags').focus();
+    updateLiveDeliveryPreview();
+  }
+
+  // ================= RENDER 2: DELIVERIES =================
+  function calcFromBagsLoose() {
+    const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+    const bags = Number(document.getElementById('delBags').value) || 0;
+    const loose = Number(document.getElementById('delLoose').value) || 0;
+    const total = Math.round(((bags * bagKg) + loose) * 100) / 100;
+    document.getElementById('delTotalKg').value = total > 0 ? total : '';
+    updateLiveDeliveryPreview();
+  }
+
+  function calcFromTotalKg() {
+    const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+    const total = Number(document.getElementById('delTotalKg').value) || 0;
+    const bags = Math.floor(total / bagKg);
+    const loose = Math.round((total - bags * bagKg) * 100) / 100;
+    document.getElementById('delBags').value = bags > 0 ? bags : '';
+    document.getElementById('delLoose').value = loose > 0 ? loose : '';
+    updateLiveDeliveryPreview();
+  }
+
+  function quickBags(n) {
+    const cur = Number(document.getElementById('delBags').value) || 0;
+    document.getElementById('delBags').value = cur + n;
+    calcFromBagsLoose();
+  }
+
+  function updateLiveDeliveryPreview() {
+    const box = document.getElementById('liveDelPreview');
+    const name = document.getElementById('delRetailerInput').value.trim().toUpperCase();
+    const addKg = Number(document.getElementById('delTotalKg').value) || 0;
+    if (!name && !addKg) { box.style.display = 'none'; return; }
+
+    const editId = Number(document.getElementById('editDeliveryId').value) || 0;
+    const existingRow = STATE.summaryRows.find(r => r.name.toUpperCase() === name);
+    let prevKg = existingRow ? existingRow.total_kg : 0;
+    if (editId) {
+      const oldDel = STATE.deliveries.find(d => d.id === editId);
+      if (oldDel && existingRow && oldDel.retailer_id === existingRow.id) {
+        prevKg = Math.max(0, prevKg - (Number(oldDel.total_kg) || 0));
+      }
+    }
+    const newTotal = Math.round((prevKg + addKg) * 100) / 100;
+    const cupKg = Number(STATE.settings.kg_per_coupon) || 210;
+    const oldCoupons = Math.floor((prevKg + 1e-9) / cupKg);
+    const newCoupons = Math.floor((newTotal + 1e-9) / cupKg);
+    const diff = newCoupons - oldCoupons;
+
+    box.style.display = 'block';
+    box.innerHTML = `🏪 <b>${esc(name || 'New Retailer')}</b>: Pehle ka KG: <b>${prevKg} kg</b> + Is Entry ka: <b>${addKg} kg</b> = Naya Total: <b>${newTotal} kg</b> &nbsp;|&nbsp; Total Earned Coupons: <span class="badge badge-teal">${newCoupons}</span> ${diff > 0 ? `<span class="badge badge-green">🎉 +${diff} New Coupon Completed!</span>` : ''}`;
+  }
+
+  async function saveDelivery() {
+    const entry_date = document.getElementById('delDate').value || todayISO();
+    const retailer_name = document.getElementById('delRetailerInput').value.trim().toUpperCase();
+    const bags = Number(document.getElementById('delBags').value) || 0;
+    const loose_kg = Number(document.getElementById('delLoose').value) || 0;
+    const total_kg = Number(document.getElementById('delTotalKg').value) || 0;
+    const remarks = document.getElementById('delRemarks').value.trim();
+    const id = document.getElementById('editDeliveryId').value;
+
+    if (!retailer_name) return toast('Please enter or select Retailer Name', true);
+    if (total_kg <= 0) return toast('Please enter Bags or Total KG (> 0)', true);
+
+    const btn = document.getElementById('btnSaveDelivery');
+    btn.disabled = true;
+    try {
+      await apiCall('/api/deliveries', 'POST', {
+        id: id ? Number(id) : null,
+        entry_date, retailer_name, bags, loose_kg, total_kg, remarks
+      });
+      toast(id ? 'Delivery updated!' : `Saved ${total_kg} kg for ${retailer_name}`);
+      resetDeliveryForm();
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function editDelivery(id) {
+    const d = STATE.deliveries.find(x => x.id === id);
+    if (!d) return;
+    const ret = STATE.retailers.find(r => r.id === d.retailer_id);
+    document.getElementById('editDeliveryId').value = d.id;
+    document.getElementById('delDate').value = d.entry_date;
+    document.getElementById('delRetailerInput').value = ret ? ret.name : '';
+    document.getElementById('delBags').value = d.bags || '';
+    document.getElementById('delLoose').value = d.loose_kg || '';
+    document.getElementById('delTotalKg').value = d.total_kg || '';
+    document.getElementById('delRemarks').value = d.remarks || '';
+    document.getElementById('delFormTitle').textContent = `✏️ Edit Delivery (${d.dl_code})`;
+    document.getElementById('btnSaveDelivery').textContent = '✓ Update Changes';
+    document.getElementById('btnCancelEdit').style.display = 'inline-flex';
+    updateLiveDeliveryPreview();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetDeliveryForm() {
+    document.getElementById('editDeliveryId').value = '';
+    document.getElementById('delDate').value = todayISO();
+    document.getElementById('delRetailerInput').value = '';
+    document.getElementById('delBags').value = '';
+    document.getElementById('delLoose').value = '';
+    document.getElementById('delTotalKg').value = '';
+    document.getElementById('delRemarks').value = '';
+    document.getElementById('delFormTitle').textContent = '🚚 New Delivery Entry';
+    document.getElementById('btnSaveDelivery').textContent = '✓ Save Delivery';
+    document.getElementById('btnCancelEdit').style.display = 'none';
+    document.getElementById('liveDelPreview').style.display = 'none';
+  }
+
+  async function deleteDelivery(id) {
+    if (!confirm('Delete this delivery entry? Retailer total KG will recalculate automatically.')) return;
+    try {
+      await apiCall('/api/deliveries/' + id, 'DELETE');
+      toast('Delivery deleted');
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  function renderDeliveries() {
+    const q = document.getElementById('delSearch').value.trim().toLowerCase();
+    const fDate = document.getElementById('delFilterDate').value;
+    const retById = new Map(STATE.retailers.map(r => [r.id, r]));
+
+    const list = STATE.deliveries.filter(d => {
+      const rName = (retById.get(d.retailer_id)?.name || '').toLowerCase();
+      if (fDate && d.entry_date !== fDate) return false;
+      if (q && !rName.includes(q) && !(d.dl_code || '').toLowerCase().includes(q) && !(d.remarks || '').toLowerCase().includes(q)) return false;
+      return true;
+    });
+
+    document.getElementById('delLogCount').textContent = `${list.length} deliveries shown (Total: ${STATE.deliveries.length})`;
+    const tbody = document.getElementById('deliveryTbody');
+    if (list.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--muted);">No delivery entries found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(d => {
+      const rName = retById.get(d.retailer_id)?.name || 'Unknown';
+      return `<tr>
+        <td>${formatDateDisplay(d.entry_date)}</td>
+        <td style="font-weight:700;">${esc(rName)}</td>
+        <td class="num">${d.bags || 0}</td>
+        <td class="num">${d.loose_kg || 0}</td>
+        <td class="num" style="font-weight:800;color:var(--navy);">${d.total_kg} kg</td>
+        <td>${esc(d.remarks || '-')}</td>
+        <td><span class="badge badge-gray">${esc(d.dl_code)}</span></td>
+        <td>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-outline btn-sm" onclick="editDelivery(${d.id})">✏️ Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteDelivery(${d.id})">🗑️</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ================= RENDER 3: ALLOT COUPONS EK SATH =================
+  function renderAllotScreen() {
+    const maxC = Number(STATE.settings.max_coupons) || 300;
+    const issued = STATE.coupons.length;
+    const pendingRows = STATE.summaryRows.filter(r => r.pending > 0);
+    const totalPending = pendingRows.reduce((s, r) => s + r.pending, 0);
+
+    document.getElementById('allotPoolStatusBadge').textContent = `Pool: ${issued} / ${maxC} Allotted (${Math.max(0, maxC - issued)} Left)`;
+    document.getElementById('btnBulkAllotAll').textContent =
+      totalPending > 0
+        ? `🎟️ Allot All ${totalPending} Pending Coupons Ek Sath (${pendingRows.length} Retailers)`
+        : `✓ Sabhi Earned Coupons Allot Ho Chuke Hain (0 Pending)`;
+    document.getElementById('btnBulkAllotAll').disabled = (totalPending === 0);
+
+    // Batch Allotment Table (all retailers with earned > 0 or issued > 0)
+    const relevant = STATE.summaryRows.filter(r => r.earned > 0 || r.issued > 0);
+    const batchTbody = document.getElementById('batchAllotTbody');
+    if (relevant.length === 0) {
+      batchTbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--muted);">Abhi kisi retailer ke 210 kg pure nahi hue hain. Delivery chadhane par earned coupons yahan dikhenge.</td></tr>`;
+    } else {
+      batchTbody.innerHTML = relevant.map(r => {
+        const codes = r.coupons.map(c => '#' + c.coupon_code).join(', ');
+        return `<tr>
+          <td style="font-weight:700;">${esc(r.name)}</td>
+          <td class="num">${r.total_kg} kg</td>
+          <td class="num"><span class="badge badge-teal">${r.earned}</span></td>
+          <td class="num"><span class="badge badge-blue">${r.issued}</span></td>
+          <td class="num">${r.pending > 0 ? `<span class="badge badge-amber">${r.pending}</span>` : '0'}</td>
+          <td>
+            <input type="number" class="custom-allot-inp" data-retid="${r.id}" min="0" max="${r.pending}" value="${r.pending}" ${r.pending === 0 ? 'disabled' : ''} style="padding:6px 10px;" />
+          </td>
+          <td style="font-size:12px;color:var(--muted);max-width:220px;">${esc(codes || '-')}</td>
+          <td>
+            ${r.pending > 0 ? `<button class="btn btn-brand btn-sm" onclick="allotSingleRetailerPending(${r.id}, ${r.pending})">Allot ${r.pending}</button>` : '<span class="badge badge-green">✓ Done</span>'}
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    // Issued Coupons Register
+    const q = document.getElementById('couponSearch').value.trim().toLowerCase();
+    const retById = new Map(STATE.retailers.map(r => [r.id, r]));
+    const sorted = [...STATE.coupons].sort((a, b) => a.coupon_num - b.coupon_num).filter(c => {
+      const r = retById.get(c.retailer_id);
+      if (!q) return true;
+      return c.coupon_code.toLowerCase().includes(q) || (r?.name || '').toLowerCase().includes(q);
+    });
+
+    document.getElementById('issuedListSub').textContent = `Showing ${sorted.length} of ${STATE.coupons.length} allotted coupons`;
+    const cTbody = document.getElementById('issuedCouponsTbody');
+    if (sorted.length === 0) {
+      cTbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted);">No allotted coupons yet.</td></tr>`;
+    } else {
+      cTbody.innerHTML = sorted.map(c => {
+        const r = retById.get(c.retailer_id);
+        return `<tr>
+          <td><span class="badge badge-navy" style="background:var(--navy);color:#fbbf24;font-size:13px;">#${esc(c.coupon_code)}</span></td>
+          <td style="font-weight:700;">${esc(r?.name || '-')}</td>
+          <td style="color:var(--muted);font-size:12.5px;">${esc(r?.area || '')} ${esc(r?.phone || '')}</td>
+          <td>${formatDateDisplay(c.issue_date)}</td>
+          <td>${c.prize_title ? `<span class="badge badge-green">🏆 ${esc(c.prize_title)}</span>` : '<span style="color:#94a3b8;font-size:12px;">-</span>'}</td>
+          <td><button class="btn btn-danger btn-sm" onclick="revokeCoupon(${c.id}, '${esc(c.coupon_code)}')">Revoke</button></td>
+        </tr>`;
+      }).join('');
+    }
+  }
+
+  function openBulkAllotPreview() {
+    const pendingRows = STATE.summaryRows.filter(r => r.pending > 0);
+    if (pendingRows.length === 0) return toast('No pending coupons to allot!', true);
+    const totalPending = pendingRows.reduce((s, r) => s + r.pending, 0);
+    const mode = document.getElementById('bulkNumberMode').value;
+    const dt = document.getElementById('bulkIssueDate').value || todayISO();
+
+    document.getElementById('bulkPreviewSummary').innerHTML =
+      `Issue Date: <b>${formatDateDisplay(dt)}</b> &nbsp;|&nbsp; Mode: <b>${mode === 'random' ? 'Random Lucky Shuffle' : 'Sequential (001, 002...)'}</b> &nbsp;|&nbsp; Total: <b>${totalPending} Coupons</b> across <b>${pendingRows.length} Retailers</b>`;
+
+    document.getElementById('bulkPreviewTbody').innerHTML = pendingRows.map(r => `
+      <tr>
+        <td style="font-weight:700;">${esc(r.name)}</td>
+        <td class="num">${r.total_kg} kg</td>
+        <td class="num"><span class="badge badge-amber">${r.pending} Coupons</span></td>
+      </tr>
+    `).join('');
+    openModal('bulkAllotModal');
+  }
+
+  async function executeBulkAllotNow() {
+    const pendingRows = STATE.summaryRows.filter(r => r.pending > 0);
+    const allocations = pendingRows.map(r => ({ retailer_id: r.id, count: r.pending }));
+    const issue_date = document.getElementById('bulkIssueDate').value || todayISO();
+    const mode = document.getElementById('bulkNumberMode').value;
+
+    const btn = document.getElementById('btnConfirmBulkNow');
+    btn.disabled = true;
+    try {
+      const res = await apiCall('/api/coupons/allot', 'POST', { allocations, issue_date, mode });
+      closeModal('bulkAllotModal');
+      toast(`🎉 Successfully allotted ${res.allotted} coupons ek sath!`);
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  async function allotSelectedCustomRows() {
+    const inputs = Array.from(document.querySelectorAll('.custom-allot-inp:not(:disabled)'));
+    const allocations = inputs
+      .map(inp => ({ retailer_id: Number(inp.dataset.retid), count: Number(inp.value) || 0 }))
+      .filter(x => x.count > 0);
+    if (allocations.length === 0) return toast('Enter at least 1 coupon quantity to allot', true);
+    const issue_date = document.getElementById('bulkIssueDate').value || todayISO();
+    const mode = document.getElementById('bulkNumberMode').value;
+    try {
+      const res = await apiCall('/api/coupons/allot', 'POST', { allocations, issue_date, mode });
+      toast(`Allotted ${res.allotted} coupons!`);
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  async function allotSingleRetailerPending(retailer_id, count) {
+    const issue_date = document.getElementById('bulkIssueDate').value || todayISO();
+    const mode = document.getElementById('bulkNumberMode').value;
+    try {
+      await apiCall('/api/coupons/allot', 'POST', {
+        allocations: [{ retailer_id, count }],
+        issue_date, mode
+      });
+      toast(`Allotted ${count} coupon(s)!`);
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  function openManualSingleCouponModal() {
+    if (STATE.retailers.length === 0) return toast('Add a retailer first', true);
+    document.getElementById('manCupRetailer').innerHTML = STATE.retailers
+      .map(r => `<option value="${r.id}">${esc(r.name)}</option>`).join('');
+    document.getElementById('manCupDate').value = todayISO();
+    document.getElementById('manCupNumber').value = '';
+    openModal('manualCouponModal');
+  }
+
+  async function saveManualSingleCoupon() {
+    const retailer_id = Number(document.getElementById('manCupRetailer').value);
+    const manual_coupon_num = Number(document.getElementById('manCupNumber').value);
+    const issue_date = document.getElementById('manCupDate').value || todayISO();
+    if (!manual_coupon_num) return toast('Enter coupon number', true);
+    try {
+      await apiCall('/api/coupons/allot', 'POST', { retailer_id, manual_coupon_num, issue_date });
+      closeModal('manualCouponModal');
+      toast(`Coupon #${padCouponNum(manual_coupon_num)} allotted!`);
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  async function revokeCoupon(id, code) {
+    if (!confirm(`Revoke / un-allot Coupon #${code}?`)) return;
+    try {
+      await apiCall('/api/coupons/' + id, 'DELETE');
+      toast(`Coupon #${code} revoked`);
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  // ================= RENDER 4: PRIZE ENTRY & DRAW =================
+  function findCouponByInput(raw) {
+    const clean = String(raw || '').trim().replace(/^#/, '');
+    if (!clean) return null;
+    const asNum = Number(clean.replace(/[^0-9]/g, ''));
+    return STATE.coupons.find(c =>
+      c.coupon_code.toLowerCase() === clean.toLowerCase() ||
+      (asNum > 0 && c.coupon_num === asNum)
+    ) || null;
+  }
+
+  function lookupWinningCoupon() {
+    const val = document.getElementById('przCouponInput').value;
+    const box = document.getElementById('przMatchedBox');
+    if (!val.trim()) { box.style.display = 'none'; return; }
+    const c = findCouponByInput(val);
+    box.style.display = 'block';
+    if (!c) {
+      box.style.background = '#fee2e2';
+      box.style.borderColor = '#fca5a5';
+      box.innerHTML = `⚠️ <b>Coupon Not Found / Not Allotted Yet!</b> Kripya allotted coupon number check karein.`;
+      return;
+    }
+    const r = STATE.summaryRows.find(x => x.id === c.retailer_id);
+    box.style.background = 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)';
+    box.style.borderColor = '#6ee7b7';
+    box.innerHTML = `✅ Matched Coupon <b>#${esc(c.coupon_code)}</b> &rarr; 🏪 <b style="font-size:15px;">${esc(r?.name || 'Unknown')}</b> ${r?.area ? `(${esc(r.area)})` : ''} ${r?.phone ? `• 📞 ${esc(r.phone)}` : ''} • Purchase: <b>${r?.total_kg || 0} kg</b> ${c.prize_title ? `<span class="badge badge-amber">Existing Prize: ${esc(c.prize_title)}</span>` : ''}`;
+    if (c.prize_title && !document.getElementById('przTitleInput').value) {
+      document.getElementById('przTitleInput').value = c.prize_title;
+      document.getElementById('przRankInput').value = c.prize_rank < 999 ? c.prize_rank : 1;
+    }
+  }
+
+  function setPrizePreset(rank, title) {
+    document.getElementById('przRankInput').value = rank;
+    document.getElementById('przTitleInput').value = title;
+  }
+
+  async function savePrizeFromCard() {
+    const rawCup = document.getElementById('przCouponInput').value;
+    const c = findCouponByInput(rawCup);
+    if (!c) return toast('Valid allotted Coupon No. dalein!', true);
+    const prize_title = document.getElementById('przTitleInput').value.trim();
+    if (!prize_title) return toast('Prize ka naam likhein!', true);
+    const prize_rank = Number(document.getElementById('przRankInput').value) || 99;
+    const draw_date = document.getElementById('przDrawDate').value || todayISO();
+    const prize_status = document.getElementById('przStatusSelect').value;
+    const remarks = document.getElementById('przRemarksInput').value.trim();
+
+    try {
+      await apiCall('/api/coupons/prize', 'POST', {
+        coupon_id: c.id, prize_title, prize_rank, draw_date, prize_status, remarks
+      });
+      toast(`🏆 Saved Prize "${prize_title}" on Coupon #${c.coupon_code}!`);
+      document.getElementById('przCouponInput').value = '';
+      document.getElementById('przTitleInput').value = '';
+      document.getElementById('przRemarksInput').value = '';
+      document.getElementById('przMatchedBox').style.display = 'none';
+      document.getElementById('przTableFilter').value = 'WINNERS';
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  async function saveInlinePrize(couponId) {
+    const title = document.getElementById('inPrzTitle_' + couponId).value.trim();
+    const rank = Number(document.getElementById('inPrzRank_' + couponId).value) || 99;
+    const status = document.getElementById('inPrzStat_' + couponId).value;
+    try {
+      await apiCall('/api/coupons/prize', 'POST', {
+        coupon_id: couponId,
+        prize_title: title,
+        prize_rank: title ? rank : 999,
+        draw_date: todayISO(),
+        prize_status: title ? status : 'NONE',
+        remarks: ''
+      });
+      toast(title ? 'Prize saved!' : 'Prize cleared');
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  function renderPrizeScreen() {
+    const retById = new Map(STATE.retailers.map(r => [r.id, r]));
+    const dl = document.getElementById('allottedCouponsDatalist');
+    dl.innerHTML = [...STATE.coupons]
+      .sort((a, b) => a.coupon_num - b.coupon_num)
+      .map(c => `<option value="${esc(c.coupon_code)}">${esc(retById.get(c.retailer_id)?.name || '')}</option>`).join('');
+
+    const q = document.getElementById('przTableSearch').value.trim().toLowerCase();
+    const flt = document.getElementById('przTableFilter').value;
+
+    let list = [...STATE.coupons];
+    if (flt === 'WINNERS') list = list.filter(c => c.prize_status !== 'NONE' && c.prize_title);
+    if (flt === 'UNWON') list = list.filter(c => !c.prize_title || c.prize_status === 'NONE');
+
+    if (q) {
+      list = list.filter(c => {
+        const r = retById.get(c.retailer_id);
+        return c.coupon_code.toLowerCase().includes(q) ||
+          (r?.name || '').toLowerCase().includes(q) ||
+          (c.prize_title || '').toLowerCase().includes(q);
+      });
+    }
+
+    list.sort((a, b) => {
+      if (flt === 'WINNERS') return (a.prize_rank || 999) - (b.prize_rank || 999) || a.coupon_num - b.coupon_num;
+      return a.coupon_num - b.coupon_num;
+    });
+
+    const tbody = document.getElementById('prizeRegisterTbody');
+    if (list.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:26px;color:var(--muted);">${flt === 'WINNERS' ? 'Abhi koi prize winner add nahi hua hai. Upar Coupon No. daal kar prize chadhayein ya filter "All Allotted Coupons" chunein.' : 'No matching coupons found.'}</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(c => {
+      const r = retById.get(c.retailer_id);
+      return `<tr>
+        <td style="width:72px;">
+          <input type="number" id="inPrzRank_${c.id}" value="${c.prize_rank < 999 ? c.prize_rank : ''}" placeholder="#" style="padding:6px 8px;width:64px;" />
+        </td>
+        <td><span class="badge" style="background:var(--navy);color:#fbbf24;font-size:13px;">#${esc(c.coupon_code)}</span></td>
+        <td style="font-weight:700;">${esc(r?.name || '-')}</td>
+        <td style="font-size:12px;color:var(--muted);">${esc(r?.area || '')} ${esc(r?.phone || '')}</td>
+        <td>
+          <input type="text" id="inPrzTitle_${c.id}" value="${esc(c.prize_title || '')}" placeholder="Enter Prize Won..." style="padding:6px 10px;" />
+        </td>
+        <td>
+          <select id="inPrzStat_${c.id}" style="padding:6px 8px;">
+            <option value="WON" ${c.prize_status === 'WON' ? 'selected' : ''}>Declared</option>
+            <option value="DELIVERED" ${c.prize_status === 'DELIVERED' ? 'selected' : ''}>Handed Over ✅</option>
+          </select>
+        </td>
+        <td>
+          <button class="btn btn-green btn-sm" onclick="saveInlinePrize(${c.id})">Save</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ================= RETAILERS, SETTINGS & IMPORT =================
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  function openRetailerModal() {
+    document.getElementById('modRetName').value = '';
+    document.getElementById('modRetArea').value = '';
+    document.getElementById('modRetPhone').value = '';
+    openModal('retailerModal');
+  }
+
+  async function createRetailerFromModal() {
+    const name = document.getElementById('modRetName').value.trim().toUpperCase();
+    const area = document.getElementById('modRetArea').value.trim();
+    const phone = document.getElementById('modRetPhone').value.trim();
+    if (!name) return toast('Enter shop name', true);
+    try {
+      await apiCall('/api/retailers', 'POST', { name, area, phone });
+      closeModal('retailerModal');
+      toast(`Retailer "${name}" saved!`);
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  function openRetailerManageModal() {
+    const tbody = document.getElementById('manageRetTbody');
+    tbody.innerHTML = STATE.retailers.map(r => `
+      <tr>
+        <td style="font-weight:700;">${esc(r.name)}</td>
+        <td>${esc(r.area || '-')}</td>
+        <td>${esc(r.phone || '-')}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="deleteRetailer(${r.id}, '${esc(r.name)}')">Delete</button></td>
+      </tr>
+    `).join('') || '<tr><td colspan="4" style="text-align:center;padding:18px;">No retailers</td></tr>';
+    openModal('retailerManageModal');
+  }
+
+  async function deleteRetailer(id, name) {
+    if (!confirm(`Delete retailer "${name}" and all their deliveries/coupons?`)) return;
+    try {
+      await apiCall('/api/retailers/' + id, 'DELETE');
+      toast('Retailer deleted');
+      await refreshAll();
+      openRetailerManageModal();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  async function saveSettings() {
+    const payload = {
+      company_name: document.getElementById('setCompany').value.trim() || 'ARYUSH FOODS',
+      campaign_name: document.getElementById('setCampaign').value.trim() || 'MEGA ALTO LUCKY DRAW',
+      kg_per_coupon: Math.max(1, Number(document.getElementById('setKgPerCoupon').value) || 210),
+      kg_per_bag: Math.max(1, Number(document.getElementById('setKgPerBag').value) || 30),
+      max_coupons: Math.max(1, Number(document.getElementById('setMaxCoupons').value) || 300),
+      coupon_prefix: document.getElementById('setPrefix').value.trim(),
+      signatory: document.getElementById('setSignatory').value.trim()
+    };
+    try {
+      await apiCall('/api/settings', 'POST', payload);
+      toast('Settings saved successfully!');
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  function openBulkImportModal() {
+    document.getElementById('bulkPasteArea').value = '';
+    openModal('bulkImportModal');
+  }
+
+  function normalizeSheetDate(raw) {
+    const s = String(raw || '').trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+    const parsed = new Date(s);
+    if (!isNaN(parsed.getTime())) {
+      const tz = parsed.getTimezoneOffset() * 60000;
+      return new Date(parsed.getTime() - tz).toISOString().slice(0, 10);
+    }
+    return todayISO();
+  }
+
+  async function processBulkPaste() {
+    const type = document.getElementById('importTypeSelect').value;
+    const raw = document.getElementById('bulkPasteArea').value.trim();
+    if (!raw) return toast('Paste data first!', true);
+    const lines = raw.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+
+    try {
+      if (type === 'RETAILERS') {
+        await apiCall('/api/import', 'POST', { retailers: lines });
+        toast(`Imported ${lines.length} retailers!`);
+      } else {
+        const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+        const deliveries = [];
+        for (const line of lines) {
+          const cols = line.includes('\t') ? line.split('\t') : line.split(',');
+          if (cols.length < 2) continue;
+          if (cols[0].toLowerCase().includes('date') || cols[1].toLowerCase().includes('retailer')) continue;
+          const entry_date = normalizeSheetDate(cols[0]);
+          const retailer_name = cols[1].trim().toUpperCase();
+          let bags = 0, loose_kg = 0, total_kg = 0;
+          if (cols.length >= 4 && !isNaN(Number(cols[2])) && !isNaN(Number(cols[3]))) {
+            bags = Number(cols[2]) || 0;
+            loose_kg = Number(cols[3]) || 0;
+            total_kg = (bags * bagKg) + loose_kg;
+          } else {
+            total_kg = parseFloat(String(cols[2] || '0').replace(/[^0-9.]/g, '')) || 0;
+            bags = Math.floor(total_kg / bagKg);
+            loose_kg = Math.round((total_kg - bags * bagKg) * 100) / 100;
+          }
+          if (retailer_name && total_kg > 0) {
+            deliveries.push({ entry_date, retailer_name, bags, loose_kg, total_kg });
+          }
+        }
+        if (deliveries.length === 0) return toast('No valid delivery rows detected. Format: Date [Tab] Shop [Tab] Total KG', true);
+        await apiCall('/api/import', 'POST', { deliveries });
+        toast(`Imported ${deliveries.length} deliveries!`);
+      }
+      closeModal('bulkImportModal');
+      await refreshAll();
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  function exportBackupJSON() {
+    const blob = new Blob([JSON.stringify({
+      exported_at: new Date().toISOString(),
+      settings: STATE.settings,
+      retailers: STATE.retailers,
+      deliveries: STATE.deliveries,
+      coupons: STATE.coupons
+    }, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Aryush_Lucky_Draw_Backup_${todayISO()}.json`;
+    a.click();
+  }
+
+  async function importBackupJSON(ev) {
+    const file = ev.target.files[0];
+    if (!file) return;
+    if (!confirm('Restore backup? Current data will be replaced with backup file data.')) return;
+    const text = await file.text();
+    try {
+      const parsed = JSON.parse(text);
+      await apiCall('/api/import', 'POST', { full_restore: true, ...parsed });
+      toast('Backup restored successfully!');
+      await refreshAll();
+    } catch (e) {
+      toast('Invalid backup JSON: ' + e.message, true);
+    }
+  }
+
+  function exportDeliveriesCSV() {
+    const retById = new Map(STATE.retailers.map(r => [r.id, r.name]));
+    const rows = [['Date', 'Retailer Name', 'Bags', 'Loose KG', 'Total KG', 'Delivery ID', 'Remarks']];
+    for (const d of STATE.deliveries) {
+      rows.push([d.entry_date, `"${(retById.get(d.retailer_id)||'').replace(/"/g,'""')}"`, d.bags, d.loose_kg, d.total_kg, d.dl_code, `"${(d.remarks||'').replace(/"/g,'""')}"`]);
+    }
+    const csv = rows.map(r => r.join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Aryush_Deliveries_${todayISO()}.csv`;
+    a.click();
+  }
+
+  // ================= VECTOR PDF ENGINE (jsPDF + AutoTable + WhatsApp Share) =================
+  function pdfSafeText(str) {
+    return String(str ?? '').replace(/₹/g, 'Rs. ');
+  }
+
+  async function finishPDF(doc, filename, shareViaWhatsApp = false) {
+    if (shareViaWhatsApp && navigator.canShare) {
+      try {
+        const blob = doc.output('blob');
+        const file = new File([blob], filename, { type: 'application/pdf' });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: filename.replace(/_/g, ' '),
+            text: `${STATE.settings.company_name} - ${STATE.settings.campaign_name}`,
+            files: [file]
+          });
+          return;
+        }
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+      }
+    }
+    doc.save(filename);
+    toast(`PDF Ready: ${filename}`);
+  }
+
+  function drawPDFHeader(doc, reportTitle, subtitleLine) {
+    const s = STATE.settings;
+    const pageW = doc.internal.pageSize.getWidth();
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, pageW, 28, 'F');
+
+    doc.setTextColor(251, 191, 36);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(15);
+    doc.text(pdfSafeText(`${s.company_name} | ${s.campaign_name}`), 14, 11);
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(11);
+    doc.text(pdfSafeText(reportTitle), 14, 18.5);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor(203, 213, 225);
+    doc.text(pdfSafeText(subtitleLine), 14, 24.5);
+  }
+
+  function addPageFooters(doc) {
+    const pageCount = doc.internal.getNumberOfPages();
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const sig = pdfSafeText(STATE.settings.signatory || 'Authorized Signatory');
+
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8.5);
+      doc.setTextColor(100, 116, 139);
+      doc.text(`Generated on ${formatDateDisplay(todayISO())} | ${sig}`, 14, pageH - 8);
+      doc.text(`Page ${i} of ${pageCount}`, pageW - 32, pageH - 8);
+    }
+  }
+
+  // 1. Winners Prize Report PDF
+  async function downloadWinnersPDF(share = false) {
+    if (!window.jspdf) return printHTMLReport('WINNERS');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const retById = new Map(STATE.summaryRows.map(r => [r.id, r]));
+
+    const winners = [...STATE.coupons]
+      .filter(c => c.prize_status !== 'NONE' && c.prize_title)
+      .sort((a, b) => (a.prize_rank || 999) - (b.prize_rank || 999) || a.coupon_num - b.coupon_num);
+
+    drawPDFHeader(
+      doc,
+      'OFFICIAL LUCKY DRAW PRIZE WINNERS REPORT',
+      `Total Coupons Allotted: ${STATE.coupons.length} / ${STATE.settings.max_coupons}  |  Total Winners Declared: ${winners.length}  |  Date: ${formatDateDisplay(todayISO())}`
+    );
+
+    const body = winners.length > 0
+      ? winners.map((c, idx) => {
+          const r = retById.get(c.retailer_id);
+          return [
+            c.prize_rank < 999 ? `#${c.prize_rank}` : String(idx + 1),
+            `#${pdfSafeText(c.coupon_code)}`,
+            pdfSafeText(r?.name || '-'),
+            pdfSafeText([r?.area, r?.phone].filter(Boolean).join(' | ') || '-'),
+            pdfSafeText(c.prize_title),
+            c.prize_status === 'DELIVERED' ? 'Handed Over' : 'Winner Declared',
+            formatDateDisplay(c.draw_date || c.issue_date)
+          ];
+        })
+      : [['-', '-', 'No winners entered yet', '-', '-', '-', '-']];
+
+    doc.autoTable({
+      startY: 33,
+      head: [['Rank', 'Coupon No.', 'Winning Retailer Name', 'Area / Mobile', 'Prize Won', 'Status', 'Date']],
+      body,
+      theme: 'grid',
+      headStyles: { fillColor: [15, 23, 42], textColor: [251, 191, 36], fontStyle: 'bold', fontSize: 9 },
+      bodyStyles: { fontSize: 8.8, textColor: [15, 23, 42] },
+      alternateRowStyles: { fillColor: [248, 250, 252] },
+      columnStyles: {
+        0: { cellWidth: 14, halign: 'center', fontStyle: 'bold' },
+        1: { cellWidth: 23, fontStyle: 'bold' },
+        4: { fontStyle: 'bold', textColor: [21, 128, 61] }
+      },
+      margin: { bottom: 18 }
+    });
+
+    const finalY = Math.min(doc.lastAutoTable.finalY + 18, 268);
+    doc.setFontSize(9.5);
+    doc.setTextColor(15, 23, 42);
+    doc.text('_______________________________', 135, finalY);
+    doc.text(pdfSafeText(STATE.settings.signatory || 'Authorized Signatory'), 135, finalY + 5);
+
+    addPageFooters(doc);
+    await finishPDF(doc, `Aryush_Lucky_Draw_Winners_${todayISO()}.pdf`, share);
+  }
+
+  // 2. Full 300 Coupon & Prize Register PDF (matches Print List tab!)
+  async function downloadFullRegisterPDF(share = false) {
+    if (!window.jspdf) return printHTMLReport('REGISTER');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const retById = new Map(STATE.summaryRows.map(r => [r.id, r]));
+    const maxC = Number(STATE.settings.max_coupons) || 300;
+    const byNum = new Map(STATE.coupons.map(c => [Number(c.coupon_num), c]));
+
+    drawPDFHeader(
+      doc,
+      'COMPLETE COUPON & PRIZE REGISTER',
+      `1 Coupon per ${STATE.settings.kg_per_coupon} kg  |  Allotted: ${STATE.coupons.length} of ${maxC}  |  Blank Prize rows for live manual draw entry`
+    );
+
+    const rows = [];
+    for (let n = 1; n <= maxC; n++) {
+      const c = byNum.get(n);
+      const r = c ? retById.get(c.retailer_id) : null;
+      rows.push([
+        `#${padCouponNum(n)}`,
+        c ? pdfSafeText(r?.name || '-') : '(Unallotted)',
+        c ? pdfSafeText(r?.area || '-') : '-',
+        c ? formatDateDisplay(c.issue_date) : '-',
+        c && c.prize_title ? pdfSafeText(c.prize_title) : ''
+      ]);
+    }
+
+    doc.autoTable({
+      startY: 33,
+      head: [['Coupon No.', 'Retailer Name', 'Area / Village', 'Issue Date', 'Prize Won']],
+      body: rows,
+      theme: 'grid',
+      headStyles: { fillColor: [15, 23, 42], textColor: [251, 191, 36], fontStyle: 'bold', fontSize: 9 },
+      bodyStyles: { fontSize: 8.5, minCellHeight: 7.5 },
+      alternateRowStyles: { fillColor: [248, 250, 252] },
+      columnStyles: {
+        0: { cellWidth: 24, fontStyle: 'bold' },
+        1: { cellWidth: 68 },
+        2: { cellWidth: 32 },
+        3: { cellWidth: 26 },
+        4: { cellWidth: 36, fontStyle: 'bold' }
+      },
+      margin: { bottom: 15 }
+    });
+
+    addPageFooters(doc);
+    await finishPDF(doc, `Aryush_Coupon_Prize_Register_${todayISO()}.pdf`, share);
+  }
+
+  // 3. Retailer Purchase & Coupon Summary PDF
+  async function downloadRetailerSummaryPDF(share = false) {
+    if (!window.jspdf) return printHTMLReport('SUMMARY');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('l', 'mm', 'a4');
+    const totalKg = STATE.summaryRows.reduce((s, r) => s + r.total_kg, 0);
+    const totalEarned = STATE.summaryRows.reduce((s, r) => s + r.earned, 0);
+
+    drawPDFHeader(
+      doc,
+      'RETAILER-WISE PURCHASE, COUPON & PRIZE SUMMARY',
+      `Total Delivered: ${Math.round(totalKg*100)/100} kg  |  Total Earned: ${totalEarned}  |  Total Allotted: ${STATE.coupons.length}  |  Rule: 1 Coupon = ${STATE.settings.kg_per_coupon} kg`
+    );
+
+    const body = STATE.summaryRows.map((r, i) => [
+      i + 1,
+      pdfSafeText(r.name),
+      pdfSafeText(r.area || '-'),
+      r.equiv_bags,
+      `${r.total_kg} kg`,
+      r.earned,
+      r.issued,
+      r.pending,
+      pdfSafeText(r.coupons.map(c => '#' + c.coupon_code).join(', ') || '-'),
+      pdfSafeText(r.prizes.map(p => `#${p.coupon_code}: ${p.prize_title}`).join('; ') || '-')
+    ]);
+
+    doc.autoTable({
+      startY: 33,
+      head: [['#', 'Retailer Name', 'Area', 'Bags', 'Total KG', 'Earned', 'Issued', 'Pending', 'Coupon Numbers', 'Prizes Won']],
+      body,
+      theme: 'grid',
+      headStyles: { fillColor: [15, 23, 42], textColor: [251, 191, 36], fontSize: 8.5 },
+      bodyStyles: { fontSize: 8.2 },
+      alternateRowStyles: { fillColor: [248, 250, 252] },
+      margin: { bottom: 15 }
+    });
+
+    addPageFooters(doc);
+    await finishPDF(doc, `Aryush_Retailer_Summary_${todayISO()}.pdf`, share);
+  }
+
+  // 4. Handover Slips PDF
+  async function downloadHandoverSlipsPDF(share = false) {
+    if (!window.jspdf) return;
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const allottedRetailers = STATE.summaryRows.filter(r => r.coupons.length > 0);
+
+    drawPDFHeader(
+      doc,
+      'RETAILER COUPON ALLOTMENT & HANDOVER RECEIPT REGISTER',
+      `Retailers with Allotted Coupons: ${allottedRetailers.length}  |  Total Coupons: ${STATE.coupons.length}`
+    );
+
+    const body = allottedRetailers.map((r, idx) => [
+      idx + 1,
+      pdfSafeText(r.name),
+      `${r.total_kg} kg`,
+      r.coupons.length,
+      pdfSafeText(r.coupons.map(c => '#' + c.coupon_code).join(', ')),
+      ''
+    ]);
+
+    doc.autoTable({
+      startY: 33,
+      head: [['#', 'Retailer Name', 'Total KG', 'Qty', 'Allotted Coupon Numbers', 'Receiver Signature']],
+      body: body.length ? body : [['-', 'No coupons allotted yet', '-', '-', '-', '']],
+      theme: 'grid',
+      headStyles: { fillColor: [15, 23, 42], textColor: [251, 191, 36], fontSize: 9 },
+      bodyStyles: { fontSize: 8.8, minCellHeight: 10 },
+      columnStyles: { 5: { cellWidth: 36 } },
+      margin: { bottom: 15 }
+    });
+
+    addPageFooters(doc);
+    await finishPDF(doc, `Aryush_Coupon_Handover_List_${todayISO()}.pdf`, share);
+  }
+
+  // Unicode / Hindi Native A4 Print View
+  function printHTMLReport(mode) {
+    const s = STATE.settings;
+    const retById = new Map(STATE.summaryRows.map(r => [r.id, r]));
+    let title = '';
+    let tableHtml = '';
+
+    if (mode === 'WINNERS') {
+      title = 'OFFICIAL LUCKY DRAW PRIZE WINNERS REPORT';
+      const winners = [...STATE.coupons]
+        .filter(c => c.prize_status !== 'NONE' && c.prize_title)
+        .sort((a, b) => (a.prize_rank || 999) - (b.prize_rank || 999) || a.coupon_num - b.coupon_num);
+      tableHtml = `<table class="print-table">
+        <thead><tr><th>Rank</th><th>Coupon No.</th><th>Retailer Name</th><th>Area / Phone</th><th>Prize Won</th><th>Status</th></tr></thead>
+        <tbody>${winners.map((c, i) => {
+          const r = retById.get(c.retailer_id);
+          return `<tr><td>${c.prize_rank < 999 ? c.prize_rank : i+1}</td><td><b>#${esc(c.coupon_code)}</b></td><td><b>${esc(r?.name||'-')}</b></td><td>${esc(r?.area||'')} ${esc(r?.phone||'')}</td><td><b>${esc(c.prize_title)}</b></td><td>${c.prize_status === 'DELIVERED' ? 'Handed Over' : 'Declared'}</td></tr>`;
+        }).join('') || '<tr><td colspan="6">No winners declared yet</td></tr>'}</tbody></table>`;
+    } else if (mode === 'REGISTER') {
+      title = 'MEGA LUCKY DRAW COUPON & PRIZE REGISTER';
+      const maxC = Number(s.max_coupons) || 300;
+      const byNum = new Map(STATE.coupons.map(c => [Number(c.coupon_num), c]));
+      let rows = '';
+      for (let n = 1; n <= maxC; n++) {
+        const c = byNum.get(n);
+        const r = c ? retById.get(c.retailer_id) : null;
+        rows += `<tr><td><b>#${esc(padCouponNum(n))}</b></td><td>${esc(r?.name || '')}</td><td>${c ? formatDateDisplay(c.issue_date) : ''}</td><td><b>${esc(c?.prize_title || '')}</b></td></tr>`;
+      }
+      tableHtml = `<table class="print-table"><thead><tr><th>Coupon No.</th><th>Retailer Name</th><th>Issue Date</th><th>Prize Won</th></tr></thead><tbody>${rows}</tbody></table>`;
+    } else {
+      title = 'RETAILER PURCHASE & COUPON SUMMARY';
+      tableHtml = `<table class="print-table"><thead><tr><th>#</th><th>Retailer</th><th>Total KG</th><th>Earned</th><th>Issued</th><th>Coupon Nos.</th><th>Prizes</th></tr></thead>
+        <tbody>${STATE.summaryRows.map((r, i) => `<tr><td>${i+1}</td><td><b>${esc(r.name)}</b></td><td>${r.total_kg} kg</td><td>${r.earned}</td><td>${r.issued}</td><td>${esc(r.coupons.map(c=>'#'+c.coupon_code).join(', '))}</td><td>${esc(r.prizes.map(p=>p.prize_title).join(', '))}</td></tr>`).join('')}</tbody></table>`;
+    }
+
+    const sec = document.getElementById('printSection');
+    sec.innerHTML = `
+      <div style="text-align:center;border-bottom:2px solid #0f172a;padding-bottom:8px;">
+        <h2 style="font-size:18px;">${esc(s.company_name)} — ${esc(s.campaign_name)}</h2>
+        <div style="font-size:13px;font-weight:700;margin-top:2px;">${title}</div>
+        <div style="font-size:11px;color:#475569;margin-top:2px;">Date: ${formatDateDisplay(todayISO())} | 1 Coupon = ${s.kg_per_coupon} kg | Pool: ${s.max_coupons} Coupons</div>
+      </div>
+      ${tableHtml}
+      <div style="margin-top:28px;text-align:right;font-size:12px;font-weight:700;">${esc(s.signatory)}</div>
+    `;
+    window.print();
+  }
+
+  // ================= INIT =================
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('delDate').value = todayISO();
+    document.getElementById('bulkIssueDate').value = todayISO();
+    document.getElementById('przDrawDate').value = todayISO();
+    refreshAll();
+  });
+</script>
+</body>
+</html>

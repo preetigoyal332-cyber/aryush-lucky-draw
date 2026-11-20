@@ -1,0 +1,7 @@
+worker.js
+wrangler.toml
+package.json
+schema.sql
+README.md
+.git
+node_modules

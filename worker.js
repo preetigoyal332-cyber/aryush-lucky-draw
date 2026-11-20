@@ -1,6 +1,22 @@
 // Aryush Foods — Lucky Draw Coupon & 301 Prize ERP (v2.0 Pro)
 // Cloudflare Worker + D1 Backend (Auto-migrates v1 -> v2 seamlessly)
 
+const OFFICIAL_301_SEGMENTS = [
+  [1, "1st Prize - Maruti Suzuki Alto K10 LXi", 1, "🚗"],
+  [2, "2nd Prize - Honda Activa", 2, "🛵"],
+  [3, "3rd Prize - Hero HF Deluxe Bike", 2, "🏍️"],
+  [4, "4th Prize - Chandi (Silver) 200g", 2, "🥈"],
+  [5, "5th Prize - Chandi (Silver) 100g", 5, "🪙"],
+  [6, "6th Prize - Lloyd Refrigerator (180L)", 10, "🧊"],
+  [7, "7th Prize - Chandi (Silver) 50g", 11, "🪙"],
+  [8, "8th Prize - Voltas Washing Machine (6 kg)", 21, "🧺"],
+  [9, "9th Prize - Chandi (Silver) 30g", 25, "✨"],
+  [10, "10th Prize - Chandi (Silver) 25g", 30, "✨"],
+  [11, "11th Prize - Chandi (Silver) 20g", 40, "✨"],
+  [12, "12th Prize - Rasoi Dhan Haldi Powder (25 kg)", 51, "🟡"],
+  [13, "13th Prize - Rasoi Dhan Dhaniya Powder (30 kg)", 101, "🟢"]
+];
+
 let schemaInitialized = false;
 
 async function ensureSchema(db) {
@@ -52,17 +68,17 @@ async function ensureSchema(db) {
     db.prepare(`CREATE INDEX IF NOT EXISTS idx_coupons_retailer ON coupons(retailer_id)`)
   ]);
 
-  // Seed default 301-prize segments if table is empty
-  const segCount = await db.prepare("SELECT COUNT(*) AS cnt FROM prize_segments").first();
-  if (!segCount || Number(segCount.cnt) === 0) {
-    await db.batch([
-      db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (1, '1st Mega Prize - Maruti Alto Car', 1, '🥇')"),
-      db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (2, '2nd Prize - Two Wheeler / Fridge', 2, '🥈')"),
-      db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (3, '3rd Prize - LED TV / Washing Machine', 5, '🥉')"),
-      db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (4, '4th Prize - Mixer Grinder / Induction', 25, '🎁')"),
-      db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (5, '5th Prize - Special Home Appliance', 50, '✨')"),
-      db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (6, 'Assured / Consolation Gift Prize', 218, '⭐')")
-    ]);
+  // Seed or auto-upgrade old placeholder segments to Official Aryush 301 Prize List
+  const segRows = await db.prepare("SELECT * FROM prize_segments ORDER BY rank ASC").all();
+  const existingSegs = segRows.results || [];
+  const isOldPlaceholder = existingSegs.length === 6 && existingSegs.some(s => String(s.title).includes("Assured / Consolation Gift Prize"));
+  if (existingSegs.length === 0 || isOldPlaceholder) {
+    await db.prepare("DELETE FROM prize_segments").run();
+    await db.batch(
+      OFFICIAL_301_SEGMENTS.map(([r, t, q, ic]) =>
+        db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)").bind(r, t, q, ic)
+      )
+    );
   }
 
   schemaInitialized = true;
@@ -318,6 +334,17 @@ export default {
       if (url.pathname.startsWith("/api/deliveries/") && request.method === "DELETE") {
         const id = Number(url.pathname.split("/").pop());
         await db.prepare("DELETE FROM deliveries WHERE id = ?").bind(id).run();
+        return jsonResp({ ok: true });
+      }
+
+      // 8A. POST /api/segments/reset-official
+      if (url.pathname === "/api/segments/reset-official" && request.method === "POST") {
+        await db.prepare("DELETE FROM prize_segments").run();
+        await db.batch(
+          OFFICIAL_301_SEGMENTS.map(([r, t, q, ic]) =>
+            db.prepare("INSERT INTO prize_segments (rank, title, target_qty, icon) VALUES (?, ?, ?, ?)").bind(r, t, q, ic)
+          )
+        );
         return jsonResp({ ok: true });
       }
 

@@ -1,5 +1,5 @@
 // Aryush Lucky Draw Pro v2.0 Service Worker (Network-first, auto-busts old v1 cache)
-const CACHE_NAME = 'aryush-draw-v3.0';
+const CACHE_NAME = 'aryush-draw-v4.0';
 const STATIC_ASSETS = ['/', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {

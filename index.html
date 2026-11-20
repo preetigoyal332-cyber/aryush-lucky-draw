@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods — Lucky Draw & 301 Prize ERP v3.0</title>
+  <title>Aryush Foods — Lucky Draw & 301 Prize ERP v4.0</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -16,270 +16,291 @@
   <style>
     :root {
       --navy: #0f172a;
-      --navy-2: #1e293b;
+      --slate: #334155;
       --brand: #ea580c;
-      --gold: #f59e0b;
+      --brand-soft: #fff7ed;
+      --gold: #d97706;
       --gold-soft: #fef3c7;
       --green: #16a34a;
-      --green-soft: #dcfce7;
+      --green-soft: #f0fdf4;
       --teal: #0d9488;
-      --teal-soft: #ccfbf1;
+      --teal-soft: #f0fdfa;
       --blue: #2563eb;
-      --blue-soft: #dbeafe;
+      --blue-soft: #eff6ff;
       --red: #dc2626;
-      --red-soft: #fee2e2;
-      --bg: #f1f5f9;
+      --red-soft: #fef2f2;
+      --bg: #f8fafc;
       --card: #ffffff;
       --text: #0f172a;
       --muted: #64748b;
       --border: #e2e8f0;
       --radius: 14px;
-      --shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 86px; min-height: 100vh; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 82px; min-height: 100vh; }
 
-    /* Header */
+    /* Minimal Executive Topbar */
     .topbar {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #fff; padding: 12px 14px; position: sticky; top: 0; z-index: 50;
-      box-shadow: 0 4px 16px rgba(15,23,42,0.2);
+      background: var(--navy); color: #fff; padding: 12px 16px; position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    .topbar-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-    .brand-row { display: flex; align-items: center; gap: 10px; }
+    .topbar-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .brand-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
     .logo-box {
-      width: 40px; height: 40px; border-radius: 11px;
-      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      width: 36px; height: 36px; border-radius: 10px; background: var(--brand);
       display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 17px; color: #fff; flex-shrink: 0;
-      box-shadow: 0 3px 10px rgba(234,88,12,0.4);
+      font-weight: 900; font-size: 15px; color: #fff; flex-shrink: 0;
     }
-    .brand-h1 { font-size: 15px; font-weight: 800; color: #fbbf24; line-height: 1.2; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .ver-tag { font-size: 10px; background: rgba(251,191,36,0.18); color: #fde68a; padding: 2px 6px; border-radius: 6px; font-weight: 700; }
-    .brand-sub { font-size: 11.5px; color: #cbd5e1; margin-top: 2px; }
-    .hdr-btns { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .brand-h1 { font-size: 14.5px; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
+    .ver-tag { font-size: 10px; background: rgba(255,255,255,0.14); color: #cbd5e1; padding: 2px 6px; border-radius: 6px; font-weight: 700; }
+    .brand-sub { font-size: 11px; color: #94a3b8; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hdr-btns { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .sync-pill {
-      font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px;
-      background: rgba(22,163,74,0.2); color: #86efac; border: 1px solid rgba(22,163,74,0.4);
-      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10.5px; font-weight: 700; padding: 4px 8px; border-radius: 999px;
+      background: rgba(22,163,74,0.18); color: #86efac; display: inline-flex; align-items: center; gap: 5px;
     }
-    .sync-pill.local { background: rgba(245,158,11,0.2); color: #fde68a; border-color: rgba(245,158,11,0.4); }
+    .sync-pill.local { background: rgba(245,158,11,0.2); color: #fde68a; }
     .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
     /* Desktop Tabs */
-    .desk-nav { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 64px; z-index: 40; }
-    .desk-nav-inner { max-width: 1180px; margin: 0 auto; display: flex; gap: 6px; padding: 7px 14px; overflow-x: auto; }
+    .desk-nav { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 61px; z-index: 40; }
+    .desk-nav-inner { max-width: 1080px; margin: 0 auto; display: flex; gap: 6px; padding: 8px 16px; overflow-x: auto; }
     .dtab {
-      border: none; background: transparent; color: var(--muted); padding: 9px 14px;
-      border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap;
+      border: none; background: transparent; color: var(--muted); padding: 8px 14px;
+      border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap;
       display: inline-flex; align-items: center; gap: 6px;
     }
-    .dtab.active { background: var(--navy); color: #fbbf24; }
-    .cnt-pill { background: #ef4444; color: #fff; font-size: 10.5px; font-weight: 800; padding: 1px 6px; border-radius: 999px; }
+    .dtab.active { background: var(--navy); color: #fff; }
+    .cnt-pill { background: var(--brand); color: #fff; font-size: 10.5px; font-weight: 800; padding: 1px 6px; border-radius: 999px; }
 
-    /* Layout */
-    .container { max-width: 1180px; margin: 14px auto; padding: 0 12px; }
-    .screen { display: none; animation: fade 0.15s ease; }
+    /* Container & Screens */
+    .container { max-width: 1080px; margin: 14px auto; padding: 0 12px; }
+    .screen { display: none; animation: fade 0.14s ease; }
     .screen.active { display: block; }
-    @keyframes fade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fade { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Interactive Clickable KPIs (2-col on mobile, 4-col on desktop) */
-    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; margin-bottom: 14px; }
-    @media (min-width: 820px) { .kpi-grid { grid-template-columns: repeat(4, 1fr); } }
+    /* Clean Airy Overview KPI Grid */
+    .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+    @media (min-width: 780px) { .kpi-grid { grid-template-columns: repeat(4, 1fr); } }
     .kpi {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 13px;
-      padding: 11px 13px; box-shadow: var(--shadow); border-left: 4px solid var(--navy);
-      cursor: pointer; transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
-      position: relative; user-select: none;
+      background: var(--card); border: 1px solid var(--border); border-radius: 13px;
+      padding: 13px 14px; box-shadow: var(--shadow); cursor: pointer;
+      transition: border-color 0.15s, transform 0.12s; position: relative; user-select: none;
     }
-    .kpi:hover { border-color: #94a3b8; box-shadow: 0 5px 16px rgba(15,23,42,0.11); transform: translateY(-1px); }
-    .kpi:active { transform: scale(0.98); }
-    .kpi.purple { border-left-color: #7c3aed; }
-    .kpi-tap {
-      position: absolute; top: 9px; right: 10px; font-size: 10px; font-weight: 800;
-      color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 999px;
-    }
-    .khata-row {
-      display: flex; justify-content: space-between; align-items: center; gap: 8px;
-      padding: 10px 12px; border: 1px solid var(--border); border-radius: 11px; background: #fff;
-    }
-    .khata-row:nth-child(even) { background: #f8fafc; }
-    .kpi.teal { border-left-color: var(--teal); }
-    .kpi.blue { border-left-color: var(--blue); }
-    .kpi.amber { border-left-color: var(--gold); }
-    .kpi.orange { border-left-color: var(--brand); }
-    .kpi.green { border-left-color: var(--green); }
-    .kpi-lbl { font-size: 10.5px; font-weight: 800; text-transform: uppercase; color: var(--muted); letter-spacing: 0.3px; }
-    .kpi-val { font-size: 21px; font-weight: 900; color: var(--text); margin: 3px 0 1px; }
-    .kpi-sub { font-size: 11px; color: var(--muted); font-weight: 600; }
+    .kpi:hover { border-color: #cbd5e1; }
+    .kpi:active { transform: scale(0.985); background: #f8fafc; }
+    .kpi-chev { position: absolute; top: 13px; right: 12px; color: #94a3b8; font-size: 15px; font-weight: 700; }
+    .kpi-lbl { font-size: 11px; font-weight: 700; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+    .kpi-val { font-size: 22px; font-weight: 800; color: var(--text); margin: 5px 0 2px; letter-spacing: -0.3px; }
+    .kpi-sub { font-size: 11px; color: #94a3b8; font-weight: 600; }
+    .kpi.accent-amber .kpi-val { color: #b45309; }
+    .kpi.accent-green .kpi-val { color: #15803d; }
+    .kpi.accent-blue .kpi-val { color: #1d4ed8; }
 
-    /* Quick Action Strip */
-    .quick-strip {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px;
-    }
-    @media (min-width: 640px) { .quick-strip { grid-template-columns: repeat(4, 1fr); } }
-    .qbtn {
-      background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 10px 12px;
-      font-size: 12.5px; font-weight: 800; color: var(--navy); cursor: pointer;
-      display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow); text-align: left;
-    }
-    .qbtn:active { transform: scale(0.98); }
-    .qbtn .qico { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    /* Clean Cards */
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
+    .card-hd { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .card-title { font-size: 15px; font-weight: 800; color: var(--navy); display: flex; align-items: center; gap: 6px; }
+    .card-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    /* Cards */
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; box-shadow: var(--shadow); margin-bottom: 14px; }
-    .card-hd { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-    .card-title { font-size: 15.5px; font-weight: 800; color: var(--navy); display: flex; align-items: center; gap: 7px; }
-    .card-sub { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.35; }
-
-    /* Inputs & Buttons */
+    /* Forms */
     .form-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
     @media (min-width: 680px) { .form-grid.cols-2 { grid-template-columns: repeat(2, 1fr); } .form-grid.cols-3 { grid-template-columns: repeat(3, 1fr); } .form-grid.cols-4 { grid-template-columns: repeat(4, 1fr); } }
     .field { display: flex; flex-direction: column; gap: 4px; }
-    .field label { font-size: 11.5px; font-weight: 800; color: #334155; }
+    .field label { font-size: 11.5px; font-weight: 700; color: var(--slate); }
     input, select, textarea {
-      width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px;
+      width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 10px;
       font-size: 14px; color: var(--text); background: #fff; outline: none;
     }
-    input:focus, select:focus, textarea:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(234,88,12,0.12); }
+    input:focus, select:focus, textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(15,23,42,0.07); }
 
+    /* Buttons */
     .btn {
-      border: none; border-radius: 10px; padding: 10px 14px; font-size: 13px; font-weight: 800;
+      border: none; border-radius: 10px; padding: 10px 14px; font-size: 13px; font-weight: 700;
       cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      transition: all 0.14s ease; text-decoration: none;
+      transition: opacity 0.14s, transform 0.1s; text-decoration: none;
     }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-navy { background: var(--navy); color: #fbbf24; }
-    .btn-brand { background: linear-gradient(135deg, #f59e0b, #ea580c); color: #fff; box-shadow: 0 3px 10px rgba(234,88,12,0.28); }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-navy { background: var(--navy); color: #fff; }
+    .btn-brand { background: var(--brand); color: #fff; }
     .btn-green { background: var(--green); color: #fff; }
     .btn-wa { background: #15803d; color: #fff; }
-    .btn-outline { background: #fff; color: var(--navy); border: 1.5px solid #cbd5e1; }
-    .btn-danger { background: var(--red-soft); color: var(--red); }
-    .btn-sm { padding: 6px 10px; font-size: 11.5px; border-radius: 8px; }
-    .btn-xs { padding: 4px 8px; font-size: 11px; border-radius: 7px; }
+    .btn-outline { background: #fff; color: var(--slate); border: 1px solid #cbd5e1; }
+    .btn-danger { background: var(--red-soft); color: var(--red); border: 1px solid #fecaca; }
+    .btn-sm { padding: 7px 11px; font-size: 12px; border-radius: 8px; }
+    .btn-xs { padding: 5px 9px; font-size: 11.5px; border-radius: 7px; }
 
-    /* Badges */
-    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 800; }
-    .b-navy { background: var(--navy); color: #fbbf24; }
+    /* Minimal Badges */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .b-navy { background: #f1f5f9; color: var(--navy); border: 1px solid #cbd5e1; }
     .b-green { background: var(--green-soft); color: #15803d; }
     .b-amber { background: var(--gold-soft); color: #b45309; }
     .b-teal { background: var(--teal-soft); color: #0f766e; }
     .b-blue { background: var(--blue-soft); color: #1d4ed8; }
-    .b-gray { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
-    .b-area { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; cursor: pointer; }
+    .b-gray { background: #f1f5f9; color: #64748b; }
+    .b-area { background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; }
 
-    /* Mobile-First Retailer List Cards (No Horizontal Scroll!) */
-    .ret-list { display: flex; flex-direction: column; gap: 10px; }
-    .ret-item {
-      border: 1.5px solid var(--border); border-radius: 13px; padding: 12px 13px; background: #fff;
-      transition: border-color 0.15s;
+    /* KHATABOOK-STYLE CLEAN PARTY LIST */
+    .party-list { border: 1px solid var(--border); border-radius: 12px; background: #fff; overflow: hidden; }
+    .party-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 13px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer;
+      transition: background 0.12s;
     }
-    .ret-item:hover { border-color: #cbd5e1; }
+    .party-row:last-child { border-bottom: none; }
+    .party-row:hover { background: #f8fafc; }
+    .party-row:active { background: #f1f5f9; }
+    .party-left { display: flex; align-items: center; gap: 11px; min-width: 0; flex: 1; }
+    .party-avatar {
+      width: 38px; height: 38px; border-radius: 10px; background: #f1f5f9; color: var(--navy);
+      display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .party-avatar.active-shop { background: #eff6ff; color: #1d4ed8; }
+    .party-avatar.winner-shop { background: #fef3c7; color: #b45309; }
+    .party-info { min-width: 0; flex: 1; }
+    .party-title { font-size: 14px; font-weight: 700; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .party-sub { font-size: 12px; color: var(--muted); margin-top: 2px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .party-right { text-align: right; flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+    .party-kg { font-size: 14.5px; font-weight: 800; color: var(--navy); }
+    .party-bags { font-size: 11px; color: #94a3b8; font-weight: 600; margin-top: 1px; }
+    .party-arrow { color: #cbd5e1; font-size: 18px; font-weight: 600; }
+
+    /* FULL-SCREEN CLEAN PARTY KHATA SHEET */
+    .khata-sheet {
+      display: none; position: fixed; inset: 0; background: var(--bg); z-index: 120;
+      overflow-y: auto; animation: slideIn 0.16s ease;
+    }
+    .khata-sheet.open { display: block; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .khata-topbar {
+      background: var(--navy); color: #fff; padding: 12px 14px; position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .khata-back {
+      border: none; background: rgba(255,255,255,0.12); color: #fff; width: 34px; height: 34px;
+      border-radius: 9px; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .khata-container { max-width: 780px; margin: 0 auto; padding: 14px 12px 40px; }
+    .khata-bal-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 15px;
+      box-shadow: var(--shadow); margin-bottom: 12px;
+    }
+    .khata-stats-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+    .khata-stat-col { padding: 4px; border-right: 1px solid #f1f5f9; }
+    .khata-stat-col:last-child { border-right: none; }
+    .khata-stat-lbl { font-size: 10.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; }
+    .khata-stat-val { font-size: 18px; font-weight: 800; color: var(--navy); margin-top: 3px; }
+    .khata-stat-sub { font-size: 11px; color: #94a3b8; margin-top: 1px; }
+
+    /* Clean Passbook Table */
+    .passbook { background: #fff; border: 1px solid var(--border); border-radius: 13px; overflow: hidden; box-shadow: var(--shadow); }
+    .pb-head {
+      display: grid; grid-template-columns: 1.15fr 1.1fr 0.9fr; padding: 9px 14px;
+      background: #f8fafc; border-bottom: 1px solid var(--border);
+      font-size: 10.5px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .pb-row {
+      display: grid; grid-template-columns: 1.15fr 1.1fr 0.9fr; padding: 11px 14px;
+      border-bottom: 1px solid #f1f5f9; align-items: center; gap: 6px;
+    }
+    .pb-row:last-child { border-bottom: none; }
+    .pb-date { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .pb-ref { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+    .pb-in { font-size: 13.5px; font-weight: 800; color: #15803d; }
+    .pb-bags { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .pb-bal { text-align: right; font-size: 13.5px; font-weight: 800; color: var(--navy); }
+
+    /* Generic List Items for other tabs */
+    .ret-list { display: flex; flex-direction: column; gap: 8px; }
+    .ret-item { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; background: #fff; }
     .ret-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-    .ret-name { font-size: 14.5px; font-weight: 800; color: var(--navy); line-height: 1.25; }
+    .ret-name { font-size: 14px; font-weight: 700; color: var(--navy); }
     .ret-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; align-items: center; }
     .ret-kg-box { text-align: right; flex-shrink: 0; }
-    .ret-kg-val { font-size: 16px; font-weight: 900; color: var(--navy); }
-    .ret-bag-val { font-size: 11px; color: var(--muted); font-weight: 700; }
-
-    .prog-bar { width: 100%; height: 7px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-top: 4px; }
-    .prog-fill { height: 100%; background: linear-gradient(90deg, #0d9488, #16a34a); border-radius: 999px; }
-
+    .ret-kg-val { font-size: 15px; font-weight: 800; color: var(--navy); }
+    .ret-bag-val { font-size: 11px; color: var(--muted); }
+    .prog-bar { width: 100%; height: 5px; background: #f1f5f9; border-radius: 999px; overflow: hidden; margin-top: 6px; }
+    .prog-fill { height: 100%; background: var(--teal); border-radius: 999px; }
     .cup-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
-    .ret-actions {
-      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-top: 9px;
-      border-top: 1px dashed var(--border); justify-content: space-between; align-items: center;
+    .khata-row {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: #fff;
     }
 
-    /* Fast Bag Preset Grid */
+    /* Fast Bag Presets */
     .bag-presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 6px; }
     @media (min-width: 640px) { .bag-presets { grid-template-columns: repeat(7, 1fr); } }
     .bag-btn {
-      border: 1.5px solid #cbd5e1; background: #f8fafc; border-radius: 9px; padding: 8px 4px;
-      font-size: 12px; font-weight: 800; color: var(--navy); cursor: pointer; text-align: center;
+      border: 1px solid #cbd5e1; background: #fff; border-radius: 9px; padding: 8px 4px;
+      font-size: 12px; font-weight: 700; color: var(--navy); cursor: pointer; text-align: center;
     }
-    .bag-btn.highlight { background: #fffbeb; border-color: #f59e0b; color: #b45309; }
-    .bag-btn:active { background: var(--navy); color: #fbbf24; }
-
+    .bag-btn.highlight { background: #fffbeb; border-color: #fcd34d; color: #b45309; }
+    .bag-btn:active { background: var(--navy); color: #fff; }
     .stepper { display: flex; align-items: center; gap: 6px; }
-    .step-btn {
-      width: 40px; height: 40px; border-radius: 10px; border: 1.5px solid #cbd5e1;
-      background: #f8fafc; font-size: 19px; font-weight: 900; cursor: pointer; flex-shrink: 0;
-    }
+    .step-btn { width: 38px; height: 38px; border-radius: 9px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 18px; font-weight: 800; cursor: pointer; }
 
-    /* Segment Cards for 301 Prizes */
-    .seg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 9px; margin-bottom: 14px; }
+    /* 301 Prize Segment Cards (Compact & Clean) */
+    .seg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 8px; margin-bottom: 14px; }
     .seg-card {
-      border: 2px solid var(--border); border-radius: 12px; padding: 11px 12px; background: #fff;
-      cursor: pointer; transition: all 0.15s ease; position: relative;
+      border: 1px solid var(--border); border-radius: 11px; padding: 10px 12px; background: #fff;
+      cursor: pointer; transition: all 0.14s;
     }
-    .seg-card.active {
-      border-color: var(--brand); background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-      box-shadow: 0 4px 14px rgba(234,88,12,0.16);
-    }
-    .seg-rank { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; }
-    .seg-title { font-size: 13.5px; font-weight: 800; color: var(--navy); margin: 3px 0 6px; line-height: 1.25; }
-    .seg-foot { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; font-weight: 800; }
+    .seg-card.active { border: 2px solid var(--brand); background: var(--brand-soft); }
+    .seg-rank { font-size: 10.5px; font-weight: 700; color: var(--muted); }
+    .seg-title { font-size: 13px; font-weight: 800; color: var(--navy); margin: 3px 0 6px; line-height: 1.25; }
+    .seg-foot { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; }
 
-    /* Visual 1-301 Coupon Touch Grid */
+    /* Touch Grid */
     .num-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(54px, 1fr)); gap: 6px;
-      max-height: 320px; overflow-y: auto; padding: 10px; background: #f8fafc;
-      border: 1px solid var(--border); border-radius: 12px; margin-top: 10px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 6px;
+      max-height: 300px; overflow-y: auto; padding: 10px; background: #f8fafc;
+      border: 1px solid var(--border); border-radius: 11px; margin-top: 10px;
     }
-    .num-tile {
-      border: 1.5px solid #cbd5e1; background: #fff; border-radius: 8px; padding: 8px 2px;
-      text-align: center; font-size: 12.5px; font-weight: 800; cursor: pointer; user-select: none;
-    }
-    .num-tile.unallotted { opacity: 0.32; cursor: not-allowed; background: #e2e8f0; }
-    .num-tile.won { background: #dcfce7; border-color: #86efac; color: #166534; }
-    .num-tile.selected { background: var(--brand); border-color: var(--brand); color: #fff; transform: scale(1.04); }
+    .num-tile { border: 1px solid #cbd5e1; background: #fff; border-radius: 8px; padding: 7px 2px; text-align: center; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .num-tile.unallotted { opacity: 0.3; cursor: not-allowed; background: #e2e8f0; }
+    .num-tile.won { background: var(--green-soft); border-color: #86efac; color: #166534; }
+    .num-tile.selected { background: var(--brand); border-color: var(--brand); color: #fff; }
 
     /* Bottom Mobile Nav */
     .bnav {
       display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #fff;
-      border-top: 1px solid var(--border); z-index: 60; box-shadow: 0 -4px 14px rgba(15,23,42,0.08);
+      border-top: 1px solid var(--border); z-index: 60;
     }
     .bnav-inner { display: grid; grid-template-columns: repeat(5, 1fr); }
     .bbtn {
-      border: none; background: transparent; padding: 7px 2px; display: flex; flex-direction: column;
-      align-items: center; gap: 2px; color: var(--muted); font-size: 10.5px; font-weight: 800; cursor: pointer; position: relative;
+      border: none; background: transparent; padding: 8px 2px; display: flex; flex-direction: column;
+      align-items: center; gap: 2px; color: #94a3b8; font-size: 10.5px; font-weight: 700; cursor: pointer; position: relative;
     }
-    .bbtn .ico { font-size: 18px; }
-    .bbtn.active { color: var(--brand); background: #fff7ed; }
+    .bbtn .ico { font-size: 17px; }
+    .bbtn.active { color: var(--navy); font-weight: 800; }
     .bbtn-badge {
-      position: absolute; top: 3px; right: 16%; background: #ef4444; color: #fff;
-      font-size: 9.5px; font-weight: 900; padding: 0 5px; border-radius: 999px;
+      position: absolute; top: 4px; right: 18%; background: var(--brand); color: #fff;
+      font-size: 9.5px; font-weight: 800; padding: 0 5px; border-radius: 999px;
     }
-
     @media (max-width: 768px) { .desk-nav { display: none; } .bnav { display: block; } }
 
     /* Modals */
     .modal-bg {
-      display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.62);
-      z-index: 100; align-items: center; justify-content: center; padding: 12px;
+      display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.55);
+      z-index: 150; align-items: center; justify-content: center; padding: 12px;
     }
     .modal-bg.open { display: flex; }
     .modal {
-      background: #fff; border-radius: 16px; width: 100%; max-width: 640px; max-height: 90vh;
-      overflow-y: auto; padding: 18px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      background: #fff; border-radius: 16px; width: 100%; max-width: 620px; max-height: 88vh;
+      overflow-y: auto; padding: 18px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
     .modal-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .subtabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; background: #f1f5f9; padding: 4px; border-radius: 10px; margin-bottom: 12px; }
+    .stab { border: none; background: transparent; padding: 8px 6px; border-radius: 7px; font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer; }
+    .stab.active { background: #fff; color: var(--navy); }
 
-    /* Sub-tabs inside Modal */
-    .subtabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: #f1f5f9; padding: 5px; border-radius: 11px; margin-bottom: 14px; }
-    .stab { border: none; background: transparent; padding: 8px 6px; border-radius: 8px; font-size: 12px; font-weight: 800; color: var(--muted); cursor: pointer; }
-    .stab.active { background: #fff; color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-
-    /* Toast */
     #toast {
-      position: fixed; bottom: 84px; left: 50%; transform: translateX(-50%);
-      background: #0f172a; color: #fff; padding: 10px 16px; border-radius: 999px;
-      font-size: 13px; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.28);
-      z-index: 250; display: none; white-space: nowrap; max-width: 92vw; overflow: hidden; text-overflow: ellipsis;
+      position: fixed; bottom: 82px; left: 50%; transform: translateX(-50%);
+      background: var(--navy); color: #fff; padding: 9px 16px; border-radius: 999px;
+      font-size: 12.5px; font-weight: 700; z-index: 300; display: none; white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis;
     }
-
-    /* Print Section */
     #printSection { display: none; }
     @media print {
       body * { visibility: hidden !important; }
@@ -301,7 +322,7 @@
         <div>
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag">v3.0 Pro</span>
+            <span class="ver-tag">v4.0 Pro</span>
           </div>
           <div class="brand-sub" id="hdrSub">1 Coupon / 210 kg (7 Bags) • Pool: 301 Prizes</div>
         </div>
@@ -328,120 +349,96 @@
 
   <main class="container">
 
-    <!-- ==================== TAB 1: HOME & RETAILERS ==================== -->
+    <!-- ==================== TAB 1: CLEAN OVERVIEW & PARTY KHATA DIRECTORY ==================== -->
     <section id="screen-overview" class="screen active">
-      <div style="font-size:11.5px;font-weight:800;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;">
-        <span>📊 LIVE OVERVIEW (Kisi bhi card ko tap karke uski puri detail dekhein)</span>
-      </div>
       <div class="kpi-grid">
-        <div class="kpi purple" onclick="openOverviewDetail('ACTIVE_RETAILERS')">
-          <span class="kpi-tap">Tap ↗</span>
-          <div class="kpi-lbl">🏪 Active Retailers</div>
+        <div class="kpi accent-blue" onclick="openOverviewDetail('ACTIVE_RETAILERS')">
+          <span class="kpi-chev">›</span>
+          <div class="kpi-lbl">Active Parties</div>
           <div class="kpi-val" id="kActiveRet">0</div>
-          <div class="kpi-sub" id="kActiveRetSub">of 0 Total Shops</div>
+          <div class="kpi-sub" id="kActiveRetSub">of 0 Total</div>
         </div>
         <div class="kpi" onclick="openOverviewDetail('TOTAL_KG')">
-          <span class="kpi-tap">Tap ↗</span>
-          <div class="kpi-lbl">⚖️ Total Maal (KG)</div>
+          <span class="kpi-chev">›</span>
+          <div class="kpi-lbl">Total Maal</div>
           <div class="kpi-val" id="kTotalKg">0</div>
-          <div class="kpi-sub" id="kTotalBags">0 Bags (30kg)</div>
+          <div class="kpi-sub" id="kTotalBags">0 Bags</div>
         </div>
-        <div class="kpi teal" onclick="openOverviewDetail('EARNED')">
-          <span class="kpi-tap">Tap ↗</span>
-          <div class="kpi-lbl">🎯 Coupons Earned</div>
+        <div class="kpi" onclick="openOverviewDetail('EARNED')">
+          <span class="kpi-chev">›</span>
+          <div class="kpi-lbl">Coupons Earned</div>
           <div class="kpi-val" id="kEarned">0</div>
-          <div class="kpi-sub" id="kEarnedSub">210 kg = 1 Cup</div>
+          <div class="kpi-sub" id="kEarnedSub">210 kg / coupon</div>
         </div>
-        <div class="kpi blue" onclick="openOverviewDetail('ALLOTTED')">
-          <span class="kpi-tap">Tap ↗</span>
-          <div class="kpi-lbl">🎟️ Coupons Allotted</div>
+        <div class="kpi" onclick="openOverviewDetail('ALLOTTED')">
+          <span class="kpi-chev">›</span>
+          <div class="kpi-lbl">Coupons Issued</div>
           <div class="kpi-val" id="kAllotted">0</div>
-          <div class="kpi-sub" id="kAllottedSub">Issued to Shops</div>
+          <div class="kpi-sub" id="kAllottedSub">0% of Pool</div>
         </div>
-        <div class="kpi amber" onclick="openOverviewDetail('PENDING_ALLOT')">
-          <span class="kpi-tap">Tap ↗</span>
-          <div class="kpi-lbl">⏳ Pending Allot</div>
+        <div class="kpi accent-amber" onclick="openOverviewDetail('PENDING_ALLOT')">
+          <span class="kpi-chev">›</span>
+          <div class="kpi-lbl">Pending Allot</div>
           <div class="kpi-val" id="kPending">0</div>
-          <div class="kpi-sub" style="color:#b45309;font-weight:800;">Tap to View & Allot →</div>
+          <div class="kpi-sub">Tap to Allot</div>
         </div>
-        <div class="kpi green" onclick="openOverviewDetail('POOL_LEFT')">
-          <span class="kpi-tap">Tap ↗</span>
-          <div class="kpi-lbl">📦 Coupons Available</div>
+        <div class="kpi accent-green" onclick="openOverviewDetail('POOL_LEFT')">
+          <span class="kpi-chev">›</span>
+          <div class="kpi-lbl">Pool Available</div>
           <div class="kpi-val" id="kPoolLeftVal">301</div>
-          <div class="kpi-sub" id="kPoolLeftSub">Remaining in Pool</div>
+          <div class="kpi-sub" id="kPoolLeftSub">Left of 301</div>
         </div>
-        <div class="kpi orange" onclick="openOverviewDetail('PRIZES_WON')">
-          <span class="kpi-tap">Tap ↗</span>
-          <div class="kpi-lbl">🏆 Prizes Declared</div>
+        <div class="kpi" onclick="openOverviewDetail('PRIZES_WON')">
+          <span class="kpi-chev">›</span>
+          <div class="kpi-lbl">Prizes Declared</div>
           <div class="kpi-val" id="kPrizes">0</div>
           <div class="kpi-sub" id="kPrizeSub">0 Unassigned</div>
         </div>
-        <div class="kpi green" onclick="openOverviewDetail('HANDED_OVER')">
-          <span class="kpi-tap">Tap ↗</span>
-          <div class="kpi-lbl">✅ Handed Over</div>
+        <div class="kpi accent-green" onclick="openOverviewDetail('HANDED_OVER')">
+          <span class="kpi-chev">›</span>
+          <div class="kpi-lbl">Prize Delivered</div>
           <div class="kpi-val" id="kDelivered">0</div>
-          <div class="kpi-sub" id="kDeliveredSub">0 Delivery Pending</div>
+          <div class="kpi-sub" id="kDeliveredSub">0 Pending</div>
         </div>
       </div>
 
-      <!-- 4 Big Quick Shortcuts -->
-      <div class="quick-strip">
-        <button class="qbtn" onclick="openSheetImportModal()">
-          <span class="qico" style="background:#dcfce7;color:#15803d;">📥</span>
-          <div><div>Purani Sheet Import</div><div style="font-size:10.5px;color:var(--muted);font-weight:600;">Link / Excel / Paste</div></div>
-        </button>
-        <button class="qbtn" onclick="switchTab('deliveries')">
-          <span class="qico" style="background:#fef3c7;color:#b45309;">🚚</span>
-          <div><div>Fast Maal Entry</div><div style="font-size:10.5px;color:var(--muted);font-weight:600;">1-Tap Bags & KG</div></div>
-        </button>
-        <button class="qbtn" onclick="switchTab('prizes')">
-          <span class="qico" style="background:#ffedd5;color:#c2410c;">🏆</span>
-          <div><div>301 Prize Segment</div><div style="font-size:10.5px;color:var(--muted);font-weight:600;">Bulk Winner Entry</div></div>
-        </button>
-        <button class="qbtn" onclick="switchTab('reports')">
-          <span class="qico" style="background:#dbeafe;color:#1d4ed8;">📍</span>
-          <div><div>Area-Wise PDF</div><div style="font-size:10.5px;color:var(--muted);font-weight:600;">WhatsApp & Print</div></div>
-        </button>
-      </div>
-
-      <!-- Retailer Directory & WhatsApp PDF Cards -->
-      <div class="card">
-        <div class="card-hd">
+      <!-- Clean Party Khata Directory -->
+      <div class="card" style="padding:14px;">
+        <div class="card-hd" style="margin-bottom:10px;">
           <div>
-            <div class="card-title">🏪 Retailers Ledger & WhatsApp Coupon/Prize Slip</div>
-            <div class="card-sub">Har dukandar ke samne <b>📲 Share PDF</b> daba kar unke coupons aur inam ki parchi seedha WhatsApp par bhejein</div>
+            <div class="card-title">📒 Party Khata</div>
+            <div class="card-sub">Kisi bhi party par tap karke date-wise hisab, coupons aur PDF dekhein</div>
           </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn btn-outline btn-sm" onclick="openAreaManagerModal()">📍 Area Set Karein</button>
-            <button class="btn btn-navy btn-sm" onclick="openRetailerModal()">+ Add Shop</button>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-outline btn-sm" onclick="openAreaManagerModal()">📍 Areas</button>
+            <button class="btn btn-navy btn-sm" onclick="openRetailerModal()">+ Add Party</button>
           </div>
         </div>
 
-        <div class="form-grid cols-3" style="margin-bottom:12px;">
-          <input type="text" id="homeSearch" placeholder="🔍 Search Shop, Coupon # or Phone..." oninput="renderHome()" />
+        <div class="form-grid cols-3" style="margin-bottom:12px;gap:8px;">
+          <input type="text" id="homeSearch" placeholder="🔍 Search party, area or coupon #..." oninput="renderHome()" />
           <select id="homeAreaFilter" onchange="renderHome()">
-            <option value="ALL">📍 All Areas / Villages</option>
+            <option value="ALL">All Areas</option>
           </select>
           <select id="homeStatusFilter" onchange="renderHome()">
-            <option value="ALL">All Retailers</option>
-            <option value="ACTIVE">✅ Active Retailers (Maal > 0 kg)</option>
-            <option value="INACTIVE">⚪ Inactive / 0 kg Retailers</option>
-            <option value="PENDING_ALLOT">Pending Coupon Allotment (>0)</option>
-            <option value="EARNED">Coupons Earned (>0)</option>
+            <option value="ALL">All Parties</option>
+            <option value="ACTIVE">Active Parties (> 0 kg)</option>
+            <option value="INACTIVE">0 kg / Inactive Parties</option>
+            <option value="PENDING_ALLOT">Pending Coupon Allot</option>
+            <option value="EARNED">Coupons Earned (> 0)</option>
             <option value="NEAR">Near Next Coupon (≥150 kg)</option>
-            <option value="WINNERS">🏆 Prize Winners</option>
-            <option value="PRIZE_DUE">⏳ Prize Delivery Pending</option>
-            <option value="NO_AREA">⚠️ Area Blank (Set Area)</option>
+            <option value="WINNERS">Prize Winners 🏆</option>
+            <option value="NO_AREA">Area Not Set</option>
           </select>
         </div>
 
-        <div id="homeRetailerList" class="ret-list"></div>
+        <div id="homeRetailerList" class="party-list"></div>
       </div>
     </section>
 
     <!-- ==================== TAB 2: SUPER FAST DELIVERY ENTRY ==================== -->
     <section id="screen-deliveries" class="screen">
-      <div class="card" style="border: 2px solid #fed7aa;">
+      <div class="card" >
         <div class="card-hd">
           <div>
             <div class="card-title" id="delCardTitle">⚡ Super-Fast Delivery Entry</div>
@@ -537,7 +534,7 @@
 
     <!-- ==================== TAB 3: EK SATH COUPON ALLOTMENT ==================== -->
     <section id="screen-allot" class="screen">
-      <div class="card" style="background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);border:2px solid #fbbf24;">
+      <div class="card" style="background:#fffbeb;border:1px solid #fde68a;">
         <div class="card-hd" style="border-bottom-color:#fde68a;">
           <div>
             <div class="card-title" style="color:#78350f;">⚡ Ek Sath Sabhi Pending Coupons Allot Karein</div>
@@ -592,7 +589,7 @@
     <!-- ==================== TAB 4: 301 SEGMENT PRIZES STUDIO ==================== -->
     <section id="screen-prizes" class="screen">
       <!-- Step 1: Select Prize Segment -->
-      <div class="card" style="border:2px solid #86efac;">
+      <div class="card" >
         <div class="card-hd">
           <div>
             <div class="card-title">🎯 Step 1: Prize Segment Chunein (301 Fast Entry Mode)</div>
@@ -687,7 +684,7 @@
     <!-- ==================== TAB 5: AREA PDF REPORTS & SETTINGS ==================== -->
     <section id="screen-reports" class="screen">
       <!-- Featured Card: Area-Wise Prize & Coupon PDF -->
-      <div class="card" style="border:2px solid #93c5fd;background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 45%,#ffffff 100%);">
+      <div class="card" style="background:#f8fafc;border:1px solid #cbd5e1;">
         <div class="card-hd">
           <div>
             <div class="card-title">📍 Area-Wise Prize & Coupon PDF Generator</div>
@@ -922,8 +919,14 @@
   <div class="modal-bg" id="segmentModal">
     <div class="modal">
       <div class="modal-hd">
-        <h3 style="font-size:16px;font-weight:900;">🎁 Manage 301 Prize Segments</h3>
-        <button class="btn btn-outline btn-xs" onclick="closeModal('segmentModal')">✕</button>
+        <div>
+          <h3 style="font-size:16px;font-weight:800;">🎁 301 Prize Segments</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Alto K10, Activa, HF Deluxe, Fridge, Washing Machine, Silver & Spices</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-outline btn-xs" onclick="loadOfficial301Segments()">🔄 Load Official 301 List</button>
+          <button class="btn btn-outline btn-xs" onclick="closeModal('segmentModal')">✕</button>
+        </div>
       </div>
       <div style="background:#f8fafc;padding:12px;border-radius:11px;border:1px solid var(--border);margin-bottom:12px;">
         <input type="hidden" id="segEditId" value="" />
@@ -974,48 +977,70 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL 7: RETAILER KHATA / PASSBOOK (DATE-WISE LEDGER) ==================== -->
-  <div class="modal-bg" id="retailerKhataModal">
-    <div class="modal" style="max-width:720px;">
-      <div class="modal-hd">
-        <div>
-          <h3 style="font-size:16.5px;font-weight:900;color:var(--navy);" id="khataShopName">📒 Retailer Khata</h3>
-          <div style="font-size:12px;color:var(--muted);margin-top:2px;" id="khataShopMeta"></div>
-        </div>
-        <button class="btn btn-outline btn-xs" onclick="closeModal('retailerKhataModal')">✕</button>
-      </div>
-
-      <!-- Khata Summary Strip -->
-      <div id="khataSummaryBoxes" style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px;"></div>
-
-      <!-- Action & Date Filter Bar -->
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;background:#f8fafc;padding:9px 11px;border-radius:11px;border:1px solid var(--border);margin-bottom:12px;">
-        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-          <label style="font-size:11px;font-weight:800;color:var(--muted);">From:</label>
-          <input type="date" id="khataFromDate" onchange="renderKhataEntries()" style="width:132px;padding:5px 8px;font-size:12px;" />
-          <label style="font-size:11px;font-weight:800;color:var(--muted);">To:</label>
-          <input type="date" id="khataToDate" onchange="renderKhataEntries()" style="width:132px;padding:5px 8px;font-size:12px;" />
-          <button class="btn btn-outline btn-xs" onclick="clearKhataDateFilter()">All Dates</button>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="btn btn-brand btn-xs" id="btnKhataNewEntry">+ Add Maal Entry</button>
-          <button class="btn btn-wa btn-xs" id="btnKhataSharePdf">📲 WhatsApp Khata PDF</button>
-          <button class="btn btn-navy btn-xs" id="btnKhataDownloadPdf">⬇️ PDF</button>
+  <!-- ==================== FULL-SCREEN CLEAN PARTY KHATA (KHATABOOK STYLE) ==================== -->
+  <div class="khata-sheet" id="retailerKhataModal">
+    <div class="khata-topbar">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+        <button class="khata-back" onclick="closePartyKhata()">←</button>
+        <div style="min-width:0;">
+          <div style="font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="khataShopName">Party Khata</div>
+          <div style="font-size:11.5px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="khataShopMeta"></div>
         </div>
       </div>
+      <button class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.2);" id="btnKhataEditParty">✏️ Edit</button>
+    </div>
 
-      <!-- Coupons & Prizes Section inside Khata -->
-      <div id="khataCouponsBlock" style="margin-bottom:12px;"></div>
+    <div class="khata-container">
+      <!-- Clean 3-Col Balance Card -->
+      <div class="khata-bal-card">
+        <div class="khata-stats-3" id="khataSummaryBoxes"></div>
+        <div style="margin-top:12px;padding-top:10px;border-top:1px solid #f1f5f9;">
+          <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);font-weight:600;">
+            <span id="khataNextLbl">Next Coupon Progress</span>
+            <span id="khataNeedLbl"></span>
+          </div>
+          <div class="prog-bar" style="height:6px;margin-top:5px;"><div class="prog-fill" id="khataProgFill" style="width:0%"></div></div>
+        </div>
 
-      <!-- Date-wise Entries Passbook -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
-        <div style="font-size:13px;font-weight:900;color:var(--navy);">📅 Date-Wise Maal / Delivery Entries (Running Balance ke sath)</div>
-        <select id="khataSortOrder" onchange="renderKhataEntries()" style="width:145px;padding:5px 8px;font-size:11.5px;font-weight:700;">
-          <option value="DESC">Newest First (↓)</option>
-          <option value="ASC">Oldest First (↑)</option>
-        </select>
+        <!-- Clean Primary Actions -->
+        <div style="display:grid;grid-template-columns:1.2fr 1.2fr auto auto;gap:7px;margin-top:14px;">
+          <button class="btn btn-brand btn-sm" id="btnKhataNewEntry">+ Maal Entry</button>
+          <button class="btn btn-wa btn-sm" id="btnKhataSharePdf">📲 Share PDF</button>
+          <button class="btn btn-outline btn-sm" id="btnKhataDownloadPdf" title="Download PDF">⬇️</button>
+          <button class="btn btn-outline btn-sm" id="btnKhataWaMsg" title="WhatsApp Message">💬</button>
+        </div>
       </div>
-      <div id="khataEntriesList" style="display:flex;flex-direction:column;gap:7px;max-height:44vh;overflow-y:auto;padding-right:2px;"></div>
+
+      <!-- Coupons & Prizes Clean Card (Only visible when coupons exist) -->
+      <div id="khataCouponsBlock"></div>
+
+      <!-- Clean Passbook Header + Optional Date Filter Toggle -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 2px 8px;">
+        <div style="font-size:13px;font-weight:800;color:var(--navy);" id="khataPassbookTitle">Date-Wise Entries</div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="btn btn-outline btn-xs" onclick="toggleKhataFilterBar()">📅 Filter</button>
+          <select id="khataSortOrder" onchange="renderKhataEntries()" style="width:120px;padding:4px 8px;font-size:11.5px;font-weight:700;border-radius:7px;">
+            <option value="DESC">Newest ↓</option>
+            <option value="ASC">Oldest ↑</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="khataFilterBar" style="display:none;gap:6px;align-items:center;flex-wrap:wrap;background:#fff;padding:10px;border-radius:11px;border:1px solid var(--border);margin-bottom:10px;">
+        <input type="date" id="khataFromDate" onchange="renderKhataEntries()" style="flex:1;min-width:125px;padding:6px 8px;font-size:12px;" />
+        <span style="font-size:12px;color:var(--muted);">to</span>
+        <input type="date" id="khataToDate" onchange="renderKhataEntries()" style="flex:1;min-width:125px;padding:6px 8px;font-size:12px;" />
+        <button class="btn btn-outline btn-xs" onclick="clearKhataDateFilter()">Reset</button>
+      </div>
+
+      <div class="passbook">
+        <div class="pb-head">
+          <div>Date & Ref</div>
+          <div>Maal (In)</div>
+          <div style="text-align:right;">Total KG</div>
+        </div>
+        <div id="khataEntriesList"></div>
+      </div>
     </div>
   </div>
 
@@ -1122,14 +1147,21 @@
       deliveries: [],
       coupons: [],
       segments: [
-        { id: 1, rank: 1, title: '1st Mega Prize - Maruti Alto Car', target_qty: 1, icon: '🥇' },
-        { id: 2, rank: 2, title: '2nd Prize - Two Wheeler / Fridge', target_qty: 2, icon: '🥈' },
-        { id: 3, rank: 3, title: '3rd Prize - LED TV / Washing Machine', target_qty: 5, icon: '🥉' },
-        { id: 4, rank: 4, title: '4th Prize - Mixer Grinder / Induction', target_qty: 25, icon: '🎁' },
-        { id: 5, rank: 5, title: '5th Prize - Special Home Appliance', target_qty: 50, icon: '✨' },
-        { id: 6, rank: 6, title: 'Assured / Consolation Gift Prize', target_qty: 218, icon: '⭐' }
+        { id: 1, rank: 1, title: '1st Prize - Maruti Suzuki Alto K10 LXi', target_qty: 1, icon: '🚗' },
+        { id: 2, rank: 2, title: '2nd Prize - Honda Activa', target_qty: 2, icon: '🛵' },
+        { id: 3, rank: 3, title: '3rd Prize - Hero HF Deluxe Bike', target_qty: 2, icon: '🏍️' },
+        { id: 4, rank: 4, title: '4th Prize - Chandi (Silver) 200g', target_qty: 2, icon: '🥈' },
+        { id: 5, rank: 5, title: '5th Prize - Chandi (Silver) 100g', target_qty: 5, icon: '🪙' },
+        { id: 6, rank: 6, title: '6th Prize - Lloyd Refrigerator (180L)', target_qty: 10, icon: '🧊' },
+        { id: 7, rank: 7, title: '7th Prize - Chandi (Silver) 50g', target_qty: 11, icon: '🪙' },
+        { id: 8, rank: 8, title: '8th Prize - Voltas Washing Machine (6 kg)', target_qty: 21, icon: '🧺' },
+        { id: 9, rank: 9, title: '9th Prize - Chandi (Silver) 30g', target_qty: 25, icon: '✨' },
+        { id: 10, rank: 10, title: '10th Prize - Chandi (Silver) 25g', target_qty: 30, icon: '✨' },
+        { id: 11, rank: 11, title: '11th Prize - Chandi (Silver) 20g', target_qty: 40, icon: '✨' },
+        { id: 12, rank: 12, title: '12th Prize - Rasoi Dhan Haldi Powder (25 kg)', target_qty: 51, icon: '🟡' },
+        { id: 13, rank: 13, title: '13th Prize - Rasoi Dhan Dhaniya Powder (30 kg)', target_qty: 101, icon: '🟢' }
       ],
-      seq: { r: 1, d: 1, c: 1, s: 7 }
+      seq: { r: 1, d: 1, c: 1, s: 14 }
     };
   }
   function setLocalDB(db) { localStorage.setItem(LOCAL_KEY, JSON.stringify(db)); }
@@ -1189,6 +1221,7 @@
       db.deliveries = db.deliveries.filter(x => x.id !== Number(path.split('/').pop()));
       setLocalDB(db); return { ok: true };
     }
+    if (path === '/api/segments/reset-official') { localStorage.removeItem(LOCAL_KEY); return { ok: true }; }
     if (path === '/api/segments' && method === 'POST') {
       if (body.id) {
         const s = db.segments.find(x => x.id === Number(body.id));
@@ -1394,16 +1427,21 @@
     keepVal('pdfAreaSelect', '🌍 All Areas (Grouped Area-Wise)');
   }
 
-  // ==================== TAB 1: HOME, ACTIVE RETAILERS, DRILL-DOWN & KHATA ====================
+  // ==================== TAB 1: CLEAN OVERVIEW & KHATABOOK PARTY KHATA ====================
   let CURRENT_KHATA_RET_ID = null;
   let CURRENT_OV_DETAIL_MODE = 'ACTIVE_RETAILERS';
+
+  function shopInitials(name) {
+    const words = String(name || 'S').trim().split(/\s+/).filter(Boolean);
+    if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+    return String(words[0] || 'S').slice(0, 2).toUpperCase();
+  }
 
   function renderHome() {
     const s = STATE.settings;
     const maxC = Number(s.max_coupons) || 301;
     const totalShops = STATE.summaryRows.length;
     const activeShops = STATE.summaryRows.filter(r => r.total_kg > 0).length;
-    const inactiveShops = Math.max(0, totalShops - activeShops);
     const totalKg = STATE.summaryRows.reduce((a, r) => a + r.total_kg, 0);
     const earned = STATE.summaryRows.reduce((a, r) => a + r.earned, 0);
     const allotted = STATE.coupons.length;
@@ -1414,20 +1452,20 @@
     const pendingHandover = Math.max(0, winners.length - delivered);
 
     document.getElementById('kActiveRet').textContent = activeShops;
-    document.getElementById('kActiveRetSub').textContent = `of ${totalShops} Shops (${inactiveShops} Inactive)`;
+    document.getElementById('kActiveRetSub').textContent = `of ${totalShops} Parties`;
     document.getElementById('kTotalKg').textContent = `${Math.round(totalKg * 10) / 10} kg`;
-    document.getElementById('kTotalBags').textContent = `${Math.round((totalKg / (s.kg_per_bag || 30)) * 10) / 10} Bags (${STATE.deliveries.length} Entries)`;
+    document.getElementById('kTotalBags').textContent = `${Math.round((totalKg / (s.kg_per_bag || 30)) * 10) / 10} Bags`;
     document.getElementById('kEarned').textContent = earned;
-    document.getElementById('kEarnedSub').textContent = `${s.kg_per_coupon} kg = 1 Cup`;
+    document.getElementById('kEarnedSub').textContent = `${s.kg_per_coupon} kg / coupon`;
     document.getElementById('kAllotted').textContent = allotted;
-    document.getElementById('kAllottedSub').textContent = `${Math.min(100, Math.round((allotted / maxC) * 100))}% of ${maxC} Pool`;
+    document.getElementById('kAllottedSub').textContent = `${Math.min(100, Math.round((allotted / maxC) * 100))}% of ${maxC}`;
     document.getElementById('kPending').textContent = pending;
     document.getElementById('kPoolLeftVal').textContent = poolLeft;
-    document.getElementById('kPoolLeftSub').textContent = `Out of ${maxC} Total Pool`;
-    document.getElementById('kPrizes').textContent = `${winners.length}`;
-    document.getElementById('kPrizeSub').textContent = `${Math.max(0, allotted - winners.length)} Coupons Unassigned`;
-    document.getElementById('kDelivered').textContent = `${delivered} / ${winners.length}`;
-    document.getElementById('kDeliveredSub').textContent = `${pendingHandover} Handover Pending`;
+    document.getElementById('kPoolLeftSub').textContent = `Left of ${maxC}`;
+    document.getElementById('kPrizes').textContent = winners.length;
+    document.getElementById('kPrizeSub').textContent = `${Math.max(0, allotted - winners.length)} Unassigned`;
+    document.getElementById('kDelivered').textContent = delivered;
+    document.getElementById('kDeliveredSub').textContent = `${pendingHandover} Pending`;
 
     ['dBadgePending', 'mBadgePending'].forEach(id => {
       const b = document.getElementById(id);
@@ -1451,7 +1489,6 @@
       if (statF === 'EARNED' && r.earned <= 0) return false;
       if (statF === 'NEAR' && r.rem_kg < nearKg) return false;
       if (statF === 'WINNERS' && r.prizes.length === 0) return false;
-      if (statF === 'PRIZE_DUE' && !r.prizes.some(p => p.prize_status !== 'DELIVERED')) return false;
       if (statF === 'NO_AREA' && r.area) return false;
 
       if (q) {
@@ -1463,129 +1500,101 @@
 
     const box = document.getElementById('homeRetailerList');
     if (list.length === 0) {
-      box.innerHTML = `<div style="text-align:center;padding:28px;color:var(--muted);font-size:13.5px;">
-        Koi retailer nahi mila. Upar <b>📥 Purani Sheet Import</b> ya <b>+ Add Shop</b> se shuru karein!
+      box.innerHTML = `<div style="text-align:center;padding:32px 16px;color:var(--muted);font-size:13px;">
+        Koi party nahi mili. Upar <b>📥 Sheet Import</b> ya <b>+ Add Party</b> se shuru karein.
       </div>`;
       return;
     }
 
-    // Count delivery entries per retailer for display badge
-    const delCountMap = new Map();
-    for (const d of STATE.deliveries) {
-      delCountMap.set(d.retailer_id, (delCountMap.get(d.retailer_id) || 0) + 1);
-    }
-
     box.innerHTML = list.map(r => {
-      const needKg = Math.round(((s.kg_per_coupon || 210) - r.rem_kg) * 10) / 10;
-      const entryCnt = delCountMap.get(r.id) || 0;
-      const cupBadges = r.coupons.map(c =>
-        c.prize_title
-          ? `<span class="badge b-green">#${esc(c.coupon_code)} 🏆 ${esc(c.prize_title)}</span>`
-          : `<span class="badge b-navy">#${esc(c.coupon_code)}</span>`
-      ).join('');
+      const avCls = r.prizes.length > 0 ? 'party-avatar winner-shop' : (r.total_kg > 0 ? 'party-avatar active-shop' : 'party-avatar');
+      const metaParts = [];
+      if (r.area) metaParts.push(esc(r.area));
+      if (r.issued > 0) metaParts.push(`🎟️ ${r.issued} Cup`);
+      else if (r.earned > 0) metaParts.push(`${r.earned} Earned`);
+      if (r.prizes.length > 0) metaParts.push(`🏆 ${r.prizes.length} Prize`);
 
-      return `<div class="ret-item">
-        <div class="ret-top" onclick="openRetailerKhata(${r.id})" style="cursor:pointer;" title="Tap to open Date-Wise Khata">
-          <div>
-            <div class="ret-name" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-              <span>${esc(r.name)}</span>
-              ${r.total_kg > 0
-                ? `<span class="badge b-green" style="font-size:10px;">● Active (${entryCnt} Entries)</span>`
-                : `<span class="badge b-gray" style="font-size:10px;">0 Entries</span>`}
-            </div>
-            <div class="ret-meta" onclick="event.stopPropagation()">
-              <span class="badge b-area" onclick="openEditRetailer(${r.id})" title="Tap to edit Area/Phone">
-                📍 ${esc(r.area || 'Set Area +')}
-              </span>
-              ${r.phone ? `<span class="badge b-gray">📞 ${esc(r.phone)}</span>` : ''}
-              <span class="badge b-teal">Earned: ${r.earned}</span>
-              <span class="badge b-blue">Allotted: ${r.issued}</span>
+      return `<div class="party-row" onclick="openRetailerKhata(${r.id})">
+        <div class="party-left">
+          <div class="${avCls}">${esc(shopInitials(r.name))}</div>
+          <div class="party-info">
+            <div class="party-title">${esc(r.name)}</div>
+            <div class="party-sub">
+              <span>${metaParts.join(' • ') || 'No deliveries yet'}</span>
               ${r.pending > 0 ? `<span class="badge b-amber">${r.pending} Pending</span>` : ''}
             </div>
           </div>
-          <div class="ret-kg-box">
-            <div class="ret-kg-val">${r.total_kg} kg</div>
-            <div class="ret-bag-val">${r.bags_eq} Bags • <span style="color:var(--blue);text-decoration:underline;">Khata ↗</span></div>
-          </div>
         </div>
-
-        <div style="margin-top:8px;" onclick="openRetailerKhata(${r.id})">
-          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:700;">
-            <span>Next Coupon: ${r.rem_kg} / ${s.kg_per_coupon} kg</span>
-            <span>${needKg} kg baki</span>
+        <div class="party-right">
+          <div>
+            <div class="party-kg">${r.total_kg} kg</div>
+            <div class="party-bags">${r.bags_eq} Bags</div>
           </div>
-          <div class="prog-bar"><div class="prog-fill" style="width:${r.pct}%"></div></div>
-        </div>
-
-        ${cupBadges ? `<div class="cup-wrap">${cupBadges}</div>` : ''}
-
-        <div class="ret-actions">
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn btn-navy btn-xs" onclick="openRetailerKhata(${r.id})">📒 Khata (${entryCnt})</button>
-            <button class="btn btn-brand btn-xs" onclick="jumpToDelivery('${esc(r.name)}')">+ Maal Entry</button>
-            <button class="btn btn-outline btn-xs" onclick="openEditRetailer(${r.id})">✏️</button>
-          </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn btn-wa btn-xs" onclick="shareRetailerSlipPDF(${r.id}, true)">📲 Khata PDF</button>
-            <button class="btn btn-outline btn-xs" onclick="sendRetailerWhatsAppText(${r.id})">💬 Msg</button>
-          </div>
+          <span class="party-arrow">›</span>
         </div>
       </div>`;
     }).join('');
   }
 
-  // ==================== RETAILER DATE-WISE KHATA (PASSBOOK) ENGINE ====================
+  // ==================== FULL-SCREEN CLEAN PARTY KHATA ====================
   function openRetailerKhata(retailerId) {
     const r = STATE.summaryRows.find(x => x.id === retailerId);
     if (!r) return;
     CURRENT_KHATA_RET_ID = retailerId;
     document.getElementById('khataFromDate').value = '';
     document.getElementById('khataToDate').value = '';
+    document.getElementById('khataFilterBar').style.display = 'none';
 
-    document.getElementById('khataShopName').textContent = `📒 ${r.name}`;
-    document.getElementById('khataShopMeta').innerHTML =
-      `📍 Area: <b>${esc(r.area || 'Not Set')}</b> &nbsp;|&nbsp; 📞 Mobile: <b>${esc(r.phone || '-')}</b>`;
+    document.getElementById('khataShopName').textContent = r.name;
+    document.getElementById('khataShopMeta').textContent =
+      [r.area ? `📍 ${r.area}` : 'Area not set', r.phone ? `📞 ${r.phone}` : ''].filter(Boolean).join('  •  ');
+
+    const cupKg = Number(STATE.settings.kg_per_coupon) || 210;
+    const needKg = Math.round((cupKg - r.rem_kg) * 10) / 10;
 
     document.getElementById('khataSummaryBoxes').innerHTML = `
-      <div style="background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:8px 10px;text-align:center;">
-        <div style="font-size:10px;font-weight:800;color:var(--muted);">TOTAL MAAL</div>
-        <div style="font-size:15px;font-weight:900;color:var(--navy);">${r.total_kg} kg</div>
-        <div style="font-size:10.5px;color:var(--muted);">${r.bags_eq} Bags</div>
+      <div class="khata-stat-col">
+        <div class="khata-stat-lbl">Total Maal</div>
+        <div class="khata-stat-val">${r.total_kg} kg</div>
+        <div class="khata-stat-sub">${r.bags_eq} Bags</div>
       </div>
-      <div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:10px;padding:8px 10px;text-align:center;">
-        <div style="font-size:10px;font-weight:800;color:#0f766e;">EARNED</div>
-        <div style="font-size:15px;font-weight:900;color:#0f766e;">${r.earned}</div>
-        <div style="font-size:10.5px;color:#0f766e;">Coupons</div>
+      <div class="khata-stat-col">
+        <div class="khata-stat-lbl">Coupons</div>
+        <div class="khata-stat-val" style="color:#1d4ed8;">${r.issued} / ${r.earned}</div>
+        <div class="khata-stat-sub">${r.pending > 0 ? `${r.pending} Pending Allot` : 'Issued / Earned'}</div>
       </div>
-      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:8px 10px;text-align:center;">
-        <div style="font-size:10px;font-weight:800;color:#1d4ed8;">ALLOTTED</div>
-        <div style="font-size:15px;font-weight:900;color:#1d4ed8;">${r.issued}</div>
-        <div style="font-size:10.5px;color:#1d4ed8;">${r.pending} Pending</div>
-      </div>
-      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:8px 10px;text-align:center;">
-        <div style="font-size:10px;font-weight:800;color:#b45309;">NEXT COUPON</div>
-        <div style="font-size:15px;font-weight:900;color:#b45309;">${r.rem_kg} kg</div>
-        <div style="font-size:10.5px;color:#b45309;">of ${STATE.settings.kg_per_coupon} kg</div>
+      <div class="khata-stat-col">
+        <div class="khata-stat-lbl">Prizes</div>
+        <div class="khata-stat-val" style="color:#15803d;">${r.prizes.length}</div>
+        <div class="khata-stat-sub">${r.prizes.length > 0 ? 'Winner 🏆' : 'In Draw'}</div>
       </div>
     `;
 
+    document.getElementById('khataNextLbl').textContent = `Next Coupon: ${r.rem_kg} / ${cupKg} kg`;
+    document.getElementById('khataNeedLbl').textContent = `${needKg} kg baki`;
+    document.getElementById('khataProgFill').style.width = `${r.pct}%`;
+
+    document.getElementById('btnKhataEditParty').onclick = () => openEditRetailer(r.id);
     document.getElementById('btnKhataNewEntry').onclick = () => {
-      closeModal('retailerKhataModal');
+      closePartyKhata();
       jumpToDelivery(r.name);
     };
     document.getElementById('btnKhataSharePdf').onclick = () => shareRetailerSlipPDF(r.id, true);
     document.getElementById('btnKhataDownloadPdf').onclick = () => shareRetailerSlipPDF(r.id, false);
+    document.getElementById('btnKhataWaMsg').onclick = () => sendRetailerWhatsAppText(r.id);
 
-    // Coupons & Prizes block inside Khata
     const cBlock = document.getElementById('khataCouponsBlock');
-    if (r.coupons.length > 0) {
-      cBlock.innerHTML = `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:11px;padding:9px 11px;">
-        <div style="font-size:11.5px;font-weight:800;color:#166534;margin-bottom:5px;">🎟️ Allotted Coupons & Prizes (${r.coupons.length}):</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+    if (r.coupons.length > 0 || r.pending > 0) {
+      cBlock.innerHTML = `<div class="khata-bal-card" style="padding:12px 14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">
+          <span style="font-size:12px;font-weight:800;color:var(--navy);">🎟️ Coupons (${r.coupons.length})</span>
+          ${r.pending > 0 ? `<button class="btn btn-brand btn-xs" onclick="allotFromKhata(${r.id}, ${r.pending})">Allot ${r.pending} Pending</button>` : ''}
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
           ${r.coupons.map(c => c.prize_title
-            ? `<span class="badge b-green">#${esc(c.coupon_code)} 🏆 ${esc(c.prize_title)} (${c.prize_status === 'DELIVERED' ? 'Delivered ✅' : 'Declared'})</span>`
-            : `<span class="badge b-navy">#${esc(c.coupon_code)} (${fmtDate(c.issue_date)})</span>`
-          ).join('')}
+            ? `<span class="badge b-green">#${esc(c.coupon_code)} • 🏆 ${esc(c.prize_title)}</span>`
+            : `<span class="badge b-navy">#${esc(c.coupon_code)}</span>`
+          ).join('') || '<span style="font-size:12px;color:var(--muted);">Coupons earned, tap Allot button above</span>'}
         </div>
       </div>`;
     } else {
@@ -1593,7 +1602,23 @@
     }
 
     renderKhataEntries();
-    openModal('retailerKhataModal');
+    document.getElementById('retailerKhataModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePartyKhata() {
+    document.getElementById('retailerKhataModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  async function allotFromKhata(retailerId, count) {
+    await allotOneShop(retailerId, count);
+    openRetailerKhata(retailerId);
+  }
+
+  function toggleKhataFilterBar() {
+    const bar = document.getElementById('khataFilterBar');
+    bar.style.display = bar.style.display === 'none' ? 'flex' : 'none';
   }
 
   function clearKhataDateFilter() {
@@ -1609,7 +1634,6 @@
     const sortDir = document.getElementById('khataSortOrder').value;
     const cupKg = Math.max(1, Number(STATE.settings.kg_per_coupon) || 210);
 
-    // First sort chronologically (Oldest -> Newest) to compute accurate Running KG & Coupon Unlock milestones!
     const allShopDels = STATE.deliveries
       .filter(d => d.retailer_id === CURRENT_KHATA_RET_ID)
       .sort((a, b) => a.entry_date.localeCompare(b.entry_date) || a.id - b.id);
@@ -1623,8 +1647,7 @@
         ...d,
         sr: idx + 1,
         running_kg: runningKg,
-        unlocked_here: Math.max(0, nowCoupons - prevCoupons),
-        cum_coupons: nowCoupons
+        unlocked_here: Math.max(0, nowCoupons - prevCoupons)
       };
     });
 
@@ -1634,35 +1657,32 @@
       return true;
     });
 
+    document.getElementById('khataPassbookTitle').textContent = `Date-Wise Entries (${filtered.length})`;
     if (sortDir === 'DESC') filtered.reverse();
 
     const listEl = document.getElementById('khataEntriesList');
     if (filtered.length === 0) {
-      listEl.innerHTML = `<div style="text-align:center;padding:24px;color:var(--muted);font-size:13px;border:1px dashed var(--border);border-radius:11px;">
-        Is date range me koi maal/delivery entry nahi hai.
+      listEl.innerHTML = `<div style="text-align:center;padding:28px 14px;color:var(--muted);font-size:13px;">
+        Koi maal entry nahi hai. Upar <b>+ Maal Entry</b> dabayein.
       </div>`;
       return;
     }
 
     listEl.innerHTML = filtered.map(d => `
-      <div class="khata-row">
+      <div class="pb-row">
         <div>
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <span class="badge b-navy">📅 ${fmtDate(d.entry_date)}</span>
-            <span style="font-size:13.5px;font-weight:900;color:var(--navy);">+${d.total_kg} kg</span>
-            <span style="font-size:11.5px;color:var(--muted);font-weight:700;">(${d.bags || 0} Bag${d.loose_kg ? ` + ${d.loose_kg} kg` : ''})</span>
-            ${d.unlocked_here > 0 ? `<span class="badge b-green">🎉 +${d.unlocked_here} Coupon Unlocked!</span>` : ''}
-          </div>
-          <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">
-            Ref: <b>${esc(d.dl_code)}</b> ${d.remarks ? `• Bill/Note: <b>${esc(d.remarks)}</b>` : ''}
-          </div>
+          <div class="pb-date">${fmtDate(d.entry_date)}</div>
+          <div class="pb-ref">${esc(d.remarks || d.dl_code)}</div>
         </div>
-        <div style="text-align:right;flex-shrink:0;">
-          <div style="font-size:11px;color:var(--muted);font-weight:700;">Running Total</div>
-          <div style="font-size:14px;font-weight:900;color:#0f766e;">${d.running_kg} kg</div>
-          <div style="display:flex;gap:4px;justify-content:flex-end;margin-top:4px;">
-            <button class="btn btn-outline btn-xs" onclick="closeModal('retailerKhataModal');switchTab('deliveries');editDelRow(${d.id});" title="Edit Entry">✏️</button>
-            <button class="btn btn-danger btn-xs" onclick="deleteEntryFromKhata(${d.id})" title="Delete Entry">🗑️</button>
+        <div>
+          <div class="pb-in">+${d.total_kg} kg ${d.unlocked_here > 0 ? `<span class="badge b-green" style="font-size:10px;padding:1px 5px;">+${d.unlocked_here}🎟️</span>` : ''}</div>
+          <div class="pb-bags">${d.bags || 0} Bag${d.loose_kg ? ` + ${d.loose_kg} kg` : ''}</div>
+        </div>
+        <div class="pb-bal">
+          <div>${d.running_kg} kg</div>
+          <div style="margin-top:3px;display:flex;gap:8px;justify-content:flex-end;">
+            <span onclick="closePartyKhata();switchTab('deliveries');editDelRow(${d.id});" style="font-size:11px;color:#64748b;cursor:pointer;">Edit</span>
+            <span onclick="deleteEntryFromKhata(${d.id})" style="font-size:11px;color:#dc2626;cursor:pointer;">Del</span>
           </div>
         </div>
       </div>
@@ -1670,13 +1690,23 @@
   }
 
   async function deleteEntryFromKhata(delId) {
-    if (!confirm('Yeh delivery entry khate se delete karein?')) return;
+    if (!confirm('Yeh entry khate se delete karein?')) return;
     try {
       await api('/api/deliveries/' + delId, 'DELETE');
       toast('Entry deleted');
       const keepRetId = CURRENT_KHATA_RET_ID;
       await refreshAll();
       if (keepRetId) openRetailerKhata(keepRetId);
+    } catch (e) { toast(e.message, true); }
+  }
+
+  async function loadOfficial301Segments() {
+    if (!confirm('Official 301 Prizes ki list (Alto K10, 2 Activa, 2 HF Deluxe, 10 Lloyd Fridge, 21 Voltas Washing Machine, Silver 20g–200g, 51 Haldi 25kg, 101 Dhaniya 30kg) load karein?')) return;
+    try {
+      await api('/api/segments/reset-official', 'POST', {});
+      toast('🎉 Official 301 Prize List Loaded!');
+      await refreshAll();
+      renderSegManageList();
     } catch (e) { toast(e.message, true); }
   }
 
@@ -2635,8 +2665,9 @@
     try {
       await api('/api/retailers', 'POST', { id: id ? Number(id) : null, name, area, phone });
       closeModal('retailerModal');
-      toast('Shop saved!');
+      toast('Party saved!');
       await refreshAll();
+      if (CURRENT_KHATA_RET_ID && document.getElementById('retailerKhataModal').classList.contains('open')) openRetailerKhata(CURRENT_KHATA_RET_ID);
     } catch (e) { toast(e.message, true); }
   }
 
@@ -2646,7 +2677,8 @@
     try {
       await api('/api/retailers/' + id, 'DELETE');
       closeModal('retailerModal');
-      toast('Shop deleted');
+      closePartyKhata();
+      toast('Party deleted');
       await refreshAll();
     } catch (e) { toast(e.message, true); }
   }

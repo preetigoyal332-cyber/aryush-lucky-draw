@@ -1,8 +1,8 @@
 {
   "name": "aryush-lucky-draw",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Aryush Foods Mega Lucky Draw Coupon & Prize Manager (Cloudflare Workers + D1)",
+  "description": "Aryush Foods Mega Lucky Draw Coupon & 301 Prize ERP v2.0",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"

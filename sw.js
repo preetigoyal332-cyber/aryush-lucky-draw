@@ -1,5 +1,5 @@
-// Aryush Lucky Draw PWA Service Worker (Network-first for always-fresh live data)
-const CACHE_NAME = 'aryush-draw-v1';
+// Aryush Lucky Draw Pro v2.0 Service Worker (Network-first, auto-busts old v1 cache)
+const CACHE_NAME = 'aryush-draw-v2';
 const STATIC_ASSETS = ['/', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {

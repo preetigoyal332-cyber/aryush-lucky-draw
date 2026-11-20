@@ -1,4 +1,4 @@
--- Aryush Foods Lucky Draw Coupon & Prize Tracker (Cloudflare D1 Schema)
+-- Aryush Foods Lucky Draw Pro v2.0 (Cloudflare D1 Schema)
 CREATE TABLE IF NOT EXISTS settings (
   key TEXT PRIMARY KEY,
   value TEXT NOT NULL
@@ -40,6 +40,15 @@ CREATE TABLE IF NOT EXISTS coupons (
   remarks TEXT DEFAULT '',
   created_at TEXT DEFAULT (datetime('now')),
   FOREIGN KEY (retailer_id) REFERENCES retailers(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS prize_segments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  rank INTEGER NOT NULL DEFAULT 1,
+  title TEXT NOT NULL,
+  target_qty INTEGER NOT NULL DEFAULT 1,
+  icon TEXT DEFAULT '🏆',
+  created_at TEXT DEFAULT (datetime('now'))
 );
 
 CREATE INDEX IF NOT EXISTS idx_deliveries_retailer ON deliveries(retailer_id);

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Aryush Foods — Lucky Draw Coupon & Prize Manager</title>
   <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
   <meta name="theme-color" content="#0f172a" />
   <!-- jsPDF & AutoTable for crisp, multi-page vector PDF generation (never blank!) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -298,6 +300,7 @@
       </div>
       <div class="top-actions">
         <span class="sync-pill" id="syncBadge"><span class="dot"></span> <span id="syncText">Connecting...</span></span>
+        <button class="btn btn-brand btn-sm" id="btnPwaInstall" style="display:none;" onclick="triggerPwaInstall()">📲 Install App</button>
         <button class="btn btn-outline btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="refreshAll()">↻ Sync</button>
       </div>
     </div>
@@ -2390,6 +2393,30 @@
       <div style="margin-top:28px;text-align:right;font-size:12px;font-weight:700;">${esc(s.signatory)}</div>
     `;
     window.print();
+  }
+
+  // ================= PWA SERVICE WORKER & INSTALL =================
+  let deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    const btn = document.getElementById('btnPwaInstall');
+    if (btn) btn.style.display = 'inline-flex';
+  });
+
+  async function triggerPwaInstall() {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    const btn = document.getElementById('btnPwaInstall');
+    if (btn) btn.style.display = 'none';
+  }
+
+  if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
   }
 
   // ================= INIT =================

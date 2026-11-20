@@ -1,38 +1,23 @@
 {
-  "id": "/",
-  "name": "Aryush Foods Lucky Draw Pro",
+  "name": "Aryush Foods — Lucky Draw & Party Khata ERP v7.0",
   "short_name": "Aryush Draw",
-  "description": "Aryush Foods Mega Lucky Draw Coupon & 301 Prize ERP v2.0",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
+  "background_color": "#1e1b4b",
+  "theme_color": "#1e1b4b",
   "orientation": "portrait-primary",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
   "icons": [
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ]
 }

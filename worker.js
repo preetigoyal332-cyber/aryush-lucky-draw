@@ -23,7 +23,8 @@ const DEFAULT_SETTINGS = {
   kg_per_bag: '30',
   max_coupons: '301',
   coupon_prefix: '',
-  signatory: 'For Aryush Foods (Kailaras, Morena)'
+  signatory: 'For Aryush Foods (Kailaras, Morena)',
+  auto_allot_coupons: '0'
 };
 
 function jsonResp(data, status = 200) {
@@ -109,6 +110,9 @@ async function ensureSchemaAndDefaults(db) {
     )`)
   ]);
 
+  try { await db.prepare(`ALTER TABLE coupons ADD COLUMN handover_proof TEXT DEFAULT ''`).run(); } catch (e) {}
+  try { await db.prepare(`ALTER TABLE coupons ADD COLUMN handover_note TEXT DEFAULT ''`).run(); } catch (e) {}
+
   const segCountRow = await db.prepare(`SELECT COUNT(*) AS cnt FROM prize_segments`).first();
   if (!segCountRow || Number(segCountRow.cnt) === 0) {
     const stmts = OFFICIAL_301_SEGMENTS.map(s =>
@@ -130,8 +134,35 @@ async function getSettingsMap(db) {
     kg_per_coupon: Number(map.kg_per_coupon) || 210,
     kg_per_bag: Number(map.kg_per_bag) || 30,
     max_coupons: Number(map.max_coupons) || 301,
+    auto_allot_coupons: String(map.auto_allot_coupons) === '1' || map.auto_allot_coupons === true,
+    pin_enabled: Boolean(map.admin_pin && String(map.admin_pin).trim().length >= 4),
     gemini_key_saved: Boolean(map.gemini_api_key && String(map.gemini_api_key).trim().length > 10)
   };
+}
+
+async function autoAllotPendingForRetailer(db, retailerId, issueDate, settings) {
+  const kgPerCup = Math.max(1, Number(settings.kg_per_coupon) || 210);
+  const maxC = Number(settings.max_coupons) || 301;
+  const prefix = settings.coupon_prefix || '';
+  const totRow = await db.prepare(`SELECT COALESCE(SUM(total_kg), 0) AS tot FROM deliveries WHERE retailer_id = ?`).bind(retailerId).first();
+  const issuedRow = await db.prepare(`SELECT COUNT(*) AS cnt FROM coupons WHERE retailer_id = ?`).bind(retailerId).first();
+  const pending = Math.max(0, Math.floor(((Number(totRow?.tot) || 0) + 1e-9) / kgPerCup) - (Number(issuedRow?.cnt) || 0));
+  if (pending <= 0) return [];
+
+  const usedRows = await db.prepare(`SELECT coupon_num FROM coupons`).all();
+  const used = new Set((usedRows.results || []).map(x => Number(x.coupon_num)));
+  const avail = [];
+  for (let i = 1; i <= maxC && avail.length < pending; i++) if (!used.has(i)) avail.push(i);
+  if (!avail.length) return [];
+
+  const codes = [];
+  await db.batch(avail.map(n => {
+    const code = padCoupon(n, maxC, prefix);
+    codes.push(code);
+    return db.prepare(`INSERT INTO coupons (coupon_num, coupon_code, retailer_id, issue_date, prize_rank, prize_title, prize_status) VALUES (?, ?, ?, ?, 999, '', 'NONE')`)
+      .bind(n, code, retailerId, issueDate);
+  }));
+  return codes;
 }
 
 async function getGeminiKey(env, db) {
@@ -196,16 +227,83 @@ export default {
     try {
       await ensureSchemaAndDefaults(db);
 
+      // 0. PUBLIC READ-ONLY RETAILER KHATA & PRIZE CHECK PORTAL
+      if (path === '/api/public/check' && request.method === 'GET') {
+        const q = String(url.searchParams.get('q') || '').trim();
+        const settings = await getSettingsMap(db);
+        const pubSettings = {
+          company_name: settings.company_name,
+          campaign_name: settings.campaign_name,
+          kg_per_coupon: settings.kg_per_coupon,
+          kg_per_bag: settings.kg_per_bag,
+          max_coupons: settings.max_coupons,
+          signatory: settings.signatory
+        };
+        if (!q) return jsonResp({ ok: true, settings: pubSettings, matches: [] });
+
+        const qUpper = q.toUpperCase();
+        const qNum = parseInt(q.replace(/[^0-9]/g, ''), 10);
+        const [retRes, delRes, cupRes] = await Promise.all([
+          db.prepare(`SELECT id, name, area, phone FROM retailers ORDER BY name ASC`).all(),
+          db.prepare(`SELECT id, entry_date, retailer_id, bags, loose_kg, total_kg FROM deliveries ORDER BY entry_date DESC, id DESC`).all(),
+          db.prepare(`SELECT coupon_num, coupon_code, retailer_id, issue_date, prize_rank, prize_title, prize_status FROM coupons ORDER BY coupon_num ASC`).all()
+        ]);
+
+        const matchedIds = new Set();
+        for (const r of (retRes.results || [])) {
+          const ph = String(r.phone || '').replace(/[^0-9]/g, '');
+          const qDigits = q.replace(/[^0-9]/g, '');
+          if (r.name.toUpperCase().includes(qUpper) || (qDigits.length >= 6 && ph.includes(qDigits))) matchedIds.add(r.id);
+        }
+        for (const c of (cupRes.results || [])) {
+          if (c.coupon_code.toUpperCase() === qUpper || (qNum > 0 && q.length <= 4 && Number(c.coupon_num) === qNum)) matchedIds.add(c.retailer_id);
+        }
+
+        const kgPerCup = Math.max(1, Number(settings.kg_per_coupon) || 210);
+        const kgPerBag = Math.max(1, Number(settings.kg_per_bag) || 30);
+        const matches = (retRes.results || []).filter(r => matchedIds.has(r.id)).slice(0, 15).map(r => {
+          const dels = (delRes.results || []).filter(d => d.retailer_id === r.id);
+          const cups = (cupRes.results || []).filter(c => c.retailer_id === r.id);
+          const total_kg = Math.round(dels.reduce((s, d) => s + (Number(d.total_kg) || 0), 0) * 100) / 100;
+          const rem_kg = Math.round((total_kg % kgPerCup) * 100) / 100;
+          return {
+            name: r.name,
+            area: r.area,
+            total_kg,
+            bags_eq: Math.round((total_kg / kgPerBag) * 10) / 10,
+            earned: Math.floor((total_kg + 1e-9) / kgPerCup),
+            need_kg: Math.round((kgPerCup - rem_kg) * 100) / 100,
+            coupons: cups,
+            recent_deliveries: dels.slice(0, 20)
+          };
+        });
+        return jsonResp({ ok: true, settings: pubSettings, matches });
+      }
+
+      if (path === '/api/verify-pin' && request.method === 'POST') {
+        const { pin } = await request.json();
+        const row = await db.prepare(`SELECT value FROM settings WHERE key = 'admin_pin'`).first();
+        const saved = row?.value ? String(row.value).trim() : '';
+        return jsonResp({ ok: true, valid: !saved || String(pin || '').trim() === saved });
+      }
+
+      if (path.startsWith('/api/coupons/proof/') && request.method === 'GET') {
+        const cid = Number(path.split('/').pop());
+        const row = await db.prepare(`SELECT handover_proof, handover_note FROM coupons WHERE id = ?`).bind(cid).first();
+        return jsonResp({ ok: true, handover_proof: row?.handover_proof || '', handover_note: row?.handover_note || '' });
+      }
+
       // 1. BOOTSTRAP ALL DATA
       if (path === '/api/bootstrap' && request.method === 'GET') {
         const settings = await getSettingsMap(db);
         const safeSettings = { ...settings };
         delete safeSettings.gemini_api_key;
+        delete safeSettings.admin_pin;
 
         const [retRes, delRes, cupRes, segRes] = await Promise.all([
           db.prepare(`SELECT * FROM retailers ORDER BY name ASC`).all(),
           db.prepare(`SELECT * FROM deliveries ORDER BY id DESC`).all(),
-          db.prepare(`SELECT * FROM coupons ORDER BY coupon_num ASC`).all(),
+          db.prepare(`SELECT id, coupon_num, coupon_code, retailer_id, issue_date, batch_ref, prize_rank, prize_title, prize_value, draw_date, prize_status, handover_note, CASE WHEN handover_proof != '' AND handover_proof IS NOT NULL THEN 1 ELSE 0 END AS has_proof FROM coupons ORDER BY coupon_num ASC`).all(),
           db.prepare(`SELECT * FROM prize_segments ORDER BY rank ASC, id ASC`).all()
         ]);
 
@@ -224,21 +322,27 @@ export default {
         const body = await request.json();
         const allowedKeys = [
           'company_name', 'campaign_name', 'kg_per_coupon', 'kg_per_bag',
-          'max_coupons', 'coupon_prefix', 'signatory', 'gemini_api_key'
+          'max_coupons', 'coupon_prefix', 'signatory', 'gemini_api_key',
+          'admin_pin', 'auto_allot_coupons'
         ];
         const stmts = [];
         for (const k of allowedKeys) {
           if (body[k] !== undefined && body[k] !== null) {
             if (k === 'gemini_api_key' && String(body[k]).trim() === '') continue;
+            if (k === 'admin_pin' && String(body[k]).trim() === '') continue;
+            let val = String(body[k]).trim();
+            if (k === 'admin_pin' && val === '0000') val = '';
+            if (k === 'auto_allot_coupons') val = (body[k] === '1' || body[k] === 1 || body[k] === true) ? '1' : '0';
             stmts.push(
               db.prepare(`INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value`)
-                .bind(k, String(body[k]))
+                .bind(k, val)
             );
           }
         }
         if (stmts.length) await db.batch(stmts);
         const updated = await getSettingsMap(db);
         delete updated.gemini_api_key;
+        delete updated.admin_pin;
         return jsonResp({ ok: true, settings: updated });
       }
 
@@ -324,7 +428,32 @@ export default {
           await db.prepare(`INSERT INTO deliveries (dl_code, entry_date, retailer_id, bags, loose_kg, total_kg, remarks) VALUES (?, ?, ?, ?, ?, ?, ?)`)
             .bind(randomDlCode(), entry_date, ret.id, bags, loose_kg, total_kg, remarks).run();
         }
-        return jsonResp({ ok: true });
+        const settings = await getSettingsMap(db);
+        let auto_codes = [];
+        if (settings.auto_allot_coupons) {
+          auto_codes = await autoAllotPendingForRetailer(db, ret.id, entry_date, settings);
+        }
+        return jsonResp({ ok: true, retailer_id: ret.id, auto_codes });
+      }
+
+      if (path === '/api/deliveries/beat-bulk' && request.method === 'POST') {
+        const body = await request.json();
+        const entry_date = String(body.entry_date || new Date().toISOString().slice(0, 10));
+        const items = (body.items || []).filter(x => Number(x.retailer_id) > 0 && Number(x.total_kg) > 0);
+        if (!items.length) return jsonResp({ error: 'Kam se kam 1 party ke bags dalein!' }, 400);
+        await db.batch(items.map(x =>
+          db.prepare(`INSERT INTO deliveries (dl_code, entry_date, retailer_id, bags, loose_kg, total_kg, remarks) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+            .bind(randomDlCode(), entry_date, Number(x.retailer_id), Number(x.bags) || 0, Number(x.loose_kg) || 0, Number(x.total_kg) || 0, String(x.remarks || 'Area Sheet'))
+        ));
+        const settings = await getSettingsMap(db);
+        let auto_allotted = 0;
+        if (settings.auto_allot_coupons) {
+          for (const x of items) {
+            const c = await autoAllotPendingForRetailer(db, Number(x.retailer_id), entry_date, settings);
+            auto_allotted += c.length;
+          }
+        }
+        return jsonResp({ ok: true, saved: items.length, auto_allotted });
       }
 
       if (path.startsWith('/api/deliveries/') && request.method === 'DELETE') {
@@ -432,9 +561,15 @@ export default {
 
         if (body.mode === 'HANDOVER') {
           const ids = (body.coupon_ids || []).map(Number).filter(Boolean);
-          const stmts = ids.map(id =>
-            db.prepare(`UPDATE coupons SET prize_status = ? WHERE id = ?`).bind(String(body.prize_status || 'DELIVERED'), id)
-          );
+          const proof = body.handover_proof !== undefined ? String(body.handover_proof) : null;
+          const note = body.handover_note !== undefined ? String(body.handover_note) : null;
+          const stmts = ids.map(id => {
+            if (proof !== null || note !== null) {
+              return db.prepare(`UPDATE coupons SET prize_status = ?, handover_proof = COALESCE(?, handover_proof), handover_note = COALESCE(?, handover_note) WHERE id = ?`)
+                .bind(String(body.prize_status || 'DELIVERED'), proof, note, id);
+            }
+            return db.prepare(`UPDATE coupons SET prize_status = ? WHERE id = ?`).bind(String(body.prize_status || 'DELIVERED'), id);
+          });
           if (stmts.length) await db.batch(stmts);
           return jsonResp({ ok: true, updated: stmts.length });
         }

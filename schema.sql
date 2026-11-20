@@ -1,4 +1,4 @@
--- Aryush Foods Lucky Draw Pro v2.0 (Cloudflare D1 Schema)
+-- Aryush Foods Lucky Draw Pro v7.0 Ultimate AI Edition (Cloudflare D1 Schema)
 CREATE TABLE IF NOT EXISTS settings (
   key TEXT PRIMARY KEY,
   value TEXT NOT NULL
@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS coupons (
   prize_value REAL DEFAULT 0,
   draw_date TEXT DEFAULT '',
   prize_status TEXT DEFAULT 'NONE',
+  handover_proof TEXT DEFAULT '',
+  handover_note TEXT DEFAULT '',
   remarks TEXT DEFAULT '',
   created_at TEXT DEFAULT (datetime('now')),
   FOREIGN KEY (retailer_id) REFERENCES retailers(id) ON DELETE CASCADE

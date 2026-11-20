@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods — Lucky Draw & 301 Prize AI ERP v6.0</title>
+  <title>Aryush Foods — Lucky Draw & 301 Prize AI ERP v7.0 Ultimate</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -435,6 +435,42 @@
       .ptbl th, .ptbl td { border: 1px solid #334155; padding: 5px 7px; font-size: 11px; text-align: left; }
       .ptbl th { background: #e2e8f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
+  
+    /* v7.0 Ultimate Additions */
+    .beat-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 10px 12px; background: #fff; border: 1.5px solid var(--border); border-radius: 13px;
+    }
+    .beat-row.filled { border-color: #22c55e; background: #f0fdf4; }
+    .beat-step { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    .beat-step button {
+      width: 34px; height: 34px; border-radius: 9px; border: 1.5px solid #cbd5e1;
+      background: #f8fafc; font-size: 17px; font-weight: 900; cursor: pointer;
+    }
+    .beat-step input {
+      width: 54px; padding: 6px 4px; text-align: center; font-weight: 900; font-size: 15px; border-radius: 8px;
+    }
+    .projector-overlay {
+      display: none; position: fixed; inset: 0; z-index: 250;
+      background: radial-gradient(circle at top, #312e81 0%, #0f172a 65%, #020617 100%);
+      color: #fff; overflow-y: auto; padding: 18px;
+    }
+    .projector-overlay.open { display: block; animation: appSlide 0.22s ease-out; }
+    .proj-stage-card {
+      max-width: 880px; margin: 16px auto; background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(251,191,36,0.45); border-radius: 26px; padding: 28px 22px;
+      text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+    }
+    @keyframes popWinner {
+      0% { transform: scale(0.84); opacity: 0; }
+      70% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .winner-pop { animation: popWinner 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    body.public-mode .topbar, body.public-mode .desk-nav, body.public-mode .bnav, body.public-mode .ai-fab, body.public-mode main.container { display: none !important; }
+    #publicCheckPortal { display: none; min-height: 100vh; background: #f1f5f9; padding-bottom: 40px; }
+    body.public-mode #publicCheckPortal { display: block; }
+
   </style>
 </head>
 <body>
@@ -447,13 +483,14 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag">v6.0 AI Pro</span>
+            <span class="ver-tag">v7.0 Ultimate</span>
           </div>
           <div class="brand-sub" id="hdrSub">1 Coupon / 210 kg (7 Bags) • Pool: 301 Prizes</div>
         </div>
       </div>
       <div class="hdr-btns">
         <span class="sync-pill" id="syncBadge"><span class="dot"></span> <span id="syncText">Syncing...</span></span>
+        <button class="btn btn-outline btn-xs" id="btnPinBadge" style="display:none;background:rgba(255,255,255,0.14);color:#fde68a;border-color:rgba(253,230,138,0.35);" onclick="togglePinLockManual()">🔒 Staff</button>
         <button class="btn btn-brand btn-xs" id="btnPwaInstall" style="display:none;" onclick="triggerPwaInstall()">📲 App</button>
         <button class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.14);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="openSheetImportModal()">📥 Sheet</button>
         <button class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.14);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="refreshAll()">↻</button>
@@ -483,9 +520,11 @@
           <span style="font-size:12px;font-weight:800;color:#4c1d95;" id="aiNearAlertTxt">Voice Entry, Bill Photo Scan, Target Coach & Duplicate Guard Ready!</span>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="btn btn-ai btn-xs" onclick="openAiTargetCoachModal()">🎯 Near-Coupon Coach <span id="nearCountBadge"></span></button>
-          <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="openDuplicateGuardModal()">🔍 Duplicate Guard</button>
-          <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="openMunimAiModal()">🤖 Ask Munim AI</button>
+          <button class="btn btn-brand btn-xs" onclick="openBeatBulkModal()">🚚 Area Bulk Sheet</button>
+          <button class="btn btn-ai btn-xs" onclick="openAiTargetCoachModal()">🎯 Target Coach <span id="nearCountBadge"></span></button>
+          <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="sharePublicCheckLink()">🔗 Party Check Link</button>
+          <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="openStageProjector()">📺 Stage TV</button>
+          <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="openDuplicateGuardModal()">🔍 Dup Guard</button>
         </div>
       </div>
 
@@ -590,9 +629,10 @@
             <div class="card-sub">Dropdown chunein, <b>🎤 Bolkar</b> bharein ya <b>📸 Bill Photo</b> scan karein!</div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button type="button" class="btn btn-ai btn-xs" id="btnVoiceDel" onclick="startVoiceEntry('DELIVERY')">🎤 Bolkar Entry</button>
+            <button type="button" class="btn btn-brand btn-xs" onclick="openBeatBulkModal()">🚚 Area Sheet (Ek Sath)</button>
+            <button type="button" class="btn btn-ai btn-xs" id="btnVoiceDel" onclick="startVoiceEntry('DELIVERY')">🎤 Bolkar</button>
             <label class="btn btn-ai btn-xs" style="cursor:pointer;">
-              📸 Scan Bill / Parchi
+              📸 Bill Scan
               <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="handleAiBillScan(event)" />
             </label>
             <button type="button" class="btn btn-navy btn-xs" onclick="openRetailerModal()">+ Party</button>
@@ -761,7 +801,7 @@
             <div class="card-title">🏆 Step 1: Prize Segment Chunein (51 / 101 Ek Sath + AI Scan!)</div>
             <div class="card-sub">Segment chunein &rarr; 51 Slot Boxes khul jayenge! Aap <b>📸 Parchi Photo</b> khinch kar ya <b>🎤 Bolkar</b> bhi 51 coupon ek sath bhar sakte hain!</div>
           </div>
-          <button class="btn btn-outline btn-sm" onclick="openSegmentManagerModal()">⚙️ Edit 301 Prizes</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;"><button class="btn btn-navy btn-sm" onclick="openStageProjector()">📺 Stage Live TV</button><button class="btn btn-outline btn-sm" onclick="openSegmentManagerModal()">⚙️ Edit 301 Prizes</button></div>
         </div>
 
         <div id="segmentCardsGrid" class="seg-grid"></div>
@@ -982,7 +1022,19 @@
           <div class="field"><label>Total Coupons / Prizes Pool</label><input type="number" id="setMaxCoupons" min="1" /></div>
           <div class="field"><label>Coupon Prefix (Optional)</label><input type="text" id="setPrefix" placeholder="Blank = 001, 002..." /></div>
           <div class="field"><label>Signatory Footer</label><input type="text" id="setSignatory" /></div>
-          <button class="btn btn-navy" onclick="saveSchemeSettings()">💾 Save Settings</button>
+          <div class="field">
+            <label>⚡ Auto-Allot Coupon on Save</label>
+            <select id="setAutoAllot">
+              <option value="0">Manual (Allot Tab)</option>
+              <option value="1">Auto-Allot + WhatsApp Popup</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>🔐 Admin 4-Digit PIN (Delete/Settings Lock)</label>
+            <input type="password" inputmode="numeric" maxlength="8" id="setAdminPin" placeholder="Set PIN (0000 = Remove)" />
+          </div>
+          <button class="btn btn-navy" onclick="saveSchemeSettings()">💾 Save All Settings</button>
+          <button class="btn btn-wa" type="button" onclick="sharePublicCheckLink()">🔗 Share Party Check Link</button>
         </div>
 
         <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;">
@@ -1341,6 +1393,143 @@
     </div>
   </div>
 
+
+  <!-- ==================== MODAL 12: AREA / BEAT BULK SHEET ENTRY (20 SHOPS EK SATH!) ==================== -->
+  <div class="modal-bg" id="beatBulkModal">
+    <div class="modal" style="max-width:680px;">
+      <div class="modal-hd">
+        <div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🚚 Area / Beat Bulk Maal Entry</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Area chunein &rarr; Har party ke samne <b>+</b> daba kar Bags bharein &rarr; 1-Click me poori Beat save!</div>
+        </div>
+        <button class="btn btn-outline btn-xs" onclick="closeModal('beatBulkModal')">✕</button>
+      </div>
+
+      <div class="form-grid cols-3" style="margin-bottom:10px;gap:8px;">
+        <select id="beatAreaSel" onchange="renderBeatBulkRows()" style="font-weight:800;"></select>
+        <input type="date" id="beatDateInp" />
+        <input type="text" id="beatFilterInp" placeholder="🔍 Filter shop..." oninput="renderBeatBulkRows()" />
+      </div>
+
+      <div id="beatSummaryBar" style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:800;color:var(--primary);margin-bottom:9px;display:flex;justify-content:space-between;align-items:center;">
+        <span>Selected: 0 Parties (0 Bags = 0 kg)</span>
+        <button type="button" class="btn btn-outline btn-xs" onclick="clearBeatDraft()">Reset</button>
+      </div>
+
+      <div id="beatRowsContainer" style="max-height:48vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;margin-bottom:12px;"></div>
+
+      <button class="btn btn-brand" style="width:100%;padding:13px;font-size:14.5px;" id="btnSaveBeatBulk" onclick="saveBeatBulkDeliveries()">
+        ✓ Save Entire Beat Entries Ek Sath
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 13: PRIZE HANDOVER PHOTO / SIGNATURE PROOF ==================== -->
+  <div class="modal-bg" id="handoverProofModal">
+    <div class="modal" style="max-width:480px;">
+      <div class="modal-hd">
+        <div>
+          <h3 style="font-size:16px;font-weight:900;color:var(--primary);">✅ Prize Handover & Proof</h3>
+          <div style="font-size:11.5px;color:var(--muted);" id="hoSubTitle">Winner Receipt</div>
+        </div>
+        <button class="btn btn-outline btn-xs" onclick="closeModal('handoverProofModal')">✕</button>
+      </div>
+      <input type="hidden" id="hoCouponId" value="" />
+
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <label class="btn btn-ai btn-sm" style="flex:1;cursor:pointer;">
+          📸 Take Receiver Photo
+          <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="handleHandoverPhoto(event)" />
+        </label>
+        <button type="button" class="btn btn-outline btn-sm" onclick="clearSignatureCanvas()">✍️ Clear Sign</button>
+      </div>
+
+      <div id="hoPhotoPreviewWrap" style="display:none;margin-bottom:10px;text-align:center;">
+        <img id="hoPhotoPreview" src="" style="max-height:170px;border-radius:11px;border:1.5px solid #22c55e;" />
+      </div>
+
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11.5px;font-weight:800;color:#334155;display:block;margin-bottom:4px;">✍️ Ya Ungli Se Receiver Signature Karwayein (Optional):</label>
+        <canvas id="sigCanvas" width="410" height="125" style="width:100%;height:125px;background:#f8fafc;border:1.5px dashed #94a3b8;border-radius:11px;touch-action:none;"></canvas>
+      </div>
+
+      <div class="field" style="margin-bottom:12px;">
+        <label>Receiver Name / Mobile / Remark (Optional)</label>
+        <input type="text" id="hoNoteInp" placeholder="e.g. Received by Ramesh Ji (Owner)" />
+      </div>
+
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-green" style="flex:1;padding:12px;" onclick="confirmHandoverWithProof()">✅ Confirm Prize Handed Over</button>
+        <button class="btn btn-danger btn-sm" id="btnRevertPending" style="display:none;" onclick="revertHandoverToPending()">⏳ Undo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 14: AUTO-ALLOT INSTANT WHATSAPP CELEBRATION ==================== -->
+  <div class="modal-bg" id="autoAllotPopupModal">
+    <div class="modal" style="max-width:430px;text-align:center;">
+      <div style="font-size:40px;">🎉🎟️</div>
+      <h3 style="font-size:17px;font-weight:900;color:#15803d;margin-top:4px;">Naya Lucky Coupon Auto-Allot Ho Gaya!</h3>
+      <p id="autoAllotMsgTxt" style="font-size:13px;color:var(--text);margin:8px 0 14px;line-height:1.45;"></p>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-wa" id="btnAutoAllotSharePdf">📲 Send Coupon PDF</button>
+        <button class="btn btn-navy" id="btnAutoAllotWaTxt">💬 WhatsApp Msg</button>
+        <button class="btn btn-outline" onclick="closeModal('autoAllotPopupModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== OVERLAY 15: FULL-SCREEN STAGE LIVE PROJECTOR TV MODE ==================== -->
+  <div class="projector-overlay" id="stageProjectorOverlay">
+    <div style="max-width:980px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:12px;font-weight:900;color:#fde68a;letter-spacing:1px;">✨ OFFICIAL LIVE LUCKY DRAW STAGE SCREEN</div>
+          <div style="font-size:20px;font-weight:900;color:#fff;" id="projHeaderTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</div>
+        </div>
+        <button class="btn btn-outline btn-sm" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="closeStageProjector()">✕ Exit TV Mode</button>
+      </div>
+
+      <div class="proj-stage-card">
+        <div style="max-width:620px;margin:0 auto 18px;display:grid;grid-template-columns:1.4fr 0.8fr auto;gap:8px;align-items:center;">
+          <select id="projSegSelect" style="background:#0f172a;color:#fde68a;border:1.5px solid #f59e0b;font-weight:800;font-size:14px;padding:11px;"></select>
+          <input type="number" id="projCupInp" placeholder="Coupon #" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" style="background:#fff;color:#0f172a;font-weight:900;font-size:18px;text-align:center;padding:10px;" />
+          <button class="btn btn-brand" style="padding:12px 18px;font-size:15px;" onclick="revealAndSaveStageWinner()">🎉 Reveal!</button>
+        </div>
+
+        <div id="projWinnerDisplay" style="padding:26px 14px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <div style="font-size:52px;">🚗 🛵 🏍️ 🏆</div>
+          <div style="font-size:22px;font-weight:900;color:#fde68a;margin-top:10px;">Select Prize & Enter Drawn Coupon Number!</div>
+          <div style="font-size:14px;color:#cbd5e1;margin-top:6px;">Jaise hi Coupon # daal kar Reveal dabayenge, Winner Party aur Village badi screen par chamkega!</div>
+        </div>
+      </div>
+
+      <div style="max-width:880px;margin:12px auto 0;background:rgba(255,255,255,0.05);border-radius:16px;padding:14px;">
+        <div style="font-size:12px;font-weight:800;color:#fde68a;margin-bottom:8px;">🏆 RECENTLY ANNOUNCED STAGE WINNERS:</div>
+        <div id="projRecentList" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== READ-ONLY PUBLIC RETAILER KHATA & PRIZE CHECK PORTAL (`?check=1`) ==================== -->
+  <div id="publicCheckPortal">
+    <div style="background:linear-gradient(135deg,#1e1b4b,#312e81);color:#fff;padding:20px 16px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.18);">
+      <div style="display:inline-block;background:#ea580c;color:#fff;font-weight:900;font-size:11px;padding:3px 10px;border-radius:999px;margin-bottom:6px;">OFFICIAL CUSTOMER PORTAL</div>
+      <h1 style="font-size:19px;font-weight:900;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
+      <p style="font-size:12.5px;color:#c7d2fe;margin-top:4px;" id="pubHdrSub">Apna Shop Name, Mobile Number ya Coupon Number daal kar Khata aur Prize check karein</p>
+    </div>
+
+    <div style="max-width:640px;margin:16px auto;padding:0 12px;">
+      <div class="card">
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="pubSearchInp" placeholder="🔍 Enter Shop Name, Mobile or Coupon # (e.g. 045)" onkeydown="if(event.key==='Enter') runPublicCheck()" style="font-weight:800;font-size:15px;" />
+          <button class="btn btn-brand" onclick="runPublicCheck()">Check</button>
+        </div>
+      </div>
+      <div id="pubResultsBox" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+  </div>
+
 <script>
   // ==================== GLOBAL STATE ====================
   const IS_LOCAL_PREVIEW = (window.location.protocol === 'file:');
@@ -1591,6 +1780,33 @@
       setLocalDB(db); return { ok: true, imported_deliveries: (body.deliveries||[]).length };
     }
     // Direct client-side Gemini fallback when running local file:// preview with saved key!
+    if (path === '/api/verify-pin') {
+      const saved = db.settings?.admin_pin || '';
+      return { ok: true, valid: !saved || saved === '0000' || String(body.pin || '') === String(saved) };
+    }
+    if (path.startsWith('/api/coupons/proof/')) {
+      const cid = Number(path.split('/').pop());
+      const c = db.coupons.find(x => x.id === cid);
+      return { ok: true, handover_proof: c?.handover_proof || '', handover_note: c?.handover_note || '' };
+    }
+    if (path === '/api/deliveries/beat-bulk') {
+      for (const x of (body.items || [])) {
+        if (Number(x.total_kg) > 0) {
+          db.deliveries.unshift({ id: db.seq.d++, dl_code: 'DL-' + Math.random().toString(16).slice(2,8).toUpperCase(), entry_date: body.entry_date, retailer_id: Number(x.retailer_id), bags: x.bags, loose_kg: x.loose_kg, total_kg: x.total_kg, remarks: 'Area Sheet' });
+        }
+      }
+      setLocalDB(db); return { ok: true, saved: (body.items || []).length, auto_allotted: 0 };
+    }
+    if (path.startsWith('/api/public/check')) {
+      const q = decodeURIComponent((path.split('q=')[1] || '')).trim().toUpperCase();
+      const matches = db.retailers.filter(r => r.name.includes(q) || (r.phone || '').includes(q)).map(r => {
+        const dels = db.deliveries.filter(d => d.retailer_id === r.id);
+        const cups = db.coupons.filter(c => c.retailer_id === r.id);
+        const total_kg = dels.reduce((s, d) => s + Number(d.total_kg || 0), 0);
+        return { name: r.name, area: r.area, total_kg, bags_eq: Math.round(total_kg / 3) / 10, earned: Math.floor(total_kg / 210), need_kg: 210 - (total_kg % 210), coupons: cups, recent_deliveries: dels };
+      });
+      return { ok: true, settings: db.settings, matches };
+    }
     if (path.startsWith('/api/ai/')) {
       const localKey = db.settings?.gemini_api_key || '';
       if (!localKey) throw new Error('PDF/AI tab me jaakar apni Gemini API Key save karein!');
@@ -1772,6 +1988,8 @@
     document.getElementById('setMaxCoupons').value = s.max_coupons || 301;
     document.getElementById('setPrefix').value = s.coupon_prefix || '';
     document.getElementById('setSignatory').value = s.signatory || '';
+    document.getElementById('setAutoAllot').value = s.auto_allot_coupons ? '1' : '0';
+    updatePinBadgeUI();
 
     document.getElementById('dlAreas').innerHTML = STATE.areas.map(a => `<option value="${esc(a)}"></option>`).join('');
 
@@ -2372,6 +2590,7 @@
     try {
       await api('/api/settings', 'POST', { gemini_api_key: key });
       document.getElementById('setGeminiKey').value = '';
+      document.getElementById('setAdminPin').value = '';
       toast('🔐 Gemini AI Key securely saved! All AI features active.');
       await refreshAll();
     } catch (e) { toast(e.message, true); }
@@ -2685,6 +2904,7 @@
   }
 
   async function deleteEntryFromKhata(delId) {
+    if (!(await ensureAdminUnlocked())) return;
     if (!confirm('Yeh entry khate se delete karein?')) return;
     try {
       await api('/api/deliveries/' + delId, 'DELETE');
@@ -2696,6 +2916,7 @@
   }
 
   async function loadOfficial301Segments() {
+    if (!(await ensureAdminUnlocked())) return;
     if (!confirm('Official 301 Prizes ki list load karein?')) return;
     try {
       await api('/api/segments/reset-official', 'POST', {});
@@ -2850,7 +3071,7 @@
       trig.classList.add('open');
       document.getElementById('retDdSearchInp').value = '';
       renderRetailerDropdownList();
-      setTimeout(() => document.getElementById('retDdSearchInp').focus(), 60);
+      // Keep mobile keypad closed on tap so full retailer dropdown list stays visible!
     }
   }
 
@@ -2927,7 +3148,10 @@
         : `Is party ki pehli entry hogi`;
       infoBar.innerHTML = `
         <div>📒 <b>${esc(row.name)}</b> — Kul Khata: <b>${row.total_kg} kg</b> (${row.bags_eq} Bags) • ${lastTxt}</div>
-        <button type="button" class="btn btn-outline btn-xs" onclick="openRetailerKhata(${row.id})">Open Party Khata ›</button>
+        <div style="display:flex;gap:5px;">
+          ${row.last_entry ? `<button type="button" class="btn btn-brand btn-xs" onclick="repeatLastPartyOrder(${row.id})">↻ Same (${row.last_entry.total_kg}kg)</button>` : ''}
+          <button type="button" class="btn btn-outline btn-xs" onclick="openRetailerKhata(${row.id})">📒 Khata ›</button>
+        </div>
       `;
     } else if (val) {
       infoBar.style.display = 'flex';
@@ -3017,13 +3241,16 @@
     const btn = document.getElementById('btnSaveDel');
     btn.disabled = true;
     try {
-      await api('/api/deliveries', 'POST', {
+      const res = await api('/api/deliveries', 'POST', {
         id: id ? Number(id) : null,
         retailer_name, area, bags, loose_kg, total_kg, entry_date, remarks
       });
       toast(`✓ Saved ${total_kg} kg in ${retailer_name} Khata!`);
       resetDelForm(entry_date);
       await refreshAll();
+      if (res.auto_codes && res.auto_codes.length > 0 && res.retailer_id) {
+        showAutoAllotCelebration(res.retailer_id, retailer_name, res.auto_codes);
+      }
     } catch (e) {
       toast(e.message, true);
     } finally {
@@ -3070,6 +3297,7 @@
   }
 
   async function deleteDelRow(id) {
+    if (!(await ensureAdminUnlocked())) return;
     if (!confirm('Yeh delivery entry delete karein?')) return;
     try {
       await api('/api/deliveries/' + id, 'DELETE');
@@ -3263,6 +3491,7 @@
   }
 
   async function revokeCup(id, code) {
+    if (!(await ensureAdminUnlocked())) return;
     if (!confirm(`Un-allot Coupon #${code}?`)) return;
     try { await api('/api/coupons/' + id, 'DELETE'); toast('Revoked'); await refreshAll(); }
     catch (e) { toast(e.message, true); }
@@ -3654,19 +3883,11 @@
   }
 
   async function toggleWinnerHandover(couponId, currentStatus) {
-    const next = currentStatus === 'DELIVERED' ? 'WON' : 'DELIVERED';
-    try {
-      await api('/api/coupons/prize-bulk', 'POST', {
-        mode: 'HANDOVER',
-        coupon_ids: [couponId],
-        prize_status: next
-      });
-      toast(next === 'DELIVERED' ? '✅ Marked Handed Over!' : '⏳ Marked Pending');
-      await refreshAll();
-    } catch (e) { toast(e.message, true); }
+    openHandoverProofModal(couponId, currentStatus);
   }
 
   async function clearSingleWinnerPrize(couponNum) {
+    if (!(await ensureAdminUnlocked())) return;
     if (!confirm(`Coupon #${padCup(couponNum)} se prize hata dein?`)) return;
     try {
       await api('/api/coupons/prize-bulk', 'POST', { mode: 'LIST', coupon_nums: [couponNum], prize_title: '' });
@@ -3744,7 +3965,9 @@
             </div>
             <div style="margin-top:6px;">
               ${hasPrize
-                ? `<span class="badge b-amber" style="font-size:12px;">🏆 Rank #${c.prize_rank < 999 ? c.prize_rank : '-'}: ${esc(c.prize_title)}</span>`
+                ? `<span class="badge b-amber" style="font-size:12px;">🏆 Rank #${c.prize_rank < 999 ? c.prize_rank : '-'}: ${esc(c.prize_title)}</span>
+                   ${c.has_proof ? `<span class="badge b-green">📸 Proof Saved</span>` : ''}
+                   ${c.handover_note ? `<span class="badge b-gray">✍️ ${esc(c.handover_note)}</span>` : ''}`
                 : `<span class="badge b-gray">No Prize Assigned</span>`}
             </div>
           </div>
@@ -3809,6 +4032,7 @@
   }
 
   async function deleteSegRow(id) {
+    if (!(await ensureAdminUnlocked())) return;
     if (!confirm('Delete this prize segment?')) return;
     try {
       await api('/api/segments/' + id, 'DELETE');
@@ -3883,6 +4107,7 @@
   }
 
   async function deleteRetailerFromModal() {
+    if (!(await ensureAdminUnlocked())) return;
     const id = Number(document.getElementById('modRetId').value);
     if (!id || !confirm('Delete this party and all its deliveries & coupons?')) return;
     try {
@@ -4203,7 +4428,9 @@
 
   // ==================== SETTINGS & BACKUP ====================
   async function saveSchemeSettings() {
+    if (!(await ensureAdminUnlocked())) return;
     const payload = {
+      auto_allot_coupons: document.getElementById('setAutoAllot').value === '1' ? '1' : '0',
       company_name: document.getElementById('setCompany').value.trim() || 'ARYUSH FOODS',
       campaign_name: document.getElementById('setCampaign').value.trim() || 'MEGA ALTO LUCKY DRAW',
       kg_per_coupon: Math.max(1, Number(document.getElementById('setKgPerCup').value) || 210),
@@ -4214,6 +4441,8 @@
     };
     const gKey = document.getElementById('setGeminiKey').value.trim();
     if (gKey) payload.gemini_api_key = gKey;
+    const newPin = document.getElementById('setAdminPin').value.trim();
+    if (newPin) payload.admin_pin = newPin;
     try {
       await api('/api/settings', 'POST', payload);
       document.getElementById('setGeminiKey').value = '';
@@ -4564,6 +4793,416 @@
     window.print();
   }
 
+  
+  // ==================== V7.0 ULTIMATE CONTROLLERS ====================
+
+  function repeatLastPartyOrder(retailerId) {
+    const r = STATE.summaryRows.find(x => x.id === retailerId);
+    if (!r || !r.last_entry) return;
+    document.getElementById('delBagsInp').value = r.last_entry.bags || '';
+    document.getElementById('delLooseInp').value = r.last_entry.loose_kg || '';
+    document.getElementById('delTotalInp').value = r.last_entry.total_kg || '';
+    updateDelLiveBanner();
+    toast(`↻ Repeated ${r.last_entry.total_kg} kg — Tap Save!`);
+  }
+
+  function showAutoAllotCelebration(retailerId, shopName, codes) {
+    document.getElementById('autoAllotMsgTxt').innerHTML =
+      `<b>${esc(shopName)}</b> ke 210 kg pure hone par Coupon <b>#${codes.map(esc).join(', #')}</b> apne aap allot ho gaya hai!`;
+    document.getElementById('btnAutoAllotSharePdf').onclick = () => {
+      closeModal('autoAllotPopupModal');
+      shareRetailerSlipPDF(retailerId, true);
+    };
+    document.getElementById('btnAutoAllotWaTxt').onclick = () => {
+      closeModal('autoAllotPopupModal');
+      sendRetailerWhatsAppText(retailerId);
+    };
+    openModal('autoAllotPopupModal');
+  }
+
+  let BEAT_DRAFT_BAGS = {};
+  function openBeatBulkModal() {
+    BEAT_DRAFT_BAGS = {};
+    document.getElementById('beatDateInp').value = todayISO();
+    document.getElementById('beatFilterInp').value = '';
+    const sel = document.getElementById('beatAreaSel');
+    sel.innerHTML = `<option value="ALL">🌍 All Areas (${STATE.retailers.length} Parties)</option>` +
+      STATE.areas.map(a => `<option value="${esc(a)}">📍 ${esc(a)}</option>`).join('') +
+      `<option value="UNASSIGNED">⚠️ Blank Area</option>`;
+    renderBeatBulkRows();
+    openModal('beatBulkModal');
+  }
+
+  function clearBeatDraft() {
+    BEAT_DRAFT_BAGS = {};
+    renderBeatBulkRows();
+  }
+
+  function setBeatBagVal(retId, val) {
+    const n = Math.max(0, Number(val) || 0);
+    if (n === 0) delete BEAT_DRAFT_BAGS[retId];
+    else BEAT_DRAFT_BAGS[retId] = n;
+    renderBeatBulkRows();
+  }
+
+  function stepBeatBag(retId, delta) {
+    const cur = Number(BEAT_DRAFT_BAGS[retId]) || 0;
+    setBeatBagVal(retId, Math.max(0, cur + delta));
+  }
+
+  function renderBeatBulkRows() {
+    const areaF = document.getElementById('beatAreaSel').value;
+    const q = document.getElementById('beatFilterInp').value.trim().toLowerCase();
+    const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+
+    const parties = [...STATE.summaryRows]
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .filter(r => {
+        if (areaF !== 'ALL') {
+          if (areaF === 'UNASSIGNED' && r.area) return false;
+          if (areaF !== 'UNASSIGNED' && r.area !== areaF) return false;
+        }
+        if (q && !r.name.toLowerCase().includes(q) && !r.area.toLowerCase().includes(q)) return false;
+        return true;
+      });
+
+    const filledIds = Object.keys(BEAT_DRAFT_BAGS).filter(id => BEAT_DRAFT_BAGS[id] > 0);
+    const totBags = filledIds.reduce((s, id) => s + Number(BEAT_DRAFT_BAGS[id] || 0), 0);
+    document.querySelector('#beatSummaryBar span').textContent =
+      `Selected: ${filledIds.length} Parties (${totBags} Bags = ${totBags * bagKg} kg)`;
+    document.getElementById('btnSaveBeatBulk').textContent =
+      `✓ Save ${filledIds.length} Parties (${totBags * bagKg} kg) Ek Sath`;
+
+    const box = document.getElementById('beatRowsContainer');
+    if (!parties.length) {
+      box.innerHTML = `<div style="text-align:center;padding:22px;color:var(--muted);">Is Area me koi party nahi mili.</div>`;
+      return;
+    }
+
+    box.innerHTML = parties.map(r => {
+      const b = Number(BEAT_DRAFT_BAGS[r.id]) || 0;
+      return `<div class="beat-row ${b > 0 ? 'filled' : ''}">
+        <div style="min-width:0;flex:1;">
+          <div style="font-size:13.5px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(r.name)}</div>
+          <div style="font-size:11px;color:var(--muted);">📍 ${esc(r.area || '-')} • Khata: ${r.total_kg} kg ${b > 0 ? `• <b style="color:#15803d;">+${b * bagKg} kg</b>` : ''}</div>
+        </div>
+        <div class="beat-step">
+          <button type="button" onclick="stepBeatBag(${r.id}, -1)">−</button>
+          <input type="number" min="0" step="0.5" value="${b || ''}" placeholder="0" onchange="setBeatBagVal(${r.id}, this.value)" />
+          <button type="button" onclick="stepBeatBag(${r.id}, 1)">+</button>
+          <button type="button" onclick="stepBeatBag(${r.id}, 7)" style="width:auto;padding:0 7px;font-size:11px;background:#fffbeb;border-color:#f59e0b;color:#b45309;">+7</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  async function saveBeatBulkDeliveries() {
+    const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+    const entry_date = document.getElementById('beatDateInp').value || todayISO();
+    const items = Object.entries(BEAT_DRAFT_BAGS)
+      .filter(([, b]) => Number(b) > 0)
+      .map(([rid, b]) => {
+        const bags = Number(b);
+        return { retailer_id: Number(rid), bags, loose_kg: 0, total_kg: Math.round(bags * bagKg * 100) / 100 };
+      });
+
+    if (!items.length) return toast('Kisi party ke samne + daba kar Bags chunein!', true);
+    const btn = document.getElementById('btnSaveBeatBulk');
+    btn.disabled = true;
+    try {
+      const res = await api('/api/deliveries/beat-bulk', 'POST', { entry_date, items });
+      closeModal('beatBulkModal');
+      toast(`🎉 ${res.saved} Parties ki Beat Entry ek sath save ho gayi!${res.auto_allotted ? ` (+${res.auto_allotted} Auto-Coupons)` : ''}`);
+      await refreshAll();
+    } catch (e) { toast(e.message, true); }
+    finally { btn.disabled = false; }
+  }
+
+  let HO_PHOTO_DATA_URL = '';
+  let SIG_DIRTY = false;
+  let SIG_READY = false;
+
+  function initSignaturePadOnce() {
+    if (SIG_READY) return;
+    const canvas = document.getElementById('sigCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    const getPos = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches ? e.touches[0] : e;
+      return {
+        x: (touch.clientX - rect.left) * (canvas.width / rect.width),
+        y: (touch.clientY - rect.top) * (canvas.height / rect.height)
+      };
+    };
+
+    const start = (e) => { e.preventDefault(); drawing = true; SIG_DIRTY = true; const p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); };
+    const move = (e) => { if (!drawing) return; e.preventDefault(); const p = getPos(e); ctx.lineWidth = 2.6; ctx.lineCap = 'round'; ctx.strokeStyle = '#1e1b4b'; ctx.lineTo(p.x, p.y); ctx.stroke(); };
+    const end = () => { drawing = false; };
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end);
+    canvas.addEventListener('touchstart', start, { passive: false });
+    canvas.addEventListener('touchmove', move, { passive: false });
+    canvas.addEventListener('touchend', end);
+    SIG_READY = true;
+  }
+
+  function clearSignatureCanvas() {
+    const canvas = document.getElementById('sigCanvas');
+    if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    SIG_DIRTY = false;
+  }
+
+  async function openHandoverProofModal(couponId, currentStatus) {
+    initSignaturePadOnce();
+    clearSignatureCanvas();
+    HO_PHOTO_DATA_URL = '';
+    document.getElementById('hoCouponId').value = couponId;
+    document.getElementById('hoPhotoPreviewWrap').style.display = 'none';
+
+    const c = STATE.coupons.find(x => x.id === couponId);
+    const r = c ? STATE.retailers.find(x => x.id === c.retailer_id) : null;
+    document.getElementById('hoSubTitle').textContent = c
+      ? `Coupon #${c.coupon_code} • ${r ? r.name : ''} • ${c.prize_title}`
+      : 'Prize Handover';
+    document.getElementById('hoNoteInp').value = c?.handover_note || '';
+    document.getElementById('btnRevertPending').style.display = currentStatus === 'DELIVERED' ? 'inline-flex' : 'none';
+
+    if (c?.has_proof) {
+      try {
+        const pr = await api('/api/coupons/proof/' + couponId);
+        if (pr.handover_proof) {
+          HO_PHOTO_DATA_URL = pr.handover_proof;
+          document.getElementById('hoPhotoPreview').src = pr.handover_proof;
+          document.getElementById('hoPhotoPreviewWrap').style.display = 'block';
+        }
+      } catch (e) {}
+    }
+    openModal('handoverProofModal');
+  }
+
+  async function handleHandoverPhoto(ev) {
+    const file = ev.target.files[0];
+    ev.target.value = '';
+    if (!file) return;
+    const { base64 } = await compressImageToBase64(file, 720);
+    HO_PHOTO_DATA_URL = 'data:image/jpeg;base64,' + base64;
+    document.getElementById('hoPhotoPreview').src = HO_PHOTO_DATA_URL;
+    document.getElementById('hoPhotoPreviewWrap').style.display = 'block';
+  }
+
+  async function confirmHandoverWithProof() {
+    const cid = Number(document.getElementById('hoCouponId').value);
+    let proof = HO_PHOTO_DATA_URL;
+    if (!proof && SIG_DIRTY) {
+      proof = document.getElementById('sigCanvas').toDataURL('image/png');
+    }
+    const note = document.getElementById('hoNoteInp').value.trim();
+    try {
+      await api('/api/coupons/prize-bulk', 'POST', {
+        mode: 'HANDOVER',
+        coupon_ids: [cid],
+        prize_status: 'DELIVERED',
+        handover_proof: proof || undefined,
+        handover_note: note
+      });
+      closeModal('handoverProofModal');
+      toast('✅ Prize Handed Over & Proof Saved!');
+      await refreshAll();
+    } catch (e) { toast(e.message, true); }
+  }
+
+  async function revertHandoverToPending() {
+    if (!(await ensureAdminUnlocked())) return;
+    const cid = Number(document.getElementById('hoCouponId').value);
+    try {
+      await api('/api/coupons/prize-bulk', 'POST', { mode: 'HANDOVER', coupon_ids: [cid], prize_status: 'WON' });
+      closeModal('handoverProofModal');
+      toast('⏳ Reverted to Pending');
+      await refreshAll();
+    } catch (e) { toast(e.message, true); }
+  }
+
+  function openStageProjector() {
+    document.getElementById('projHeaderTitle').textContent =
+      `${STATE.settings.company_name} — ${STATE.settings.campaign_name}`;
+    document.getElementById('projSegSelect').innerHTML = STATE.segments.map(s =>
+      `<option value="${s.id}" ${s.id === STATE.activeSegmentId ? 'selected' : ''}>${esc(s.icon)} Rank #${s.rank}: ${esc(s.title)}</option>`
+    ).join('');
+    document.getElementById('projCupInp').value = '';
+    renderProjectorRecentWinners();
+    document.getElementById('stageProjectorOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeStageProjector() {
+    document.getElementById('stageProjectorOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  async function revealAndSaveStageWinner() {
+    const segId = Number(document.getElementById('projSegSelect').value);
+    const seg = STATE.segments.find(s => s.id === segId);
+    const cupNum = Number(document.getElementById('projCupInp').value);
+    if (!seg || !cupNum) return toast('Coupon Number dalein!', true);
+
+    const c = STATE.coupons.find(x => Number(x.coupon_num) === cupNum);
+    if (!c) return toast(`Coupon #${padCup(cupNum)} kisi party ko allot nahi hai!`, true);
+    const r = STATE.retailers.find(x => x.id === c.retailer_id);
+
+    try {
+      await api('/api/coupons/prize-bulk', 'POST', {
+        mode: 'LIST',
+        coupon_nums: [cupNum],
+        prize_rank: seg.rank,
+        prize_title: seg.title,
+        prize_status: 'WON',
+        draw_date: todayISO()
+      });
+      await refreshAll();
+
+      const disp = document.getElementById('projWinnerDisplay');
+      disp.innerHTML = `<div class="winner-pop">
+        <div style="font-size:58px;">${esc(seg.icon || '🏆')} 🎉</div>
+        <div style="display:inline-block;background:#f59e0b;color:#0f172a;font-weight:900;font-size:18px;padding:4px 18px;border-radius:999px;margin-top:6px;">
+          COUPON #${esc(c.coupon_code)}
+        </div>
+        <div style="font-size:32px;font-weight:900;color:#fff;margin-top:12px;letter-spacing:0.4px;">
+          ${esc(r ? r.name : 'WINNER')}
+        </div>
+        <div style="font-size:18px;font-weight:800;color:#93c5fd;margin-top:4px;">
+          📍 AREA / VILLAGE: ${esc(r?.area || '-')}
+        </div>
+        <div style="font-size:24px;font-weight:900;color:#4ade80;margin-top:14px;">
+          🏆 ${esc(seg.title)}
+        </div>
+      </div>`;
+      document.getElementById('projCupInp').value = '';
+      renderProjectorRecentWinners();
+    } catch (e) { toast(e.message, true); }
+  }
+
+  function renderProjectorRecentWinners() {
+    const rMap = new Map(STATE.retailers.map(r => [r.id, r]));
+    const winners = STATE.coupons
+      .filter(c => c.prize_status !== 'NONE' && c.prize_title)
+      .sort((a, b) => (a.prize_rank || 999) - (b.prize_rank || 999) || a.coupon_num - b.coupon_num)
+      .slice(0, 18);
+    document.getElementById('projRecentList').innerHTML = winners.map(c => {
+      const r = rMap.get(c.retailer_id);
+      return `<div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);padding:6px 11px;border-radius:10px;font-size:12px;">
+        <b style="color:#fde68a;">#${esc(c.coupon_code)}</b> • <b>${esc(r?.name || '-')}</b> <span style="color:#86efac;">(${esc(c.prize_title.slice(0, 22))})</span>
+      </div>`;
+    }).join('') || `<span style="color:#94a3b8;font-size:12px;">No winners declared yet.</span>`;
+  }
+
+  let ADMIN_SESSION_UNLOCKED = false;
+  function updatePinBadgeUI() {
+    const btn = document.getElementById('btnPinBadge');
+    if (!btn) return;
+    if (!STATE.settings.pin_enabled) {
+      btn.style.display = 'none';
+      return;
+    }
+    btn.style.display = 'inline-flex';
+    btn.textContent = ADMIN_SESSION_UNLOCKED ? '🔓 Admin' : '🔒 Staff';
+    btn.style.color = ADMIN_SESSION_UNLOCKED ? '#86efac' : '#fde68a';
+  }
+
+  async function togglePinLockManual() {
+    if (!STATE.settings.pin_enabled) return;
+    if (ADMIN_SESSION_UNLOCKED) {
+      ADMIN_SESSION_UNLOCKED = false;
+      updatePinBadgeUI();
+      toast('🔒 Switched to Staff Mode (Delete & Settings Locked)');
+    } else {
+      await ensureAdminUnlocked();
+    }
+  }
+
+  async function ensureAdminUnlocked() {
+    if (!STATE.settings.pin_enabled || ADMIN_SESSION_UNLOCKED) return true;
+    const pin = prompt('🔐 Admin PIN dalein (Delete / Settings unlock karne ke liye):');
+    if (pin === null) return false;
+    try {
+      const res = await api('/api/verify-pin', 'POST', { pin });
+      if (res.valid) {
+        ADMIN_SESSION_UNLOCKED = true;
+        updatePinBadgeUI();
+        toast('🔓 Admin Mode Unlocked!');
+        return true;
+      }
+      toast('❌ Galat Admin PIN!', true);
+      return false;
+    } catch (e) {
+      toast(e.message, true);
+      return false;
+    }
+  }
+
+  function sharePublicCheckLink() {
+    const pubUrl = window.location.origin + window.location.pathname + '?check=1';
+    const msg =
+      `🏆 *${STATE.settings.company_name} — ${STATE.settings.campaign_name}*\n\n` +
+      `Sabhi dukandar bhai apna *Kul Maal Khata, Lucky Coupon Numbers aur Jeeta Hua Inam* niche diye link par apna Naam ya Coupon # daal kar live dekh sakte hain:\n` +
+      `👉 ${pubUrl}`;
+    if (navigator.share) {
+      navigator.share({ title: 'Check Lucky Draw Khata & Result', text: msg, url: pubUrl }).catch(() => {});
+    } else {
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+  }
+
+  async function runPublicCheck() {
+    const q = document.getElementById('pubSearchInp').value.trim();
+    if (!q) return toast('Shop ka naam, mobile ya coupon # dalein!', true);
+    const box = document.getElementById('pubResultsBox');
+    box.innerHTML = `<div style="text-align:center;padding:24px;color:var(--muted);font-weight:700;">⏳ Searching...</div>`;
+    try {
+      const res = await api('/api/public/check?q=' + encodeURIComponent(q));
+      if (res.settings) {
+        document.getElementById('pubHdrTitle').textContent = `${res.settings.company_name} — ${res.settings.campaign_name}`;
+      }
+      const list = res.matches || [];
+      if (!list.length) {
+        box.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);">Koi record nahi mila. Sahi Shop Name ya Coupon # dalein.</div>`;
+        return;
+      }
+      box.innerHTML = list.map(r => `
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+            <div>
+              <div style="font-size:16px;font-weight:900;color:var(--primary);">🏪 ${esc(r.name)}</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px;">📍 Area: ${esc(r.area || '-')}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:18px;font-weight:900;color:#15803d;">${r.total_kg} kg</div>
+              <div style="font-size:11px;color:var(--muted);font-weight:700;">${r.bags_eq} Bags</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;padding:9px 11px;background:#f8fafc;border-radius:10px;font-size:12px;font-weight:700;color:#334155;">
+            🎯 Agle Coupon ke liye sirf <b>${r.need_kg} kg</b> aur chahiye! (Kul Earned Coupons: <b>${r.earned}</b>)
+          </div>
+          <div style="margin-top:10px;">
+            <div style="font-size:11.5px;font-weight:800;color:var(--muted);margin-bottom:5px;">🎟️ ALLOTTED COUPONS & PRIZE STATUS:</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              ${(r.coupons || []).map(c => c.prize_title
+                ? `<span class="badge b-green" style="font-size:12px;padding:5px 9px;">#${esc(c.coupon_code)} — 🏆 ${esc(c.prize_title)} (${c.prize_status === 'DELIVERED' ? 'Delivered' : 'Winner!'})</span>`
+                : `<span class="badge b-navy" style="font-size:12px;padding:5px 9px;">#${esc(c.coupon_code)} (In Draw)</span>`
+              ).join('') || '<span style="font-size:12px;color:var(--muted);">No coupons allotted yet</span>'}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    } catch (e) {
+      box.innerHTML = `<div class="card" style="color:#dc2626;">Error: ${esc(e.message)}</div>`;
+    }
+  }
+
   // ==================== PWA INSTALL & INIT ====================
   let deferredPrompt = null;
   window.addEventListener('beforeinstallprompt', (e) => {
@@ -4587,7 +5226,22 @@
     });
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('check') === '1') {
+      document.body.classList.add('public-mode');
+      try {
+        const initPub = await api('/api/public/check?q=');
+        if (initPub.settings) {
+          document.getElementById('pubHdrTitle').textContent = `${initPub.settings.company_name} — ${initPub.settings.campaign_name}`;
+        }
+      } catch (e) {}
+      if (params.get('q')) {
+        document.getElementById('pubSearchInp').value = params.get('q');
+        runPublicCheck();
+      }
+      return;
+    }
     document.getElementById('delDateInp').value = todayISO();
     document.getElementById('allotDateInp').value = todayISO();
     refreshAll();

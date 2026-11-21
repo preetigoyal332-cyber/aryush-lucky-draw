@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>ARYUSH FOODS • आर्युष रसोई धन | आधिकारिक डिजिटल पासबुक</title>
-  <meta name="description" content="आर्युष फूड्स (आर्युष रसोई धन) — आधिकारिक माल खाता पासबुक, लकी कूपन एवं मेगा लकी ड्रॉ स्टेटमेंट" />
+  <meta name="description" content="आर्युष फूड्स (आर्युष रसोई धन) — आधिकारिक व्यापारिक पासबुक, सप्लाई विवरण एवं मेगा लकी ड्रॉ स्टेटमेंट" />
   <meta property="og:title" content="ARYUSH FOODS • आर्युष रसोई धन" />
-  <meta property="og:description" content="आधिकारिक डिजिटल माल खाता पासबुक एवं लकी ड्रॉ कूपन स्टेटमेंट" />
+  <meta property="og:description" content="आधिकारिक डिजिटल पासबुक एवं लकी ड्रॉ कूपन स्टेटमेंट" />
   <meta property="og:image" content="/icon-512.png" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -2110,7 +2110,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v14.5 Pro</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v15.0 Corporate</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -2128,11 +2128,11 @@
   <!-- Desktop Navigation -->
   <nav class="desk-nav">
     <div class="desk-nav-inner">
-      <button class="dtab active" data-tab="overview" onclick="switchTab('overview')">📒 Party Khata & AI Hub</button>
-      <button class="dtab" data-tab="deliveries" onclick="switchTab('deliveries')">🚚 Maal Entry (Voice + Scan)</button>
-      <button class="dtab" data-tab="allot" onclick="switchTab('allot')">🎟️ Ek Sath Allot <span class="cnt-pill" id="dBadgePending" style="display:none">0</span></button>
-      <button class="dtab" data-tab="prizes" onclick="switchTab('prizes')">🏆 301 Prize Slot Filler</button>
-      <button class="dtab" data-tab="reports" onclick="switchTab('reports')">📄 Area PDF & AI Settings</button>
+      <button class="dtab active" data-tab="overview" onclick="switchTab('overview')">📒 Party Ledger</button>
+      <button class="dtab" data-tab="deliveries" onclick="switchTab('deliveries')">🚚 Dispatch Entry</button>
+      <button class="dtab" data-tab="allot" onclick="switchTab('allot')">🎟️ Coupon Allotment <span class="cnt-pill" id="dBadgePending" style="display:none">0</span></button>
+      <button class="dtab" data-tab="prizes" onclick="switchTab('prizes')">🏆 Prize Declaration</button>
+      <button class="dtab" data-tab="reports" onclick="switchTab('reports')">📄 Reports & Settings</button>
     </div>
   </nav>
 
@@ -2142,7 +2142,7 @@
     <section id="screen-overview" class="screen active">
 
       <!-- 0. SCROLLING WELCOME & PRODUCT KHASIYAT PATTI ON HOME -->
-      <div class="app-welcome-strip" id="homeWelcomePattiWrap" onclick="openWelcomePattiModal()" style="cursor:pointer;" title="Tap to edit Welcome Patti & Product Khasiyat">
+      <div class="app-welcome-strip" id="homeWelcomePattiWrap" onclick="openWelcomePattiModal()" style="cursor:pointer;" title="Click to configure Welcome Ticker & Product Highlights">
         <span class="app-welcome-tag">🙏 स्वागतम</span>
         <div style="flex:1;overflow:hidden;">
           <div class="app-welcome-track" id="homeWelcomePattiTrack"></div>
@@ -2206,15 +2206,15 @@
 
       <!-- 2. SINGLE-LINE HORIZONTAL QUICK ACTION BAR (Clean & Scannable on Mobile!) -->
       <div class="quick-tools-bar">
-        <button type="button" class="qtool-btn primary" onclick="switchTab('deliveries')">➕ Maal Entry</button>
-        <button type="button" class="qtool-btn wa" onclick="openAiTargetCoachModal()">📲 Target WTS <span id="nearCountBadge"></span></button>
+        <button type="button" class="qtool-btn primary" onclick="switchTab('deliveries')">➕ Dispatch Entry</button>
+        <button type="button" class="qtool-btn wa" onclick="openAiTargetCoachModal()">📲 Send Statement <span id="nearCountBadge"></span></button>
         <button type="button" class="qtool-btn" onclick="openBeatBulkModal()">🚚 Beat Sheet</button>
         <button type="button" class="qtool-btn" onclick="openAreaManagerModal()">📍 Areas</button>
-        <button type="button" class="qtool-btn" onclick="openProductStudioModal()">📸 Products & Khasiyat</button>
-        <button type="button" class="qtool-btn" onclick="openWelcomePattiModal()">🎊 Welcome Patti</button>
-        <button type="button" class="qtool-btn" onclick="openWaTemplateModal()">✏️ WTS Msg</button>
+        <button type="button" class="qtool-btn" onclick="openProductStudioModal()">📸 Brand & Products</button>
+        <button type="button" class="qtool-btn" onclick="openWelcomePattiModal()">🎊 Welcome Ticker</button>
+        <button type="button" class="qtool-btn" onclick="openWaTemplateModal()">✏️ Message Format</button>
         <button type="button" class="qtool-btn" onclick="openSheetImportModal()">📥 Excel/Sheet</button>
-        <button type="button" class="qtool-btn" onclick="openDuplicateGuardModal()">🔍 Dup Check</button>
+        <button type="button" class="qtool-btn" onclick="openDuplicateGuardModal()">🔍 Merge Duplicates</button>
       </div>
 
       <!-- 3. COMPACT COLLAPSIBLE PRODUCT SHOWCASE STRIP -->
@@ -2236,8 +2236,8 @@
       <div class="card" style="padding:14px;">
         <div class="card-hd" style="margin-bottom:10px;">
           <div>
-            <div class="card-title">📒 Party Khata Register</div>
-            <div class="card-sub">Kisi bhi party par tap karke usकी passbook, coupons aur PDF dekhein</div>
+            <div class="card-title">📒 Registered Party Ledger</div>
+            <div class="card-sub">Select any party to view account passbook, allotted coupons, and official PDF statement.</div>
           </div>
           <button class="btn btn-navy btn-sm" onclick="openRetailerModal()">+ Party</button>
         </div>
@@ -2275,14 +2275,14 @@
       <div class="card">
         <div class="card-hd">
           <div>
-            <div class="card-title" id="delCardTitle">🚚 Maal Delivery Entry</div>
-            <div class="card-sub">Dropdown chunein, <b>🎤 Bolkar</b> bharein ya <b>📸 Bill Photo</b> scan karein!</div>
+            <div class="card-title" id="delCardTitle">🚚 Stock Dispatch Entry</div>
+            <div class="card-sub">Select party from directory, use <b>🎤 Voice Input</b>, or scan dispatch invoice.</div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button type="button" class="btn btn-brand btn-xs" onclick="openBeatBulkModal()">🚚 Area Sheet (Ek Sath)</button>
-            <button type="button" class="btn btn-ai btn-xs" id="btnVoiceDel" onclick="startVoiceEntry('DELIVERY')">🎤 Bolkar</button>
+            <button type="button" class="btn btn-brand btn-xs" onclick="openBeatBulkModal()">🚚 Beat Bulk Sheet</button>
+            <button type="button" class="btn btn-ai btn-xs" id="btnVoiceDel" onclick="startVoiceEntry('DELIVERY')">🎤 Voice Input</button>
             <label class="btn btn-ai btn-xs" style="cursor:pointer;">
-              📸 Bill Scan
+              📸 Invoice Scan
               <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="handleAiBillScan(event)" />
             </label>
             <button type="button" class="btn btn-navy btn-xs" onclick="openRetailerModal()">+ Party</button>
@@ -2306,7 +2306,7 @@
               </div>
               <div class="dd-menu" id="retDdMenu">
                 <div class="dd-search-box">
-                  <input type="text" id="retDdSearchInp" placeholder="🔍 List me party ya area khojein..." oninput="renderRetailerDropdownList()" onclick="event.stopPropagation()" style="padding:8px 10px;font-size:13.5px;" />
+                  <input type="text" id="retDdSearchInp" placeholder="🔍 Search party name or area..." oninput="renderRetailerDropdownList()" onclick="event.stopPropagation()" style="padding:8px 10px;font-size:13.5px;" />
                   <button type="button" class="btn btn-navy btn-xs" onclick="event.stopPropagation();useTypedNewShopInDropdown()">+ Add</button>
                 </div>
                 <div class="dd-list" id="retDdList"></div>
@@ -2350,7 +2350,7 @@
               </div>
             </div>
             <div class="field">
-              <label>Loose KG (Khula)</label>
+              <label>Loose Weight (KG)</label>
               <input type="number" id="delLooseInp" min="0" step="0.5" placeholder="0" oninput="recalcKgFromBags()" />
             </div>
             <div class="field">
@@ -2369,7 +2369,7 @@
               <input type="text" id="delRemInp" placeholder="Optional bill no. or note" />
             </div>
             <div style="display:flex;gap:8px;">
-              <button class="btn btn-brand" style="flex:1;padding:12px;font-size:14.5px;" id="btnSaveDel" onclick="saveDeliveryEntry()">✓ Save Maal Entry</button>
+              <button class="btn btn-brand" style="flex:1;padding:12px;font-size:14.5px;" id="btnSaveDel" onclick="saveDeliveryEntry()">✓ Save Dispatch Entry</button>
               <button class="btn btn-outline" id="btnCancelDelEdit" style="display:none;" onclick="resetDelForm()">Cancel</button>
             </div>
           </div>
@@ -2383,7 +2383,7 @@
         <div class="card-hd">
           <div>
             <div class="card-title">📜 Recent Entries Log (Latest First)</div>
-            <div class="card-sub" id="delCountSub">Sabse nayi entry sabse upar (#1 LATEST) dikhegi</div>
+            <div class="card-sub" id="delCountSub">Chronological dispatch register (latest entries first)</div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <input type="text" id="logSearch" placeholder="🔍 Search party, area..." oninput="renderDeliveryLog()" style="width:180px;" />
@@ -2399,8 +2399,8 @@
       <div class="card" style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fcd34d;">
         <div class="card-hd">
           <div>
-            <div class="card-title" style="color:#78350f;">⚡ Ek Sath Sabhi Pending Coupons Allot Karein</div>
-            <div class="card-sub" style="color:#92400e;">1-Click me sabhi eligible parties ko kram se (001, 002...) ya random lucky coupon numbers allot karein</div>
+            <div class="card-title" style="color:#78350f;">⚡ Batch Coupon Allotment</div>
+            <div class="card-sub" style="color:#92400e;">Issue sequential (001, 002...) or randomized coupon numbers to all eligible parties in a single click.</div>
           </div>
           <span class="badge b-navy" id="allotPoolBadge" style="font-size:12px;padding:5px 11px;">Pool: 0 / 301</span>
         </div>
@@ -2413,12 +2413,12 @@
           <div class="field">
             <label>Numbering Style</label>
             <select id="allotModeSel">
-              <option value="sequential">Sequential (Kram se: 001, 002, 003...)</option>
-              <option value="random">Random Lucky Shuffle (Pool se random)</option>
+              <option value="sequential">Sequential Order (001, 002, 003...)</option>
+              <option value="random">Randomized Pool Allocation</option>
             </select>
           </div>
           <button class="btn btn-brand" style="padding:12px;font-size:14px;" id="btnAllotEkSath" onclick="openEkSathModal()">
-            🎟️ Allot All Pending Ek Sath
+            🎟️ Issue All Pending Coupons
           </button>
         </div>
       </div>
@@ -2427,14 +2427,14 @@
       <div class="card" style="border:1.5px solid #cbd5e1;">
         <div class="card-hd">
           <div>
-            <div class="card-title">🎯 Apni Marzi Se Coupon Number Decide Karein (Party-Wise Custom Allotment)</div>
-            <div class="card-sub">Har party ke samne uske exact coupon numbers (jaise <code>5</code> ya <code>11, 25, 108</code> या रेंज <code>21-25</code>) likh kar Save dabayein — wahi exact number allot hoga!</div>
+            <div class="card-title">🎯 Party-Wise Custom Coupon Assignment</div>
+            <div class="card-sub">Assign specific coupon numbers (e.g., <code>5</code>, <code>11, 25, 108</code>, or range <code>21-25</code>) directly to any party.</div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <input type="text" id="allotPartySearchInp" placeholder="🔍 Search party..." oninput="renderAllotTab()" style="width:175px;padding:7px 10px;font-size:12.5px;" />
             <select id="allotPartyFilterSel" onchange="renderAllotTab()" style="width:165px;padding:7px 9px;font-size:12px;font-weight:700;">
               <option value="ELIGIBLE">Eligible / Issued Parties</option>
-              <option value="ALL">All Parties (Sabhi)</option>
+              <option value="ALL">All Registered Parties</option>
               <option value="PENDING">Only Pending Allot</option>
             </select>
             <button class="btn btn-navy btn-sm" onclick="saveAllCustomPartyCouponsEkSath()">💾 Save All Typed #</button>
@@ -2461,8 +2461,8 @@
       <div class="card">
         <div class="card-hd">
           <div>
-            <div class="card-title">🏆 Step 1: Prize Segment Chunein (51 / 101 Ek Sath + AI Scan!)</div>
-            <div class="card-sub">Segment chunein &rarr; 51 Slot Boxes khul jayenge! Aap <b>📸 Parchi Photo</b> khinch kar ya <b>🎤 Bolkar</b> bhi 51 coupon ek sath bhar sakte hain!</div>
+            <div class="card-title">🏆 Prize Winner Declaration Studio</div>
+            <div class="card-sub">Select a prize category below to record winning coupon numbers via slot boxes, sheet scan, or voice input.</div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;"><button class="btn btn-brand btn-sm" onclick="openMobileLiveRemoteModal()">📡 Live LED Remote</button><button class="btn btn-navy btn-sm" onclick="openStageProjector()">📺 LED Screen</button><button class="btn btn-outline btn-sm" onclick="openSegmentManagerModal()">⚙️ Edit 301 Prizes</button></div>
         </div>
@@ -2477,9 +2477,9 @@
               <div id="activeSegBanner" style="font-size:15.5px;font-weight:900;color:var(--accent);">Select a segment above</div>
             </div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <button type="button" class="btn btn-ai btn-xs" id="btnVoicePrize" onclick="startVoiceEntry('PRIZES')">🎤 Bolkar Numbers</button>
+              <button type="button" class="btn btn-ai btn-xs" id="btnVoicePrize" onclick="startVoiceEntry('PRIZES')">🎤 Voice Input</button>
               <label class="btn btn-ai btn-xs" style="cursor:pointer;">
-                📸 Scan Draw Parchi
+                📸 Scan Winner Sheet
                 <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="handleAiPrizeSheetScan(event)" />
               </label>
               <button type="button" class="btn btn-navy btn-xs" id="btnModeSlots" onclick="setPrizeEntryView('SLOTS')">🔢 Slot Boxes</button>
@@ -2505,7 +2505,7 @@
           <!-- MODE A: NUMBERED MULTI-SLOT BOXES -->
           <div id="prizeViewSlots">
             <div style="font-size:11.5px;color:var(--muted);font-weight:700;margin-bottom:4px;">
-              💡 Har box me Coupon No. likh kar <b>Enter</b> ya <b>Space</b> dabayein — ya upar <b>📸 Scan Draw Parchi</b> se kagaz ke saare coupon ek sath bharein!
+              💡 Enter coupon number in each slot (press <b>Enter</b> or <b>Space</b> to move next), or use <b>📸 Scan Winner Sheet</b> above.
             </div>
             <div id="multiSlotBoxesGrid" class="slot-sheet-grid"></div>
           </div>
@@ -2518,7 +2518,7 @@
               </div>
               <label style="font-size:12px;font-weight:700;display:flex;align-items:center;gap:5px;cursor:pointer;">
                 <input type="checkbox" id="chkHideAlreadyWon" checked onchange="renderVisualCouponGrid()" style="width:16px;height:16px;" />
-                Sirf Bina-Inam Wale Coupons Dikhayein
+                Show Only Unassigned Coupons
               </label>
             </div>
             <div id="visualCouponGrid" class="num-grid"></div>
@@ -2527,7 +2527,7 @@
           <!-- MODE C: FAST BULK PASTE -->
           <div id="prizeViewPaste" style="display:none;">
             <div class="field">
-              <label>Ek Sath Kitne Bhi Coupon Numbers Paste / Type Karein:</label>
+              <label>Bulk Enter / Paste Winning Coupon Numbers:</label>
               <textarea id="rapidCouponBox" rows="3" placeholder="Example: 5 18 42 108 215 299 ..." oninput="syncFromPasteBoxToSlots()" style="font-size:15px;font-weight:800;"></textarea>
             </div>
             <div id="rapidPreviewBox" style="margin-top:8px;display:none;"></div>
@@ -2540,7 +2540,7 @@
               <option value="DELIVERED">✅ Prize Delivered</option>
             </select>
             <button class="btn btn-green" style="flex:1;padding:13px;font-size:14.5px;" onclick="saveRapidSegmentWinners()" id="btnSaveAllSegmentSlots">
-              ✓ Save All Filled Coupon Prizes Ek Sath
+              ✓ Confirm & Save Declared Winners
             </button>
           </div>
         </div>
@@ -2551,7 +2551,7 @@
         <div class="card-hd">
           <div>
             <div class="card-title">🏆 Declared Winners & Handover List</div>
-            <div class="card-sub" id="winCountSub">1-Tap me ⏳ Pending se ✅ Delivered mark karein</div>
+            <div class="card-sub" id="winCountSub">Manage winner declarations and record prize handover proof</div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn btn-wa btn-sm" onclick="generateAreaPrizePDF(true)">📲 Share Area PDF</button>
@@ -2586,7 +2586,7 @@
         <div class="card-hd">
           <div>
             <div class="card-title" style="color:#4c1d95;">🤖 Gemini AI Key Setup (1-Time Free Setup)</div>
-            <div class="card-sub" style="color:#5b21b6;">Bill Photo Scanner, Stage Parchi Reader, Voice AI aur Smart Munim Chat ke liye Google AI Studio (aistudio.google.com) ki free API key yahan save karein.</div>
+            <div class="card-sub" style="color:#5b21b6;">Configure your Google AI Studio API key to enable Invoice OCR, Winner Sheet Scanner, Voice Entry, and Business AI Assistant.</div>
           </div>
           <span class="badge b-ai" id="aiStatusBadge">Checking AI...</span>
         </div>
@@ -2603,7 +2603,7 @@
         <div class="card-hd">
           <div>
             <div class="card-title">📍 Area-Wise Prize & Coupon PDF Generator</div>
-            <div class="card-sub">Kisi ek Area/Beat ki PDF nikal kar WhatsApp par bhejein ya sabhi Areas ki grouped report nikalein</div>
+            <div class="card-sub">Export or share official territory-wise prize winner, pending handover, and coupon registers in PDF format.</div>
           </div>
           <button class="btn btn-outline btn-sm" onclick="openAreaManagerModal()">✨ Set Shop Areas</button>
         </div>
@@ -2635,7 +2635,7 @@
           <div>
             <span class="badge b-green">Rank-Wise Official</span>
             <h3 style="font-size:15px;margin:7px 0 4px;color:var(--primary);">🏆 Master Prize Winners PDF</h3>
-            <p style="font-size:12px;color:var(--muted);">Rank 1 se aakhiri inam tak sabhi 301 prizes, Coupon #, Party aur Area ki official PDF.</p>
+            <p style="font-size:12px;color:var(--muted);">Official rank-wise register of all 301 prizes with winning coupon numbers, party names, and territories.</p>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn btn-wa btn-sm" onclick="downloadMasterWinnersPDF(true)">📲 WhatsApp</button>
@@ -2648,7 +2648,7 @@
           <div>
             <span class="badge b-amber">Stage Audit Sheet</span>
             <h3 style="font-size:15px;margin:7px 0 4px;color:var(--primary);">📋 001–301 Full Register PDF</h3>
-            <p style="font-size:12px;color:var(--muted);">1 se 301 tak har coupon number kis party ko allot hai aur kya inam nikla.</p>
+            <p style="font-size:12px;color:var(--muted);">Complete master audit sheet of coupon numbers 001 to 301 with assigned parties and prize status.</p>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn btn-wa btn-sm" onclick="downloadFullRegisterPDF(true)">📲 WhatsApp</button>
@@ -2660,8 +2660,8 @@
         <div class="card" style="margin-bottom:0;display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
           <div>
             <span class="badge b-blue">All Parties Summary</span>
-            <h3 style="font-size:15px;margin:7px 0 4px;color:var(--primary);">🏪 All Party Khata Summary PDF</h3>
-            <p style="font-size:12px;color:var(--muted);">Sabhi parties ke kul Bags, KG, Earned/Allotted Coupons aur prizes ki master sheet.</p>
+            <h3 style="font-size:15px;margin:7px 0 4px;color:var(--primary);">🏪 Consolidated Party Ledger PDF</h3>
+            <p style="font-size:12px;color:var(--muted);">Consolidated summary of all registered parties with total supply (KG/Bags), coupons, and prizes.</p>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <button class="btn btn-wa btn-sm" onclick="downloadRetailerLedgerPDF(true)">📲 WhatsApp</button>
@@ -2674,7 +2674,7 @@
         <div class="card-hd">
           <div>
             <div class="card-title">⚙️ Scheme Settings & Data Backup</div>
-            <div class="card-sub">301 Max Coupons, 210 kg rule, Company Title aur JSON Backup</div>
+            <div class="card-sub">Configure scheme eligibility rules, bonus tiers, stage timing, security PIN, and full database backup.</div>
           </div>
         </div>
         <div class="form-grid cols-4" style="align-items:end;">
@@ -2725,26 +2725,26 @@
   </main>
 
   <!-- Floating Ask Munim AI Button -->
-  <button class="ai-fab" onclick="openMunimAiModal()">🤖 Munim AI</button>
+  <button class="ai-fab" onclick="openMunimAiModal()">🤖 Business AI</button>
 
   <!-- Native Android Material 3 Bottom Navigation -->
   <nav class="bnav">
     <div class="bnav-inner">
       <button class="bbtn active" data-tab="overview" onclick="switchTab('overview')">
-        <span class="ico-pill">📒</span><span>Party Khata</span>
+        <span class="ico-pill">📒</span><span>Ledger</span>
       </button>
       <button class="bbtn" data-tab="deliveries" onclick="switchTab('deliveries')">
-        <span class="ico-pill">🚚</span><span>Maal Entry</span>
+        <span class="ico-pill">🚚</span><span>Dispatch</span>
       </button>
       <button class="bbtn" data-tab="allot" onclick="switchTab('allot')">
-        <span class="ico-pill">🎟️</span><span>Allot</span>
+        <span class="ico-pill">🎟️</span><span>Coupons</span>
         <span class="bbtn-badge" id="mBadgePending" style="display:none">0</span>
       </button>
       <button class="bbtn" data-tab="prizes" onclick="switchTab('prizes')">
-        <span class="ico-pill">🏆</span><span>301 Prize</span>
+        <span class="ico-pill">🏆</span><span>Prizes</span>
       </button>
       <button class="bbtn" data-tab="reports" onclick="switchTab('reports')">
-        <span class="ico-pill">📄</span><span>PDF / AI</span>
+        <span class="ico-pill">📄</span><span>Reports</span>
       </button>
     </div>
   </nav>
@@ -2756,7 +2756,7 @@
   <div class="modal-bg" id="sheetImportModal">
     <div class="modal">
       <div class="modal-hd">
-        <h3 style="font-size:16px;font-weight:900;">📥 Purani Google Sheet Se Data Dalein</h3>
+        <h3 style="font-size:16px;font-weight:900;">📥 Import Data from Google Sheet / Excel</h3>
         <button class="btn btn-outline btn-xs" onclick="closeModal('sheetImportModal')">✕</button>
       </div>
       <div class="subtabs">
@@ -2766,7 +2766,7 @@
       </div>
       <div id="itab-FILE">
         <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:11px;padding:12px;font-size:12.5px;line-height:1.5;color:#14532d;margin-bottom:12px;">
-          Apni Google Sheet ko <b>Excel (.xlsx)</b> ya <b>.csv</b> me download karke select karein — App saare Retailers, Deliveries, Area aur Coupons khud padh lega!
+          Upload your <b>Excel (.xlsx)</b> or <b>.csv</b> file — the system will automatically map parties, dispatch entries, territories, and coupons.
         </div>
         <label class="btn btn-brand" style="width:100%;padding:14px;cursor:pointer;font-size:14px;">
           📂 Select Google Sheet (.xlsx or .csv)
@@ -2775,7 +2775,7 @@
       </div>
       <div id="itab-LINK" style="display:none;">
         <div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:11px;padding:12px;font-size:12.5px;line-height:1.5;color:#1e3a8a;margin-bottom:10px;">
-          Google Sheet me Share &rarr; <b>Anyone with the link (Viewer)</b> karke link paste karein:
+          Set Google Sheet sharing to <b>Anyone with the link (Viewer)</b> and paste the URL below:
         </div>
         <div class="field" style="margin-bottom:10px;">
           <label>Google Sheet Link</label>
@@ -2839,7 +2839,7 @@
       <div class="modal-hd">
         <div>
           <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">📍 Master Area / Beat List Manager</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Naye Area/Beat add karein, purane Area ka naam badlein (Rename/Merge), delete karein ya party-wise set karein</div>
+          <div style="font-size:11.5px;color:var(--muted);">Add new territories/beats, rename or merge existing areas, and manage party-wise territory mapping.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('areaManagerModal')">✕</button>
       </div>
@@ -2847,13 +2847,13 @@
       <!-- 2 Clean Sub-Tabs -->
       <div class="subtabs" style="grid-template-columns:repeat(2,1fr);margin-bottom:12px;">
         <button type="button" class="stab active" id="areaTabBtnMaster" onclick="switchAreaStudioTab('MASTER')">📍 1. Area List (Add / Rename / Delete)</button>
-        <button type="button" class="stab" id="areaTabBtnShops" onclick="switchAreaStudioTab('SHOPS')">🏪 2. Party-Wise Area Set Karein</button>
+        <button type="button" class="stab" id="areaTabBtnShops" onclick="switchAreaStudioTab('SHOPS')">🏪 2. Party-Wise Territory Mapping</button>
       </div>
 
       <!-- TAB A: MASTER AREA LIST CRUD (Add, Bulk Add, Rename/Merge, Delete) -->
       <div id="areaStudioMasterPane">
         <div style="background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:11px;margin-bottom:12px;">
-          <label style="font-size:11.5px;font-weight:800;color:#334155;display:block;margin-bottom:5px;">➕ Naya Area / Village / Beat Jodein (Comma `,` laga kar ek sath kai Area bhi likh sakte hain):</label>
+          <label style="font-size:11.5px;font-weight:800;color:#334155;display:block;margin-bottom:5px;">➕ Add New Territory / Beat (Separate multiple names with commas `,`):</label>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <input type="text" id="newMasterAreaInp" placeholder="e.g. KAILARAS, PAHADGARH, JOURA, SABALGARH..." onkeydown="if(event.key==='Enter') addNewMasterAreas()" style="flex:1;min-width:210px;font-weight:700;" />
             <button type="button" class="btn btn-navy btn-sm" onclick="addNewMasterAreas()">+ Add Area</button>
@@ -2862,7 +2862,7 @@
 
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
           <div style="font-size:12px;font-weight:800;color:var(--muted);" id="masterAreaCountSummary">Total 0 Areas</div>
-          <input type="text" id="masterAreaSearchInp" placeholder="🔍 Area khojein..." oninput="renderMasterAreasList()" style="width:185px;padding:6px 10px;font-size:12.5px;" />
+          <input type="text" id="masterAreaSearchInp" placeholder="🔍 Search territory..." oninput="renderMasterAreasList()" style="width:185px;padding:6px 10px;font-size:12.5px;" />
         </div>
 
         <div id="masterAreasContainer" style="max-height:46vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;"></div>
@@ -2923,14 +2923,14 @@
   <div class="modal-bg" id="ekSathModal">
     <div class="modal">
       <div class="modal-hd">
-        <h3 style="font-size:16px;font-weight:900;">🎟️ Confirm Ek Sath Coupon Allotment</h3>
+        <h3 style="font-size:16px;font-weight:900;">🎟️ Confirm Batch Coupon Allotment</h3>
         <button class="btn btn-outline btn-xs" onclick="closeModal('ekSathModal')">✕</button>
       </div>
       <p id="ekSathSummaryTxt" style="font-size:13px;color:var(--muted);margin-bottom:10px;"></p>
       <div id="ekSathPreviewList" style="max-height:48vh;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:14px;"></div>
       <div style="display:flex;gap:8px;justify-content:flex-end;">
         <button class="btn btn-outline" onclick="closeModal('ekSathModal')">Cancel</button>
-        <button class="btn btn-brand" id="btnConfirmEkSath" onclick="executeEkSathAllot()">⚡ Confirm & Allot Ek Sath</button>
+        <button class="btn btn-brand" id="btnConfirmEkSath" onclick="executeEkSathAllot()">⚡ Confirm & Issue Coupons</button>
       </div>
     </div>
   </div>
@@ -2941,19 +2941,19 @@
       <div class="modal-hd">
         <div>
           <h3 style="font-size:16px;font-weight:900;">🎯 Specific Coupon Numbers Allot / Reassign</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Ek ya ek sath kai coupon numbers (e.g. <code>5, 12, 45</code> ya <code>51-55</code>) kisi bhi party ke naam set karein</div>
+          <div style="font-size:11.5px;color:var(--muted);">Assign one or multiple coupon numbers (e.g., <code>5, 12, 45</code> or range <code>51-55</code>) to the selected party.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('manualCupModal')">✕</button>
       </div>
       <div class="form-grid" style="gap:10px;">
         <div class="field"><label>Select Party *</label><select id="manRetSel"></select></div>
         <div class="field">
-          <label>Coupon Number(s) * (Space, Comma ya Range 10-15 likhein)</label>
+          <label>Coupon Number(s) * (Comma, Space, or Range e.g. 10-15)</label>
           <input type="text" id="manCupNum" placeholder="e.g. 7, 21, 105  or  51-58" style="font-family:'JetBrains Mono',monospace;font-weight:800;font-size:15px;" />
         </div>
         <label style="font-size:12px;font-weight:700;color:#475569;display:flex;align-items:center;gap:6px;cursor:pointer;">
           <input type="checkbox" id="manCupForceMove" checked style="width:16px;height:16px;" />
-          Agar yeh number pehle kisi aur par tha to is party ke naam transfer kar dein
+          Reassign automatically if coupon number is currently linked to another party
         </label>
         <div class="field"><label>Issue Date</label><input type="date" id="manCupDate" /></div>
         <button class="btn btn-navy" onclick="saveManualCoupon()">✓ Save Specific Coupon Numbers</button>
@@ -2966,14 +2966,14 @@
     <div class="modal">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16px;font-weight:900;color:#4c1d95;">📸 AI Bill / Parchi Scan Results</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Verify karke 1-Click me saari entries save karein</div>
+          <h3 style="font-size:16px;font-weight:900;color:#0f172a;">📸 Invoice OCR Scan Verification</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Review extracted dispatch entries below and confirm to save into party ledgers.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('aiBillPreviewModal')">✕</button>
       </div>
       <div id="aiBillEntriesList" style="max-height:52vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:14px;"></div>
       <button class="btn btn-green" style="width:100%;padding:13px;font-size:14px;" id="btnConfirmAiBillSave" onclick="saveAllAiScannedBills()">
-        ✓ Save All Scanned Entries into Khata
+        ✓ Confirm & Save All Entries
       </button>
     </div>
   </div>
@@ -2983,8 +2983,8 @@
     <div class="modal" style="max-width:680px;">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16px;font-weight:900;color:#15803d;">📲 Party Target & Lucky Draw Fayde WhatsApp</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Har party ko bhejein: "Aap par itna maal pahunch gaya, itna aur mangalo + 301 Inam ke fayde!"</div>
+          <h3 style="font-size:16px;font-weight:900;color:#15803d;">📲 Official WhatsApp Statement & Target Dispatch</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Send verified supply balance, next coupon milestone, 7+1 bonus status, and official prize details on WhatsApp.</div>
         </div>
         <div style="display:flex;gap:6px;">
           <button class="btn btn-outline btn-xs" style="border-color:#86efac;color:#15803d;" onclick="openWaTemplateModal()">✏️ Customize Msg</button>
@@ -2993,11 +2993,11 @@
       </div>
       <div class="form-grid cols-2" style="margin-bottom:10px;gap:8px;">
         <select id="coachFilterMode" onchange="renderAiTargetCoachList()" style="font-weight:800;">
-          <option value="ALL_ACTIVE">🏪 Sabhi Active Parties (All Buyers)</option>
-          <option value="NEAR">🎯 Near Next Coupon Parties (≥55%)</option>
-          <option value="ALL">📋 Sabhi Parties (Including 0 kg)</option>
+          <option value="ALL_ACTIVE">🏪 All Active Parties (> 0 kg)</option>
+          <option value="NEAR">🎯 Near Next Coupon Milestone (≥55%)</option>
+          <option value="ALL">📋 All Registered Parties</option>
         </select>
-        <input type="text" id="coachSearchInp" placeholder="🔍 Party ya Area khojein..." oninput="renderAiTargetCoachList()" />
+        <input type="text" id="coachSearchInp" placeholder="🔍 Search party or territory..." oninput="renderAiTargetCoachList()" />
       </div>
       <div id="aiCoachList" style="max-height:56vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
     </div>
@@ -3009,7 +3009,7 @@
       <div class="modal-hd">
         <div>
           <h3 style="font-size:16px;font-weight:900;color:#4c1d95;">🔍 Smart Duplicate Party Guard</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Milti-julti spelling wale 2 khaton ko 1-Click me safely Merge (Ek) karein</div>
+          <div style="font-size:11.5px;color:var(--muted);">Identify similar party names and safely consolidate their dispatch records and coupons.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('duplicateGuardModal')">✕</button>
       </div>
@@ -3022,26 +3022,26 @@
     <div class="modal">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16.5px;font-weight:900;color:#4c1d95;">🤖 Smart Munim AI (Hinglish Assistant)</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Apne Lucky Draw, Area Top Buyers ya Pending Prizes ke baare me kuch bhi poochhein!</div>
+          <h3 style="font-size:16.5px;font-weight:900;color:#0f172a;">🤖 Aryush Business AI Assistant</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Ask instant questions regarding top buyers, territory totals, near-milestone parties, or prize handovers.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('munimAiModal')">✕</button>
       </div>
 
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px;">
-        <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Sabse zyada maal lene wali Top 5 parties kaun si hain?')">🏆 Top 5 Parties</button>
+        <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Sabse adhik supply lene wali Top 5 parties kaun si hain?')">🏆 Top 5 Parties</button>
         <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Kaun si parties 1 ya 2 bag aur lete hi naya coupon jeet lengi?')">🎯 Near Coupon Shops</button>
-        <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Area wise kul kitne kg maal aur kitne coupons gaye hain?')">📍 Area Summary</button>
+        <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Area-wise kul kitne kg supply aur kitne coupons jari hue hain?')">📍 Area Summary</button>
         <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Abhi kitne prizes deliver hona pending hain?')">⏳ Pending Prizes</button>
       </div>
 
       <div class="chat-box" id="munimChatBox">
-        <div class="chat-msg ai">🙏 Namaste Anuj ji! Main aapka <b>Smart Munim AI</b> hoon. Aap mujhse bolkar ya likhkar kisi bhi Party Khata, Area, Coupon ya 301 Prizes ka hisab pooch sakte hain!</div>
+        <div class="chat-msg ai">🙏 नमस्कार अनुज जी! मैं <b>आर्युष बिज़नेस AI असिस्टेंट</b> हूँ। आप किसी भी पार्टी लेजर, एरिया सप्लाई, कूपन पात्रता या 301 पुरस्कारों से संबंधित जानकारी पूछ सकते हैं।</div>
       </div>
 
       <div style="display:flex;gap:7px;">
         <button type="button" class="btn btn-ai btn-sm" id="btnVoiceMunim" onclick="startVoiceEntry('MUNIM')">🎤</button>
-        <input type="text" id="munimInp" placeholder="Yahan Hinglish me poochhein..." onkeydown="if(event.key==='Enter') sendMunimQuestion()" />
+        <input type="text" id="munimInp" placeholder="Ask a question in Hindi or English..." onkeydown="if(event.key==='Enter') sendMunimQuestion()" />
         <button type="button" class="btn btn-navy btn-sm" id="btnSendMunim" onclick="sendMunimQuestion()">Ask ➤</button>
       </div>
     </div>
@@ -3076,7 +3076,7 @@
 
         <div style="display:grid;grid-template-columns:1fr 1.15fr 1fr auto auto;gap:6px;margin-top:14px;">
           <button class="btn btn-brand btn-sm" id="btnKhataNewEntry">+ Entry</button>
-          <button class="btn btn-wa btn-sm" id="btnKhataTargetWa" title="Maal Pahunch Gaya + Target + Draw Benefits WhatsApp">🎯 Target WTS</button>
+          <button class="btn btn-wa btn-sm" id="btnKhataTargetWa" title="Send Official Supply & Target Statement on WhatsApp">📲 Statement</button>
           <button class="btn btn-navy btn-sm" id="btnKhataSharePdf">📄 PDF</button>
           <button class="btn btn-outline btn-sm" id="btnKhataDownloadPdf" title="Download PDF">⬇️</button>
           <button class="btn btn-outline btn-sm" id="btnKhataWaMsg" title="Coupon Summary WhatsApp">💬</button>
@@ -3106,7 +3106,7 @@
       <div class="passbook">
         <div class="pb-head">
           <div>Date & Bill/ID</div>
-          <div>Maal Aaya (+)</div>
+          <div>Dispatch Qty (+)</div>
           <div style="text-align:right;">Running Total</div>
         </div>
         <div id="khataEntriesList"></div>
@@ -3138,8 +3138,8 @@
     <div class="modal" style="max-width:680px;">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🚚 Area / Beat Bulk Maal Entry</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Area chunein &rarr; Har party ke samne <b>+</b> daba kar Bags bharein &rarr; 1-Click me poori Beat save!</div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🚚 Beat-Wise Bulk Dispatch Sheet</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Select territory, enter bag quantities against each party, and save the entire beat in one click.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('beatBulkModal')">✕</button>
       </div>
@@ -3158,7 +3158,7 @@
       <div id="beatRowsContainer" style="max-height:48vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;margin-bottom:12px;"></div>
 
       <button class="btn btn-brand" style="width:100%;padding:13px;font-size:14.5px;" id="btnSaveBeatBulk" onclick="saveBeatBulkDeliveries()">
-        ✓ Save Entire Beat Entries Ek Sath
+        ✓ Save All Beat Entries
       </button>
     </div>
   </div>
@@ -3188,7 +3188,7 @@
       </div>
 
       <div style="margin-bottom:10px;">
-        <label style="font-size:11.5px;font-weight:800;color:#334155;display:block;margin-bottom:4px;">✍️ Ya Ungli Se Receiver Signature Karwayein (Optional):</label>
+        <label style="font-size:11.5px;font-weight:800;color:#334155;display:block;margin-bottom:4px;">✍️ Digital Receiver Signature (Optional):</label>
         <canvas id="sigCanvas" width="410" height="125" style="width:100%;height:125px;background:#f8fafc;border:1.5px dashed #94a3b8;border-radius:11px;touch-action:none;"></canvas>
       </div>
 
@@ -3208,7 +3208,7 @@
   <div class="modal-bg" id="autoAllotPopupModal">
     <div class="modal" style="max-width:430px;text-align:center;">
       <div style="font-size:40px;">🎉🎟️</div>
-      <h3 style="font-size:17px;font-weight:900;color:#15803d;margin-top:4px;">Naya Lucky Coupon Auto-Allot Ho Gaya!</h3>
+      <h3 style="font-size:17px;font-weight:900;color:#15803d;margin-top:4px;">New Lucky Coupon Automatically Issued!</h3>
       <p id="autoAllotMsgTxt" style="font-size:13px;color:var(--text);margin:8px 0 14px;line-height:1.45;"></p>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
         <button class="btn btn-wa" id="btnAutoAllotSharePdf">📲 Send Coupon PDF</button>
@@ -3224,8 +3224,8 @@
     <div class="modal" style="max-width:750px;">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">📸🎬 Logo, Product Photos & Lucky Draw Video Studio</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Yahan se Company Logo, saare Products ki Pack Photos aur Ad Videos upload karein — <b>Home, Public Link, Stage TV aur PDFs</b> me har jagah dikhengi!</div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">📸 Brand Assets, Product Portfolio & Commercial Studio</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Manage official company logo, product pack photography, quality highlights, and commercial videos across all screens and PDFs.</div>
         </div>
         <div style="display:flex;gap:6px;">
           <button class="btn btn-outline btn-xs" onclick="resetDefaultProductsList()">↺ Reset List</button>
@@ -3240,7 +3240,7 @@
             <img src="/logo.png" alt="Logo" />
           </div>
           <div>
-            <div style="font-size:13px;font-weight:900;color:#065f46;">👑 Official Company Logo (Har Jagah Set Hai)</div>
+            <div style="font-size:13px;font-weight:900;color:#065f46;">👑 Official Corporate Logo (Active Everywhere)</div>
             <div style="font-size:11px;color:#166534;">Top Bar, Home Banner, Public Check Link, Stage LED TV & All PDFs</div>
           </div>
         </div>
@@ -3256,19 +3256,19 @@
       <!-- SECTION B: BULK MULTI-PRODUCT PHOTO UPLOAD + OFFLINE HD MP4 VIDEO UPLOAD -->
       <div style="background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1.5px solid #fb923c;border-radius:14px;padding:11px 13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
         <div style="min-width:0;flex:1;">
-          <div style="font-size:13px;font-weight:900;color:#9a3412;">🚀 Ek Sath Sare Products Ki Pics Ya MP4 Videos Upload Karein</div>
-          <div style="font-size:11.5px;color:#7c2d12;margin-top:2px;" id="savedVideosStatusTxt">Niche har product ke samne <b>📸 Upload Pic</b> dabayein, ya ek sath gallery se kai photos/videos chunein!</div>
+          <div style="font-size:13px;font-weight:900;color:#9a3412;">🚀 Bulk Upload Product Pack Photos & HD Commercial Videos</div>
+          <div style="font-size:11.5px;color:#7c2d12;margin-top:2px;" id="savedVideosStatusTxt">Use <b>📸 Upload Pic</b> next to any product below, or bulk-select multiple pack photos and MP4 commercials.</div>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <label class="btn btn-wa btn-xs" style="cursor:pointer;" title="Gallery se ek sath kai product photos select karein">
+          <label class="btn btn-wa btn-xs" style="cursor:pointer;" title="Select multiple product pack photos from gallery">
             🖼️ + Bulk Product Pics
             <input type="file" accept="image/*" multiple style="display:none;" onchange="handleBulkProductPhotosUpload(event)" />
           </label>
-          <label class="btn btn-brand btn-xs" style="cursor:pointer;" title="Stage LED ke liye MP4 videos select karein">
+          <label class="btn btn-brand btn-xs" style="cursor:pointer;" title="Select MP4 commercial videos for Stage LED display">
             🎬 + MP4 Ad Videos
             <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event)" />
           </label>
-          <button type="button" class="btn btn-green btn-xs" id="btnCloudSyncPics" onclick="forcePushAllMediaToCloud()" title="Phone me save sabhi Product Photos ko Computer / Cloud D1 par bhejein">☁️ Sync to PC</button>
+          <button type="button" class="btn btn-green btn-xs" id="btnCloudSyncPics" onclick="forcePushAllMediaToCloud()" title="Sync all product & prize photos to Cloud D1 database">☁️ Sync to PC</button>
           <button type="button" class="btn btn-navy btn-xs" onclick="closeModal('productStudioModal');openStageProjector();showLedBrandPromoScreen();">📺 Stage TV</button>
         </div>
       </div>
@@ -3277,13 +3277,13 @@
 
       <!-- SECTION C: CURRENT PRODUCTS LIST (1-TAP PHOTO UPLOAD RIGHT ON EACH PRODUCT!) -->
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-        <div style="font-size:12px;font-weight:900;color:var(--primary);">🌶️ YOUR PRODUCTS — HAR PRODUCT KE SAMNE "📸 Upload Pic" DABAYEIN (<span id="prodTotalCountLbl">0</span>):</div>
+        <div style="font-size:12px;font-weight:900;color:var(--primary);">🌶️ REGISTERED PRODUCT PORTFOLIO (<span id="prodTotalCountLbl">0</span>):</div>
       </div>
       <div id="prodStudioList" style="max-height:36vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;margin-bottom:12px;"></div>
 
       <!-- SECTION D: ADD NEW / EDIT PRODUCT DETAILS FORM -->
       <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:14px;padding:12px;">
-        <div style="font-size:12.5px;font-weight:900;color:var(--primary);margin-bottom:8px;" id="prodFormHeading">➕ Naya Product Add Karein (Ya Upar ✏️ Daba Kar Edit Karein)</div>
+        <div style="font-size:12.5px;font-weight:900;color:var(--primary);margin-bottom:8px;" id="prodFormHeading">➕ Add or Update Product Portfolio Item</div>
         <input type="hidden" id="editProdIdx" value="-1" />
         <div class="form-grid cols-3" style="gap:8px;">
           <div class="field">
@@ -3296,11 +3296,11 @@
           </div>
           <div class="field">
             <label>Short Tagline</label>
-            <input type="text" id="prodTagInp" placeholder="e.g. 100% Shuddh & Asli Swad" />
+            <input type="text" id="prodTagInp" placeholder="e.g. 100% शुद्ध एवं प्रीमियम गुणवत्ता" />
           </div>
         </div>
         <div class="field" style="margin-top:8px;">
-          <label>✨ Product Ki Khasiyat / फायदें (Comma `,` या नई लाइन देकर 3–4 खासियत लिखें — LED Screen व App पर दिखेंगी):</label>
+          <label>✨ उत्पाद की प्रमुख विशेषताएँ / Key Quality Highlights (कॉमा `,` या नई लाइन से 3–4 बिंदु लिखें):</label>
           <textarea id="prodKhasiyatInp" rows="2" placeholder="e.g. 100% कोल्हू की शुद्ध कच्ची घानी, प्राकृतिक तेज़ झाँझ और भरपूर सुगंध, बिना किसी केमिकल या मिलावट के, सेहत और स्वाद में नंबर-1" style="font-size:12.5px;font-weight:600;"></textarea>
         </div>
         <div class="form-grid cols-3" style="gap:8px;margin-top:8px;align-items:end;">
@@ -3349,7 +3349,7 @@
       <div class="modal-hd">
         <div>
           <h3 style="font-size:16px;font-weight:900;color:#15803d;">📲 Official WhatsApp Statement & Link Settings</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Apne hisab se message badlein — har party ka Maal, Baki KG/Bag aur Coupons apne aap jud jayega!</div>
+          <div style="font-size:11.5px;color:var(--muted);">Customize your official WhatsApp statement template with automatic party ledger and milestone variables.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('waTemplateModal')">✕</button>
       </div>
@@ -3443,7 +3443,7 @@
             <h3 style="font-size:16.5px;font-weight:900;color:#fde047;">📡 Live LED Screen Remote Controller</h3>
           </div>
           <div style="font-size:11.5px;color:#94a3b8;margin-top:3px;">
-            Laptop/LED TV par <b>Live Screen Link (<code>?live=1</code>)</b> khol dein — aur apne Mobile se yahan single ya ek sath 10–51 coupon numbers daal kar seedha LED par live chalayein!
+            Open the <b>Live Receiver URL (<code>?live=1</code>)</b> on the Laptop/LED Wall, and trigger single or batch winner declarations remotely from this controller.
           </div>
         </div>
         <button class="btn btn-danger btn-xs" onclick="closeModal('mobileLiveRemoteModal')">✕</button>
@@ -3490,10 +3490,10 @@
           <label style="color:#cbd3e1;">Quick Screen Mode Commands</label>
           <div style="display:flex;gap:5px;flex-wrap:wrap;">
             <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#fde68a;border-color:#475569;" onclick="sendLiveRemoteCommand('GALA')">🏛️ Gala</button>
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#fde047;border-color:#f59e0b;font-weight:800;" onclick="sendLiveRemoteCommand('KHASIYAT')">✨ Khasiyat</button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#fde047;border-color:#f59e0b;font-weight:800;" onclick="sendLiveRemoteCommand('KHASIYAT')">✨ Highlights</button>
             <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#f87171;border-color:#475569;" onclick="sendLiveRemoteCommand('AD_LOOP')">🎬 Video</button>
             <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#7dd3fc;border-color:#475569;" onclick="sendLiveRemoteCommand('BOARD')">📋 Grid</button>
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#86efac;border-color:#475569;" onclick="closeModal('mobileLiveRemoteModal');openWelcomePattiModal();">🎊 Patti</button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#86efac;border-color:#475569;" onclick="closeModal('mobileLiveRemoteModal');openWelcomePattiModal();">🎊 Ticker</button>
           </div>
         </div>
       </div>
@@ -3501,19 +3501,19 @@
       <!-- Step 3: SINGLE OR MULTI-COUPON BATCH LIVE INPUT! -->
       <div style="background:#111827;border:1.5px solid #f59e0b;border-radius:14px;padding:12px;margin-bottom:12px;">
         <label style="font-size:12px;font-weight:800;color:#fde047;display:block;margin-bottom:5px;">
-          3. Enter 1 Coupon OR Multiple Coupons Ek Sath (Space / Comma lagakar kitne bhi numbers dalein!):
+          3. Enter Single or Multiple Winning Coupon Numbers (Comma, Space, or Range e.g. 51-60):
         </label>
-        <textarea id="remMultiCupInp" rows="2" placeholder="Single: 45   |   Ya Ek Sath Kai Winners: 5, 18, 42, 108, 155, 210, 289" oninput="previewRemoteLiveCoupons()" style="background:#030712;color:#fde047;border:1px solid #475569;font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:800;letter-spacing:1px;"></textarea>
+        <textarea id="remMultiCupInp" rows="2" placeholder="Single: 45   |   Batch Winners: 5, 18, 42, 108, 155" oninput="previewRemoteLiveCoupons()" style="background:#030712;color:#fde047;border:1px solid #475569;font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:800;letter-spacing:1px;"></textarea>
         <div id="remLiveMatchPreview" style="margin-top:7px;font-size:11.5px;color:#cbd5e1;max-height:85px;overflow-y:auto;">
-          💡 Number dalte hi yahan party ka naam verify ho jayega — aur Launch dabate hi badi LED screen par live chalega!
+          💡 Assigned party details verify automatically as you type — click Declare & Broadcast to launch live on the LED Wall.
         </div>
       </div>
 
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button type="button" class="btn btn-brand" style="flex:1;padding:13px;font-size:15px;font-weight:900;" id="btnFireLiveRemote" onclick="fireLiveRemoteReveal(false)">
-          📡Save & Launch LIVE on LED Screen!
+          📡 Declare & Broadcast LIVE on LED
         </button>
-        <button type="button" class="btn btn-outline" style="color:#fde68a;border-color:#d4af37;" onclick="fireLiveRemoteReveal(true)" title="Isi device par bhi turant Stage Screen khol kar dikhayein">
+        <button type="button" class="btn btn-outline" style="color:#fde68a;border-color:#d4af37;" onclick="fireLiveRemoteReveal(true)" title="Broadcast and open Stage Screen on this device">
           📺 Launch + View Here
         </button>
       </div>
@@ -3525,22 +3525,22 @@
     <div class="modal" style="max-width:660px;">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🎊 Welcome Patti & Product Khasiyat Ticker</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Yahan se Swagat Sandesh (Welcome Patti) likhein — Save karte hi <b>Live Stage LED TV, Home aur Party Link</b> par turant chalne lagegi!</div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🎊 Live Welcome & Brand Highlights Ticker</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Configure the live scrolling welcome & brand announcement ribbon across the Stage LED Wall, Dashboard, and Digital Passbook.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('welcomePattiModal')">✕</button>
       </div>
 
       <div class="form-grid cols-2" style="gap:8px;margin-bottom:10px;">
         <div class="field">
-          <label>📺 Welcome Patti Status</label>
+          <label>📺 Welcome Ticker Visibility</label>
           <select id="wpEnabledSel" style="font-weight:800;">
-            <option value="1">✅ ON — Har Jagah Chalayein</option>
-            <option value="0">🚫 OFF — Patti Chhupayein</option>
+            <option value="1">✅ Active — Display on All Screens</option>
+            <option value="0">🚫 Hidden — Turn Off Ticker</option>
           </select>
         </div>
         <div class="field">
-          <label>⚡ چلने की रफ़्तार (Scrolling Speed)</label>
+          <label>⚡ स्क्रॉलिंग गति (Scrolling Speed)</label>
           <select id="wpSpeedSel" style="font-weight:800;">
             <option value="52">🐢 Slow & Royal (आराम से पढ़ने योग्य)</option>
             <option value="38" selected>🎯 Medium Broadcast (Standard TV Speed)</option>
@@ -3550,23 +3550,23 @@
       </div>
 
       <div style="margin-bottom:8px;">
-        <div style="font-size:11px;font-weight:800;color:#334155;margin-bottom:5px;">✨ 1-Tap Ready Templates (Tap karke jodein):</div>
+        <div style="font-size:11px;font-weight:800;color:#334155;margin-bottom:5px;">✨ Official Ready-to-Use Templates:</div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('WELCOME_FULL')">🙏 भव्य स्वागत + सभी प्रोडक्ट खासियत</button>
-          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('VIP_GUEST')">👑 मुख्य अतिथि व व्यापारी स्वागत</button>
-          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('AUTO_PRODUCTS')">🌶️ सभी प्रोडक्ट्स की खासियत Auto-जोड़ें</button>
+          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('WELCOME_FULL')">🙏 भव्य स्वागत एवं उत्पाद विशेषताएँ</button>
+          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('VIP_GUEST')">👑 मुख्य अतिथि एवं व्यापारी अभिनंदन</button>
+          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('AUTO_PRODUCTS')">🌶️ सभी उत्पाद विशेषताएँ जोड़ें</button>
           <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('LUNCH_BREAK')">🍽️ स्वरुचि भोज / ब्रेक सूचना</button>
         </div>
       </div>
 
       <div class="field" style="margin-bottom:12px;">
-        <label>Welcome Patti Text (आप यहाँ किसी विशेष अतिथि या एरिया के व्यापारियों का नाम भी लिख सकते हैं):</label>
+        <label>आधिकारिक स्वागत एवं ब्रांड संदेश (Welcome Ticker Message):</label>
         <textarea id="wpTextInp" rows="5" style="font-size:13.5px;line-height:1.5;font-weight:700;"></textarea>
       </div>
 
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button type="button" class="btn btn-brand" style="flex:1;padding:12px;font-weight:800;" onclick="saveWelcomePattiSettings()">💾 Save & Update Live on LED Screen</button>
-        <button type="button" class="btn btn-navy" onclick="saveWelcomePattiSettings();openStageProjector();startProductKhasiyatSpotlightLoop();">📺 Save & Launch Khasiyat Show</button>
+        <button type="button" class="btn btn-navy" onclick="saveWelcomePattiSettings();openStageProjector();startProductKhasiyatSpotlightLoop();">📺 Save & Launch Product Showcase</button>
       </div>
     </div>
   </div>
@@ -3577,7 +3577,7 @@
       <!-- TOP ROYAL WELCOME & PRODUCT KHASIYAT SCROLLING PATTI (24x7 LIVE TICKER ON LED WALL!) -->
       <div>
         <div class="welcome-patti-ribbon" id="stageWelcomePattiBar">
-          <span class="welcome-patti-badge">🙏 स्वागत एवं उत्पाद खासियत</span>
+          <span class="welcome-patti-badge">🙏 हार्दिक अभिनंदन एवं ब्रांड परिचय</span>
           <div class="welcome-patti-viewport">
             <div class="welcome-patti-track" id="stageWelcomePattiTrack"></div>
           </div>
@@ -3648,7 +3648,7 @@
             </select>
 
             <div style="display:flex;align-items:center;gap:4px;">
-              <input type="text" id="projCupInp" class="secret-cup-inp" style="width:195px !important;font-size:15px !important;padding:7px 10px !important;background:#050811 !important;letter-spacing:0.5px;" placeholder="Cup # (e.g. 5 or 12,45,88)" autocomplete="off" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" title="1 Coupon ya Comma/Space dekar ek sath 10-50 Coupon numbers dalein!" />
+              <input type="text" id="projCupInp" class="secret-cup-inp" style="width:195px !important;font-size:15px !important;padding:7px 10px !important;background:#050811 !important;letter-spacing:0.5px;" placeholder="Cup # (e.g. 5 or 12,45,88)" autocomplete="off" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" title="Enter a single coupon number or comma-separated batch numbers" />
               <button type="button" class="btn btn-outline btn-xs" id="btnProjMask" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border-color:#334155;padding:8px;" onclick="toggleSecretMask()" title="Hide/Show typed number">👁️</button>
             </div>
 
@@ -3657,8 +3657,8 @@
 
           <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
             <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#fde68a;border-color:rgba(212,175,55,0.4);" onclick="showLedBrandPromoScreen()">🏛️ Gala</button>
-            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(250,204,21,0.16);color:#fde047;border-color:#f59e0b;font-weight:800;" onclick="startProductKhasiyatSpotlightLoop()" title="Har Product ki Photo aur uski 3-4 Khasiyat badi LED screen par ek-ek karke chalayein!">✨ Khasiyat Show</button>
-            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#86efac;border-color:rgba(134,239,172,0.35);" onclick="openWelcomePattiModal()" title="Edit Live Welcome Patti">🎊 Patti</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(250,204,21,0.16);color:#fde047;border-color:#f59e0b;font-weight:800;" onclick="startProductKhasiyatSpotlightLoop()" title="Display full-screen Product Portfolio & Quality Highlights showcase">✨ Product Showcase</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#86efac;border-color:rgba(134,239,172,0.35);" onclick="openWelcomePattiModal()" title="Configure Live Welcome Ticker">🎊 Ticker</button>
             <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#f87171;border-color:rgba(248,113,113,0.35);" onclick="startFullScreenVideoAdLoop()">🎬 Video Ad</button>
             <button type="button" class="btn btn-outline btn-xs" id="btnSplitVideoDraw" style="background:rgba(255,255,255,0.05);color:#7dd3fc;border-color:rgba(56,189,248,0.35);" onclick="toggleStageSplitVideoMode()">📺 Split Ad</button>
             <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#fde68a;border-color:rgba(212,175,55,0.35);" onclick="showSegmentBoardOnLed()">📋 51/101 Grid</button>
@@ -3726,9 +3726,9 @@
       </div>
       <h1 style="font-size:19.5px;font-weight:900;letter-spacing:-0.02em;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
       <p style="font-size:12px;color:#fde68a;font-weight:600;margin-top:3px;" id="pubBrandSub">100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices</p>
-      <p style="font-size:12px;color:#94a3b8;margin-top:5px;" id="pubHdrSub">लकी कूपन, माल खाता और इनाम स्टेटस का लाइव स्टेटमेंट</p>
+      <p style="font-size:12px;color:#94a3b8;margin-top:5px;" id="pubHdrSub">आधिकारिक सप्लाई विवरण, लकी कूपन एवं पुरस्कार स्थिति का लाइव स्टेटमेंट</p>
       <div style="max-width:860px;margin:10px auto 0;background:rgba(0,0,0,0.35);border:1px solid rgba(250,204,21,0.4);border-radius:999px;overflow:hidden;display:flex;align-items:center;" id="pubWelcomePattiWrap">
-        <span style="background:#f59e0b;color:#0f172a;font-size:10px;font-weight:900;padding:4px 10px;white-space:nowrap;">✨ स्वागत एवं खासियत</span>
+        <span style="background:#f59e0b;color:#0f172a;font-size:10px;font-weight:900;padding:4px 10px;white-space:nowrap;">✨ स्वागत संदेश</span>
         <div style="flex:1;overflow:hidden;white-space:nowrap;">
           <div class="app-welcome-track" id="pubWelcomePattiTrack" style="font-size:11.5px;padding-top:3px;padding-bottom:3px;"></div>
         </div>
@@ -3776,7 +3776,7 @@
       reveal_duration_sec: 8,
       welcome_patti_enabled: '1',
       welcome_patti_speed: 38,
-      welcome_patti_text: '🙏 हार्दिक स्वागत एवं अभिनंदन! आर्युष फूड्स (कैलारस, मुरैना) के भव्य मेगा लकी ड्रॉ समारोह में पधारे सभी सम्मानित व्यापारी बंधुओं का हार्दिक स्वागत है!  ★  आर्युष रसोई धन की खासियत: 100% शुद्ध कोल्हू की कच्ची घानी सरसों तेल (तेज़ प्राकृतिक झाँझ) • बिना मिलावट शुद्ध मसाले • स्पेशल पटना की कुटी मिर्ची • हाई-करक्यूमिन असली हल्दी • ताज़ा खुशबूदार धनिया • शाही गरम मसाला व नुखरा हींग दाना  ★  स्पेशल ऑफर: हर 210 kg पर 1 पक्का कूपन + 7 कूपन पर 1 कूपन बिल्कुल FREE!'
+      welcome_ticker_v15_text: '🙏 हार्दिक स्वागत एवं अभिनंदन! आर्युष फूड्स (कैलारस, मुरैना) के भव्य मेगा लकी ड्रॉ समारोह में पधारे सभी सम्मानित व्यापारी बंधुओं एवं अतिथियों का सहृदय अभिनंदन!  ★  आर्युष रसोई धन की प्रमुख विशेषताएँ: 100% शुद्ध कोल्हू की कच्ची घानी सरसों तेल (प्राकृतिक तेज़ झाँझ) • उच्च गुणवत्ता वाले शुद्ध मसाले • स्पेशल पटना की कुटी मिर्ची • हाई-करक्यूमिन सेलम हल्दी • सुगंधित धनिया पाउडर • शाही गरम मसाला एवं नुखरा हींग दाना  ★  विशेष उपहार योजना: प्रत्येक 210 kg पर 1 निश्चित कूपन + 7 कूपन पर 1 अतिरिक्त कूपन निःशुल्क (FREE)!'
     },
     ai_ready: false,
     retailers: [],
@@ -4390,7 +4390,7 @@
         closePartyKhata();
         return;
       }
-      // 5. If on any inner tab (Maal Entry / Allot / Prizes / PDF), return smoothly to Home Overview!
+      // 5. If on any inner tab (Dispatch / Coupons / Prizes / Reports), return smoothly to Home Overview!
       if (CURRENT_ACTIVE_TAB !== 'overview') {
         switchTab('overview', true);
         // Re-arm safety history entry so user stays inside app on Overview
@@ -4467,11 +4467,11 @@
     } else if (dups.length > 0) {
       txtEl.innerHTML = `⚠️ <b>${dups.length} Milti-julti Parties</b> mili hain — Duplicate Guard se merge karein.`;
     } else {
-      txtEl.textContent = `🎤 Voice Entry, 📸 Bill Scanner, 🎯 Target Coach & 🤖 Munim AI Ready!`;
+      txtEl.textContent = `🎤 Voice Entry, 📸 Invoice Scanner, 🎯 Target Coach & 🤖 Munim AI Ready!`;
     }
   }
 
-  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v11_7_wa_corp_template';
+  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v15_0_wa_corp_template';
 
   function encodePartyPassbookToken(r) {
     try {
@@ -4534,12 +4534,12 @@
   function getDefaultWaTargetTemplate() {
     return (
       `*{COMPANY} • आर्युष रसोई धन*\n` +
-      `_आधिकारिक लकी ड्रॉ एवं माल खाता विवरण_\n` +
+      `_आधिकारिक सप्लाई खाता एवं लकी ड्रॉ स्टेटमेंट_\n` +
       `━━━━━━━━━━━━━━━━━━━━\n` +
       `🙏 *सादर नमस्कार, {SHOP} जी* {AREA_TAG}\n\n` +
-      `📦 *आपका माल खाता विवरण:*\n` +
+      `📦 *आपका आधिकारिक सप्लाई विवरण:*\n` +
       `{LAST_ENTRY_LINE}` +
-      `• कुल प्राप्त माल: *{TOTAL_KG} kg ({TOTAL_BAGS} बैग)*\n` +
+      `• कुल प्राप्त सप्लाई: *{TOTAL_KG} kg ({TOTAL_BAGS} बैग)*\n` +
       `• कुल पक्के लकी कूपन: *{COUPONS} कूपन* {BONUS_EARNED_TAG} {COUPON_CODES_LINE}\n\n` +
       `🎯 *अगला लकी कूपन लक्ष्य:*\n` +
       `• अगला कूपन ({KG_PER_COUPON} kg) पूरा होने में मात्र *{NEED_KG} kg (लगभग {NEED_BAGS} बैग)* शेष है।\n` +
@@ -4556,8 +4556,8 @@
   }
 
   function getActiveWaTemplate() {
-    if (STATE.settings && STATE.settings.wa_target_template_v11_7 && String(STATE.settings.wa_target_template_v11_7).trim()) {
-      return String(STATE.settings.wa_target_template_v11_7);
+    if (STATE.settings && STATE.settings.wa_target_template_v15_0 && String(STATE.settings.wa_target_template_v15_0).trim()) {
+      return String(STATE.settings.wa_target_template_v15_0);
     }
     try {
       const loc = localStorage.getItem(WA_TEMPLATE_STORAGE_KEY);
@@ -4596,11 +4596,11 @@
       if (cb.nextMilestoneGivesBonus) {
         bonusBlock =
           `\n🎁 *स्पेशल महा-बोनस अवसर (${cb.bonusEvery} कूपन पर +${cb.bonusFree} कूपन FREE):*\n` +
-          `• आप बोनस के बिल्कुल करीब हैं! मात्र *${cb.needKg} kg (लगभग ${bagsNeed} बैग)* माल और मँगवाते ही आपके *${cb.nextBonusAtBase} कूपन (${targetBonusTotalKg} kg)* पूरे हो जाएँगे और आपको *+${cb.bonusFree} अतिरिक्त लकी कूपन निःशुल्क (FREE)* प्राप्त होगा — यानी एक साथ *${1 + cb.bonusFree} नए कूपन*!\n`;
+          `• आप बोनस के बिल्कुल करीब हैं! मात्र *${cb.needKg} kg (लगभग ${bagsNeed} बैग)* की सप्लाई और जुड़ते ही आपके *${cb.nextBonusAtBase} कूपन (${targetBonusTotalKg} kg)* पूरे हो जाएँगे और आपको *+${cb.bonusFree} अतिरिक्त लकी कूपन निःशुल्क (FREE)* प्राप्त होगा — यानी एक साथ *${1 + cb.bonusFree} नए कूपन*!\n`;
       } else {
         bonusBlock =
           `\n🎁 *स्पेशल बोनस स्कीम (${cb.bonusEvery} कूपन पर +${cb.bonusFree} कूपन FREE):*\n` +
-          `• *${cb.bonusEvery} कूपन (${cb.bonusEvery * cb.cupKg} kg / ${Math.round((cb.bonusEvery * cb.cupKg) / cb.bagKg)} बैग)* का माल पूरा होने पर कंपनी की ओर से *+${cb.bonusFree} अतिरिक्त लकी कूपन निःशुल्क (FREE)* दिया जाता है (यानी ${cb.bonusEvery} की जगह सीधे *${cb.bonusEvery + cb.bonusFree} पक्के कूपन*!)।\n` +
+          `• *${cb.bonusEvery} कूपन (${cb.bonusEvery * cb.cupKg} kg / ${Math.round((cb.bonusEvery * cb.cupKg) / cb.bagKg)} बैग)* की कुल सप्लाई पूरी होने पर कंपनी की ओर से *+${cb.bonusFree} अतिरिक्त लकी कूपन निःशुल्क (FREE)* दिया जाता है (यानी ${cb.bonusEvery} की जगह सीधे *${cb.bonusEvery + cb.bonusFree} पक्के कूपन*!)।\n` +
           `• आपके *${cb.nextBonusAtBase} कूपन + फ्री बोनस* लक्ष्य हेतु *${cb.needKgForBonus} kg (लगभग ${cb.needBagsForBonus} बैग)* शेष है।\n`;
       }
     }
@@ -4683,18 +4683,18 @@
 
   async function saveCustomWaTemplate() {
     const txt = document.getElementById('waTemplateBox').value.trim();
-    if (!txt) return toast('Message khali nahi ho sakta!', true);
+    if (!txt) return toast('Message template cannot be empty.', true);
     const incLink = document.getElementById('waIncludeLinkSel')?.value === '0' ? '0' : '1';
     const custDom = (document.getElementById('waCustomDomainInp')?.value || '').trim();
 
     try { localStorage.setItem(WA_TEMPLATE_STORAGE_KEY, txt); } catch (e) {}
-    STATE.settings.wa_target_template_v11_7 = txt;
+    STATE.settings.wa_target_template_v15_0 = txt;
     STATE.settings.wa_include_link = incLink;
     STATE.settings.custom_public_domain = custDom;
 
     try {
       await api('/api/settings', 'POST', {
-        wa_target_template_v11_7: txt,
+        wa_target_template_v15_0: txt,
         wa_include_link: incLink,
         custom_public_domain: custDom
       });
@@ -4707,8 +4707,8 @@
     const def = getDefaultWaTargetTemplate();
     document.getElementById('waTemplateBox').value = def;
     try { localStorage.removeItem(WA_TEMPLATE_STORAGE_KEY); } catch (e) {}
-    STATE.settings.wa_target_template_v11_7 = def;
-    try { await api('/api/settings', 'POST', { wa_target_template_v11_7: def }); } catch (e) {}
+    STATE.settings.wa_target_template_v15_0 = def;
+    try { await api('/api/settings', 'POST', { wa_target_template_v15_0: def }); } catch (e) {}
     updateWaLivePreview();
     toast('↺ Default Official Statement (बैग + 7 पर 1 फ्री) Set Ho Gaya!');
   }
@@ -4748,7 +4748,7 @@
           <div>
             <div class="ret-name">${esc(r.name)} ${r.area ? `<span class="badge b-area">📍 ${esc(r.area)}</span>` : ''} ${bonusHint}</div>
             <div style="font-size:12px;color:#166534;font-weight:800;margin-top:4px;">
-              📦 कुल माल: <b>${r.total_kg} kg (${r.bags_eq} बैग)</b> • 🎟️ कुल कूपन: <b>${r.earned}</b> • 🎯 अगला कूपन: <b>${r.need_kg} kg (लगभग ${bagsNeeded} बैग)</b>
+              📦 कुल सप्लाई: <b>${r.total_kg} kg (${r.bags_eq} बैग)</b> • 🎟️ कुल कूपन: <b>${r.earned}</b> • 🎯 अगला कूपन: <b>${r.need_kg} kg (लगभग ${bagsNeeded} बैग)</b>
             </div>
             <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">
               7 पर +1 FREE बोनस के लिए शेष: <b>${r.need_kg_for_bonus} kg (लगभग ${r.need_bags_for_bonus} बैग)</b>
@@ -4756,7 +4756,7 @@
           </div>
           <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
             <button class="btn btn-wa btn-xs" onclick="sendAiTargetWhatsApp(${r.id})">📲 Send Official WTS</button>
-            <button class="btn btn-brand btn-xs" onclick="closeModal('aiTargetCoachModal');jumpToDelivery('${esc(r.name)}')">+ Maal Entry</button>
+            <button class="btn btn-brand btn-xs" onclick="closeModal('aiTargetCoachModal');jumpToDelivery('${esc(r.name)}')">+ Dispatch</button>
           </div>
         </div>
       </div>`;
@@ -4765,7 +4765,7 @@
 
   function sendAiTargetWhatsApp(retailerId) {
     const r = STATE.summaryRows.find(x => x.id === retailerId);
-    if (!r) return toast('Party nahi mili!', true);
+    if (!r) return toast('Party record not found.', true);
     const msg = buildPartyTargetWaMessage(r);
     const digits = String(r.phone || '').replace(/[^0-9]/g, '');
     const waPhone = digits.length === 10 ? '91' + digits : digits;
@@ -4777,7 +4777,7 @@
   function startVoiceEntry(contextMode = 'DELIVERY') {
     const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRec) {
-      return toast('Aapke browser me Voice Mic supported nahi hai (Chrome Android use karein)', true);
+      return toast('Voice input requires Google Chrome.', true);
     }
     if (ACTIVE_RECOGNITION) {
       try { ACTIVE_RECOGNITION.stop(); } catch (e) {}
@@ -4795,7 +4795,7 @@
     rec.interimResults = false;
     rec.maxAlternatives = 1;
 
-    toast('🎙️ Boliye... (e.g. "Pooja Kirana Farak 7 bag")');
+    toast('🎙️ Listening... Speak party name & quantity');
 
     rec.onresult = async (ev) => {
       const spoken = ev.results[0][0].transcript.trim();
@@ -4819,7 +4819,7 @@
     rec.onerror = (ev) => {
       if (btn) btn.classList.remove('mic-recording');
       ACTIVE_RECOGNITION = null;
-      toast('Mic Error: ' + (ev.error || 'Dobara koshish karein'), true);
+      toast('Mic Error: ' + (ev.error || 'Please try again'), true);
     };
 
     rec.onend = () => {
@@ -4866,8 +4866,8 @@
       if (parsed.entry_date) document.getElementById('delDateInp').value = parsed.entry_date;
       if (parsed.remarks) document.getElementById('delRemInp').value = parsed.remarks;
 
-      vb.innerHTML = `✨ <b>Voice AI Ready:</b> "${esc(spoken)}" &rarr; Check karke niche <b>✓ Save Maal Entry</b> dabayein!`;
-      toast('✨ Voice se form bhar diya gaya!');
+      vb.innerHTML = `✨ <b>Voice AI Ready:</b> "${esc(spoken)}" &rarr; Verify details and click <b>✓ Save Dispatch Entry</b> below.`;
+      toast('✨ Dispatch details populated via Voice Input');
     } catch (e) {
       const fallback = localParseHinglishDelivery(spoken);
       if (fallback.retailer_name) selectRetailerFromDropdown(fallback.retailer_name, fallback.area);
@@ -4953,7 +4953,7 @@
 
     const vb = document.getElementById('voiceTranscriptBanner');
     vb.style.display = 'block';
-    vb.innerHTML = `📸 <b>Gemini Vision AI</b> aapke Bill / Parchi ki photo padh raha hai... (3–5 sec)`;
+    vb.innerHTML = `📸 <b>Gemini Vision AI</b> is analyzing your dispatch invoice... (3–5 sec)`;
     toast('📸 Scanning bill photo with AI...');
 
     try {
@@ -5048,7 +5048,7 @@
 
     const banner = document.getElementById('prizeAiStatusBanner');
     banner.style.display = 'block';
-    banner.innerHTML = `📸 <b>Gemini Vision AI</b> parchi se saare winning coupon numbers padh raha hai...`;
+    banner.innerHTML = `📸 <b>Gemini Vision AI</b> is reading winning coupon numbers from the sheet...`;
     toast('📸 Reading coupon numbers from photo...');
 
     try {
@@ -5175,7 +5175,7 @@
   }
 
   async function mergeDuplicateParties(keepId, remId, keepName, remName) {
-    if (!confirm(`"${remName}" ki saari maal entries aur coupons "${keepName}" me jod kar ek hi khata bana dein?`)) return;
+    if (!confirm(`Consolidate all dispatch entries and coupons of "${remName}" into "${keepName}"?`)) return;
     try {
       await api('/api/retailers/merge', 'POST', { keep_id: keepId, remove_id: remId });
       toast(`✅ Merged into ${keepName}!`);
@@ -5243,7 +5243,7 @@
     const box = document.getElementById('munimChatBox');
     box.innerHTML += `<div class="chat-msg user">${esc(q)}</div>`;
     const loadId = 'mLoad_' + Date.now();
-    box.innerHTML += `<div class="chat-msg ai" id="${loadId}">⏳ Munim AI hisab dekh raha hai...</div>`;
+    box.innerHTML += `<div class="chat-msg ai" id="${loadId}">⏳ Analyzing ledger data...</div>`;
     box.scrollTop = box.scrollHeight;
 
     try {
@@ -5281,7 +5281,7 @@
 
   async function saveGeminiApiKeyOnly() {
     const key = document.getElementById('setGeminiKey').value.trim();
-    if (!key) return toast('Gemini API Key paste karein!', true);
+    if (!key) return toast('Please enter your Google Gemini API Key.', true);
     try {
       await api('/api/settings', 'POST', { gemini_api_key: key });
       document.getElementById('setGeminiKey').value = '';
@@ -5433,7 +5433,7 @@
             <div class="party-kg">${r.total_kg} kg</div>
             <div class="party-bags">${r.bags_eq} Bags • ${r.entry_count} Bill</div>
           </div>
-          <button type="button" class="wa-quick-pill" title="Maal Pahunch Gaya + Target + Draw Benefits WhatsApp" onclick="event.stopPropagation();sendAiTargetWhatsApp(${r.id})">📲 WTS</button>
+          <button type="button" class="wa-quick-pill" title="Send Official Supply & Target Statement on WhatsApp" onclick="event.stopPropagation();sendAiTargetWhatsApp(${r.id})">📲 WTS</button>
           <span class="khata-pill-btn">Khata ›</span>
         </div>
       </div>`;
@@ -5464,7 +5464,7 @@
 
     document.getElementById('khataSummaryBoxes').innerHTML = `
       <div class="khata-stat-col">
-        <div class="khata-stat-lbl">Kul Maal</div>
+        <div class="khata-stat-lbl">Total Supply</div>
         <div class="khata-stat-val">${r.total_kg} kg</div>
         <div class="khata-stat-sub">${r.bags_eq} Bags (${r.entry_count} Entries)</div>
       </div>
@@ -5474,14 +5474,14 @@
         <div class="khata-stat-sub">${r.bonus_earned > 0 ? `${r.base_earned} Base + ${r.bonus_earned} Free 🎁` : (r.pending > 0 ? `${r.pending} Pending` : 'Issued / Earned')}</div>
       </div>
       <div class="khata-stat-col">
-        <div class="khata-stat-lbl">Inam Won</div>
+        <div class="khata-stat-lbl">Prizes Won</div>
         <div class="khata-stat-val" style="color:#15803d;">${r.prizes.length}</div>
         <div class="khata-stat-sub">${r.prizes.length > 0 ? 'Winner 🏆' : 'Active'}</div>
       </div>
     `;
 
-    document.getElementById('khataNextLbl').textContent = `Agla Coupon Progress: ${r.rem_kg} / ${cupKg} kg`;
-    document.getElementById('khataNeedLbl').textContent = `${needKg} kg aur chahiye`;
+    document.getElementById('khataNextLbl').textContent = `Next Coupon Progress: ${r.rem_kg} / ${cupKg} kg`;
+    document.getElementById('khataNeedLbl').textContent = `${needKg} kg remaining`;
     document.getElementById('khataProgFill').style.width = `${r.pct}%`;
 
     document.getElementById('btnKhataEditParty').onclick = () => openEditRetailer(r.id);
@@ -5581,7 +5581,7 @@
     const listEl = document.getElementById('khataEntriesList');
     if (filtered.length === 0) {
       listEl.innerHTML = `<div style="text-align:center;padding:28px 14px;color:var(--muted);font-size:13px;">
-        Is party ke khate me abhi koi entry nahi hai. Upar <b>+ Maal Entry</b> dabayein.
+        No dispatch entries recorded for this party yet. Click <b>+ Entry</b> above to add one.
       </div>`;
       return;
     }
@@ -5612,7 +5612,7 @@
 
   async function deleteEntryFromKhata(delId) {
     if (!(await ensureAdminUnlocked())) return;
-    if (!confirm('Yeh entry khate se delete karein?')) return;
+    if (!confirm('Delete this dispatch entry from the ledger?')) return;
     try {
       await api('/api/deliveries/' + delId, 'DELETE');
       toast('Entry deleted');
@@ -5624,7 +5624,7 @@
 
   async function loadOfficial301Segments() {
     if (!(await ensureAdminUnlocked())) return;
-    if (!confirm('Official 301 Prizes ki list load karein?')) return;
+    if (!confirm('Restore the official 301 Prize Segments list?')) return;
     try {
       await api('/api/segments/reset-official', 'POST', {});
       toast('🎉 Official 301 Prize List Loaded!');
@@ -5851,10 +5851,10 @@
       if (row.area) document.getElementById('delAreaInp').value = row.area;
       infoBar.style.display = 'flex';
       const lastTxt = row.last_entry
-        ? `Pichhli Entry: <b>${row.last_entry.total_kg} kg</b> (${fmtDate(row.last_entry.entry_date)})`
-        : `Is party ki pehli entry hogi`;
+        ? `Last Dispatch: <b>${row.last_entry.total_kg} kg</b> (${fmtDate(row.last_entry.entry_date)})`
+        : `First dispatch entry for this party`;
       infoBar.innerHTML = `
-        <div>📒 <b>${esc(row.name)}</b> — Kul Khata: <b>${row.total_kg} kg</b> (${row.bags_eq} Bags) • ${lastTxt}</div>
+        <div>📒 <b>${esc(row.name)}</b> — Total Supply: <b>${row.total_kg} kg</b> (${row.bags_eq} Bags) • ${lastTxt}</div>
         <div style="display:flex;gap:5px;">
           ${row.last_entry ? `<button type="button" class="btn btn-brand btn-xs" onclick="repeatLastPartyOrder(${row.id})">↻ Same (${row.last_entry.total_kg}kg)</button>` : ''}
           <button type="button" class="btn btn-outline btn-xs" onclick="openRetailerKhata(${row.id})">📒 Khata ›</button>
@@ -5862,7 +5862,7 @@
       `;
     } else if (val) {
       infoBar.style.display = 'flex';
-      infoBar.innerHTML = `<div>🆕 Nayi Party: <b>${esc(val)}</b> — Save karte hi iska alag Khata ban jayega!</div>`;
+      infoBar.innerHTML = `<div>🆕 New Party: <b>${esc(val)}</b> — A dedicated ledger account will be created automatically upon saving.</div>`;
     } else {
       infoBar.style.display = 'none';
     }
@@ -5921,7 +5921,7 @@
     const breakTxt = newCb.bonusEarned > 0 ? `${newCb.totalEarned} (${newCb.baseEarned} + ${newCb.bonusEarned} Bonus 🎁)` : `${newCb.totalEarned}`;
 
     banner.style.display = 'block';
-    banner.innerHTML = `🏪 <b>${esc(name || 'Select Party')}</b>: Pehle <b>${prev} kg</b> + Abhi <b>${addKg} kg</b> = Naya Balance <b>${nextTot} kg</b> &rarr; Kul Coupons: <b>${breakTxt}</b> ${unlocked > 0 ? `🎉 (+${unlocked} Naya Coupon${bonusUnlocked > 0 ? ` jisme +${bonusUnlocked} BONUS FREE शामिल!` : ' Pura!'})` : ''}`;
+    banner.innerHTML = `🏪 <b>${esc(name || 'Select Party')}</b>: Previous: <b>${prev} kg</b> + Current: <b>${addKg} kg</b> = Updated Total: <b>${nextTot} kg</b> &rarr; Total Coupons: <b>${breakTxt}</b> ${unlocked > 0 ? `🎉 (+${unlocked} Naya Coupon${bonusUnlocked > 0 ? ` jisme +${bonusUnlocked} BONUS FREE शामिल!` : ' Pura!'})` : ''}`;
   }
 
   function jumpToDelivery(shopName) {
@@ -5942,9 +5942,9 @@
 
     if (!retailer_name) {
       toggleRetailerDropdown();
-      return toast('Dropdown se Party ka naam chunein!', true);
+      return toast('Please select a party from the directory.', true);
     }
-    if (total_kg <= 0) return toast('Bags ya Total KG dalein!', true);
+    if (total_kg <= 0) return toast('Please enter valid Bag or KG quantity.', true);
 
     const btn = document.getElementById('btnSaveDel');
     btn.disabled = true;
@@ -5953,7 +5953,7 @@
         id: id ? Number(id) : null,
         retailer_name, area, bags, loose_kg, total_kg, entry_date, remarks
       });
-      toast(`✓ Saved ${total_kg} kg in ${retailer_name} Khata!`);
+      toast(`✓ Recorded ${total_kg} kg dispatch for ${retailer_name}`);
       resetDelForm(entry_date);
       await refreshAll();
       if (res.auto_codes && res.auto_codes.length > 0 && res.retailer_id) {
@@ -5978,8 +5978,8 @@
     document.getElementById('delTotalInp').value = '';
     document.getElementById('delRemInp').value = '';
     document.getElementById('delDateInp').value = keepDate || todayISO();
-    document.getElementById('delCardTitle').textContent = '🚚 Maal Delivery Entry';
-    document.getElementById('btnSaveDel').textContent = '✓ Save Maal Entry';
+    document.getElementById('delCardTitle').textContent = '🚚 Stock Dispatch Entry';
+    document.getElementById('btnSaveDel').textContent = '✓ Save Dispatch Entry';
     document.getElementById('btnCancelDelEdit').style.display = 'none';
     document.getElementById('delLiveBanner').style.display = 'none';
     document.getElementById('delSelectedPartyInfo').style.display = 'none';
@@ -6006,7 +6006,7 @@
 
   async function deleteDelRow(id) {
     if (!(await ensureAdminUnlocked())) return;
-    if (!confirm('Yeh delivery entry delete karein?')) return;
+    if (!confirm('Delete this dispatch entry?')) return;
     try {
       await api('/api/deliveries/' + id, 'DELETE');
       toast('Entry deleted');
@@ -6102,8 +6102,8 @@
     const btn = document.getElementById('btnAllotEkSath');
     btn.disabled = totPending === 0;
     btn.textContent = totPending > 0
-      ? `🎟️ Auto-Allot Remaining ${totPending} Pending Coupons Ek Sath`
-      : `✓ Sabhi Earned Coupons Allot Ho Chuke Hain`;
+      ? `🎟️ Auto-Issue Remaining ${totPending} Pending Coupons`
+      : `✓ All Earned Coupons Issued`;
 
     const pSearch = (document.getElementById('allotPartySearchInp')?.value || '').trim().toLowerCase();
     const pFilter = document.getElementById('allotPartyFilterSel')?.value || 'ELIGIBLE';
@@ -6130,7 +6130,7 @@
                 ${esc(r.name)} ${r.area ? `<span class="badge b-area">📍 ${esc(r.area)}</span>` : ''}
               </div>
               <div class="ret-meta">
-                <span>Maal: <b>${r.total_kg} kg</b></span> •
+                <span>Supply: <b>${r.total_kg} kg</b></span> •
                 <span class="badge b-teal">Earned: ${r.earned}${r.bonus_earned > 0 ? ` (${r.base_earned}+${r.bonus_earned}🎁)` : ''}</span>
                 <span class="badge b-blue">Issued: ${r.issued}</span>
                 ${r.pending > 0 ? `<span class="badge b-amber">${r.pending} Pending</span>` : (r.issued > 0 ? '<span class="badge b-green">✓ Allotted</span>' : '')}
@@ -6209,14 +6209,14 @@
         }]
       });
       PARTY_CUSTOM_COUPON_DRAFTS.delete(retailerId);
-      toast(`✅ ${nums.length} Exact Coupon Number(s) Set Ho Gaye!`);
+      toast(`✅ ${nums.length} coupon number(s) assigned successfully`);
       await refreshAll();
     } catch (e) { toast(e.message, true); }
   }
 
   async function saveAllCustomPartyCouponsEkSath() {
     if (PARTY_CUSTOM_COUPON_DRAFTS.size === 0) {
-      return toast('Kisi party ke box me naye coupon numbers type karein phir Save dabayein!');
+      return toast('Enter coupon numbers in the party fields before saving.');
     }
     const issue_date = document.getElementById('allotDateInp').value || todayISO();
     const custom_assignments = [];
@@ -6234,7 +6234,7 @@
         custom_assignments
       });
       PARTY_CUSTOM_COUPON_DRAFTS.clear();
-      toast(`🎉 ${custom_assignments.length} Parties ke Custom Coupon Numbers Ek Sath Save Ho Gaye!`);
+      toast(`✅ Custom coupon assignments saved for ${custom_assignments.length} parties`);
       await refreshAll();
     } catch (e) { toast(e.message, true); }
   }
@@ -6265,7 +6265,7 @@
     try {
       const res = await api('/api/coupons/allot', 'POST', { allocations, issue_date, mode });
       closeModal('ekSathModal');
-      toast(`🎉 ${res.allotted} Coupons Allotted Ek Sath!`);
+      toast(`✅ ${res.allotted} coupons issued successfully`);
       await refreshAll();
     } catch (e) { toast(e.message, true); }
     finally { btn.disabled = false; }
@@ -6299,7 +6299,7 @@
     const nums = parseFlexibleCouponNumbers(rawNums);
     const force_move = document.getElementById('manCupForceMove').checked;
     const issue_date = document.getElementById('manCupDate').value || todayISO();
-    if (!nums.length) return toast('Kam se kam 1 valid coupon number dalein!', true);
+    if (!nums.length) return toast('Please enter at least one valid coupon number.', true);
     try {
       await api('/api/coupons/allot', 'POST', {
         issue_date,
@@ -6529,7 +6529,7 @@
       `✅ Filled Valid Coupons: <b>${validCnt} / ${STATE.slotDraftValues.length}</b>`;
     if (act) {
       document.getElementById('btnSaveAllSegmentSlots').textContent =
-        `✓ Save All ${validCnt} Coupon Prizes Ek Sath`;
+        `✓ Confirm & Save ${validCnt} Declared Winners`;
     }
   }
 
@@ -6660,7 +6660,7 @@
       .filter(c => (!c.prize_title || c.prize_status === 'NONE') && !currentlyInDraft.has(Number(c.coupon_num)))
       .map(c => Number(c.coupon_num));
 
-    if (!unassigned.length) return toast('Koi unassigned allotted coupon baki nahi hai!', true);
+    if (!unassigned.length) return toast('No unassigned allotted coupons remaining.', true);
 
     const emptySlotsCount = STATE.slotDraftValues.filter(s => !s.val).length || 1;
     const count = Math.min(emptySlotsCount, unassigned.length);
@@ -6672,23 +6672,23 @@
     }
     renderMultiSlotBoxes();
     if (STATE.prizeViewMode === 'GRID') renderVisualCouponGrid();
-    toast(`🎲 ${shuffled.length} slots random coupons se bhar diye gaye — Save dabayein!`);
+    toast(`🎲 ${shuffled.length} slots populated randomly — click Confirm & Save`);
   }
 
   async function saveRapidSegmentWinners() {
     const act = getActiveSegment();
-    if (!act) return toast('Pehle upar se Prize Segment select karein!', true);
+    if (!act) return toast('Please select a prize category first.', true);
 
     const maxQty = Math.max(1, Number(act.target_qty) || 1);
     const slotNums = STATE.slotDraftValues.map(s => parseInt(String(s.val || '').replace(/[^0-9]/g, ''), 10)).filter(n => n > 0);
     const pasteNums = parseCouponNumsFromText(document.getElementById('rapidCouponBox').value);
     const combined = Array.from(new Set([...slotNums, ...pasteNums]));
 
-    if (!combined.length) return toast('Kam se kam 1 Coupon Number slot box me bharein!', true);
+    if (!combined.length) return toast('Please enter at least one coupon number.', true);
 
     const allottedSet = new Set(STATE.coupons.map(c => Number(c.coupon_num)));
     const validNums = combined.filter(n => allottedSet.has(n));
-    if (!validNums.length) return toast('Bhare gaye coupon numbers abhi allot nahi hue hain!', true);
+    if (!validNums.length) return toast('Entered coupon numbers are not yet allotted to any party.', true);
 
     if (validNums.length > maxQty) {
       return toast(`⚠️ "${act.title}" me kul ${maxQty} hi prize hain! Aapne ${validNums.length} coupon dale hain — kripya ${maxQty} hi rakhein.`, true);
@@ -6781,7 +6781,7 @@
 
   async function markFilteredWinnersDelivered() {
     const list = getFilteredWinners().filter(c => c.prize_title && c.prize_status !== 'DELIVERED');
-    if (!list.length) return toast('Screen par koi pending winner nahi hai!', true);
+    if (!list.length) return toast('No pending winner records in the current view.', true);
     if (!confirm(`Screen par dikh rahe ${list.length} winners ko "✅ Handed Over" mark karein?`)) return;
     try {
       await api('/api/coupons/prize-bulk', 'POST', {
@@ -7043,7 +7043,7 @@
   async function addNewMasterAreas() {
     const inp = document.getElementById('newMasterAreaInp');
     const raw = inp.value.trim();
-    if (!raw) return toast('Pehle Area ka naam likhein!', true);
+    if (!raw) return toast('Please enter a territory/area name.', true);
 
     const newNames = raw.split(/[,;\n]+/).map(s => s.trim().toUpperCase()).filter(Boolean);
     if (!newNames.length) return;
@@ -7059,7 +7059,7 @@
     populateDropdownsAndSettings();
     renderMasterAreasList();
     renderShopWiseAreaRows();
-    toast(`✅ ${newNames.length} Area List me jud gaya!`);
+    toast(`✅ ${newNames.length} territory/area added to master list`);
   }
 
   function renderMasterAreasList() {
@@ -7116,8 +7116,8 @@
   async function renameOrMergeMasterArea(oldArea, newRaw) {
     const oldClean = String(oldArea || '').trim().toUpperCase();
     const newClean = String(newRaw || '').trim().toUpperCase();
-    if (!newClean) return toast('Area ka naya naam khali nahi ho sakta!', true);
-    if (oldClean === newClean) return toast('Naam pehle se wahi hai!');
+    if (!newClean) return toast('Territory name cannot be empty.', true);
+    if (oldClean === newClean) return toast('Territory name is unchanged.');
 
     const alreadyExists = STATE.areas.includes(newClean);
     const msg = alreadyExists
@@ -7151,7 +7151,7 @@
       )).sort();
       await persistMasterAreasArray(updatedMaster);
 
-      toast(`✅ "${oldClean}" update hokar "${newClean}" ho gaya!`);
+      toast(`✅ Territory "${oldClean}" updated to "${newClean}"`);
       await refreshAll();
       SHOP_AREA_DRAFT_MAP = new Map(STATE.retailers.map(r => [r.id, String(r.area || '').trim().toUpperCase()]));
       renderMasterAreasList();
@@ -7186,7 +7186,7 @@
       const updatedMaster = [...STATE.areas, ...getSavedMasterAreas()].filter(a => a && a !== clean);
       await persistMasterAreasArray(updatedMaster);
 
-      toast(`🗑️ Area "${clean}" list se hata diya gaya!`);
+      toast(`🗑️ Territory "${clean}" removed from master list`);
       await refreshAll();
       SHOP_AREA_DRAFT_MAP = new Map(STATE.retailers.map(r => [r.id, String(r.area || '').trim().toUpperCase()]));
       renderMasterAreasList();
@@ -7256,7 +7256,7 @@
       await api('/api/retailers/bulk-area', 'POST', { updates });
       await persistMasterAreasArray(Array.from(newMasterSet));
       closeModal('areaManagerModal');
-      toast('📍 Sabhi Parties aur Master Area List update ho gayi!');
+      toast('📍 Territory mappings & master list saved');
       await refreshAll();
     } catch (e) { toast(e.message, true); }
   }
@@ -7511,7 +7511,7 @@
 
   function showImportPreview(payload) {
     if (!payload.retailers.length && !payload.deliveries.length && !payload.coupons.length) {
-      return toast('Koi valid rows nahi mili!', true);
+      return toast('No valid data rows detected.', true);
     }
     STATE.pendingImportPayload = payload;
     document.getElementById('importPreviewStats').innerHTML =
@@ -7585,7 +7585,7 @@
 
   async function restoreFullJSON(ev) {
     const file = ev.target.files[0];
-    if (!file || !confirm('Current data replace karke backup restore karein?')) return;
+    if (!file || !confirm('Replace current data and restore from backup file?')) return;
     try {
       const parsed = JSON.parse(await file.text());
       await api('/api/import', 'POST', { full_restore: true, ...parsed });
@@ -7788,7 +7788,7 @@
       `_आधिकारिक कूपन एवं खाता पासबुक_\n` +
       `━━━━━━━━━━━━━━━━━━━━\n` +
       `🏪 *${r.name}* ${areaTag}\n` +
-      `📦 कुल प्राप्त माल: *${r.total_kg} kg* (${r.bags_eq} बैग)\n` +
+      `📦 कुल प्राप्त सप्लाई: *${r.total_kg} kg* (${r.bags_eq} बैग)\n` +
       `🎟️ जारी लकी कूपन: *${r.issued}* (अर्जित: ${r.earned})\n` +
       (cupLines ? `\n*कूपन एवं इनाम विवरण:*\n${cupLines}\n` : '') +
       linkPart +
@@ -7817,7 +7817,7 @@
       return true;
     });
 
-    if (!items.length) return toast('Is Area/Filter me koi record nahi hai!', true);
+    if (!items.length) return toast('No records match the selected territory/filter.', true);
 
     items.sort((a, b) => {
       const aArea = String(rMap.get(a.retailer_id)?.area || 'ZZZ_UNASSIGNED');
@@ -7977,7 +7977,7 @@
   const DEFAULT_ARYUSH_PRODUCTS = [
     {
       name: 'Kacchi Ghani Mustard Oil', hi: 'कच्ची घानी सरसों तेल', tag: '100% शुद्ध कोल्हू की कच्ची घानी व तेज़ झाँझ', icon: '🟡', bg: 'linear-gradient(135deg,#eab308,#ca8a04)', photoData: '', videoUrl: '', localVideoId: '',
-      khasiyat: ['100% चुननिंदा पीली व काली सरसों से पारंपरिक कोल्हू विधि द्वारा तैयार', 'प्राकृतिक तेज़ झाँझ, भरपूर खुशबू और बिना किसी केमिकल या मिलावट के', 'हृदय व पाचन के लिए उत्तम — हर व्यंजन व अचार का स्वाद दोगुना करे']
+      khasiyat: ['100% चुनिंदा पीली व काली सरसों से पारंपरिक कोल्हू विधि द्वारा तैयार', 'प्राकृतिक तेज़ झाँझ, भरपूर खुशबू और बिना किसी केमिकल या मिलावट के', 'हृदय व पाचन के लिए उत्तम — हर व्यंजन व अचार का स्वाद दोगुना करे']
     },
     {
       name: 'Special Patna Kuti Mirchi', hi: 'स्पेशल पटना की कुटी मिर्ची', tag: 'प्रीमियम दरदरी कुटी मिर्च व असली तीखापन', icon: '🌶️', bg: 'linear-gradient(135deg,#dc2626,#991b1b)', photoData: '', videoUrl: '', localVideoId: '',
@@ -8313,7 +8313,7 @@
         ARYUSH_PRODUCTS.push({
           name: rawTitle || `Aryush Product ${ARYUSH_PRODUCTS.length + 1}`,
           hi: rawTitle || `आर्युष उत्पाद ${ARYUSH_PRODUCTS.length + 1}`,
-          tag: '100% Shuddh & Asli Swad',
+          tag: '100% शुद्ध एवं उच्च गुणवत्ता',
           icon: '🌶️',
           bg: 'linear-gradient(135deg,#ef4444,#b91c1c)',
           photoData: dataUrl,
@@ -8327,7 +8327,7 @@
     await persistProductsCatalog();
     renderProductStudioUI();
     renderBrandIdentityAndProducts();
-    toast(`🎉 ${updatedCnt} Product Photos Har Jagah Update Ho Gayi!`);
+    toast(`✅ ${updatedCnt} product pack photos updated across all screens`);
   }
 
   function resolveProductVideoSrc(p) {
@@ -8376,7 +8376,7 @@
     if (khInp) khInp.value = '';
     document.getElementById('prodIconInp').value = '🌶️';
     document.getElementById('prodVidUrlInp').value = '';
-    document.getElementById('prodFormHeading').textContent = '➕ Naya Product Add Karein (Ya Upar ✏️ Daba Kar Edit Karein)';
+    document.getElementById('prodFormHeading').textContent = '➕ Add or Update Product Portfolio Item';
     DRAFT_PROD_PHOTO = '';
     DRAFT_PROD_VID_ID = '';
     DRAFT_PROD_VID_NAME = '';
@@ -8402,7 +8402,7 @@
       await persistProductsCatalog();
       renderProductStudioUI();
       renderBrandIdentityAndProducts();
-      toast(`🖼️ "${ARYUSH_PRODUCTS[idx].hi}" ki Photo Har Jagah Lag Gayi!`);
+      toast(`🖼️ Pack photo updated for "${ARYUSH_PRODUCTS[idx].hi}"`);
     } catch (e) { toast('Photo upload error', true); }
   }
 
@@ -8463,12 +8463,12 @@
     const idx = parseInt(document.getElementById('editProdIdx').value, 10);
     const hi = document.getElementById('prodHiInp').value.trim();
     const name = document.getElementById('prodEnInp').value.trim() || hi;
-    const tag = document.getElementById('prodTagInp').value.trim() || '100% Shuddh & Asli Swad';
+    const tag = document.getElementById('prodTagInp').value.trim() || '100% शुद्ध एवं उच्च गुणवत्ता';
     const icon = document.getElementById('prodIconInp').value.trim() || '🌶️';
     const bg = document.getElementById('prodBgSel').value;
     const videoUrl = document.getElementById('prodVidUrlInp').value.trim();
 
-    if (!hi) return toast('Product ka Hindi naam dalein!', true);
+    if (!hi) return toast('Please enter the product name.', true);
     const rawKh = (document.getElementById('prodKhasiyatInp')?.value || '').trim();
     const khasiyat = rawKh
       ? rawKh.split(/[,\n•]+/).map(s => s.trim()).filter(Boolean)
@@ -8482,11 +8482,11 @@
     clearProdForm();
     renderProductStudioUI();
     renderBrandIdentityAndProducts();
-    toast('✅ Product, Pack Photo & Video Har Jagah Save Ho Gayi!');
+    toast('✅ Product details & media assets saved');
   }
 
   async function deleteProductStudioItem(idx) {
-    if (ARYUSH_PRODUCTS.length <= 1) return toast('Kam se kam 1 product zaroori hai!', true);
+    if (ARYUSH_PRODUCTS.length <= 1) return toast('At least one product must remain in the portfolio.', true);
     if (!confirm(`"${ARYUSH_PRODUCTS[idx].hi}" ko list se hatayein?`)) return;
     ARYUSH_PRODUCTS.splice(idx, 1);
     await persistProductsCatalog();
@@ -8583,7 +8583,7 @@
     const khBox = document.getElementById('qpvKhasiyatBox');
     if (khBox) {
       const kList = getProductKhasiyatList(p);
-      khBox.innerHTML = `<div style="font-size:10.5px;font-weight:900;color:#fde047;letter-spacing:1px;">✨ उत्पाद की खासियत (KEY HIGHLIGHTS):</div>` +
+      khBox.innerHTML = `<div style="font-size:10.5px;font-weight:900;color:#fde047;letter-spacing:1px;">✨ उत्पाद की प्रमुख विशेषताएँ (KEY QUALITY HIGHLIGHTS):</div>` +
         kList.map(k => `<div style="background:rgba(255,255,255,0.06);border-left:3px solid #fde047;padding:6px 10px;border-radius:0 8px 8px 0;font-size:12px;font-weight:600;color:#f8fafc;">✓ ${esc(k)}</div>`).join('');
     }
 
@@ -8910,13 +8910,13 @@
     }).join('   ');
     return (
       `🙏 हार्दिक स्वागत एवं अभिनंदन! ${s.company_name} (कैलारस, मुरैना) के भव्य "${s.campaign_name}" समारोह में पधारे सभी सम्मानित व्यापारी बंधुओं एवं अतिथियों का हार्दिक स्वागत है!   ★   ` +
-      `👑 आर्युष रसोई धन उत्पादों की बेमिसाल खासियत: ${prodHighlights}   ★   ` +
-      `🎁 धमाका स्कीम: हर ${s.kg_per_coupon} kg पर 1 पक्का कूपन + ${s.bonus_every_coupons || 7} कूपन पर +${s.bonus_free_coupons || 1} कूपन बिल्कुल FREE! (कुल ${s.max_coupons} कूपन = ${s.max_coupons} गारंटीड इनाम)`
+      `👑 आर्युष रसोई धन उत्पादों की प्रमुख विशेषताएँ: ${prodHighlights}   ★   ` +
+      `🎁 विशेष उपहार योजना: प्रत्येक ${s.kg_per_coupon} kg पर 1 निश्चित कूपन + ${s.bonus_every_coupons || 7} कूपन पर +${s.bonus_free_coupons || 1} अतिरिक्त कूपन निःशुल्क (कुल ${s.max_coupons} कूपन = ${s.max_coupons} निश्चित पुरस्कार)`
     );
   }
 
   function getActiveWelcomePattiText() {
-    const custom = String(STATE.settings?.welcome_patti_text || '').trim();
+    const custom = String(STATE.settings?.welcome_ticker_v15_text || '').trim();
     return custom || buildAutoWelcomeAndKhasiyatText();
   }
 
@@ -8967,9 +8967,9 @@
     if (mode === 'WELCOME_FULL') {
       box.value = buildAutoWelcomeAndKhasiyatText();
     } else if (mode === 'VIP_GUEST') {
-      box.value = `🙏 हार्दिक स्वागत एवं अभिनंदन! ${s.company_name} (कैलारस, मुरैना) परिवार की ओर से आज के लकी ड्रॉ समारोह में पधारे सभी मुख्य अतिथियों, डिस्ट्रीब्यूटर्स एवं सम्मानित दुकानदार भाइयों का सहृदय स्वागत है! ★ शुद्धता और विश्वास का प्रतीक — आर्युष रसोई धन!`;
+      box.value = `🙏 हार्दिक स्वागत एवं अभिनंदन! ${s.company_name} (कैलारस, मुरैना) परिवार की ओर से आज के लकी ड्रॉ समारोह में पधारे सभी मुख्य अतिथियों, डिस्ट्रीब्यूटर्स एवं सम्मानित व्यापारी बंधुओं का सहृदय अभिनंदन है! ★ शुद्धता और विश्वास का प्रतीक — आर्युष रसोई धन!`;
     } else if (mode === 'AUTO_PRODUCTS') {
-      box.value = `👑 आर्युष रसोई धन — हर रसोई की पहली पसंद! हमारे उत्पादों की खासियत:  ` +
+      box.value = `👑 आर्युष रसोई धन — शुद्धता और विश्वास की परंपरा! हमारे उत्पादों की प्रमुख विशेषताएँ:  ` +
         ARYUSH_PRODUCTS.map(p => `★ ${p.hi}: ${getProductKhasiyatList(p).join(' • ')}`).join('   ');
     } else if (mode === 'LUNCH_BREAK') {
       box.value = `🍽️ सादर अनुरोध: सभी सम्मानित व्यापारी बंधुओं एवं अतिथियों से निवेदन है कि लकी ड्रॉ समारोह के साथ स्वरुचि भोज / जलपान का आनंद अवश्य लें! ★ सौजन्य: ${s.company_name} (कैलारस, मुरैना)`;
@@ -8983,18 +8983,18 @@
 
     STATE.settings.welcome_patti_enabled = enabled;
     STATE.settings.welcome_patti_speed = speed;
-    STATE.settings.welcome_patti_text = text;
+    STATE.settings.welcome_ticker_v15_text = text;
     renderAllWelcomePattis();
 
     try {
       await api('/api/settings', 'POST', {
         welcome_patti_enabled: enabled,
         welcome_patti_speed: String(speed),
-        welcome_patti_text: text
+        welcome_ticker_v15_text: text
       });
       broadcastStageCommandToLiveScreens({ action: 'REFRESH_PATTI' }).catch(() => {});
       closeModal('welcomePattiModal');
-      toast('🎊 Welcome Patti Saved & Live Updated on LED Screen!');
+      toast('🎊 Welcome Ticker Saved & Updated Live on LED Screen!');
     } catch (e) {
       toast(e.message, true);
     }
@@ -9056,7 +9056,7 @@
               </div>
 
               <div style="margin-top:14px;font-size:11px;font-weight:900;letter-spacing:1.8px;color:#94a3b8;text-transform:uppercase;">
-                ✨ हमारे इस उत्पाद की प्रमुख खासियतें (WHY CUSTOMERS LOVE IT):
+                ✨ उत्पाद की प्रमुख विशेषताएँ (KEY QUALITY HIGHLIGHTS):
               </div>
               <div class="usp-bullet-list">
                 ${kList.map((pt, kIdx) => `
@@ -9086,7 +9086,7 @@
     try {
       const dataUrl = await compressProductPackPhoto(file, 360);
       await api('/api/settings', 'POST', { brand_logo_data: dataUrl });
-      toast('🖼️ Company Logo Har Jagah Update Ho Gaya!');
+      toast('🖼️ Official corporate logo updated across all screens & PDFs');
       await refreshAll();
     } catch (e) { toast(e.message, true); }
   }
@@ -9218,7 +9218,7 @@
       <div class="winner-pop" style="width:100%;max-width:1240px;margin:0 auto;text-align:center;">
         <div style="display:inline-flex;align-items:center;gap:14px;margin-bottom:10px;">
           <div style="height:1px;width:60px;background:linear-gradient(90deg,transparent,#f59e0b);"></div>
-          <span style="font-size:11.5px;font-weight:800;letter-spacing:3px;color:#fcd34d;text-transform:uppercase;">SHUDDHTA AUR VISHWAS KA PRATEEK • KAILARAS, MORENA</span>
+          <span style="font-size:11.5px;font-weight:800;letter-spacing:3px;color:#fcd34d;text-transform:uppercase;">शुद्धता और विश्वास का प्रतीक • कैलारस (मुरैना)</span>
           <div style="height:1px;width:60px;background:linear-gradient(90deg,#f59e0b,transparent);"></div>
         </div>
 
@@ -9344,7 +9344,7 @@
     document.querySelector('#beatSummaryBar span').textContent =
       `Selected: ${filledIds.length} Parties (${totBags} Bags = ${totBags * bagKg} kg)`;
     document.getElementById('btnSaveBeatBulk').textContent =
-      `✓ Save ${filledIds.length} Parties (${totBags * bagKg} kg) Ek Sath`;
+      `✓ Save ${filledIds.length} Party Entries (${totBags * bagKg} kg)`;
 
     const box = document.getElementById('beatRowsContainer');
     if (!parties.length) {
@@ -9379,13 +9379,13 @@
         return { retailer_id: Number(rid), bags, loose_kg: 0, total_kg: Math.round(bags * bagKg * 100) / 100 };
       });
 
-    if (!items.length) return toast('Kisi party ke samne + daba kar Bags chunein!', true);
+    if (!items.length) return toast('Please enter bag quantities for at least one party.', true);
     const btn = document.getElementById('btnSaveBeatBulk');
     btn.disabled = true;
     try {
       const res = await api('/api/deliveries/beat-bulk', 'POST', { entry_date, items });
       closeModal('beatBulkModal');
-      toast(`🎉 ${res.saved} Parties ki Beat Entry ek sath save ho gayi!${res.auto_allotted ? ` (+${res.auto_allotted} Auto-Coupons)` : ''}`);
+      toast(`✅ Saved dispatch entries for ${res.saved} parties${res.auto_allotted ? ` (+${res.auto_allotted} Auto-Coupons)` : ''}`);
       await refreshAll();
     } catch (e) { toast(e.message, true); }
     finally { btn.disabled = false; }
@@ -10150,7 +10150,7 @@
   function copyLiveReceiverLink() {
     const u = getLiveReceiverUrl();
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(u).then(() => toast('📋 Live LED Screen Link Copied! Laptop/TV par kholein.')).catch(() => {});
+      navigator.clipboard.writeText(u).then(() => toast('📋 Live LED Receiver URL copied to clipboard')).catch(() => {});
     } else {
       prompt('Copy Live LED Screen Link:', u);
     }
@@ -10241,12 +10241,12 @@
     const styleMode = document.getElementById('remStyleSelect').value || 'ROTATE_ALL';
 
     if (!seg) return toast('Select Prize Segment!', true);
-    if (!nums.length) return toast('Kam se kam 1 Coupon Number dalein!', true);
+    if (!nums.length) return toast('Please enter at least one coupon number.', true);
 
     const cByNum = new Map(STATE.coupons.map(c => [Number(c.coupon_num), c]));
     const validNums = nums.filter(n => cByNum.has(n));
     if (!validNums.length) {
-      return toast('Dale gaye coupon numbers abhi kisi party ko allot nahi hain! Pehle Allot tab me set karein.', true);
+      return toast('Entered coupon number(s) are not allotted to any party.', true);
     }
     const qStat = getSegmentQuotaStatus(seg);
     const netNewNums = validNums.filter(n => !qStat.existingNums.has(n));
@@ -10497,7 +10497,7 @@
     }
 
     if (STATE.coupons.length === 0) {
-      return toast('Abhi koi Coupon Allot nahi hua hai! Pehle Allot tab me Coupon # set karein.', true);
+      return toast('No coupons have been allotted yet. Please issue coupons in the Coupon Allotment tab first.', true);
     }
 
     const cByNum = new Map(STATE.coupons.map(c => [Number(c.coupon_num), c]));
@@ -10726,7 +10726,7 @@
       .filter(c => c.prize_status !== 'NONE' && c.prize_title)
       .sort((a, b) => (a.prize_rank || 999) - (b.prize_rank || 999) || a.coupon_num - b.coupon_num);
 
-    if (!allWinners.length) return toast('Auto-Roll ke liye kam se kam 1 winner declare karein!', true);
+    if (!allWinners.length) return toast('Declare at least one winner before starting Auto-Roll.', true);
 
     document.getElementById('btnProjSlideshow').textContent = '⏹️ Stop Roll';
     let idx = 0;
@@ -10798,7 +10798,7 @@
         toast('🔓 Admin Mode Unlocked!');
         return true;
       }
-      toast('❌ Galat Admin PIN!', true);
+      toast('❌ Invalid Admin PIN', true);
       return false;
     } catch (e) {
       toast(e.message, true);
@@ -10813,7 +10813,7 @@
     const pubUrl = getEffectivePublicBaseUrl() + '?check=1';
     const msg =
       `🏆 *${STATE.settings.company_name} — ${STATE.settings.campaign_name}*\n\n` +
-      `सभी व्यापारी बंधु अपना *माल खाता, लकी कूपन नंबर और इनाम स्टेटस* नीचे दिए गए आधिकारिक पोर्टल लिंक पर देख सकते हैं:\n` +
+      `सभी सम्मानित व्यापारी बंधु अपना *आधिकारिक सप्लाई विवरण, लकी कूपन नंबर एवं पुरस्कार स्थिति* नीचे दिए गए आधिकारिक पोर्टल लिंक पर देख सकते हैं:\n` +
       `👉 ${pubUrl}`;
     if (navigator.share) {
       navigator.share({ title: `${STATE.settings.company_name} — आधिकारिक डिजिटल पासबुक`, text: msg }).catch(() => {});
@@ -10905,7 +10905,7 @@
               <div style="font-size:12px;color:#64748b;font-weight:700;margin-top:4px;">📍 क्षेत्र / एरिया: ${esc(r.area || '-')}</div>
             </div>
             <div style="text-align:right;background:#f0fdf4;border:1px solid #bbf7d0;padding:9px 14px;border-radius:12px;flex-shrink:0;">
-              <div style="font-size:10px;font-weight:800;color:#166534;text-transform:uppercase;">कुल प्राप्त माल</div>
+              <div style="font-size:10px;font-weight:800;color:#166534;text-transform:uppercase;">कुल प्राप्त सप्लाई</div>
               <div style="font-size:20px;font-weight:900;color:#15803d;">${r.total_kg} kg</div>
               <div style="font-size:11.5px;color:#166534;font-weight:700;">${r.bags_eq} बैग</div>
             </div>
@@ -10940,7 +10940,7 @@
             ${(cbPub.bonusEvery > 0 && cbPub.bonusFree > 0) ? `
               <div style="margin-top:8px;padding-top:7px;border-top:1px dashed #fcd34d;font-size:11.5px;font-weight:800;color:#15803d;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
                 <span>🎁 <b>${cbPub.bonusEvery} कूपन पर +${cbPub.bonusFree} कूपन FREE स्कीम:</b></span>
-                <span>${cbPub.nextMilestoneGivesBonus ? `🔥 यही ${bagsNeedLabel(needBags)} मँगवाते ही +${cbPub.bonusFree} FREE कूपन मिलेगा!` : `बोनस हेतु ${cbPub.needKgForBonus} kg (लगभग ${cbPub.needBagsForBonus} बैग) शेष`}</span>
+                <span>${cbPub.nextMilestoneGivesBonus ? `🔥 यही ${bagsNeedLabel(needBags)} जुड़ते ही +${cbPub.bonusFree} FREE बोनस कूपन प्राप्त होगा!` : `बोनस हेतु ${cbPub.needKgForBonus} kg (लगभग ${cbPub.needBagsForBonus} बैग) शेष`}</span>
               </div>` : ''}
           </div>
 
@@ -10956,7 +10956,7 @@
 
           ${dels.length > 0 ? `
             <div style="margin-top:16px;">
-              <div style="font-size:11.5px;font-weight:800;color:#475569;margin-bottom:6px;text-transform:uppercase;">📦 आपकी माल डिलीवरी पासबुक (${dels.length} एंट्री):</div>
+              <div style="font-size:11.5px;font-weight:800;color:#475569;margin-bottom:6px;text-transform:uppercase;">📦 आधिकारिक सप्लाई पासबुक (${dels.length} प्रविष्टियाँ):</div>
               <div class="passbook" style="border-radius:11px;">
                 <div class="pb-head" style="grid-template-columns:1.1fr 1fr 1fr;background:#f1f5f9;color:#334155;border-color:#e2e8f0;">
                   <div>तारीख</div>

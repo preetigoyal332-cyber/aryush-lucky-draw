@@ -1,8 +1,8 @@
 {
   "name": "ARYUSH FOODS • आर्युष रसोई धन",
   "short_name": "Aryush Foods",
-  "description": "आर्युष फूड्स — स्वागत पट्टी, उत्पाद खासियत शो एवं लाइव लकी ड्रॉ सिस्टम v14.5",
-  "start_url": "/?v=14.5",
+  "description": "आर्युष फूड्स (आर्युष रसोई धन) — आधिकारिक व्यापारिक पासबुक, सप्लाई लेजर एवं कॉर्पोरेट लकी ड्रॉ पोर्टल",
+  "start_url": "/?v=15.0",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",

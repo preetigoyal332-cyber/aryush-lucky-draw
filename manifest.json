@@ -1,11 +1,11 @@
 {
   "name": "ARYUSH FOODS • आर्युष रसोई धन",
   "short_name": "Aryush Foods",
-  "description": "आर्युष फूड्स — क्लाउड फोटो सिंक एवं लाइव LED ड्रॉ सिस्टम v13.1",
-  "start_url": "/?v=13.1",
+  "description": "आर्युष फूड्स — कॉर्पोरेट माल खाता पासबुक एवं लाइव लकी ड्रॉ सिस्टम v14.0",
+  "start_url": "/?v=14.0",
   "display": "standalone",
-  "background_color": "#050811",
-  "theme_color": "#050811",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
   "orientation": "any",
   "icons": [
     {

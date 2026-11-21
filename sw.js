@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aryush-draw-v8';
+const CACHE_NAME = 'aryush-draw-v9.0';
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (event) => {
   event.waitUntil(

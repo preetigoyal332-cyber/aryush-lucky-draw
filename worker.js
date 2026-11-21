@@ -24,7 +24,9 @@ const DEFAULT_SETTINGS = {
   max_coupons: '301',
   coupon_prefix: '',
   signatory: 'For Aryush Foods (Kailaras, Morena)',
-  auto_allot_coupons: '0'
+  auto_allot_coupons: '0',
+  brand_tagline: 'Aryush Rasoi Dhan • Pure Kacchi Ghani Mustard Oil & Spices',
+  brand_logo_data: ''
 };
 
 function jsonResp(data, status = 200) {
@@ -57,9 +59,16 @@ function randomDlCode() {
   return 'DL-' + Math.random().toString(16).slice(2, 8).toUpperCase();
 }
 
+function sanitizePrefix(prefix) {
+  const p = String(prefix || '').trim();
+  // Never allow purely numeric prefix like '1' which turns coupon 01 into 1001!
+  if (!p || /^\d+$/.test(p)) return '';
+  return p;
+}
+
 function padCoupon(num, maxC = 301, prefix = '') {
   const digits = Number(maxC) >= 1000 ? 4 : 3;
-  return (prefix || '') + String(num).padStart(digits, '0');
+  return sanitizePrefix(prefix) + String(num).padStart(digits, '0');
 }
 
 async function ensureSchemaAndDefaults(db) {
@@ -129,8 +138,26 @@ async function getSettingsMap(db) {
   for (const r of (rows.results || [])) {
     map[r.key] = r.value;
   }
+  const rawPref = String(map.coupon_prefix || '').trim();
+  if (/^\d+$/.test(rawPref)) {
+    map.coupon_prefix = '';
+    try {
+      await db.prepare(`UPDATE settings SET value = '' WHERE key = 'coupon_prefix'`).run();
+      const maxC = Number(map.max_coupons) || 301;
+      const allCups = await db.prepare(`SELECT id, coupon_num, coupon_code FROM coupons`).all();
+      const fixStmts = [];
+      for (const c of (allCups.results || [])) {
+        const cleanCode = padCoupon(c.coupon_num, maxC, '');
+        if (c.coupon_code !== cleanCode && String(c.coupon_code) === rawPref + cleanCode) {
+          fixStmts.push(db.prepare(`UPDATE coupons SET coupon_code = ? WHERE id = ?`).bind(cleanCode, c.id));
+        }
+      }
+      if (fixStmts.length) await db.batch(fixStmts);
+    } catch (e) {}
+  }
   return {
     ...map,
+    coupon_prefix: sanitizePrefix(map.coupon_prefix),
     kg_per_coupon: Number(map.kg_per_coupon) || 210,
     kg_per_bag: Number(map.kg_per_bag) || 30,
     max_coupons: Number(map.max_coupons) || 301,
@@ -237,7 +264,9 @@ export default {
           kg_per_coupon: settings.kg_per_coupon,
           kg_per_bag: settings.kg_per_bag,
           max_coupons: settings.max_coupons,
-          signatory: settings.signatory
+          signatory: settings.signatory,
+          brand_tagline: settings.brand_tagline || 'Aryush Rasoi Dhan • Pure Kacchi Ghani Mustard Oil & Spices',
+          brand_logo_data: settings.brand_logo_data || ''
         };
         if (!q) return jsonResp({ ok: true, settings: pubSettings, matches: [] });
 
@@ -323,7 +352,7 @@ export default {
         const allowedKeys = [
           'company_name', 'campaign_name', 'kg_per_coupon', 'kg_per_bag',
           'max_coupons', 'coupon_prefix', 'signatory', 'gemini_api_key',
-          'admin_pin', 'auto_allot_coupons'
+          'admin_pin', 'auto_allot_coupons', 'brand_tagline', 'brand_logo_data'
         ];
         const stmts = [];
         for (const k of allowedKeys) {
@@ -331,6 +360,7 @@ export default {
             if (k === 'gemini_api_key' && String(body[k]).trim() === '') continue;
             if (k === 'admin_pin' && String(body[k]).trim() === '') continue;
             let val = String(body[k]).trim();
+            if (k === 'coupon_prefix') val = sanitizePrefix(val);
             if (k === 'admin_pin' && val === '0000') val = '';
             if (k === 'auto_allot_coupons') val = (body[k] === '1' || body[k] === 1 || body[k] === true) ? '1' : '0';
             stmts.push(

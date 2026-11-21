@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods — Lucky Draw & 301 Prize AI ERP v8.0 Stage Pro</title>
+  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v9.0</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -486,11 +486,10 @@
       display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center;
     }
     .secret-cup-inp {
-      width: 135px !important; background: #020617 !important; color: #fde68a !important;
-      border: 2px solid #f59e0b !important; font-weight: 900; font-size: 19px !important;
-      text-align: center; letter-spacing: 3px; border-radius: 12px !important;
+      width: 145px !important; background: #020617 !important; color: #fde68a !important;
+      border: 2px solid #f59e0b !important; font-weight: 900; font-size: 20px !important;
+      text-align: center; letter-spacing: 2px; border-radius: 12px !important; padding: 10px 8px !important;
     }
-    .secret-cup-inp.masked { -webkit-text-security: disc; text-security: disc; }
 
     .proj-stage-arena {
       max-width: 980px; margin: 14px auto; min-height: 410px;
@@ -559,6 +558,87 @@
       border-radius: 12px; padding: 9px 11px; animation: appSlide 0.25s ease-out;
     }
 
+  
+    /* v9.0 Aryush Foods & Aryush Rasoi Dhan Royal Brand Showcase */
+    .topbar {
+      background: linear-gradient(135deg, #7f1d1d 0%, #9a3412 38%, #1e1b4b 100%) !important;
+      border-bottom: 2px solid #f59e0b;
+    }
+    .logo-crest {
+      width: 44px; height: 44px; border-radius: 13px;
+      background: linear-gradient(135deg, #fde047 0%, #f59e0b 55%, #dc2626 100%);
+      padding: 2px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.45);
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .logo-crest-inner {
+      width: 100%; height: 100%; border-radius: 11px; background: #7f1d1d;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #fde047; font-weight: 900; line-height: 1; text-align: center;
+    }
+    .logo-crest img { width: 100%; height: 100%; object-fit: cover; border-radius: 11px; background: #fff; }
+
+    /* Home & Public Brand Hero Card */
+    .brand-showcase-card {
+      background: linear-gradient(135deg, #450a0a 0%, #7c2d12 52%, #1e1b4b 100%);
+      border: 1.5px solid #f59e0b; border-radius: 18px; padding: 13px 14px;
+      color: #fff; margin-bottom: 12px; box-shadow: 0 8px 22px rgba(124, 45, 18, 0.18);
+      position: relative; overflow: hidden;
+    }
+    .brand-showcase-top {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .brand-gold-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: linear-gradient(90deg, #fde047, #f59e0b); color: #450a0a;
+      font-size: 10px; font-weight: 900; padding: 3px 10px; border-radius: 999px;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .prod-ribbon {
+      display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 3px;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .prod-ribbon::-webkit-scrollbar { display: none; }
+    .prod-chip {
+      flex-shrink: 0; min-width: 142px; padding: 9px 11px; border-radius: 13px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(253, 224, 71, 0.32);
+      backdrop-filter: blur(4px); display: flex; align-items: center; gap: 9px;
+      transition: transform 0.15s;
+    }
+    .prod-chip:hover { transform: translateY(-2px); border-color: #fde047; }
+    .prod-ico {
+      width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; font-size: 19px; flex-shrink: 0;
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.25);
+    }
+    .prod-nm { font-size: 12px; font-weight: 900; color: #fff; line-height: 1.15; }
+    .prod-tag { font-size: 10px; font-weight: 700; color: #fde68a; margin-top: 2px; }
+
+    /* LED Stage TV Gold Scrolling Ticker & Brand Commercial Grid */
+    .led-marquee-bar {
+      background: linear-gradient(90deg, #78350f, #b45309, #78350f);
+      border: 1px solid #fbbf24; border-radius: 999px; padding: 5px 0;
+      overflow: hidden; white-space: nowrap; margin-bottom: 10px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.28);
+    }
+    .led-marquee-track {
+      display: inline-block; padding-left: 100%;
+      font-size: 12.5px; font-weight: 900; color: #fef08a; letter-spacing: 0.8px;
+      animation: ledScrollText 26s linear infinite;
+    }
+    @keyframes ledScrollText {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    .stage-prod-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 10px; width: 100%; margin-top: 16px;
+    }
+    .stage-prod-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      border: 1.5px solid rgba(251, 191, 36, 0.42); border-radius: 16px; padding: 12px 10px;
+      text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
   </style>
 </head>
 <body>
@@ -567,13 +647,18 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand-row">
-        <div class="logo-box">AF</div>
+        <div class="logo-crest" id="hdrLogoCrest" title="Aryush Foods • Aryush Rasoi Dhan">
+          <div class="logo-crest-inner">
+            <span style="font-size:13px;">💧</span>
+            <span style="font-size:8.5px;margin-top:1px;color:#fff;">ARYUSH</span>
+          </div>
+        </div>
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag">v8.0 Stage Pro</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">रसोई धन v9.0</span>
           </div>
-          <div class="brand-sub" id="hdrSub">1 Coupon / 210 kg (7 Bags) • Pool: 301 Prizes</div>
+          <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
       </div>
       <div class="hdr-btns">
@@ -601,6 +686,35 @@
 
     <!-- ==================== TAB 1: DASHBOARD, AI HUB & ALAG-ALAG PARTY KHATA ==================== -->
     <section id="screen-overview" class="screen active">
+      <!-- ARYUSH FOODS & ARYUSH RASOI DHAN BRAND SHOWCASE BANNER -->
+      <div class="brand-showcase-card">
+        <div class="brand-showcase-top">
+          <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+            <div class="logo-crest" id="homeBannerLogo" style="width:46px;height:46px;">
+              <div class="logo-crest-inner">
+                <span style="font-size:15px;">👑</span>
+                <span style="font-size:8px;color:#fff;">RASOI</span>
+              </div>
+            </div>
+            <div style="min-width:0;">
+              <span class="brand-gold-pill">✨ SHUDDHTA KI PEHCHAN • KAILARAS (MORENA)</span>
+              <div style="font-size:15.5px;font-weight:900;color:#fff;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="homeBrandHeadline">
+                ARYUSH FOODS — ARYUSH RASOI DHAN
+              </div>
+              <div style="font-size:11.5px;color:#fde68a;font-weight:700;" id="homeBrandTagline">
+                100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <button type="button" class="btn btn-xs" style="background:#fde047;color:#450a0a;font-weight:900;" onclick="openStageProjector();showLedBrandPromoScreen();">📺 LED Brand Show</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="toggleHomeProductsRibbon()" id="btnToggleProdRibbon">🌶️ Hide</button>
+          </div>
+        </div>
+
+        <div class="prod-ribbon" id="homeProdRibbon"></div>
+      </div>
+
       <!-- ALL-IN-ONE AI POWER BAR -->
       <div class="ai-strip">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
@@ -1018,7 +1132,7 @@
         <div class="form-grid cols-3" style="align-items:end;">
           <div class="field" style="grid-column: span 2;">
             <label>Google Gemini API Key (Saved securely in your D1 Database)</label>
-            <input type="password" id="setGeminiKey" placeholder="Paste AIzaSy... key here (leave blank to keep existing)" />
+            <input type="password" autocomplete="new-password" name="aryush_gemini_key_field" id="setGeminiKey" placeholder="Paste AIzaSy... key here (leave blank to keep existing)" />
           </div>
           <button class="btn btn-ai" onclick="saveGeminiApiKeyOnly()">🔐 Save Gemini AI Key</button>
         </div>
@@ -1105,10 +1219,11 @@
         <div class="form-grid cols-4" style="align-items:end;">
           <div class="field"><label>Company Name</label><input type="text" id="setCompany" /></div>
           <div class="field"><label>Campaign Title</label><input type="text" id="setCampaign" /></div>
+          <div class="field" style="grid-column: span 2;"><label>🌶️ Brand & Product Tagline</label><input type="text" id="setBrandTagline" placeholder="Aryush Rasoi Dhan • Pure Kacchi Ghani Mustard Oil & Spices" /></div>
           <div class="field"><label>KG per 1 Coupon</label><input type="number" id="setKgPerCup" min="1" /></div>
           <div class="field"><label>KG per 1 Bag</label><input type="number" id="setKgPerBag" min="1" /></div>
           <div class="field"><label>Total Coupons / Prizes Pool</label><input type="number" id="setMaxCoupons" min="1" /></div>
-          <div class="field"><label>Coupon Prefix (Optional)</label><input type="text" id="setPrefix" placeholder="Blank = 001, 002..." /></div>
+          <div class="field"><label>Coupon Prefix (Optional)</label><input type="text" id="setPrefix" autocomplete="off" placeholder="Letters only e.g. AF- (Blank = 001)" /></div>
           <div class="field"><label>Signatory Footer</label><input type="text" id="setSignatory" /></div>
           <div class="field">
             <label>⚡ Auto-Allot Coupon on Save</label>
@@ -1119,13 +1234,18 @@
           </div>
           <div class="field">
             <label>🔐 Admin 4-Digit PIN (Delete/Settings Lock)</label>
-            <input type="password" inputmode="numeric" maxlength="8" id="setAdminPin" placeholder="Set PIN (0000 = Remove)" />
+            <input type="password" inputmode="numeric" autocomplete="new-password" name="aryush_admin_pin_field" maxlength="8" id="setAdminPin" placeholder="Set PIN (0000 = Remove)" />
           </div>
           <button class="btn btn-navy" onclick="saveSchemeSettings()">💾 Save All Settings</button>
           <button class="btn btn-wa" type="button" onclick="sharePublicCheckLink()">🔗 Share Party Check Link</button>
         </div>
 
-        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;">
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <label class="btn btn-brand btn-sm" style="cursor:pointer;">
+            🖼️ Upload Company / Rasoi Dhan Logo
+            <input type="file" accept="image/*" style="display:none" onchange="handleBrandLogoUpload(event)" />
+          </label>
+          <button type="button" class="btn btn-outline btn-sm" id="btnRemoveBrandLogo" style="display:none;" onclick="removeBrandLogo()">✕ Reset Logo</button>
           <button class="btn btn-outline btn-sm" onclick="openSheetImportModal()">📥 Import from Google Sheet / Excel</button>
           <button class="btn btn-outline btn-sm" onclick="exportFullJSON()">⬇️ Download Backup (.json)</button>
           <label class="btn btn-outline btn-sm" style="cursor:pointer;">
@@ -1571,6 +1691,11 @@
   <canvas id="confettiCanvas"></canvas>
   <div class="projector-overlay" id="stageProjectorOverlay">
     <div style="max-width:1060px;margin:0 auto;">
+      <div class="led-marquee-bar">
+        <div class="led-marquee-track" id="ledMarqueeText">
+          ★ ARYUSH FOODS (KAILARAS, MORENA) PRESENTS — ARYUSH RASOI DHAN MEGA ALTO LUCKY DRAW ★ 100% SHUDDH KACCHI GHANI MUSTARD OIL • LAL MIRCH POWDER • HALDI POWDER • DHANIYA POWDER • SHAHI GARAM MASALA • AMCHOOR POWDER • NUKHRA HING DANA ★ HAR RASOI KI SHAAN, HAR DUKANDAR KA BHAROSA ★
+        </div>
+      </div>
       <div class="proj-topbar">
         <div>
           <div style="font-size:11px;font-weight:900;color:#fde68a;letter-spacing:1.2px;">✨ ARYUSH FOODS • OFFICIAL LIVE LED WALL STAGE SHOW</div>
@@ -1578,7 +1703,9 @@
         </div>
         <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;">
           <button type="button" class="btn btn-outline btn-xs" id="btnProjSound" style="background:rgba(255,255,255,0.12);color:#86efac;border-color:rgba(134,239,172,0.4);" onclick="toggleStageSound()">🔊 Sound ON</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnProjMask" style="background:rgba(255,255,255,0.12);color:#fde68a;border-color:rgba(253,230,138,0.4);" onclick="toggleSecretMask()" title="Coupon type karte waqt LED par chhupayein">🙈 Hide Typing</button>
+          <button type="button" class="btn btn-outline btn-xs" id="btnProjMask" style="background:rgba(255,255,255,0.12);color:#cbd5e1;border-color:rgba(255,255,255,0.28);" onclick="toggleSecretMask()" title="LED par number chhupane ke liye dabayein">👁️ Typing Visible</button>
+          <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#fde047,#f59e0b);color:#450a0a;font-weight:900;" onclick="showLedBrandPromoScreen()" title="LED Wall par Company & Rasoi Dhan Products ka shandar poster dikhayein">🌟 Brand Show</button>
+          <button type="button" class="btn btn-outline btn-xs" style="background:rgba(251,191,36,0.16);color:#fde68a;border-color:rgba(251,191,36,0.45);" onclick="runDemoStageSuspense()" title="Bina data badle Stage Suspense Demo dekhein">🧪 Demo Spin</button>
           <button type="button" class="btn btn-outline btn-xs" id="btnProjSlideshow" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.28);" onclick="toggleLedWinnerSlideshow()">▶️ Auto-Slide Winners</button>
           <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.28);" onclick="goFullScreenLed()">⛶ Fullscreen</button>
           <button type="button" class="btn btn-danger btn-xs" onclick="closeStageProjector()">✕ Exit TV</button>
@@ -1597,7 +1724,7 @@
           <option value="INSTANT">🚀 Instant Chota Prize</option>
         </select>
 
-        <input type="text" inputmode="numeric" id="projCupInp" class="secret-cup-inp masked" placeholder="Cup #" autocomplete="off" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" />
+        <input type="tel" inputmode="numeric" id="projCupInp" class="secret-cup-inp" placeholder="e.g. 01" autocomplete="off" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" />
 
         <button class="btn btn-brand" id="btnProjReveal" style="padding:11px 18px;font-size:14.5px;" onclick="revealAndSaveStageWinner()">🎉 Launch Reveal!</button>
         <button class="btn btn-ai btn-sm" type="button" onclick="showSegmentBoardOnLed()" title="51 ya 101 chote inam ek sath LED board par dikhayein">📋 Show Segment Board</button>
@@ -1628,10 +1755,12 @@
 
   <!-- ==================== READ-ONLY PUBLIC RETAILER KHATA & PRIZE CHECK PORTAL (`?check=1`) ==================== -->
   <div id="publicCheckPortal">
-    <div style="background:linear-gradient(135deg,#1e1b4b,#312e81);color:#fff;padding:20px 16px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.18);">
-      <div style="display:inline-block;background:#ea580c;color:#fff;font-weight:900;font-size:11px;padding:3px 10px;border-radius:999px;margin-bottom:6px;">OFFICIAL CUSTOMER PORTAL</div>
-      <h1 style="font-size:19px;font-weight:900;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
-      <p style="font-size:12.5px;color:#c7d2fe;margin-top:4px;" id="pubHdrSub">Apna Shop Name, Mobile Number ya Coupon Number daal kar Khata aur Prize check karein</p>
+    <div style="background:linear-gradient(135deg,#450a0a 0%,#9a3412 48%,#1e1b4b 100%);color:#fff;padding:22px 16px 16px;text-align:center;border-bottom:3px solid #f59e0b;box-shadow:0 4px 18px rgba(0,0,0,0.22);">
+      <div style="display:inline-block;background:linear-gradient(90deg,#fde047,#f59e0b);color:#450a0a;font-weight:900;font-size:10.5px;padding:3px 12px;border-radius:999px;margin-bottom:7px;">👑 ARYUSH RASOI DHAN • OFFICIAL PORTAL</div>
+      <h1 style="font-size:20px;font-weight:900;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
+      <p style="font-size:12px;color:#fde68a;font-weight:700;margin-top:3px;" id="pubBrandSub">Shuddh Kacchi Ghani Mustard Oil • Lal Mirch • Haldi • Dhaniya • Garam Masala • Hing Dana</p>
+      <p style="font-size:12px;color:#e2e8f0;margin-top:5px;" id="pubHdrSub">Apna Shop Name, Mobile Number ya Coupon Number daal kar Khata aur Prize check karein</p>
+      <div class="prod-ribbon" id="pubProdRibbon" style="max-width:760px;margin:10px auto 0;justify-content:flex-start;"></div>
     </div>
 
     <div style="max-width:640px;margin:16px auto;padding:0 12px;">
@@ -1656,7 +1785,9 @@
       kg_per_bag: 30,
       max_coupons: 301,
       coupon_prefix: '',
-      signatory: 'For Aryush Foods (Kailaras, Morena)'
+      signatory: 'For Aryush Foods (Kailaras, Morena)',
+      brand_tagline: 'Aryush Rasoi Dhan • Pure Kacchi Ghani Mustard Oil & Spices',
+      brand_logo_data: ''
     },
     ai_ready: false,
     retailers: [],
@@ -1686,10 +1817,16 @@
     return `${p[2]}-${m[parseInt(p[1], 10) - 1] || p[1]}-${p[0]}`;
   }
 
+  function cleanPrefixClient(p) {
+    const s = String(p || '').trim();
+    if (!s || /^\d+$/.test(s)) return '';
+    return s;
+  }
+
   function padCup(num) {
     const maxC = Number(STATE.settings.max_coupons) || 301;
     const digits = maxC >= 1000 ? 4 : 3;
-    return (STATE.settings.coupon_prefix || '') + String(num).padStart(digits, '0');
+    return cleanPrefixClient(STATE.settings.coupon_prefix) + String(num).padStart(digits, '0');
   }
 
   function esc(s) {
@@ -2092,7 +2229,11 @@
   function populateDropdownsAndSettings() {
     const s = STATE.settings;
     document.getElementById('hdrCompany').textContent = `${s.company_name} — ${s.campaign_name}`;
-    document.getElementById('hdrSub').textContent = `1 Coupon / ${s.kg_per_coupon} kg (${Math.round((s.kg_per_coupon/s.kg_per_bag)*10)/10} Bags) • Pool: ${s.max_coupons} Prizes`;
+    document.getElementById('hdrSub').textContent = `Aryush Rasoi Dhan • 1 Coupon / ${s.kg_per_coupon} kg (${Math.round((s.kg_per_coupon/s.kg_per_bag)*10)/10} Bags) • ${s.max_coupons} Prizes`;
+    const bTag = s.brand_tagline || 'Aryush Rasoi Dhan • Pure Kacchi Ghani Mustard Oil & Spices';
+    const btInp = document.getElementById('setBrandTagline');
+    if (btInp) btInp.value = bTag;
+    renderBrandIdentityAndProducts();
     document.querySelectorAll('.lblBag').forEach(e => e.textContent = s.kg_per_bag);
     document.querySelectorAll('.lblCup').forEach(e => e.textContent = s.kg_per_coupon);
 
@@ -2101,7 +2242,7 @@
     document.getElementById('setKgPerCup').value = s.kg_per_coupon || 210;
     document.getElementById('setKgPerBag').value = s.kg_per_bag || 30;
     document.getElementById('setMaxCoupons').value = s.max_coupons || 301;
-    document.getElementById('setPrefix').value = s.coupon_prefix || '';
+    document.getElementById('setPrefix').value = cleanPrefixClient(s.coupon_prefix);
     document.getElementById('setSignatory').value = s.signatory || '';
     document.getElementById('setAutoAllot').value = s.auto_allot_coupons ? '1' : '0';
     updatePinBadgeUI();
@@ -4551,8 +4692,9 @@
       kg_per_coupon: Math.max(1, Number(document.getElementById('setKgPerCup').value) || 210),
       kg_per_bag: Math.max(1, Number(document.getElementById('setKgPerBag').value) || 30),
       max_coupons: Math.max(1, Number(document.getElementById('setMaxCoupons').value) || 301),
-      coupon_prefix: document.getElementById('setPrefix').value.trim(),
-      signatory: document.getElementById('setSignatory').value.trim()
+      coupon_prefix: cleanPrefixClient(document.getElementById('setPrefix').value),
+      signatory: document.getElementById('setSignatory').value.trim(),
+      brand_tagline: document.getElementById('setBrandTagline').value.trim() || 'Aryush Rasoi Dhan • Pure Kacchi Ghani Mustard Oil & Spices'
     };
     const gKey = document.getElementById('setGeminiKey').value.trim();
     if (gKey) payload.gemini_api_key = gKey;
@@ -4619,19 +4761,37 @@
   function addPdfBanner(doc, reportTitle, subLine) {
     const s = STATE.settings;
     const w = doc.internal.pageSize.getWidth();
-    doc.setFillColor(30, 27, 75);
-    doc.rect(0, 0, w, 27, 'F');
-    doc.setTextColor(251, 191, 36);
+    // Royal Maroon-Indigo Header + Saffron Gold Accent Bar
+    doc.setFillColor(127, 29, 29);
+    doc.rect(0, 0, w, 24, 'F');
+    doc.setFillColor(245, 158, 11);
+    doc.rect(0, 24, w, 5.5, 'F');
+
+    let leftX = 12;
+    if (s.brand_logo_data && s.brand_logo_data.startsWith('data:image/')) {
+      try {
+        doc.addImage(s.brand_logo_data, 'JPEG', 10, 3, 18, 18);
+        leftX = 31;
+      } catch (e) {}
+    }
+
+    doc.setTextColor(254, 240, 138);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(14);
-    doc.text(cleanPdfStr(`${s.company_name}  |  ${s.campaign_name}`), 12, 10.5);
+    doc.setFontSize(13.5);
+    doc.text(cleanPdfStr(`${s.company_name}  —  ${s.campaign_name}`), leftX, 9.5);
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(10.5);
-    doc.text(cleanPdfStr(reportTitle), 12, 17.5);
+    doc.setFontSize(10);
+    doc.text(cleanPdfStr(reportTitle), leftX, 15.8);
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.2);
-    doc.setTextColor(203, 213, 225);
-    doc.text(cleanPdfStr(subLine), 12, 23.5);
+    doc.setFontSize(8);
+    doc.setTextColor(254, 215, 170);
+    doc.text(cleanPdfStr(subLine), leftX, 21.2);
+
+    // Gold Ribbon Product Strip
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(69, 10, 10);
+    doc.text('ARYUSH RASOI DHAN: Pure Kacchi Ghani Mustard Oil  |  Mirch  |  Haldi  |  Dhaniya  |  Garam Masala  |  Amchoor  |  Nukhra Hing Dana', 12, 27.8);
   }
 
   function addPdfFooters(doc) {
@@ -4909,6 +5069,151 @@
   }
 
   
+  
+  // ==================== V9.0 ARYUSH RASOI DHAN BRAND & PRODUCT SHOWCASE ENGINE ====================
+  const ARYUSH_PRODUCTS = [
+    { name: 'Kacchi Ghani Mustard Oil', hi: 'कच्ची घानी सरसों तेल', tag: '100% Shuddh & Tez Jhaanjh', icon: '🟡', bg: 'linear-gradient(135deg,#eab308,#ca8a04)' },
+    { name: 'Lal Mirch Powder', hi: 'लाल मिर्च पाउडर', tag: 'Shahi Lal Rang & Teekhapan', icon: '🌶️', bg: 'linear-gradient(135deg,#ef4444,#b91c1c)' },
+    { name: 'Haldi Powder', hi: 'हल्दी पाउडर', tag: 'High Curcumin Asli Haldi', icon: '🟠', bg: 'linear-gradient(135deg,#f59e0b,#d97706)' },
+    { name: 'Dhaniya Powder', hi: 'धनिया पाउडर', tag: 'Taaza Khushbudar Dhaniya', icon: '🟢', bg: 'linear-gradient(135deg,#22c55e,#15803d)' },
+    { name: 'Shahi Garam Masala', hi: 'शाही गरम मसाला', tag: 'Khade Masalon Ka Asli Swad', icon: '🟤', bg: 'linear-gradient(135deg,#92400e,#78350f)' },
+    { name: 'Amchoor Powder', hi: 'अमचूर पाउडर', tag: 'Khatta Chatpata Zayka', icon: '🥭', bg: 'linear-gradient(135deg,#84cc16,#4d7c0f)' },
+    { name: 'Nukhra Hing Dana', hi: 'नुखरा हींग दाना', tag: '1 Chutki Me Mehek Uthe Rasoi', icon: '✨', bg: 'linear-gradient(135deg,#a855f7,#6d28d9)' }
+  ];
+
+  let HOME_PROD_VISIBLE = true;
+  function toggleHomeProductsRibbon() {
+    HOME_PROD_VISIBLE = !HOME_PROD_VISIBLE;
+    const rib = document.getElementById('homeProdRibbon');
+    const btn = document.getElementById('btnToggleProdRibbon');
+    if (rib) rib.style.display = HOME_PROD_VISIBLE ? 'flex' : 'none';
+    if (btn) btn.textContent = HOME_PROD_VISIBLE ? '🌶️ Hide' : '🌶️ Products';
+  }
+
+  function renderBrandIdentityAndProducts() {
+    const s = STATE.settings;
+    const logoUrl = s.brand_logo_data || '';
+    const defaultHdrHtml = `<div class="logo-crest-inner"><span style="font-size:13px;">💧</span><span style="font-size:8.5px;margin-top:1px;color:#fff;">ARYUSH</span></div>`;
+    const defaultBannerHtml = `<div class="logo-crest-inner"><span style="font-size:15px;">👑</span><span style="font-size:8px;color:#fff;">RASOI</span></div>`;
+
+    const hdrCrest = document.getElementById('hdrLogoCrest');
+    const homeCrest = document.getElementById('homeBannerLogo');
+    const remBtn = document.getElementById('btnRemoveBrandLogo');
+
+    if (logoUrl && logoUrl.startsWith('data:image/')) {
+      if (hdrCrest) hdrCrest.innerHTML = `<img src="${logoUrl}" alt="Logo" />`;
+      if (homeCrest) homeCrest.innerHTML = `<img src="${logoUrl}" alt="Logo" />`;
+      if (remBtn) remBtn.style.display = 'inline-flex';
+    } else {
+      if (hdrCrest) hdrCrest.innerHTML = defaultHdrHtml;
+      if (homeCrest) homeCrest.innerHTML = defaultBannerHtml;
+      if (remBtn) remBtn.style.display = 'none';
+    }
+
+    const hl = document.getElementById('homeBrandHeadline');
+    if (hl) hl.textContent = `${s.company_name} — ARYUSH RASOI DHAN`;
+    const tl = document.getElementById('homeBrandTagline');
+    if (tl) tl.textContent = s.brand_tagline || '100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices';
+
+    const chipsHtml = ARYUSH_PRODUCTS.map(p => `
+      <div class="prod-chip">
+        <div class="prod-ico" style="background:${p.bg};">${p.icon}</div>
+        <div>
+          <div class="prod-nm">${esc(p.hi)}</div>
+          <div class="prod-tag">${esc(p.tag)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    const homeRib = document.getElementById('homeProdRibbon');
+    if (homeRib) homeRib.innerHTML = chipsHtml;
+    const pubRib = document.getElementById('pubProdRibbon');
+    if (pubRib) pubRib.innerHTML = chipsHtml;
+  }
+
+  async function handleBrandLogoUpload(ev) {
+    const file = ev.target.files[0];
+    ev.target.value = '';
+    if (!file) return;
+    if (!(await ensureAdminUnlocked())) return;
+    try {
+      const { base64 } = await compressImageToBase64(file, 360);
+      const dataUrl = 'data:image/jpeg;base64,' + base64;
+      await api('/api/settings', 'POST', { brand_logo_data: dataUrl });
+      toast('🖼️ Company Logo Updated Across App, Stage TV & PDFs!');
+      await refreshAll();
+    } catch (e) { toast(e.message, true); }
+  }
+
+  async function removeBrandLogo() {
+    if (!(await ensureAdminUnlocked())) return;
+    try {
+      await api('/api/settings', 'POST', { brand_logo_data: '' });
+      toast('Logo reset to Royal Crest');
+      await refreshAll();
+    } catch (e) { toast(e.message, true); }
+  }
+
+  // Full-Screen LED Wall Brand & Bumper Prizes Commercial Screen!
+  function showLedBrandPromoScreen() {
+    clearStageTimers();
+    const s = STATE.settings;
+    const disp = document.getElementById('projWinnerDisplay');
+    if (!disp) return;
+
+    const logoBlock = (s.brand_logo_data && s.brand_logo_data.startsWith('data:image/'))
+      ? `<img src="${s.brand_logo_data}" style="width:88px;height:88px;border-radius:20px;border:3px solid #fde047;object-fit:cover;background:#fff;box-shadow:0 0 30px rgba(251,191,36,0.5);" />`
+      : `<div style="width:86px;height:86px;border-radius:22px;background:linear-gradient(135deg,#fde047,#ea580c);padding:3px;margin:0 auto;box-shadow:0 0 35px rgba(251,191,36,0.5);">
+           <div style="width:100%;height:100%;border-radius:19px;background:#7f1d1d;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;color:#fde047;">
+             <span style="font-size:28px;">👑</span>
+             <span style="font-size:11px;color:#fff;">ARYUSH</span>
+           </div>
+         </div>`;
+
+    const topPrizes = STATE.segments.slice(0, 4);
+
+    disp.innerHTML = `
+      <div class="winner-pop" style="width:100%;">
+        ${logoBlock}
+        <div style="margin-top:10px;">
+          <span class="brand-gold-pill" style="font-size:11.5px;padding:4px 14px;">✨ SHUDDHTA AUR VISHWAS KA PRATEEK • KAILARAS, MORENA ✨</span>
+        </div>
+        <div class="grand-winner-crown" style="font-size:clamp(26px,4.5vw,48px);margin-top:8px;">
+          ${esc(s.company_name)} — आर्युष रसोई धन
+        </div>
+        <div style="font-size:15px;font-weight:800;color:#fde68a;">
+          ${esc(s.brand_tagline || '100% Shuddh Kacchi Ghani Mustard Oil & Premium Spices')}
+        </div>
+
+        <!-- Bumper Prizes Strip -->
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px;">
+          ${topPrizes.map(p => `
+            <span style="background:rgba(251,191,36,0.16);border:1.5px solid #fbbf24;color:#fff;padding:6px 13px;border-radius:999px;font-size:13px;font-weight:900;">
+              ${esc(p.icon)} ${esc(p.title)} (${p.target_qty})
+            </span>
+          `).join('')}
+          <span style="background:rgba(34,197,94,0.2);border:1.5px solid #4ade80;color:#86efac;padding:6px 13px;border-radius:999px;font-size:13px;font-weight:900;">
+            🎁 Kul ${s.max_coupons} Pakke Inam!
+          </span>
+        </div>
+
+        <!-- Aryush Rasoi Dhan Products Showcase Grid on Big LED -->
+        <div class="stage-prod-grid">
+          ${ARYUSH_PRODUCTS.map(p => `
+            <div class="stage-prod-card">
+              <div style="width:44px;height:44px;border-radius:12px;background:${p.bg};display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 7px;box-shadow:0 4px 12px rgba(0,0,0,0.35);">
+                ${p.icon}
+              </div>
+              <div style="font-size:14px;font-weight:900;color:#fff;">${esc(p.hi)}</div>
+              <div style="font-size:11px;font-weight:700;color:#fde68a;margin-top:2px;">${esc(p.name)}</div>
+              <div style="font-size:10px;color:#cbd5e1;margin-top:2px;">${esc(p.tag)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
   // ==================== V7.0 ULTIMATE CONTROLLERS ====================
 
   function repeatLastPartyOrder(retailerId) {
@@ -5144,7 +5449,7 @@
 
   // ==================== V8.0 GRAND STAGE SUSPENSE, SOUND & LED BOARD ENGINE ====================
   let STAGE_SOUND_ON = true;
-  let STAGE_MASK_INPUT = true;
+  let STAGE_MASK_INPUT = false;
   let STAGE_AUDIO_CTX = null;
   let STAGE_ACTIVE_TIMERS = [];
   let STAGE_SLIDESHOW_TIMER = null;
@@ -5287,8 +5592,8 @@
     STAGE_MASK_INPUT = !STAGE_MASK_INPUT;
     const inp = document.getElementById('projCupInp');
     const b = document.getElementById('btnProjMask');
-    inp.classList.toggle('masked', STAGE_MASK_INPUT);
-    b.textContent = STAGE_MASK_INPUT ? '🙈 Hide Typing' : '👁️ Show Typing';
+    inp.type = STAGE_MASK_INPUT ? 'password' : 'tel';
+    b.textContent = STAGE_MASK_INPUT ? '🙈 Typing Hidden' : '👁️ Typing Visible';
     b.style.color = STAGE_MASK_INPUT ? '#fde68a' : '#cbd5e1';
   }
 
@@ -5320,6 +5625,7 @@
     }).join('');
     document.getElementById('projCupInp').value = '';
     onProjSegmentChanged();
+    showLedBrandPromoScreen();
     renderProjectorRecentWinners();
     document.getElementById('stageProjectorOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -5330,6 +5636,80 @@
     STAGE_REVEAL_BUSY = false;
     document.getElementById('stageProjectorOverlay').classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  // Safe Practice / Demo Thriller Spin (Does NOT modify database!)
+  async function runDemoStageSuspense() {
+    if (STAGE_REVEAL_BUSY) return;
+    clearStageTimers();
+    STAGE_REVEAL_BUSY = true;
+    const segId = Number(document.getElementById('projSegSelect').value);
+    const seg = STATE.segments.find(s => s.id === segId) || { rank: 1, title: '1st Prize - Maruti Suzuki Alto K10 LXi', icon: '🚗' };
+
+    // Use real allotted coupon if one exists, otherwise sample demo coupon #001
+    const sampleCup = STATE.coupons[0] || { coupon_num: 1, coupon_code: '001' };
+    const sampleRet = (sampleCup.retailer_id && STATE.retailers.find(x => x.id === sampleCup.retailer_id))
+      || STATE.retailers[0]
+      || { name: 'SHARMA KIRANA STORE (DEMO)', area: 'KAILARAS' };
+
+    const disp = document.getElementById('projWinnerDisplay');
+    const arena = document.getElementById('projStageArena');
+    arena.classList.add('grand-glow');
+
+    try {
+      for (let cnt = 3; cnt >= 1; cnt--) {
+        playHeartbeat();
+        disp.innerHTML = `
+          <div style="font-size:13px;font-weight:900;color:#fbbf24;letter-spacing:2px;">🧪 DEMO PREVIEW • GRAND MEGA PRIZE DRAW</div>
+          <div style="font-size:clamp(22px,4vw,36px);font-weight:900;color:#fff;margin:8px 0 14px;">${esc(seg.icon || '🚗')} ${esc(seg.title)}</div>
+          <div class="suspense-pulse" style="width:112px;height:112px;border-radius:50%;background:radial-gradient(circle,#ea580c,#7c2d12);border:4px solid #fde047;display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:900;color:#fff;">${cnt}</div>
+        `;
+        await sleepStage(850);
+      }
+
+      const dArr = String(sampleCup.coupon_code).replace(/[^0-9]/g, '').padStart(3, '0').slice(-3).split('');
+      disp.innerHTML = `
+        <div style="font-size:13px;font-weight:900;color:#38bdf8;">🎰 LOCKING COUPON DIGITS...</div>
+        <div class="slot-reels-wrap">
+          <div class="slot-reel spinning" id="sReel0">0</div>
+          <div class="slot-reel spinning" id="sReel1">0</div>
+          <div class="slot-reel spinning" id="sReel2">0</div>
+        </div>
+        <div id="reelStatusTxt" style="font-size:15px;font-weight:800;color:#cbd5e1;">Spinning...</div>
+      `;
+      let lockedCount = 0;
+      const spinInt = setInterval(() => {
+        playSlotTick();
+        for (let i = lockedCount; i < 3; i++) {
+          const el = document.getElementById('sReel' + i);
+          if (el) el.textContent = Math.floor(Math.random() * 10);
+        }
+      }, 75);
+      STAGE_ACTIVE_TIMERS.push(spinInt);
+
+      await sleepStage(1400); lockedCount = 1; playReelLockClunk(1);
+      const r0 = document.getElementById('sReel0'); if (r0) { r0.className = 'slot-reel locked'; r0.textContent = dArr[0]; }
+      await sleepStage(1400); lockedCount = 2; playReelLockClunk(2);
+      const r1 = document.getElementById('sReel1'); if (r1) { r1.className = 'slot-reel locked'; r1.textContent = dArr[1]; }
+      await sleepStage(1700); lockedCount = 3; clearInterval(spinInt); playReelLockClunk(3);
+      const r2 = document.getElementById('sReel2'); if (r2) { r2.className = 'slot-reel locked'; r2.textContent = dArr[2]; }
+
+      await sleepStage(1100);
+      playHeartbeat();
+      disp.innerHTML = `
+        <div class="winner-pop">
+          <div style="display:inline-block;background:#f59e0b;color:#0f172a;font-weight:900;font-size:16px;padding:5px 18px;border-radius:999px;">COUPON #${esc(padCup(sampleCup.coupon_num || 1))} • AREA CLUE!</div>
+          <div style="font-size:19px;color:#cbd5e1;font-weight:800;margin-top:16px;">Yeh Bada Inam Ja Raha Hai...</div>
+          <div class="suspense-pulse" style="font-size:clamp(28px,5vw,48px);font-weight:900;color:#38bdf8;margin:12px 0;">📍 ${esc(sampleRet.area || 'KAILARAS')} AREA MEIN!</div>
+        </div>
+      `;
+      await sleepStage(2200);
+      playGrandFanfare();
+      launchStageConfetti(5500, 180);
+      renderFinalStageWinnerCard(seg, { coupon_code: padCup(sampleCup.coupon_num || 1) }, sampleRet, true);
+    } finally {
+      STAGE_REVEAL_BUSY = false;
+    }
   }
 
   function sleepStage(ms) {
@@ -5374,13 +5754,27 @@
     clearStageTimers();
     const segId = Number(document.getElementById('projSegSelect').value);
     const seg = STATE.segments.find(s => s.id === segId);
-    const rawCup = String(document.getElementById('projCupInp').value || '').replace(/[^0-9]/g, '');
-    const cupNum = parseInt(rawCup, 10);
+    const rawInput = String(document.getElementById('projCupInp').value || '').trim();
+    const rawDigits = rawInput.replace(/[^0-9]/g, '');
+    const cupNum = parseInt(rawDigits, 10);
 
-    if (!seg || !cupNum) return toast('Pehle Coupon Number dalein!', true);
+    if (!seg || !rawDigits || isNaN(cupNum) || cupNum <= 0) {
+      return toast('Pehle valid Coupon Number (jaise 01 ya 045) dalein!', true);
+    }
 
-    const c = STATE.coupons.find(x => Number(x.coupon_num) === cupNum);
-    if (!c) return toast(`Coupon #${padCup(cupNum)} kisi party ko allot nahi hai!`, true);
+    if (STATE.coupons.length === 0) {
+      return toast('⚠️ Abhi koi Coupon Allot nahi hua hai! Pehle Allot tab se allot karein ya upar 🧪 Demo Test dabayein.', true);
+    }
+
+    // Smart match: handles 1, 01, 001, or prefixed coupon_code seamlessly
+    let c = STATE.coupons.find(x => Number(x.coupon_num) === cupNum);
+    if (!c) {
+      const cleanTyped = rawInput.replace(/^#/, '').toUpperCase();
+      c = STATE.coupons.find(x => String(x.coupon_code).toUpperCase() === cleanTyped);
+    }
+    if (!c) {
+      return toast(`Coupon #${padCup(cupNum)} (input: ${rawDigits}) abhi kisi party ko allot nahi hai! (Allotted: ${STATE.coupons.length})`, true);
+    }
     const r = STATE.retailers.find(x => x.id === c.retailer_id);
 
     // Clear input immediately so secret number stays clean
@@ -5592,8 +5986,11 @@
       <div style="font-size:${isGrand ? '21px' : '17px'};font-weight:800;color:#93c5fd;margin-top:4px;">
         📍 VILLAGE / AREA: ${esc(r?.area || '-')}
       </div>
-      <div style="display:inline-block;margin-top:16px;padding:10px 24px;border-radius:14px;background:rgba(34,197,94,0.16);border:1.5px solid #4ade80;font-size:${isGrand ? '25px' : '20px'};font-weight:900;color:#4ade80;">
+      <div style="display:inline-block;margin-top:15px;padding:10px 24px;border-radius:14px;background:rgba(34,197,94,0.16);border:1.5px solid #4ade80;font-size:${isGrand ? '25px' : '20px'};font-weight:900;color:#4ade80;">
         🏆 ${esc(seg.title)}
+      </div>
+      <div style="margin-top:16px;font-size:13px;font-weight:900;color:#fde68a;letter-spacing:0.6px;">
+        👑 सौजन्य: ${esc(STATE.settings.company_name)} • आर्युष रसोई धन (शुद्ध कच्ची घानी सरसों तेल एवं मसाले)
       </div>
     </div>`;
   }
@@ -5829,6 +6226,7 @@
     const params = new URLSearchParams(window.location.search);
     if (params.get('check') === '1') {
       document.body.classList.add('public-mode');
+      renderBrandIdentityAndProducts();
       try {
         const initPub = await api('/api/public/check?q=');
         if (initPub.settings) {

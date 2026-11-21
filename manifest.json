@@ -1,8 +1,8 @@
 {
   "name": "ARYUSH FOODS • आर्युष रसोई धन",
   "short_name": "Aryush Foods",
-  "description": "आर्युष फूड्स (आर्युष रसोई धन) — कॉर्पोरेट लकी ड्रॉ ब्रॉडकास्ट एवं माल खाता पोर्टल",
-  "start_url": "/?v=12.0",
+  "description": "आर्युष फूड्स — क्लाउड फोटो सिंक एवं लाइव LED ड्रॉ सिस्टम v13.1",
+  "start_url": "/?v=13.1",
   "display": "standalone",
   "background_color": "#050811",
   "theme_color": "#050811",

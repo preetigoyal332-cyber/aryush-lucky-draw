@@ -2110,7 +2110,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v15.0 Corporate</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v15.2 Corporate</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -2141,15 +2141,7 @@
     <!-- ==================== TAB 1: CLEAN CORPORATE OVERVIEW & PARTY KHATA DIRECTORY ==================== -->
     <section id="screen-overview" class="screen active">
 
-      <!-- 0. SCROLLING WELCOME & PRODUCT KHASIYAT PATTI ON HOME -->
-      <div class="app-welcome-strip" id="homeWelcomePattiWrap" onclick="openWelcomePattiModal()" style="cursor:pointer;" title="Click to configure Welcome Ticker & Product Highlights">
-        <span class="app-welcome-tag">🙏 स्वागतम</span>
-        <div style="flex:1;overflow:hidden;">
-          <div class="app-welcome-track" id="homeWelcomePattiTrack"></div>
-        </div>
-      </div>
-
-      <!-- 1. COMPACT EXECUTIVE SUMMARY HERO CARD (All Key Metrics in One Glance — Zero Mobile Clutter!) -->
+<!-- 1. COMPACT EXECUTIVE SUMMARY HERO CARD (All Key Metrics in One Glance — Zero Mobile Clutter!) -->
       <div class="exec-hero-summary">
         <div class="exec-hero-top">
           <div style="display:flex;align-items:center;gap:10px;min-width:0;">
@@ -3526,7 +3518,7 @@
       <div class="modal-hd">
         <div>
           <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🎊 Live Welcome & Brand Highlights Ticker</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Configure the live scrolling welcome & brand announcement ribbon across the Stage LED Wall, Dashboard, and Digital Passbook.</div>
+          <div style="font-size:11.5px;color:var(--muted);">Configure the live scrolling welcome & brand announcement ribbon exclusively for the Live Stage LED Draw Screen.</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('welcomePattiModal')">✕</button>
       </div>
@@ -3535,7 +3527,7 @@
         <div class="field">
           <label>📺 Welcome Ticker Visibility</label>
           <select id="wpEnabledSel" style="font-weight:800;">
-            <option value="1">✅ Active — Display on All Screens</option>
+            <option value="1">✅ Active — Display on Live Stage LED Screen</option>
             <option value="0">🚫 Hidden — Turn Off Ticker</option>
           </select>
         </div>
@@ -3716,24 +3708,21 @@
   </div>
 
   <!-- ==================== READ-ONLY PUBLIC RETAILER VIP PASSBOOK & PRIZE PORTAL (`?check=1`) ==================== -->
-  <div id="publicCheckPortal" style="background:#f8fafc;min-height:100vh;padding-bottom:48px;">
-    <div style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#0f172a 100%);color:#fff;padding:22px 16px 18px;text-align:center;border-bottom:2px solid #f59e0b;box-shadow:0 6px 24px rgba(15,23,42,0.16);">
-      <div class="logo-crest" id="pubPortalLogo" style="width:68px;height:68px;margin:0 auto 10px;padding:3px;cursor:default;">
-        <img src="/logo.png" alt="Aryush Logo" />
-      </div>
-      <div style="display:inline-block;background:rgba(251,191,36,0.16);border:1px solid rgba(251,191,36,0.45);color:#fde68a;font-weight:800;font-size:10.5px;padding:3px 12px;border-radius:999px;margin-bottom:7px;letter-spacing:0.5px;">
-        👑 ARYUSH RASOI DHAN • OFFICIAL DIGITAL KHATA
-      </div>
-      <h1 style="font-size:19.5px;font-weight:900;letter-spacing:-0.02em;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
-      <p style="font-size:12px;color:#fde68a;font-weight:600;margin-top:3px;" id="pubBrandSub">100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices</p>
-      <p style="font-size:12px;color:#94a3b8;margin-top:5px;" id="pubHdrSub">आधिकारिक सप्लाई विवरण, लकी कूपन एवं पुरस्कार स्थिति का लाइव स्टेटमेंट</p>
-      <div style="max-width:860px;margin:10px auto 0;background:rgba(0,0,0,0.35);border:1px solid rgba(250,204,21,0.4);border-radius:999px;overflow:hidden;display:flex;align-items:center;" id="pubWelcomePattiWrap">
-        <span style="background:#f59e0b;color:#0f172a;font-size:10px;font-weight:900;padding:4px 10px;white-space:nowrap;">✨ स्वागत संदेश</span>
-        <div style="flex:1;overflow:hidden;white-space:nowrap;">
-          <div class="app-welcome-track" id="pubWelcomePattiTrack" style="font-size:11.5px;padding-top:3px;padding-bottom:3px;"></div>
+  <div id="publicCheckPortal" style="background:#f4f6f9;min-height:100vh;padding-bottom:48px;">
+    <div style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:18px 16px 16px;text-align:center;border-bottom:2px solid #d97706;box-shadow:0 4px 18px rgba(15,23,42,0.12);">
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;max-width:680px;margin:0 auto;">
+        <div class="logo-crest" id="pubPortalLogo" style="width:52px;height:52px;padding:2px;cursor:default;flex-shrink:0;">
+          <img src="/logo.png" alt="Aryush Logo" />
+        </div>
+        <div style="text-align:left;min-width:0;">
+          <div style="font-size:10px;font-weight:800;color:#fcd34d;letter-spacing:1.2px;text-transform:uppercase;">
+            OFFICIAL DIGITAL PARTY PASSBOOK
+          </div>
+          <h1 style="font-size:18px;font-weight:900;letter-spacing:-0.02em;color:#ffffff;margin-top:1px;" id="pubHdrTitle">ARYUSH FOODS • आर्युष रसोई धन</h1>
+          <p style="font-size:11.5px;color:#cbd5e1;font-weight:600;margin-top:2px;" id="pubBrandSub">आधिकारिक सप्लाई खाता एवं कूपन विवरण</p>
         </div>
       </div>
-      <div class="prod-ribbon" id="pubProdRibbon" style="max-width:860px;margin:10px auto 0;justify-content:flex-start;"></div>
+      <div class="prod-ribbon" id="pubProdRibbon" style="max-width:680px;margin:12px auto 0;justify-content:flex-start;"></div>
     </div>
 
     <div style="max-width:680px;margin:16px auto;padding:0 12px;">
@@ -8134,7 +8123,7 @@
     } else if (Array.isArray(localList) && localList.length) {
       ARYUSH_PRODUCTS = localList;
       // AUTO-HEAL: Phone has photos in localStorage that failed to save to D1 Cloud earlier -> push them automatically!
-      if (!IS_LOCAL_PREVIEW && localPicCount > cloudPicCount && !AUTO_CLOUD_MIGRATED_ONCE) {
+      if (!IS_LOCAL_PREVIEW && !document.body.classList.contains('public-mode') && localPicCount > cloudPicCount && !AUTO_CLOUD_MIGRATED_ONCE) {
         AUTO_CLOUD_MIGRATED_ONCE = true;
         setTimeout(() => { forcePushAllMediaToCloud(true); }, 900);
       }
@@ -8193,9 +8182,9 @@
           await api('/api/settings', 'POST', { ['seg_pic_' + rk]: shrunk });
         }
       }
-      toast(autoTriggered
-        ? '☁️ Phone ki Product Photos Cloud D1 par Sync ho gayi — ab Computer par bhi dikhengi!'
-        : '✅ Sabhi Product & Prize Photos Cloud D1 par Save ho gayi! Computer par Refresh (↻) karein.');
+      if (!autoTriggered) {
+        toast('✅ All Product & Prize Photos synced to Cloud D1!');
+      }
     } catch (err) {
       if (!autoTriggered) toast('Cloud Sync Error: ' + err.message, true);
     } finally {
@@ -8850,6 +8839,21 @@
   }
 
   function renderBrandIdentityAndProducts() {
+    // Cleanly upgrade any legacy Roman-Hinglish product tags to pure Devanagari Hindi
+    const legacyTagMap = {
+      '100% Shuddh & Tez Jhaanjh': '100% शुद्ध कच्ची घानी व तेज़ झाँझ',
+      'Asli Swad & प्रीमियम कुटी मिर्च': 'प्रीमियम दरदरी कुटी मिर्च व शुद्ध स्वाद',
+      'Shahi Lal Rang & Teekhapan': 'प्राकृतिक सुर्ख लाल रंग व तीखापन',
+      'High Curcumin Asli Haldi': 'हाई-करक्यूमिन शुद्ध सेलम हल्दी',
+      'Taaza Khushbudar Dhaniya': 'ताज़ा सुगंधित धनिया पाउडर',
+      'Khade Masalon Ka Asli Swad': 'चयनित खड़े मसालों का शाही मिश्रण',
+      'Khatta Chatpata Zayka': 'शुद्ध कच्चे आम का खट्टा-चटपटा स्वाद',
+      '1 Chutki Me Mehek Uthe Rasoi': 'तीव्र सुगंध वाला प्रीमियम हींग दाना'
+    };
+    ARYUSH_PRODUCTS.forEach(p => {
+      if (p && legacyTagMap[p.tag]) p.tag = legacyTagMap[p.tag];
+    });
+
     const s = STATE.settings;
     const logoUrl = getEffectiveLogoUrl();
     const isCustomLogo = Boolean(s.brand_logo_data && s.brand_logo_data !== DEFAULT_OFFICIAL_LOGO_DATA);
@@ -8921,11 +8925,11 @@
   }
 
   function renderAllWelcomePattis() {
+    // Welcome & Lucky Draw Ceremony Ticker is strictly for the Live Stage LED Screen ONLY!
     const s = STATE.settings || {};
     const enabled = String(s.welcome_patti_enabled ?? '1') !== '0';
     const speedSec = Math.max(15, Number(s.welcome_patti_speed) || 38);
     const fullText = getActiveWelcomePattiText();
-    // Duplicate text with separator so marquee feels rich and continuous
     const loopStr = `${fullText}     ★     ${fullText}`;
 
     const stageBar = document.getElementById('stageWelcomePattiBar');
@@ -8934,22 +8938,6 @@
       stageBar.style.display = enabled ? 'flex' : 'none';
       stageTrack.textContent = loopStr;
       stageTrack.style.animationDuration = `${speedSec}s`;
-    }
-
-    const homeBar = document.getElementById('homeWelcomePattiWrap');
-    const homeTrack = document.getElementById('homeWelcomePattiTrack');
-    if (homeBar && homeTrack) {
-      homeBar.style.display = enabled ? 'flex' : 'none';
-      homeTrack.textContent = fullText;
-      homeTrack.style.animationDuration = `${Math.max(20, speedSec - 4)}s`;
-    }
-
-    const pubBar = document.getElementById('pubWelcomePattiWrap');
-    const pubTrack = document.getElementById('pubWelcomePattiTrack');
-    if (pubBar && pubTrack) {
-      pubBar.style.display = enabled ? 'flex' : 'none';
-      pubTrack.textContent = fullText;
-      pubTrack.style.animationDuration = `${Math.max(20, speedSec - 4)}s`;
     }
   }
 
@@ -10851,10 +10839,7 @@
         STATE.settings = { ...STATE.settings, ...res.settings };
         syncV10SettingsFromState();
         renderBrandIdentityAndProducts();
-        document.getElementById('pubHdrTitle').textContent = `${res.settings.company_name} — ${res.settings.campaign_name}`;
-        if (res.settings.brand_tagline) {
-          document.getElementById('pubBrandSub').textContent = res.settings.brand_tagline;
-        }
+        document.getElementById('pubHdrTitle').textContent = `${res.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
       }
 
       let list = res.matches || [];
@@ -11044,10 +11029,7 @@
           STATE.settings = { ...STATE.settings, ...initPub.settings };
           syncV10SettingsFromState();
           renderBrandIdentityAndProducts();
-          document.getElementById('pubHdrTitle').textContent = `${initPub.settings.company_name} — ${initPub.settings.campaign_name}`;
-          if (initPub.settings.brand_tagline) {
-            document.getElementById('pubBrandSub').textContent = initPub.settings.brand_tagline;
-          }
+          document.getElementById('pubHdrTitle').textContent = `${initPub.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
         }
       } catch (e) {}
 

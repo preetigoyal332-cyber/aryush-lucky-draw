@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v10.0</title>
+  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v10.2</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -565,17 +565,17 @@
       border-bottom: 2px solid #f59e0b;
     }
     .logo-crest {
-      width: 44px; height: 44px; border-radius: 13px;
-      background: linear-gradient(135deg, #fde047 0%, #f59e0b 55%, #dc2626 100%);
-      padding: 2px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.45);
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, #fde047 0%, #f59e0b 55%, #16a34a 100%);
+      padding: 2px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.5);
+      display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;
     }
     .logo-crest-inner {
-      width: 100%; height: 100%; border-radius: 11px; background: #7f1d1d;
+      width: 100%; height: 100%; border-radius: 50%; background: #ffffff;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      color: #fde047; font-weight: 900; line-height: 1; text-align: center;
+      color: #15803d; font-weight: 900; line-height: 1; text-align: center;
     }
-    .logo-crest img { width: 100%; height: 100%; object-fit: cover; border-radius: 11px; background: #fff; }
+    .logo-crest img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; background: #ffffff; }
 
     /* Home & Public Brand Hero Card */
     .brand-showcase-card {
@@ -647,7 +647,30 @@
       font-size: 9px; font-weight: 900; padding: 1px 6px; border-radius: 999px;
       box-shadow: 0 2px 6px rgba(220,38,38,0.5);
     }
-    .prod-ico img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+    .prod-ico.has-photo {
+      width: 52px; height: 52px; background: #ffffff !important; padding: 2px;
+      border: 1.5px solid #fde047; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.24);
+    }
+    .prod-ico img { width: 100%; height: 100%; object-fit: contain; border-radius: 9px; background: #ffffff; }
+    .prod-chip .pic-add-hint {
+      font-size: 9.5px; font-weight: 800; color: #bbf7d0; margin-top: 2px; display: block;
+    }
+    @keyframes kenBurnsPack {
+      0% { transform: scale(0.95) translateY(3px); }
+      50% { transform: scale(1.04) translateY(-4px); }
+      100% { transform: scale(0.97) translateY(2px); }
+    }
+    .stage-pack-hero-img {
+      max-height: 44vh; max-width: 86%; object-fit: contain;
+      background: #ffffff; padding: 12px; border-radius: 22px;
+      border: 3px solid #fde047; box-shadow: 0 20px 55px rgba(0,0,0,0.6), 0 0 35px rgba(251,191,36,0.35);
+      animation: kenBurnsPack 6s ease-in-out infinite alternate;
+    }
+    .side-pack-slide-img {
+      width: 100%; height: 250px; object-fit: contain; background: #ffffff;
+      padding: 10px; border-radius: 14px; border: 2px solid #fde047;
+      animation: kenBurnsPack 6s ease-in-out infinite alternate;
+    }
     .proj-stage-arena.split-mode {
       display: grid !important;
       grid-template-columns: 1fr;
@@ -720,7 +743,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand-row">
-        <div class="logo-crest" id="hdrLogoCrest" title="Aryush Foods • Aryush Rasoi Dhan">
+        <div class="logo-crest" id="hdrLogoCrest" onclick="openProductStudioModal()" title="Tap to Change Logo or Upload Product Photos">
           <div class="logo-crest-inner">
             <span style="font-size:13px;">💧</span>
             <span style="font-size:8.5px;margin-top:1px;color:#fff;">ARYUSH</span>
@@ -729,7 +752,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">रसोई धन v10.0</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">रसोई धन v10.2</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -763,7 +786,7 @@
       <div class="brand-showcase-card">
         <div class="brand-showcase-top">
           <div style="display:flex;align-items:center;gap:10px;min-width:0;">
-            <div class="logo-crest" id="homeBannerLogo" style="width:46px;height:46px;">
+            <div class="logo-crest" id="homeBannerLogo" onclick="openProductStudioModal()" style="width:50px;height:50px;" title="Tap to Upload Logo / Product Photos">
               <div class="logo-crest-inner">
                 <span style="font-size:15px;">👑</span>
                 <span style="font-size:8px;color:#fff;">RASOI</span>
@@ -781,7 +804,7 @@
           </div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
             <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-weight:900;" onclick="openStageProjector();startFullScreenVideoAdLoop();">🎬 LED Video Ad</button>
-            <button type="button" class="btn btn-xs" style="background:#fde047;color:#450a0a;font-weight:900;" onclick="openProductStudioModal()">🌶️ + Product / Video</button>
+            <button type="button" class="btn btn-xs" style="background:#fde047;color:#450a0a;font-weight:900;" onclick="openProductStudioModal()">📸 Upload Pics & Video</button>
             <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="openStageProjector();showLedBrandPromoScreen();">📺 Poster</button>
             <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="toggleHomeProductsRibbon()" id="btnToggleProdRibbon">Hide</button>
           </div>
@@ -1778,58 +1801,90 @@
   </div>
 
   <!-- ==================== OVERLAY 15: GRAND STAGE SUSPENSE & LED WALL TV MODE ==================== -->
-  <!-- ==================== MODAL 16: PRODUCT CATALOG & AD VIDEO STUDIO (v10.0) ==================== -->
+  <!-- ==================== MODAL 16: IN-APP LOGO, PRODUCT PHOTOS & AD VIDEO UPLOAD STUDIO (v10.2) ==================== -->
   <div class="modal-bg" id="productStudioModal">
-    <div class="modal" style="max-width:720px;">
+    <div class="modal" style="max-width:750px;">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🌶️🎬 Manage Products & Lucky Draw Videos</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Apne naye products add karein aur har product ki MP4 Ad Video jodein jo Stage LED Draw ke sath chalegi!</div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">📸🎬 Logo, Product Photos & Lucky Draw Video Studio</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Yahan se Company Logo, saare Products ki Pack Photos aur Ad Videos upload karein — <b>Home, Public Link, Stage TV aur PDFs</b> me har jagah dikhengi!</div>
         </div>
         <div style="display:flex;gap:6px;">
-          <button class="btn btn-outline btn-xs" onclick="resetDefaultProductsList()">↺ Default</button>
+          <button class="btn btn-outline btn-xs" onclick="resetDefaultProductsList()">↺ Reset List</button>
           <button class="btn btn-outline btn-xs" onclick="closeModal('productStudioModal')">✕</button>
         </div>
       </div>
 
-      <div style="background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1.5px solid #fb923c;border-radius:13px;padding:11px 13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
-        <div style="min-width:0;flex:1;">
-          <div style="font-size:13px;font-weight:900;color:#9a3412;">🎬 Direct HD MP4 Ad Videos (Offline / Zero Buffering!)</div>
-          <div style="font-size:11.5px;color:#7c2d12;margin-top:2px;" id="savedVideosStatusTxt">Phone ya Laptop se apni MP4 ad videos select karein — browser me offline save rahengi!</div>
+      <!-- SECTION A: IN-APP COMPANY LOGO UPLOAD BAR -->
+      <div style="background:linear-gradient(135deg,#ecfdf5,#dcfce7);border:1.5px solid #4ade80;border-radius:14px;padding:10px 13px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:11px;min-width:0;">
+          <div class="logo-crest" id="studioLogoPreview" style="width:52px;height:52px;cursor:default;">
+            <img src="/logo.png" alt="Logo" />
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:900;color:#065f46;">👑 Official Company Logo (Har Jagah Set Hai)</div>
+            <div style="font-size:11px;color:#166534;">Top Bar, Home Banner, Public Check Link, Stage LED TV & All PDFs</div>
+          </div>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <label class="btn btn-brand btn-xs" style="cursor:pointer;">
-            📂 + Add MP4 Videos
+          <label class="btn btn-green btn-xs" style="cursor:pointer;">
+            🖼️ Upload / Change Logo
+            <input type="file" accept="image/*" style="display:none;" onchange="handleBrandLogoUpload(event)" />
+          </label>
+          <button type="button" class="btn btn-outline btn-xs" onclick="removeBrandLogo()">↺ Default Aryush Logo</button>
+        </div>
+      </div>
+
+      <!-- SECTION B: BULK MULTI-PRODUCT PHOTO UPLOAD + OFFLINE HD MP4 VIDEO UPLOAD -->
+      <div style="background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1.5px solid #fb923c;border-radius:14px;padding:11px 13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div style="min-width:0;flex:1;">
+          <div style="font-size:13px;font-weight:900;color:#9a3412;">🚀 Ek Sath Sare Products Ki Pics Ya MP4 Videos Upload Karein</div>
+          <div style="font-size:11.5px;color:#7c2d12;margin-top:2px;" id="savedVideosStatusTxt">Niche har product ke samne <b>📸 Upload Pic</b> dabayein, ya ek sath gallery se kai photos/videos chunein!</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <label class="btn btn-wa btn-xs" style="cursor:pointer;" title="Gallery se ek sath kai product photos select karein">
+            🖼️ + Bulk Product Pics
+            <input type="file" accept="image/*" multiple style="display:none;" onchange="handleBulkProductPhotosUpload(event)" />
+          </label>
+          <label class="btn btn-brand btn-xs" style="cursor:pointer;" title="Stage LED ke liye MP4 videos select karein">
+            🎬 + MP4 Ad Videos
             <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event)" />
           </label>
-          <button type="button" class="btn btn-navy btn-xs" onclick="closeModal('productStudioModal');openStageProjector();startFullScreenVideoAdLoop();">📺 Test on Stage TV</button>
+          <button type="button" class="btn btn-navy btn-xs" onclick="closeModal('productStudioModal');openStageProjector();showLedBrandPromoScreen();">📺 View on Stage TV</button>
         </div>
       </div>
 
       <div id="standaloneVideosBox" style="display:none;margin-bottom:12px;"></div>
 
-      <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:14px;padding:12px;margin-bottom:12px;">
-        <div style="font-size:12.5px;font-weight:900;color:var(--primary);margin-bottom:8px;" id="prodFormHeading">➕ Add / Update Product</div>
+      <!-- SECTION C: CURRENT PRODUCTS LIST (1-TAP PHOTO UPLOAD RIGHT ON EACH PRODUCT!) -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <div style="font-size:12px;font-weight:900;color:var(--primary);">🌶️ YOUR PRODUCTS — HAR PRODUCT KE SAMNE "📸 Upload Pic" DABAYEIN (<span id="prodTotalCountLbl">0</span>):</div>
+      </div>
+      <div id="prodStudioList" style="max-height:36vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;margin-bottom:12px;"></div>
+
+      <!-- SECTION D: ADD NEW / EDIT PRODUCT DETAILS FORM -->
+      <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:14px;padding:12px;">
+        <div style="font-size:12.5px;font-weight:900;color:var(--primary);margin-bottom:8px;" id="prodFormHeading">➕ Naya Product Add Karein (Ya Upar ✏️ Daba Kar Edit Karein)</div>
         <input type="hidden" id="editProdIdx" value="-1" />
         <div class="form-grid cols-3" style="gap:8px;">
           <div class="field">
             <label>Product Name (Hindi) *</label>
-            <input type="text" id="prodHiInp" placeholder="e.g. स्पेशल पटना की कुटी मिर्ची" />
+            <input type="text" id="prodHiInp" placeholder="e.g. कच्ची घानी सरसों तेल 1L" />
           </div>
           <div class="field">
             <label>English Name *</label>
-            <input type="text" id="prodEnInp" placeholder="e.g. Special Patna Kuti Mirchi" />
+            <input type="text" id="prodEnInp" placeholder="e.g. Mustard Oil 1L Bottle" />
           </div>
           <div class="field">
             <label>Highlight Tagline</label>
-            <input type="text" id="prodTagInp" placeholder="e.g. Asli Swad & Shuddhata" />
+            <input type="text" id="prodTagInp" placeholder="e.g. 100% Shuddh & Asli Swad" />
           </div>
         </div>
         <div class="form-grid cols-3" style="gap:8px;margin-top:8px;align-items:end;">
           <div class="field">
-            <label>Icon & Color Theme</label>
+            <label>Icon & Theme</label>
             <div style="display:flex;gap:6px;">
-              <input type="text" id="prodIconInp" value="🌶️" style="width:54px;text-align:center;font-size:17px;" />
+              <input type="text" id="prodIconInp" value="🌶️" style="width:52px;text-align:center;font-size:17px;" />
               <select id="prodBgSel" style="flex:1;font-size:12px;">
                 <option value="linear-gradient(135deg,#ef4444,#b91c1c)">🔴 Red (Mirchi)</option>
                 <option value="linear-gradient(135deg,#eab308,#ca8a04)">🟡 Gold (Mustard Oil)</option>
@@ -1843,28 +1898,25 @@
           </div>
           <div class="field">
             <label>Direct Video Link (.mp4) — Optional</label>
-            <input type="url" id="prodVidUrlInp" placeholder="https://.../promo.mp4 (or upload MP4)" />
+            <input type="url" id="prodVidUrlInp" placeholder="https://.../promo.mp4" />
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <label class="btn btn-outline btn-xs" style="cursor:pointer;flex:1;">
-              🖼️ Pack Photo
+            <label class="btn btn-wa btn-xs" style="cursor:pointer;flex:1;">
+              📸 Select Photo
               <input type="file" accept="image/*" style="display:none;" onchange="handleProdPhotoPick(event)" />
             </label>
             <label class="btn btn-outline btn-xs" style="cursor:pointer;flex:1;border-color:#fb923c;color:#c2410c;">
-              🎬 Product MP4
+              🎬 Select MP4
               <input type="file" accept="video/*" style="display:none;" onchange="handleProdVideoPick(event)" />
             </label>
           </div>
         </div>
-        <div id="prodDraftMediaInfo" style="font-size:11px;color:#15803d;font-weight:800;margin-top:6px;display:none;"></div>
+        <div id="prodDraftMediaInfo" style="margin-top:8px;display:none;align-items:center;gap:10px;background:#ecfdf5;border:1px solid #86efac;padding:7px 10px;border-radius:10px;font-size:11.5px;color:#065f46;font-weight:800;"></div>
         <div style="display:flex;gap:8px;margin-top:10px;">
-          <button type="button" class="btn btn-brand btn-sm" style="flex:1;" id="btnSaveProdItem" onclick="saveProductStudioItem()">✓ Save Product & Video</button>
+          <button type="button" class="btn btn-brand btn-sm" style="flex:1;" id="btnSaveProdItem" onclick="saveProductStudioItem()">✓ Save Product, Photo & Video</button>
           <button type="button" class="btn btn-outline btn-sm" onclick="clearProdForm()">Clear</button>
         </div>
       </div>
-
-      <div style="font-size:12px;font-weight:900;color:var(--muted);margin-bottom:6px;">YOUR ACTIVE PRODUCTS (<span id="prodTotalCountLbl">0</span>):</div>
-      <div id="prodStudioList" style="max-height:38vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;"></div>
     </div>
   </div>
 
@@ -1912,20 +1964,29 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL 18: QUICK PRODUCT VIDEO PREVIEW POPUP ==================== -->
+  <!-- ==================== MODAL 18: QUICK PRODUCT PHOTO & VIDEO PREVIEW + 1-TAP UPLOAD POPUP ==================== -->
   <div class="modal-bg" id="quickProdVideoModal">
     <div class="modal" style="max-width:560px;background:#0f172a;color:#fff;border:2px solid #f59e0b;">
       <div class="modal-hd" style="border-color:rgba(255,255,255,0.15);">
         <div>
-          <h3 style="font-size:15.5px;font-weight:900;color:#fde047;" id="qpvTitle">🎬 Product Video</h3>
+          <h3 style="font-size:15.5px;font-weight:900;color:#fde047;" id="qpvTitle">🌶️ Product Showcase</h3>
           <div style="font-size:11.5px;color:#cbd5e1;" id="qpvSub">Aryush Rasoi Dhan</div>
         </div>
         <button class="btn btn-danger btn-xs" onclick="closeQuickProdVideoModal()">✕</button>
       </div>
-      <video id="qpvVideoEl" controls playsinline style="width:100%;max-height:62vh;border-radius:12px;background:#000;"></video>
-      <div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px;">
-        <button class="btn btn-outline btn-xs" style="color:#fde68a;border-color:#f59e0b;" onclick="closeQuickProdVideoModal();openProductStudioModal();">✏️ Edit Product / Video</button>
-        <button class="btn btn-brand btn-xs" onclick="closeQuickProdVideoModal();openStageProjector();startFullScreenVideoAdLoop();">📺 Play on Stage LED TV</button>
+      <div id="qpvImgWrap" style="display:none;text-align:center;background:#ffffff;padding:14px;border-radius:14px;margin-bottom:8px;border:2px solid #fde047;">
+        <img id="qpvImgEl" src="" alt="Product Pack" style="max-width:100%;max-height:50vh;object-fit:contain;border-radius:10px;" />
+      </div>
+      <video id="qpvVideoEl" controls playsinline style="width:100%;max-height:54vh;border-radius:12px;background:#000;"></video>
+      <div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px;flex-wrap:wrap;">
+        <label class="btn btn-wa btn-xs" id="qpvQuickUploadBtn" style="cursor:pointer;">
+          📸 Upload / Change Pack Photo
+          <input type="file" accept="image/*" style="display:none;" id="qpvQuickUploadInp" />
+        </label>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-outline btn-xs" style="color:#fde68a;border-color:#f59e0b;" onclick="closeQuickProdVideoModal();openProductStudioModal();">✏️ All Products</button>
+          <button class="btn btn-brand btn-xs" onclick="closeQuickProdVideoModal();openStageProjector();startFullScreenVideoAdLoop();">📺 Stage LED TV</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1992,6 +2053,9 @@
               </div>
             </div>
             <video id="sideStageVideoEl" class="stage-video-frame" playsinline muted controls></video>
+            <div id="sideStagePhotoWrap" style="display:none;text-align:center;">
+              <img id="sideStagePhotoEl" class="side-pack-slide-img" src="" alt="Product Pack" />
+            </div>
             <div id="sideVidEmptyHint" style="display:none;padding:24px 12px;text-align:center;background:rgba(255,255,255,0.05);border-radius:14px;border:1px dashed rgba(251,191,36,0.4);">
               <div style="font-size:28px;">🎬🌶️</div>
               <div style="font-size:13px;font-weight:800;color:#fde68a;margin-top:6px;">Product Video Select Karein</div>
@@ -2034,7 +2098,10 @@
 
   <!-- ==================== READ-ONLY PUBLIC RETAILER KHATA & PRIZE CHECK PORTAL (`?check=1`) ==================== -->
   <div id="publicCheckPortal">
-    <div style="background:linear-gradient(135deg,#450a0a 0%,#9a3412 48%,#1e1b4b 100%);color:#fff;padding:22px 16px 16px;text-align:center;border-bottom:3px solid #f59e0b;box-shadow:0 4px 18px rgba(0,0,0,0.22);">
+    <div style="background:linear-gradient(135deg,#450a0a 0%,#9a3412 48%,#1e1b4b 100%);color:#fff;padding:20px 16px 16px;text-align:center;border-bottom:3px solid #f59e0b;box-shadow:0 4px 18px rgba(0,0,0,0.22);">
+      <div class="logo-crest" id="pubPortalLogo" style="width:68px;height:68px;margin:0 auto 8px;padding:3px;cursor:default;">
+        <img src="/logo.png" alt="Aryush Logo" />
+      </div>
       <div style="display:inline-block;background:linear-gradient(90deg,#fde047,#f59e0b);color:#450a0a;font-weight:900;font-size:10.5px;padding:3px 12px;border-radius:999px;margin-bottom:7px;">👑 ARYUSH RASOI DHAN • OFFICIAL PORTAL</div>
       <h1 style="font-size:20px;font-weight:900;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
       <p style="font-size:12px;color:#fde68a;font-weight:700;margin-top:3px;" id="pubBrandSub">Shuddh Kacchi Ghani Mustard Oil • Lal Mirch • Haldi • Dhaniya • Garam Masala • Hing Dana</p>
@@ -2055,6 +2122,7 @@
 
 <script>
   // ==================== GLOBAL STATE ====================
+  const DEFAULT_OFFICIAL_LOGO_DATA = "data:image/png;base64,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";
   const IS_LOCAL_PREVIEW = (window.location.protocol === 'file:');
   let STATE = {
     settings: {
@@ -2066,7 +2134,7 @@
       coupon_prefix: '',
       signatory: 'For Aryush Foods (Kailaras, Morena)',
       brand_tagline: 'Aryush Rasoi Dhan • Pure Kacchi Ghani Mustard Oil & Spices',
-      brand_logo_data: ''
+      brand_logo_data: DEFAULT_OFFICIAL_LOGO_DATA
     },
     ai_ready: false,
     retailers: [],
@@ -5176,16 +5244,19 @@
   function addPdfBanner(doc, reportTitle, subLine) {
     const s = STATE.settings;
     const w = doc.internal.pageSize.getWidth();
-    // Royal Maroon-Indigo Header + Saffron Gold Accent Bar
     doc.setFillColor(127, 29, 29);
     doc.rect(0, 0, w, 24, 'F');
     doc.setFillColor(245, 158, 11);
     doc.rect(0, 24, w, 5.5, 'F');
 
     let leftX = 12;
-    if (s.brand_logo_data && s.brand_logo_data.startsWith('data:image/')) {
+    const logoSrc = getEffectiveLogoUrl();
+    if (logoSrc && logoSrc.startsWith('data:image/')) {
       try {
-        doc.addImage(s.brand_logo_data, 'JPEG', 10, 3, 18, 18);
+        doc.setFillColor(255, 255, 255);
+        doc.circle(19, 12, 9.2, 'F');
+        const fmt = logoSrc.includes('image/png') ? 'PNG' : 'JPEG';
+        doc.addImage(logoSrc, fmt, 10.3, 3.3, 17.4, 17.4);
         leftX = 31;
       } catch (e) {}
     }
@@ -5202,11 +5273,11 @@
     doc.setTextColor(254, 215, 170);
     doc.text(cleanPdfStr(subLine), leftX, 21.2);
 
-    // Gold Ribbon Product Strip
+    const prodLine = ARYUSH_PRODUCTS.map(p => cleanPdfStr(p.name)).filter(Boolean).join('  |  ');
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7.5);
+    doc.setFontSize(7.2);
     doc.setTextColor(69, 10, 10);
-    doc.text('ARYUSH RASOI DHAN: Pure Kacchi Ghani Mustard Oil  |  Mirch  |  Haldi  |  Dhaniya  |  Garam Masala  |  Amchoor  |  Nukhra Hing Dana', 12, 27.8);
+    doc.text(('ARYUSH RASOI DHAN: ' + (prodLine || 'Pure Kacchi Ghani Mustard Oil | Authentic Spices')).slice(0, 145), 12, 27.8);
   }
 
   function addPdfFooters(doc) {
@@ -5285,6 +5356,36 @@
         bodyStyles: { fontSize: 8.2 },
         columnStyles: { 4: { fontStyle: 'bold' }, 5: { fontStyle: 'bold', textColor: [15, 118, 110] } },
         margin: { bottom: 16 }
+      });
+    }
+
+    const prodsWithPics = ARYUSH_PRODUCTS.filter(p => p.photoData && p.photoData.startsWith('data:image/')).slice(0, 8);
+    if (prodsWithPics.length > 0) {
+      let curY = (doc.lastAutoTable ? doc.lastAutoTable.finalY : 120) + 8;
+      const pageH = doc.internal.pageSize.getHeight();
+      if (curY + 30 > pageH - 14) {
+        doc.addPage();
+        curY = 16;
+      }
+      doc.setFillColor(255, 251, 235);
+      doc.setDrawColor(245, 158, 11);
+      doc.roundedRect(12, curY, 186, 27, 2.5, 2.5, 'FD');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(124, 45, 18);
+      doc.text('OUR PURE PRODUCTS — ARYUSH RASOI DHAN:', 15, curY + 5);
+      const slotW = Math.min(22, 180 / prodsWithPics.length);
+      prodsWithPics.forEach((p, idx) => {
+        const px = 15 + idx * slotW;
+        try {
+          const pFmt = p.photoData.includes('image/png') ? 'PNG' : 'JPEG';
+          doc.setFillColor(255, 255, 255);
+          doc.roundedRect(px, curY + 6.5, 15, 15, 1.5, 1.5, 'F');
+          doc.addImage(p.photoData, pFmt, px + 0.8, curY + 7.3, 13.4, 13.4);
+          doc.setFontSize(5.8);
+          doc.setTextColor(30, 41, 59);
+          doc.text(cleanPdfStr(p.name).slice(0, 12), px + 7.5, curY + 24.5, { align: 'center' });
+        } catch (e) {}
       });
     }
 
@@ -5485,7 +5586,7 @@
 
   
   
-  // ==================== V10.0 PRODUCT STUDIO, OFFLINE MP4 VIDEO DB & LED STAGE VIDEO ENGINE ====================
+  // ==================== V10.2 IN-APP LOGO, PRODUCT PACK PHOTO & VIDEO STUDIO ENGINE ====================
   const DEFAULT_ARYUSH_PRODUCTS = [
     { name: 'Kacchi Ghani Mustard Oil', hi: 'कच्ची घानी सरसों तेल', tag: '100% Shuddh & Tez Jhaanjh', icon: '🟡', bg: 'linear-gradient(135deg,#eab308,#ca8a04)', photoData: '', videoUrl: '', localVideoId: '' },
     { name: 'Special Patna Kuti Mirchi', hi: 'स्पेशल पटना की कुटी मिर्ची', tag: 'Asli Swad & प्रीमियम कुटी मिर्च', icon: '🌶️', bg: 'linear-gradient(135deg,#dc2626,#991b1b)', photoData: '', videoUrl: '', localVideoId: '' },
@@ -5499,15 +5600,55 @@
 
   const PRODUCTS_STORAGE_KEY = 'aryush_v10_custom_products';
   let ARYUSH_PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_ARYUSH_PRODUCTS));
-  let STAGE_VIDEO_BLOBS = []; // { id, name, blobUrl }
+  let STAGE_VIDEO_BLOBS = [];
   let STAGE_SPLIT_VIDEO_ON = false;
   let STAGE_PRE_DRAW_AD_ON = false;
   let STAGE_CUR_VID_INDEX = 0;
+  let SIDE_SLIDE_TIMER = null;
   let DRAFT_PROD_PHOTO = '';
   let DRAFT_PROD_VID_ID = '';
   let DRAFT_PROD_VID_NAME = '';
 
+  function getEffectiveLogoUrl() {
+    const s = STATE.settings;
+    return (s && s.brand_logo_data && s.brand_logo_data.startsWith('data:image/'))
+      ? s.brand_logo_data
+      : DEFAULT_OFFICIAL_LOGO_DATA;
+  }
+
+  // Crisp Product Pack Photo processor: preserves full aspect ratio on clean white background so bottles/pouches never get cropped or black-boxed!
+  async function compressProductPackPhoto(file, maxDim = 460) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width, h = img.height;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+            else { w = Math.round((w * maxDim) / h); h = maxDim; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', 0.86));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   function syncV10SettingsFromState() {
+    if (!STATE.settings.brand_logo_data || !STATE.settings.brand_logo_data.startsWith('data:image/')) {
+      STATE.settings.brand_logo_data = DEFAULT_OFFICIAL_LOGO_DATA;
+    }
     let loaded = null;
     if (STATE.settings && STATE.settings.custom_products_json) {
       try { loaded = JSON.parse(STATE.settings.custom_products_json); } catch (e) {}
@@ -5527,7 +5668,6 @@
     try { await api('/api/settings', 'POST', { custom_products_json: jsonStr }); } catch (e) {}
   }
 
-  // IndexedDB Engine for Offline Zero-Buffering HD MP4 Videos
   function openStageVideoDB() {
     return new Promise((resolve, reject) => {
       const req = indexedDB.open('AryushRasoiStageVideoDB', 1);
@@ -5594,8 +5734,65 @@
     for (const f of files) {
       await saveVideoBlobToIDB(f);
     }
-    toast(`🎬 ${files.length} HD Product Video(s) Ready!`);
+    toast(`🎬 ${files.length} HD Product Video(s) Saved!`);
     if (STAGE_SPLIT_VIDEO_ON) startSideStageVideoPlayer();
+  }
+
+  // Bulk Multi-Product Photos Upload: Smartly matches by filename keywords (mirch/haldi/dhaniya/oil/hing/garam/amchoor) or fills empty slots / appends new products!
+  async function handleBulkProductPhotosUpload(ev) {
+    const files = Array.from(ev.target.files || []);
+    ev.target.value = '';
+    if (!files.length) return;
+    toast(`⏳ Uploading ${files.length} Product Photo(s)...`);
+
+    const keywordRules = [
+      { re: /oil|mustard|sarso|kacchi|ghani/i, match: /mustard|सरसों/i },
+      { re: /kuti|patna/i, match: /kuti|कुटी/i },
+      { re: /mirch|chilli|lal/i, match: /lal mirch|लाल मिर्च/i },
+      { re: /haldi|turmeric/i, match: /haldi|हल्दी/i },
+      { re: /dhaniya|coriander/i, match: /dhaniya|धनिया/i },
+      { re: /garam/i, match: /garam|गरम/i },
+      { re: /amchoor|amchur|mango/i, match: /amchoor|अमचूर/i },
+      { re: /hing/i, match: /hing|हींग/i }
+    ];
+
+    let updatedCnt = 0;
+    for (const file of files) {
+      const dataUrl = await compressProductPackPhoto(file, 460);
+      const rawTitle = file.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').trim();
+      let targetIdx = -1;
+
+      for (const rule of keywordRules) {
+        if (rule.re.test(rawTitle)) {
+          targetIdx = ARYUSH_PRODUCTS.findIndex(p => rule.match.test(p.name) || rule.match.test(p.hi));
+          if (targetIdx !== -1) break;
+        }
+      }
+      if (targetIdx === -1) {
+        targetIdx = ARYUSH_PRODUCTS.findIndex(p => !p.photoData);
+      }
+
+      if (targetIdx !== -1) {
+        ARYUSH_PRODUCTS[targetIdx].photoData = dataUrl;
+      } else {
+        ARYUSH_PRODUCTS.push({
+          name: rawTitle || `Aryush Product ${ARYUSH_PRODUCTS.length + 1}`,
+          hi: rawTitle || `आर्युष उत्पाद ${ARYUSH_PRODUCTS.length + 1}`,
+          tag: '100% Shuddh & Asli Swad',
+          icon: '🌶️',
+          bg: 'linear-gradient(135deg,#ef4444,#b91c1c)',
+          photoData: dataUrl,
+          videoUrl: '',
+          localVideoId: ''
+        });
+      }
+      updatedCnt++;
+    }
+
+    await persistProductsCatalog();
+    renderProductStudioUI();
+    renderBrandIdentityAndProducts();
+    toast(`🎉 ${updatedCnt} Product Photos Har Jagah Update Ho Gayi!`);
   }
 
   function resolveProductVideoSrc(p) {
@@ -5612,21 +5809,22 @@
     const list = [];
     const usedIds = new Set();
     for (const p of ARYUSH_PRODUCTS) {
-      const src = resolveProductVideoSrc(p);
-      if (src) {
+      const vSrc = resolveProductVideoSrc(p);
+      if (vSrc) {
         if (p.localVideoId) usedIds.add(p.localVideoId);
-        list.push({ title: p.hi || p.name, sub: p.tag || p.name, src });
+        list.push({ type: 'video', title: p.hi || p.name, sub: p.tag || p.name, src: vSrc, photoData: p.photoData || '' });
+      } else if (p.photoData && p.photoData.startsWith('data:image/')) {
+        list.push({ type: 'photo', title: p.hi || p.name, sub: p.tag || p.name, src: p.photoData });
       }
     }
     for (const v of STAGE_VIDEO_BLOBS) {
       if (!usedIds.has(v.id)) {
-        list.push({ title: v.name, sub: STATE.settings.brand_tagline || 'Aryush Rasoi Dhan Commercial', src: v.blobUrl });
+        list.push({ type: 'video', title: v.name, sub: STATE.settings.brand_tagline || 'Aryush Rasoi Dhan Commercial', src: v.blobUrl });
       }
     }
     return list;
   }
 
-  // Product Studio Modal Handlers
   function openProductStudioModal() {
     clearProdForm();
     refreshStageVideosFromIDB();
@@ -5641,7 +5839,7 @@
     document.getElementById('prodTagInp').value = '';
     document.getElementById('prodIconInp').value = '🌶️';
     document.getElementById('prodVidUrlInp').value = '';
-    document.getElementById('prodFormHeading').textContent = '➕ Add New Product';
+    document.getElementById('prodFormHeading').textContent = '➕ Naya Product Add Karein (Ya Upar ✏️ Daba Kar Edit Karein)';
     DRAFT_PROD_PHOTO = '';
     DRAFT_PROD_VID_ID = '';
     DRAFT_PROD_VID_NAME = '';
@@ -5653,9 +5851,31 @@
     const file = ev.target.files[0];
     ev.target.value = '';
     if (!file) return;
-    const { base64 } = await compressImageToBase64(file, 320);
-    DRAFT_PROD_PHOTO = 'data:image/jpeg;base64,' + base64;
+    DRAFT_PROD_PHOTO = await compressProductPackPhoto(file, 460);
     showProdDraftMediaStatus();
+  }
+
+  // 1-Tap Direct Product Photo Upload right from each Product Row (or Preview Modal)!
+  async function quickUploadPhotoForProduct(idx, ev) {
+    const file = ev.target.files[0];
+    ev.target.value = '';
+    if (!file || !ARYUSH_PRODUCTS[idx]) return;
+    try {
+      ARYUSH_PRODUCTS[idx].photoData = await compressProductPackPhoto(file, 460);
+      await persistProductsCatalog();
+      renderProductStudioUI();
+      renderBrandIdentityAndProducts();
+      toast(`🖼️ "${ARYUSH_PRODUCTS[idx].hi}" ki Photo Har Jagah Lag Gayi!`);
+    } catch (e) { toast('Photo upload error', true); }
+  }
+
+  async function removeSingleProductPhoto(idx) {
+    if (!ARYUSH_PRODUCTS[idx]) return;
+    ARYUSH_PRODUCTS[idx].photoData = '';
+    await persistProductsCatalog();
+    renderProductStudioUI();
+    renderBrandIdentityAndProducts();
+    toast('Product photo removed');
   }
 
   async function handleProdVideoPick(ev) {
@@ -5671,11 +5891,14 @@
   function showProdDraftMediaStatus() {
     const info = document.getElementById('prodDraftMediaInfo');
     if (!info) return;
-    const parts = [];
-    if (DRAFT_PROD_PHOTO) parts.push('🖼️ Pack Photo Ready');
-    if (DRAFT_PROD_VID_ID) parts.push(`🎬 Video Linked: ${DRAFT_PROD_VID_NAME}`);
-    info.style.display = parts.length ? 'block' : 'none';
-    info.textContent = parts.join('  •  ');
+    if (!DRAFT_PROD_PHOTO && !DRAFT_PROD_VID_ID) {
+      info.style.display = 'none';
+      return;
+    }
+    info.style.display = 'flex';
+    info.innerHTML =
+      (DRAFT_PROD_PHOTO ? `<img src="${DRAFT_PROD_PHOTO}" style="width:38px;height:38px;object-fit:contain;background:#fff;border-radius:7px;border:1px solid #4ade80;padding:2px;" /> <span>✅ Pack Photo Ready</span>` : '') +
+      (DRAFT_PROD_VID_ID ? `<span style="margin-left:8px;">🎬 Video Ready: ${esc(DRAFT_PROD_VID_NAME)}</span>` : '');
   }
 
   function editProductStudioItem(idx) {
@@ -5693,6 +5916,8 @@
     DRAFT_PROD_VID_NAME = STAGE_VIDEO_BLOBS.find(v => v.id === DRAFT_PROD_VID_ID)?.name || (DRAFT_PROD_VID_ID ? 'Saved MP4' : '');
     document.getElementById('prodFormHeading').textContent = `✏️ Edit Product: ${p.hi}`;
     showProdDraftMediaStatus();
+    const formEl = document.getElementById('prodFormHeading');
+    if (formEl) formEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   async function saveProductStudioItem() {
@@ -5714,7 +5939,7 @@
     clearProdForm();
     renderProductStudioUI();
     renderBrandIdentityAndProducts();
-    toast('✅ Product & Video Saved!');
+    toast('✅ Product, Pack Photo & Video Har Jagah Save Ho Gayi!');
   }
 
   async function deleteProductStudioItem(idx) {
@@ -5736,12 +5961,15 @@
   }
 
   function renderProductStudioUI() {
-    const playlist = getPlayableStagePlaylist();
+    const studioLogo = document.getElementById('studioLogoPreview');
+    if (studioLogo) studioLogo.innerHTML = `<img src="${getEffectiveLogoUrl()}" alt="Logo" />`;
+
+    const picCount = ARYUSH_PRODUCTS.filter(p => p.photoData && p.photoData.startsWith('data:image/')).length;
     const stTxt = document.getElementById('savedVideosStatusTxt');
     if (stTxt) {
-      stTxt.innerHTML = playlist.length
-        ? `✅ <b>${playlist.length} Commercial Video(s)</b> Stage LED aur Lucky Draw ke sath chalne ke liye taiyar hain!`
-        : `Phone ya Laptop se apni MP4 ad videos select karein — browser me offline save rahengi!`;
+      stTxt.innerHTML = (picCount > 0 || STAGE_VIDEO_BLOBS.length > 0)
+        ? `✅ <b>${picCount} / ${ARYUSH_PRODUCTS.length} Product Photos</b> & <b>${STAGE_VIDEO_BLOBS.length} MP4 Videos</b> Home, Public Link, Stage TV & PDF ke liye Active!`
+        : `Niche har product ke samne <b>📸 Upload Pic</b> dabayein, ya upar <b>🖼️ + Bulk Product Pics</b> se ek sath chunein!`;
     }
 
     const sBox = document.getElementById('standaloneVideosBox');
@@ -5764,23 +5992,30 @@
     if (listEl) {
       listEl.innerHTML = ARYUSH_PRODUCTS.map((p, i) => {
         const hasVid = Boolean(resolveProductVideoSrc(p));
-        return `<div class="ret-item" style="padding:9px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
-          <div style="display:flex;align-items:center;gap:9px;min-width:0;">
-            <div class="prod-ico" style="background:${p.bg};width:36px;height:36px;">
-              ${p.photoData ? `<img src="${p.photoData}" alt="" />` : esc(p.icon)}
+        const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
+        return `<div class="ret-item" style="padding:9px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
+            <div class="prod-ico ${hasPic ? 'has-photo' : ''}" style="background:${p.bg};width:48px;height:48px;">
+              ${hasPic ? `<img src="${p.photoData}" alt="" />` : esc(p.icon)}
             </div>
             <div style="min-width:0;">
               <div style="font-size:13px;font-weight:900;color:var(--text);">
                 ${esc(p.hi)} <span style="font-size:11px;color:var(--muted);">(${esc(p.name)})</span>
-                ${hasVid ? `<span class="badge b-green" style="margin-left:4px;">🎬 Video Ready</span>` : ''}
+                ${hasPic ? `<span class="badge b-green" style="margin-left:4px;">✅ Pic Set</span>` : `<span class="badge b-amber" style="margin-left:4px;">No Pic</span>`}
+                ${hasVid ? `<span class="badge b-blue" style="margin-left:4px;">🎬 Video</span>` : ''}
               </div>
               <div style="font-size:11px;color:var(--muted);">${esc(p.tag)}</div>
             </div>
           </div>
-          <div style="display:flex;gap:5px;flex-shrink:0;">
-            ${hasVid ? `<button class="btn btn-navy btn-xs" onclick="previewSingleProductVideo(${i})">▶️</button>` : ''}
-            <button class="btn btn-outline btn-xs" onclick="editProductStudioItem(${i})">✏️</button>
-            <button class="btn btn-danger btn-xs" onclick="deleteProductStudioItem(${i})">🗑️</button>
+          <div style="display:flex;gap:5px;flex-shrink:0;align-items:center;flex-wrap:wrap;">
+            <label class="btn btn-wa btn-xs" style="cursor:pointer;" title="1-Tap Upload Product Pack Photo">
+              📸 ${hasPic ? 'Change Pic' : 'Upload Pic'}
+              <input type="file" accept="image/*" style="display:none;" onchange="quickUploadPhotoForProduct(${i}, event)" />
+            </label>
+            ${hasPic ? `<button class="btn btn-outline btn-xs" title="Remove Photo" onclick="removeSingleProductPhoto(${i})">✕ Pic</button>` : ''}
+            ${(hasVid || hasPic) ? `<button class="btn btn-navy btn-xs" title="Preview" onclick="previewSingleProductMedia(${i})">👁️</button>` : ''}
+            <button class="btn btn-outline btn-xs" title="Edit Name / Video" onclick="editProductStudioItem(${i})">✏️</button>
+            <button class="btn btn-danger btn-xs" title="Delete Product" onclick="deleteProductStudioItem(${i})">🗑️</button>
           </div>
         </div>`;
       }).join('');
@@ -5790,23 +6025,52 @@
   function onHomeProductChipClick(idx) {
     const p = ARYUSH_PRODUCTS[idx];
     if (!p) return;
-    if (resolveProductVideoSrc(p)) previewSingleProductVideo(idx);
-    else {
-      openProductStudioModal();
-      editProductStudioItem(idx);
-    }
+    previewSingleProductMedia(idx);
   }
 
-  function previewSingleProductVideo(idx) {
+  function previewSingleProductMedia(idx) {
     const p = ARYUSH_PRODUCTS[idx];
-    const src = resolveProductVideoSrc(p);
-    if (!src) return;
-    document.getElementById('qpvTitle').textContent = `🎬 ${p.hi}`;
+    if (!p) return;
+    const vSrc = resolveProductVideoSrc(p);
+    const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
+    const isPublicMode = document.body.classList.contains('public-mode');
+
+    document.getElementById('qpvTitle').textContent = `${p.icon || '🌶️'} ${p.hi}`;
     document.getElementById('qpvSub').textContent = `${p.name} • ${p.tag}`;
+
+    const imgWrap = document.getElementById('qpvImgWrap');
+    const imgEl = document.getElementById('qpvImgEl');
     const vEl = document.getElementById('qpvVideoEl');
-    vEl.src = src;
+    const upBtn = document.getElementById('qpvQuickUploadBtn');
+    const upInp = document.getElementById('qpvQuickUploadInp');
+
+    if (upBtn && upInp) {
+      upBtn.style.display = isPublicMode ? 'none' : 'inline-flex';
+      upInp.onchange = async (ev) => {
+        await quickUploadPhotoForProduct(idx, ev);
+        previewSingleProductMedia(idx);
+      };
+    }
+
+    if (hasPic) {
+      imgEl.src = p.photoData;
+      imgWrap.style.display = 'block';
+    } else if (!vSrc) {
+      imgEl.src = getEffectiveLogoUrl();
+      imgWrap.style.display = 'block';
+    } else {
+      imgWrap.style.display = 'none';
+    }
+
+    if (vSrc) {
+      vEl.style.display = 'block';
+      vEl.src = vSrc;
+      vEl.play().catch(() => {});
+    } else {
+      try { vEl.pause(); vEl.removeAttribute('src'); } catch (e) {}
+      vEl.style.display = 'none';
+    }
     openModal('quickProdVideoModal');
-    vEl.play().catch(() => {});
   }
 
   function closeQuickProdVideoModal() {
@@ -5815,8 +6079,8 @@
     closeModal('quickProdVideoModal');
   }
 
-  // Stage LED Video Modes: (1) Full-Screen Ad Break Loop, (2) Split-Screen Video + Lucky Draw, (3) Pre-Draw 10s Ad
   function stopAllStageVideoElements() {
+    if (SIDE_SLIDE_TIMER) { clearTimeout(SIDE_SLIDE_TIMER); SIDE_SLIDE_TIMER = null; }
     ['sideStageVideoEl', 'fullStageAdVideoEl', 'preDrawAdVideoEl'].forEach(id => {
       const el = document.getElementById(id);
       if (el) { try { el.pause(); } catch (e) {} }
@@ -5831,26 +6095,57 @@
 
     if (!playlist.length) {
       disp.innerHTML = `<div class="winner-pop" style="padding:28px;max-width:560px;">
-        <div style="font-size:52px;">🎬🌶️</div>
-        <div style="font-size:22px;font-weight:900;color:#fde047;margin-top:8px;">STAGE LED VIDEO AD PLAYER</div>
+        <div style="font-size:52px;">📸🎬</div>
+        <div style="font-size:22px;font-weight:900;color:#fde047;margin-top:8px;">STAGE LED PRODUCT PHOTO & VIDEO SHOW</div>
         <div style="font-size:13.5px;color:#cbd5e1;margin:8px 0 18px;line-height:1.5;">
-          Apne phone ya laptop se <b>Aryush Rasoi Dhan</b> products ki MP4 video select karein — bina internet ke full HD me lagatar loop par chalegi!
+          App ke andar se apne products ki <b>Pack Photos</b> ya <b>MP4 Ad Videos</b> upload karein — badi LED screen par lagatar commercial loop me chalengi!
         </div>
-        <label class="btn btn-brand" style="cursor:pointer;padding:13px 22px;font-size:15px;">
-          📂 Select MP4 Product Video(s)
-          <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event);setTimeout(startFullScreenVideoAdLoop,450);" />
-        </label>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button type="button" class="btn btn-xs" style="background:#fde047;color:#450a0a;padding:11px 18px;font-size:14px;font-weight:900;" onclick="openProductStudioModal()">📸 Upload Product Photos</button>
+          <label class="btn btn-brand" style="cursor:pointer;padding:11px 18px;font-size:14px;">
+            🎬 Select MP4 Video(s)
+            <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event);setTimeout(startFullScreenVideoAdLoop,450);" />
+          </label>
+        </div>
       </div>`;
       return;
     }
 
     const cur = playlist[STAGE_CUR_VID_INDEX % playlist.length];
+    const logoSrc = getEffectiveLogoUrl();
+
+    if (cur.type === 'photo') {
+      disp.innerHTML = `<div class="winner-pop" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;max-width:840px;margin-bottom:10px;flex-wrap:wrap;">
+          <span class="brand-gold-pill" style="font-size:11.5px;padding:4px 12px;">👑 ARYUSH RASOI DHAN • ${esc(cur.title)}</span>
+          <div style="display:flex;gap:6px;">
+            <button type="button" class="btn btn-outline btn-xs" style="color:#fde68a;border-color:#f59e0b;" onclick="STAGE_CUR_VID_INDEX++;startFullScreenVideoAdLoop();">⏭ Next (${(STAGE_CUR_VID_INDEX % playlist.length) + 1}/${playlist.length})</button>
+            <button type="button" class="btn btn-brand btn-xs" onclick="toggleStageSplitVideoMode();showLedBrandPromoScreen();">📺 Split: Ad + Draw</button>
+          </div>
+        </div>
+        <img class="stage-pack-hero-img" src="${cur.src}" alt="${esc(cur.title)}" />
+        <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+          <img src="${logoSrc}" style="width:44px;height:44px;border-radius:50%;background:#fff;padding:2px;border:2px solid #fde047;" />
+          <div style="text-align:left;">
+            <div style="font-size:20px;font-weight:900;color:#fde047;">${esc(cur.title)}</div>
+            <div style="font-size:13px;font-weight:800;color:#cbd5e1;">${esc(cur.sub)}</div>
+          </div>
+        </div>
+      </div>`;
+      const tm = setTimeout(() => {
+        STAGE_CUR_VID_INDEX++;
+        startFullScreenVideoAdLoop();
+      }, 4500);
+      STAGE_ACTIVE_TIMERS.push(tm);
+      return;
+    }
+
     disp.innerHTML = `<div class="winner-pop" style="width:100%;display:flex;flex-direction:column;align-items:center;">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;max-width:840px;margin-bottom:8px;flex-wrap:wrap;">
         <span class="brand-gold-pill" style="font-size:11.5px;padding:4px 12px;">🎬 COMMERCIAL BREAK • ${esc(cur.title)}</span>
         <div style="display:flex;gap:6px;">
-          <button type="button" class="btn btn-outline btn-xs" style="color:#fde68a;border-color:#f59e0b;" onclick="STAGE_CUR_VID_INDEX++;startFullScreenVideoAdLoop();">⏭ Next Video (${(STAGE_CUR_VID_INDEX % playlist.length) + 1}/${playlist.length})</button>
-          <button type="button" class="btn btn-brand btn-xs" onclick="toggleStageSplitVideoMode();showLedBrandPromoScreen();">📺 Switch to Split Video + Draw</button>
+          <button type="button" class="btn btn-outline btn-xs" style="color:#fde68a;border-color:#f59e0b;" onclick="STAGE_CUR_VID_INDEX++;startFullScreenVideoAdLoop();">⏭ Next (${(STAGE_CUR_VID_INDEX % playlist.length) + 1}/${playlist.length})</button>
+          <button type="button" class="btn btn-brand btn-xs" onclick="toggleStageSplitVideoMode();showLedBrandPromoScreen();">📺 Split: Ad + Draw</button>
         </div>
       </div>
       <video id="fullStageAdVideoEl" class="full-ad-video" src="${cur.src}" autoplay controls playsinline></video>
@@ -5874,38 +6169,55 @@
     const btn = document.getElementById('btnSplitVideoDraw');
     if (arena) arena.classList.toggle('split-mode', STAGE_SPLIT_VIDEO_ON);
     if (btn) {
-      btn.textContent = STAGE_SPLIT_VIDEO_ON ? '📺 Split: ON (Video+Draw)' : '📺 Split: Video+Draw';
+      btn.textContent = STAGE_SPLIT_VIDEO_ON ? '📺 Split: ON (Ad+Draw)' : '📺 Split: Video+Draw';
       btn.style.background = STAGE_SPLIT_VIDEO_ON ? '#0284c7' : 'rgba(56,189,248,0.16)';
       btn.style.color = STAGE_SPLIT_VIDEO_ON ? '#fff' : '#7dd3fc';
     }
     if (STAGE_SPLIT_VIDEO_ON) startSideStageVideoPlayer();
     else {
+      if (SIDE_SLIDE_TIMER) { clearTimeout(SIDE_SLIDE_TIMER); SIDE_SLIDE_TIMER = null; }
       const sv = document.getElementById('sideStageVideoEl');
       if (sv) { try { sv.pause(); } catch (e) {} }
     }
   }
 
   function startSideStageVideoPlayer() {
+    if (SIDE_SLIDE_TIMER) { clearTimeout(SIDE_SLIDE_TIMER); SIDE_SLIDE_TIMER = null; }
     const playlist = getPlayableStagePlaylist();
     const vidEl = document.getElementById('sideStageVideoEl');
+    const photoWrap = document.getElementById('sideStagePhotoWrap');
+    const photoEl = document.getElementById('sideStagePhotoEl');
     const emptyHint = document.getElementById('sideVidEmptyHint');
     if (!vidEl || !emptyHint) return;
 
     if (!playlist.length) {
       vidEl.style.display = 'none';
+      if (photoWrap) photoWrap.style.display = 'none';
       emptyHint.style.display = 'block';
       return;
     }
-    vidEl.style.display = 'block';
     emptyHint.style.display = 'none';
 
     const cur = playlist[STAGE_CUR_VID_INDEX % playlist.length];
     document.getElementById('sideVidProdTitle').textContent = cur.title;
     document.getElementById('sideVidProdSub').textContent = cur.sub;
-    vidEl.src = cur.src;
-    vidEl.loop = (playlist.length === 1);
-    vidEl.onended = () => playNextStageVideo(false);
-    vidEl.play().catch(() => {});
+
+    if (cur.type === 'photo') {
+      try { vidEl.pause(); } catch (e) {}
+      vidEl.style.display = 'none';
+      if (photoWrap && photoEl) {
+        photoEl.src = cur.src;
+        photoWrap.style.display = 'block';
+      }
+      SIDE_SLIDE_TIMER = setTimeout(() => playNextStageVideo(false), 4500);
+    } else {
+      if (photoWrap) photoWrap.style.display = 'none';
+      vidEl.style.display = 'block';
+      vidEl.src = cur.src;
+      vidEl.loop = (playlist.length === 1);
+      vidEl.onended = () => playNextStageVideo(false);
+      vidEl.play().catch(() => {});
+    }
   }
 
   function playNextStageVideo(manual = false) {
@@ -5929,7 +6241,7 @@
       b.textContent = STAGE_PRE_DRAW_AD_ON ? '⚡ Pre-Draw Ad: ON (10s)' : '⚡ Pre-Draw Ad: OFF';
       b.style.background = STAGE_PRE_DRAW_AD_ON ? 'rgba(234,88,12,0.35)' : 'rgba(255,255,255,0.1)';
     }
-    toast(STAGE_PRE_DRAW_AD_ON ? '⚡ Top-3 Prize se pehle 10-sec Product Video chalegi!' : 'Pre-Draw Ad OFF');
+    toast(STAGE_PRE_DRAW_AD_ON ? '⚡ Top-3 Prize se pehle Product Ad chalegi!' : 'Pre-Draw Ad OFF');
   }
 
   async function maybePlayPreDrawCommercial(seg) {
@@ -5944,20 +6256,32 @@
       let done = false;
       const finish = () => { if (!done) { done = true; resolve(); } };
       window._skipPreDrawAd = finish;
-      disp.innerHTML = `<div style="width:100%;display:flex;flex-direction:column;align-items:center;">
-        <div style="margin-bottom:8px;display:flex;gap:10px;align-items:center;">
-          <span class="brand-gold-pill">⚡ SPONSORED BY: ${esc(cur.title)} — NEXT: ${esc(seg.title)}</span>
-          <button type="button" class="btn btn-brand btn-xs" onclick="if(window._skipPreDrawAd) window._skipPreDrawAd()">Skip to Draw ➤</button>
-        </div>
-        <video id="preDrawAdVideoEl" class="full-ad-video" src="${cur.src}" autoplay playsinline></video>
-      </div>`;
-      const v = document.getElementById('preDrawAdVideoEl');
-      if (v) {
-        v.onended = finish;
-        v.play().catch(() => { v.muted = true; v.play().catch(finish); });
+      if (cur.type === 'photo') {
+        disp.innerHTML = `<div style="width:100%;display:flex;flex-direction:column;align-items:center;">
+          <div style="margin-bottom:8px;display:flex;gap:10px;align-items:center;">
+            <span class="brand-gold-pill">⚡ SPONSORED BY: ${esc(cur.title)} — NEXT: ${esc(seg.title)}</span>
+            <button type="button" class="btn btn-brand btn-xs" onclick="if(window._skipPreDrawAd) window._skipPreDrawAd()">Skip ➤</button>
+          </div>
+          <img class="stage-pack-hero-img" src="${cur.src}" alt="" />
+        </div>`;
+        const tm = setTimeout(finish, 4200);
+        STAGE_ACTIVE_TIMERS.push(tm);
+      } else {
+        disp.innerHTML = `<div style="width:100%;display:flex;flex-direction:column;align-items:center;">
+          <div style="margin-bottom:8px;display:flex;gap:10px;align-items:center;">
+            <span class="brand-gold-pill">⚡ SPONSORED BY: ${esc(cur.title)} — NEXT: ${esc(seg.title)}</span>
+            <button type="button" class="btn btn-brand btn-xs" onclick="if(window._skipPreDrawAd) window._skipPreDrawAd()">Skip ➤</button>
+          </div>
+          <video id="preDrawAdVideoEl" class="full-ad-video" src="${cur.src}" autoplay playsinline></video>
+        </div>`;
+        const v = document.getElementById('preDrawAdVideoEl');
+        if (v) {
+          v.onended = finish;
+          v.play().catch(() => { v.muted = true; v.play().catch(finish); });
+        }
+        const tm = setTimeout(finish, 10500);
+        STAGE_ACTIVE_TIMERS.push(tm);
       }
-      const tm = setTimeout(finish, 10500);
-      STAGE_ACTIVE_TIMERS.push(tm);
     });
   }
 
@@ -5972,48 +6296,50 @@
 
   function renderBrandIdentityAndProducts() {
     const s = STATE.settings;
-    const logoUrl = s.brand_logo_data || '';
-    const defaultHdrHtml = `<div class="logo-crest-inner"><span style="font-size:13px;">💧</span><span style="font-size:8.5px;margin-top:1px;color:#fff;">ARYUSH</span></div>`;
-    const defaultBannerHtml = `<div class="logo-crest-inner"><span style="font-size:15px;">👑</span><span style="font-size:8px;color:#fff;">RASOI</span></div>`;
+    const logoUrl = getEffectiveLogoUrl();
+    const isCustomLogo = Boolean(s.brand_logo_data && s.brand_logo_data !== DEFAULT_OFFICIAL_LOGO_DATA);
 
     const hdrCrest = document.getElementById('hdrLogoCrest');
     const homeCrest = document.getElementById('homeBannerLogo');
+    const pubCrest = document.getElementById('pubPortalLogo');
+    const studioLogo = document.getElementById('studioLogoPreview');
     const remBtn = document.getElementById('btnRemoveBrandLogo');
 
-    if (logoUrl && logoUrl.startsWith('data:image/')) {
-      if (hdrCrest) hdrCrest.innerHTML = `<img src="${logoUrl}" alt="Logo" />`;
-      if (homeCrest) homeCrest.innerHTML = `<img src="${logoUrl}" alt="Logo" />`;
-      if (remBtn) remBtn.style.display = 'inline-flex';
-    } else {
-      if (hdrCrest) hdrCrest.innerHTML = defaultHdrHtml;
-      if (homeCrest) homeCrest.innerHTML = defaultBannerHtml;
-      if (remBtn) remBtn.style.display = 'none';
-    }
+    if (hdrCrest) hdrCrest.innerHTML = `<img src="${logoUrl}" alt="Aryush Logo" />`;
+    if (homeCrest) homeCrest.innerHTML = `<img src="${logoUrl}" alt="Aryush Logo" />`;
+    if (pubCrest) pubCrest.innerHTML = `<img src="${logoUrl}" alt="Aryush Logo" />`;
+    if (studioLogo) studioLogo.innerHTML = `<img src="${logoUrl}" alt="Aryush Logo" />`;
+    if (remBtn) remBtn.style.display = isCustomLogo ? 'inline-flex' : 'none';
 
     const hl = document.getElementById('homeBrandHeadline');
     if (hl) hl.textContent = `${s.company_name} — ARYUSH RASOI DHAN`;
     const tl = document.getElementById('homeBrandTagline');
     if (tl) tl.textContent = s.brand_tagline || '100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices';
 
-    const chipsHtml = ARYUSH_PRODUCTS.map((p, idx) => {
+    const buildChips = (isPublic) => ARYUSH_PRODUCTS.map((p, idx) => {
       const hasVid = Boolean(resolveProductVideoSrc(p));
+      const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
+      const clickAttr = isPublic
+        ? (hasPic ? `onclick="previewSingleProductMedia(${idx})"` : '')
+        : `onclick="onHomeProductChipClick(${idx})"`;
       return `
-      <div class="prod-chip" onclick="onHomeProductChipClick(${idx})" title="${hasVid ? 'Tap to play product video' : 'Tap to edit / add product video'}">
+      <div class="prod-chip" ${clickAttr} title="${esc(p.hi)}">
         ${hasVid ? `<span class="vid-dot">▶ AD</span>` : ''}
-        <div class="prod-ico" style="background:${p.bg};">
-          ${p.photoData ? `<img src="${p.photoData}" alt="" />` : esc(p.icon)}
+        <div class="prod-ico ${hasPic ? 'has-photo' : ''}" style="background:${p.bg};">
+          ${hasPic ? `<img src="${p.photoData}" alt="${esc(p.hi)}" />` : esc(p.icon)}
         </div>
         <div>
           <div class="prod-nm">${esc(p.hi)}</div>
           <div class="prod-tag">${esc(p.tag)}</div>
+          ${(!isPublic && !hasPic) ? `<span class="pic-add-hint">📸 Tap to Add Pic</span>` : ''}
         </div>
       </div>`;
     }).join('');
 
     const homeRib = document.getElementById('homeProdRibbon');
-    if (homeRib) homeRib.innerHTML = chipsHtml;
+    if (homeRib) homeRib.innerHTML = buildChips(false);
     const pubRib = document.getElementById('pubProdRibbon');
-    if (pubRib) pubRib.innerHTML = chipsHtml;
+    if (pubRib) pubRib.innerHTML = buildChips(true);
 
     const mq = document.getElementById('ledMarqueeText');
     if (mq) {
@@ -6028,10 +6354,9 @@
     if (!file) return;
     if (!(await ensureAdminUnlocked())) return;
     try {
-      const { base64 } = await compressImageToBase64(file, 360);
-      const dataUrl = 'data:image/jpeg;base64,' + base64;
+      const dataUrl = await compressProductPackPhoto(file, 360);
       await api('/api/settings', 'POST', { brand_logo_data: dataUrl });
-      toast('🖼️ Company Logo Updated Across App, Stage TV & PDFs!');
+      toast('🖼️ Company Logo Har Jagah Update Ho Gaya!');
       await refreshAll();
     } catch (e) { toast(e.message, true); }
   }
@@ -6039,8 +6364,8 @@
   async function removeBrandLogo() {
     if (!(await ensureAdminUnlocked())) return;
     try {
-      await api('/api/settings', 'POST', { brand_logo_data: '' });
-      toast('Logo reset to Royal Crest');
+      await api('/api/settings', 'POST', { brand_logo_data: DEFAULT_OFFICIAL_LOGO_DATA });
+      toast('↺ Official Aryush Logo Restored!');
       await refreshAll();
     } catch (e) { toast(e.message, true); }
   }
@@ -6051,15 +6376,8 @@
     const disp = document.getElementById('projWinnerDisplay');
     if (!disp) return;
 
-    const logoBlock = (s.brand_logo_data && s.brand_logo_data.startsWith('data:image/'))
-      ? `<img src="${s.brand_logo_data}" style="width:84px;height:84px;border-radius:20px;border:3px solid #fde047;object-fit:cover;background:#fff;box-shadow:0 0 30px rgba(251,191,36,0.5);" />`
-      : `<div style="width:82px;height:82px;border-radius:22px;background:linear-gradient(135deg,#fde047,#ea580c);padding:3px;margin:0 auto;box-shadow:0 0 35px rgba(251,191,36,0.5);">
-           <div style="width:100%;height:100%;border-radius:19px;background:#7f1d1d;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;color:#fde047;">
-             <span style="font-size:26px;">👑</span>
-             <span style="font-size:10.5px;color:#fff;">ARYUSH</span>
-           </div>
-         </div>`;
-
+    const logoSrc = getEffectiveLogoUrl();
+    const logoBlock = `<img src="${logoSrc}" style="width:92px;height:92px;border-radius:50%;border:3.5px solid #fde047;object-fit:contain;background:#fff;padding:3px;box-shadow:0 0 34px rgba(251,191,36,0.55);" />`;
     const topPrizes = STATE.segments.slice(0, 4);
 
     disp.innerHTML = `
@@ -6089,14 +6407,15 @@
         <div class="stage-prod-grid">
           ${ARYUSH_PRODUCTS.map((p, idx) => {
             const hasVid = Boolean(resolveProductVideoSrc(p));
+            const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
             return `
-            <div class="stage-prod-card" style="cursor:pointer;" onclick="${hasVid ? `STAGE_CUR_VID_INDEX=${idx};startFullScreenVideoAdLoop();` : `openProductStudioModal();editProductStudioItem(${idx});`}">
-              <div style="width:44px;height:44px;border-radius:12px;background:${p.bg};display:flex;align-items:center;justify-content:center;font-size:23px;margin:0 auto 7px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.35);">
-                ${p.photoData ? `<img src="${p.photoData}" style="width:100%;height:100%;object-fit:cover;" />` : esc(p.icon)}
+            <div class="stage-prod-card" style="cursor:pointer;" onclick="${(hasVid || hasPic) ? `STAGE_CUR_VID_INDEX=${idx};startFullScreenVideoAdLoop();` : `openProductStudioModal();editProductStudioItem(${idx});`}">
+              <div style="width:${hasPic ? '88px' : '48px'};height:${hasPic ? '88px' : '48px'};border-radius:${hasPic ? '14px' : '12px'};background:${hasPic ? '#ffffff' : p.bg};padding:${hasPic ? '4px' : '0'};border:${hasPic ? '2px solid #fde047' : 'none'};display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 8px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,0.38);">
+                ${hasPic ? `<img src="${p.photoData}" style="width:100%;height:100%;object-fit:contain;border-radius:9px;" />` : esc(p.icon)}
               </div>
               <div style="font-size:13.5px;font-weight:900;color:#fff;">${esc(p.hi)}</div>
               <div style="font-size:10.5px;font-weight:700;color:#fde68a;margin-top:2px;">${esc(p.name)}</div>
-              <div style="font-size:10px;color:#cbd5e1;margin-top:2px;">${hasVid ? '🎬 Click to Play Ad' : esc(p.tag)}</div>
+              <div style="font-size:10px;color:#cbd5e1;margin-top:2px;">${hasVid ? '🎬 Click to Play Ad' : (hasPic ? '🖼️ Click Full View' : '📸 Click to Upload Pic')}</div>
             </div>`;
           }).join('')}
         </div>
@@ -6881,8 +7200,18 @@
       <div style="display:inline-block;margin-top:15px;padding:10px 24px;border-radius:14px;background:rgba(34,197,94,0.16);border:1.5px solid #4ade80;font-size:${isGrand ? '25px' : '20px'};font-weight:900;color:#4ade80;">
         🏆 ${esc(seg.title)}
       </div>
-      <div style="margin-top:16px;font-size:13px;font-weight:900;color:#fde68a;letter-spacing:0.6px;">
-        👑 सौजन्य: ${esc(STATE.settings.company_name)} • आर्युष रसोई धन (शुद्ध कच्ची घानी सरसों तेल एवं मसाले)
+      <div style="margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,0.08);padding:5px 15px;border-radius:999px;border:1px solid rgba(253,224,71,0.35);">
+          <img src="${getEffectiveLogoUrl()}" style="width:28px;height:28px;border-radius:50%;background:#fff;padding:1px;" />
+          <span style="font-size:12.5px;font-weight:900;color:#fde68a;">सौजन्य: ${esc(STATE.settings.company_name)} • आर्युष रसोई धन</span>
+        </div>
+        ${ARYUSH_PRODUCTS.some(p => p.photoData) ? `
+          <div style="display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:2px;">
+            ${ARYUSH_PRODUCTS.filter(p => p.photoData).slice(0, 8).map(p => `
+              <img src="${p.photoData}" title="${esc(p.hi)}" style="width:40px;height:40px;object-fit:contain;background:#fff;padding:2px;border-radius:8px;border:1.5px solid #fde047;" />
+            `).join('')}
+          </div>
+        ` : ''}
       </div>
     </div>`;
   }
@@ -7118,11 +7447,18 @@
     const params = new URLSearchParams(window.location.search);
     if (params.get('check') === '1') {
       document.body.classList.add('public-mode');
+      syncV10SettingsFromState();
       renderBrandIdentityAndProducts();
       try {
         const initPub = await api('/api/public/check?q=');
         if (initPub.settings) {
+          STATE.settings = { ...STATE.settings, ...initPub.settings };
+          syncV10SettingsFromState();
+          renderBrandIdentityAndProducts();
           document.getElementById('pubHdrTitle').textContent = `${initPub.settings.company_name} — ${initPub.settings.campaign_name}`;
+          if (initPub.settings.brand_tagline) {
+            document.getElementById('pubBrandSub').textContent = initPub.settings.brand_tagline;
+          }
         }
       } catch (e) {}
       if (params.get('q')) {

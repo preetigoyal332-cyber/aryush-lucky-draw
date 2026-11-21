@@ -1,5 +1,5 @@
-const CACHE_NAME = 'aryush-draw-erp-v10.0';
-const STATIC_ASSETS = ['/', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png'];
+const CACHE_NAME = 'aryush-draw-erp-v10.2';
+const STATIC_ASSETS = ['/', '/index.html', '/manifest.json', '/logo.png', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -19,7 +19,6 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET' || req.url.includes('/api/')) return;
-  // Network-first strategy so v10.0+ updates appear automatically!
   event.respondWith(
     fetch(req)
       .then((res) => {

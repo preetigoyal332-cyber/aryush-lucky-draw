@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -1138,6 +1138,517 @@
       background: linear-gradient(145deg, rgba(154,52,18,0.6), rgba(30,27,75,0.9));
       border: 2px solid #fb923c; box-shadow: 0 0 50px rgba(251,146,60,0.3);
     }
+
+    /* ==================== v12.0 CORPORATE TV BROADCAST STAGE ARCHITECTURE ==================== */
+    .projector-overlay {
+      background:
+        radial-gradient(ellipse at 50% -15%, rgba(217, 119, 6, 0.24) 0%, transparent 58%),
+        radial-gradient(ellipse at 15% 95%, rgba(180, 83, 9, 0.14) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 95%, rgba(180, 83, 9, 0.14) 0%, transparent 50%),
+        linear-gradient(180deg, #050811 0%, #090d16 55%, #03050a 100%) !important;
+      padding: 0 !important;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .bcast-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 10px 18px 12px;
+      position: relative;
+    }
+
+    /* Official Corporate Broadcast Top Ribbon */
+    .bcast-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 18px;
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.96) 0%, rgba(24, 24, 36, 0.94) 50%, rgba(15, 23, 42, 0.96) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.42);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(254, 240, 138, 0.22);
+      flex-wrap: wrap;
+    }
+    .bcast-brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+    .bcast-logo-ring {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: linear-gradient(135deg, #fef08a 0%, #d97706 50%, #fef08a 100%);
+      box-shadow: 0 0 22px rgba(245, 158, 11, 0.4);
+      flex-shrink: 0;
+    }
+    .bcast-logo-ring img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #ffffff;
+    }
+    .bcast-corp-kicker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #fcd34d;
+      text-transform: uppercase;
+    }
+    .bcast-live-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(220, 38, 38, 0.2);
+      border: 1px solid rgba(248, 113, 113, 0.55);
+      color: #fca5a5;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 9.5px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+    }
+    .bcast-live-dot::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+      animation: pulseLiveDot 1.2s infinite;
+    }
+    @keyframes pulseLiveDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+    .bcast-corp-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: clamp(17px, 2.2vw, 25px);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      background: linear-gradient(90deg, #ffffff 0%, #fef08a 52%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bcast-stats-cluster {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .bcast-stat-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      border-radius: 10px;
+      padding: 5px 11px;
+      text-align: center;
+    }
+    .bcast-stat-lbl {
+      font-size: 9px;
+      font-weight: 800;
+      color: #94a3b8;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .bcast-stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #fde68a;
+    }
+
+    /* Auto-Collapsible Floating Director Control Drawer (Hidden during live reveal!) */
+    .bcast-director-bar {
+      margin: 8px 0;
+      background: rgba(9, 13, 22, 0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 14px;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .bcast-director-bar.deck-hidden {
+      display: none !important;
+    }
+    .projector-overlay.audience-clean .bcast-director-bar {
+      display: none !important;
+    }
+
+    /* Main Widescreen 16:9 Stage Arena — Champagne Gold & Obsidian Luxury (ZERO rainbow/cartoon colors!) */
+    .proj-stage-arena {
+      max-width: 100% !important;
+      width: 100%;
+      flex: 1;
+      min-height: 500px;
+      margin: 6px 0 !important;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(217, 119, 6, 0.13) 0%, transparent 62%),
+        linear-gradient(165deg, rgba(15, 23, 42, 0.92) 0%, rgba(7, 10, 19, 0.98) 100%) !important;
+      border: 1.5px solid rgba(212, 175, 55, 0.5) !important;
+      border-radius: 22px !important;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.78), inset 0 0 80px rgba(217, 119, 6, 0.06) !important;
+      padding: 24px 28px !important;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Corner Gold Filigree Accents */
+    .proj-stage-arena::before, .proj-stage-arena::after {
+      content: "";
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      border-color: rgba(250, 204, 21, 0.55);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .proj-stage-arena::before {
+      top: 12px; left: 12px;
+      border-width: 2px 0 0 2px;
+      border-top-left-radius: 14px;
+    }
+    .proj-stage-arena::after {
+      bottom: 12px; right: 12px;
+      border-width: 0 2px 2px 0;
+      border-bottom-right-radius: 14px;
+    }
+
+    /* Force ALL theme classes to stay Dignified Corporate Gold/Obsidian/Midnight (NO neon pink/green/purple!) */
+    .proj-stage-arena.theme-wheel,
+    .proj-stage-arena.theme-lifafa,
+    .proj-stage-arena.theme-kbc,
+    .proj-stage-arena.theme-rocket,
+    .proj-stage-arena.theme-treasure,
+    .proj-stage-arena.theme-radar {
+      background:
+        radial-gradient(circle at 50% 20%, rgba(217, 119, 6, 0.18) 0%, transparent 60%),
+        linear-gradient(165deg, #0b1120 0%, #050811 100%) !important;
+      border-color: rgba(234, 179, 8, 0.68) !important;
+    }
+
+    /* Executive Widescreen Winner Certificate Card (2-Column Asymmetric Broadcast Layout) */
+    .corp-winner-certificate {
+      width: 100%;
+      max-width: 1220px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(17, 24, 39, 0.95) 0%, rgba(7, 11, 20, 0.98) 100%);
+      border: 2px solid #d4af37;
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.75), 0 0 45px rgba(212, 175, 55, 0.18), inset 0 0 0 1px rgba(254, 240, 138, 0.16);
+      position: relative;
+      text-align: left;
+    }
+    .corp-cert-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.26);
+      flex-wrap: wrap;
+    }
+    .corp-cert-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.06));
+      border: 1px solid rgba(250, 204, 21, 0.45);
+      color: #fef08a;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .corp-cert-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 20px 0 16px;
+    }
+    @media (min-width: 840px) {
+      .corp-cert-grid {
+        grid-template-columns: 340px 1fr;
+      }
+    }
+
+    /* Left Pedestal: Real Prize Photo or Bespoke Gold Crest Emblem */
+    .corp-prize-pedestal {
+      background: radial-gradient(circle at 50% 35%, rgba(250, 204, 21, 0.18) 0%, rgba(15, 23, 42, 0.85) 75%);
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      border-radius: 18px;
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 240px;
+      position: relative;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.55);
+    }
+    .corp-prize-photo {
+      max-width: 100%;
+      max-height: 175px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 8px;
+      border: 2px solid #fde047;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+    }
+    .corp-prize-rank-ribbon {
+      margin-top: 12px;
+      background: linear-gradient(90deg, #f59e0b, #fde047, #f59e0b);
+      color: #290f02;
+      font-size: 11.5px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    /* Right Column: Official Winner Credentials */
+    .corp-winner-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+    .corp-coupon-plaque {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      align-self: flex-start;
+      background: #050811;
+      border: 1.5px solid #f59e0b;
+      padding: 6px 16px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    }
+    .corp-coupon-plaque .lbl {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+    .corp-coupon-plaque .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 800;
+      color: #fde047;
+      letter-spacing: 1px;
+    }
+    .corp-winner-firm-name {
+      font-family: 'Cinzel', 'Plus Jakarta Sans', serif;
+      font-size: clamp(28px, 4.2vw, 50px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: 0.02em;
+      background: linear-gradient(180deg, #ffffff 0%, #fef08a 65%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.6));
+      word-break: break-word;
+    }
+    .corp-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+    .corp-meta-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 9px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .corp-meta-chip b {
+      color: #fde68a;
+      font-weight: 800;
+    }
+    .corp-prize-banner-box {
+      margin-top: 6px;
+      background: linear-gradient(90deg, rgba(217, 119, 6, 0.22) 0%, rgba(180, 83, 9, 0.06) 100%);
+      border-left: 4px solid #fbbf24;
+      border-top: 1px solid rgba(251, 191, 36, 0.3);
+      border-right: 1px solid rgba(251, 191, 36, 0.15);
+      border-bottom: 1px solid rgba(251, 191, 36, 0.3);
+      padding: 12px 18px;
+      border-radius: 0 12px 12px 0;
+    }
+    .corp-prize-banner-lbl {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      color: #fcd34d;
+      text-transform: uppercase;
+    }
+    .corp-prize-banner-val {
+      font-size: clamp(18px, 2.4vw, 27px);
+      font-weight: 900;
+      color: #ffffff;
+      margin-top: 2px;
+    }
+    .corp-cert-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(212, 175, 55, 0.22);
+      flex-wrap: wrap;
+    }
+
+    /* Dignified Corporate Mechanical Drum & Precision Dials (Replaces Toy Emoji Animations!) */
+    .corp-stage-kicker {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 2.8px;
+      color: #fcd34d;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .corp-stage-prize-headline {
+      font-family: 'Cinzel', 'Plus Jakarta Sans', serif;
+      font-size: clamp(22px, 3.2vw, 36px);
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+    }
+    .corp-drum-chassis {
+      display: inline-flex;
+      gap: 14px;
+      padding: 18px 24px;
+      background: linear-gradient(180deg, #030712 0%, #111827 50%, #030712 100%);
+      border: 2px solid #d4af37;
+      border-radius: 20px;
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(0, 0, 0, 0.9);
+    }
+    .corp-digit-tumbler {
+      width: 92px;
+      height: 126px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #090d16 0%, #1e293b 48%, #090d16 100%);
+      border: 1.5px solid #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 64px;
+      font-weight: 800;
+      color: #94a3b8;
+      box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.85);
+      transition: all 0.25s ease;
+    }
+    @media (min-width: 768px) {
+      .corp-digit-tumbler { width: 116px; height: 148px; font-size: 78px; }
+    }
+    .corp-digit-tumbler.rolling {
+      color: #e2e8f0;
+      border-color: #cbd5e1;
+    }
+    .corp-digit-tumbler.locked {
+      background: linear-gradient(180deg, #451a03 0%, #78350f 50%, #451a03 100%);
+      border: 2px solid #fde047;
+      color: #fef08a;
+      box-shadow: 0 0 32px rgba(250, 204, 21, 0.45), inset 0 0 18px rgba(250, 204, 21, 0.25);
+      transform: scale(1.04);
+    }
+
+    /* Executive Finalist Elimination Matrix (Clean Corporate Boardroom Table) */
+    .corp-matrix-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      width: min(880px, 96%);
+      margin: 14px auto;
+    }
+    @media (min-width: 700px) {
+      .corp-matrix-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .corp-matrix-row {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .corp-matrix-row.dimmed {
+      opacity: 0.16;
+      filter: grayscale(1);
+      transform: scale(0.97);
+    }
+    .corp-matrix-row.winner-lock {
+      background: linear-gradient(90deg, rgba(180, 83, 9, 0.45), rgba(120, 53, 15, 0.65));
+      border: 2px solid #fde047;
+      box-shadow: 0 0 35px rgba(250, 204, 21, 0.4);
+      transform: scale(1.03);
+    }
+
+    /* Bottom TV Broadcast Lower-Third News Ticker */
+    .bcast-footer-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(9, 13, 22, 0.95);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      border-radius: 12px;
+      padding: 7px 12px;
+      overflow: hidden;
+    }
+    .bcast-ticker-tag {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+      color: #090d16;
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+    .bcast-winners-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+      align-items: center;
+    }
+    .bcast-winners-strip::-webkit-scrollbar { display: none; }
   </style>
 </head>
 <body>
@@ -1155,7 +1666,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v11.7 Pro</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v12.0 Broadcast</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -1947,9 +2458,14 @@
           <div class="field" style="grid-column: span 2;"><label>Prize Segment Name *</label><input type="text" id="segTitleInp" placeholder="e.g. 12th Prize - Haldi 25kg" /></div>
           <div class="field"><label>Target Qty</label><input type="number" id="segQtyInp" value="51" min="1" /></div>
         </div>
-        <div style="display:flex;gap:8px;margin-top:8px;">
-          <input type="text" id="segIconInp" value="🎁" style="width:65px;text-align:center;" placeholder="Icon" />
-          <button class="btn btn-brand btn-sm" style="flex:1;" onclick="savePrizeSegment()" id="btnSaveSeg">+ Add / Update Segment</button>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="segIconInp" value="🏆" style="width:58px;text-align:center;" placeholder="Code" />
+          <label class="btn btn-outline btn-sm" style="cursor:pointer;border-color:#f59e0b;color:#b45309;">
+            📸 Upload Prize Photo (Car/Bike/Fridge)
+            <input type="file" accept="image/*" style="display:none;" onchange="handleSegPrizePhotoPick(event)" />
+          </label>
+          <span id="segPrizePhotoStatus" style="font-size:11px;font-weight:800;color:#15803d;display:none;">✅ Photo Ready</span>
+          <button class="btn btn-brand btn-sm" style="flex:1;min-width:150px;" onclick="savePrizeSegment()" id="btnSaveSeg">+ Add / Update Segment</button>
           <button class="btn btn-outline btn-sm" onclick="resetSegForm()">Clear</button>
         </div>
       </div>
@@ -2457,78 +2973,100 @@
 
   <canvas id="confettiCanvas"></canvas>
   <div class="projector-overlay" id="stageProjectorOverlay">
-    <div style="max-width:1060px;margin:0 auto;">
-      <div class="led-marquee-bar">
-        <div class="led-marquee-track" id="ledMarqueeText">
-          ★ ARYUSH FOODS (KAILARAS, MORENA) PRESENTS — ARYUSH RASOI DHAN MEGA ALTO LUCKY DRAW ★ 100% SHUDDH KACCHI GHANI MUSTARD OIL • LAL MIRCH POWDER • HALDI POWDER • DHANIYA POWDER • SHAHI GARAM MASALA • AMCHOOR POWDER • NUKHRA HING DANA ★ HAR RASOI KI SHAAN, HAR DUKANDAR KA BHAROSA ★
+    <div class="bcast-shell">
+      <!-- TOP CORPORATE BROADCAST HEADER -->
+      <div>
+        <div class="bcast-header">
+          <div class="bcast-brand-left">
+            <div class="bcast-logo-ring" id="bcastStageLogo">
+              <img src="/logo.png" alt="Aryush" />
+            </div>
+            <div style="min-width:0;">
+              <div class="bcast-corp-kicker">
+                <span class="bcast-live-dot">LIVE DRAW</span>
+                <span>OFFICIAL CORPORATE LUCKY DRAW CEREMONY • KAILARAS (MORENA)</span>
+              </div>
+              <div class="bcast-corp-title" id="projHeaderTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</div>
+            </div>
+          </div>
+
+          <div class="bcast-stats-cluster">
+            <div class="bcast-stat-pill">
+              <div class="bcast-stat-lbl">Coupons Allotted</div>
+              <div class="bcast-stat-val" id="bcastStatCoupons">0 / 301</div>
+            </div>
+            <div class="bcast-stat-pill">
+              <div class="bcast-stat-lbl">Winners Declared</div>
+              <div class="bcast-stat-val" id="bcastStatWinners">0 / 301</div>
+            </div>
+            <span class="badge" id="nextRevealBadge" style="background:rgba(212,175,55,0.14);color:#fde68a;border:1px solid rgba(212,175,55,0.4);padding:6px 10px;font-size:11px;">🎬 Auto-Rotate</span>
+
+            <div style="display:flex;gap:5px;align-items:center;">
+              <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#fde047,#f59e0b);color:#290f02;font-weight:900;" onclick="goFullScreenLed()" title="Press F11 / Fullscreen for LED Wall">⛶ FULLSCREEN LED</button>
+              <button type="button" class="btn btn-outline btn-xs" id="btnToggleHostDeck" style="background:rgba(255,255,255,0.06);color:#fde68a;border-color:rgba(253,230,138,0.35);" onclick="toggleStageHostDeck()" title="Show/Hide Operator Bar (Shortcut: H)">🎛️ Controls</button>
+              <button type="button" class="btn btn-outline btn-xs" id="btnProjSound" style="background:rgba(255,255,255,0.06);color:#86efac;border-color:rgba(134,239,172,0.3);" onclick="toggleStageSound()">🔊</button>
+              <button type="button" class="btn btn-danger btn-xs" onclick="closeStageProjector()">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OPERATOR / DIRECTOR CONTROL DECK (Auto-hides during live reveal so audience sees ZERO browser/form clutter!) -->
+        <div class="bcast-director-bar" id="projHostDeckBar">
+          <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;flex:1;">
+            <select id="projSegSelect" onchange="onProjSegmentChanged()" style="flex:1.5;min-width:210px;background:#050811;color:#fde68a;border:1px solid rgba(212,175,55,0.55);font-weight:700;font-size:13px;padding:8px 11px;"></select>
+
+            <div style="display:flex;align-items:center;gap:4px;background:#050811;border:1px solid #334155;border-radius:9px;padding:3px 8px;" title="Reveal Duration (Seconds)">
+              <span style="font-size:11px;font-weight:800;color:#fcd34d;">⏱️</span>
+              <select id="projTimingPresetSel" onchange="onStageTimingPresetChange(this.value)" style="width:108px;background:transparent;color:#f8fafc;border:none;font-weight:700;font-size:12px;padding:4px 2px;">
+                <option value="2">2s Fast</option>
+                <option value="4">4s Crisp</option>
+                <option value="8" selected>8s Standard</option>
+                <option value="12">12s Grand</option>
+                <option value="18">18s Bumper</option>
+                <option value="CUSTOM">Custom</option>
+              </select>
+              <input type="number" id="projCustomSecInp" min="1" max="45" value="8" onchange="onStageCustomSecChange(this.value)" style="width:44px !important;padding:3px !important;font-size:12px !important;font-weight:800;text-align:center;background:#0f172a;color:#fde047;border:1px solid #475569;border-radius:6px;" />
+              <span style="font-size:10px;color:#94a3b8;font-weight:700;">s</span>
+            </div>
+
+            <select id="projStyleSelect" onchange="updateNextRevealBadge()" style="width:215px;background:#050811;color:#e2e8f0;border:1px solid #334155;font-weight:700;font-size:12px;padding:8px 10px;" title="Corporate Reveal Presentation Style">
+              <option value="ROTATE_ALL">🎬 Auto-Rotate 5 Corporate Shows</option>
+              <option value="TUMBLER">🎰 1. Mechanical Gold Vault Tumbler</option>
+              <option value="DIAL">🧭 2. Precision Gold Chronograph Dial</option>
+              <option value="MATRIX">🏛️ 3. Executive Finalist Boardroom Lock</option>
+              <option value="SEAL">📜 4. Royal Gold Charter Unsealing</option>
+              <option value="LASER">⚡ 5. Digital Ledger Verification Scan</option>
+              <option value="GRAND_STEP">🎙️ Anchor Manual Step-by-Step</option>
+              <option value="INSTANT">⚡ Instant Direct Declaration</option>
+            </select>
+
+            <div style="display:flex;align-items:center;gap:4px;">
+              <input type="tel" inputmode="numeric" id="projCupInp" class="secret-cup-inp" style="width:115px !important;font-size:17px !important;padding:7px 8px !important;background:#050811 !important;" placeholder="Coupon #" autocomplete="off" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" />
+              <button type="button" class="btn btn-outline btn-xs" id="btnProjMask" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border-color:#334155;padding:8px;" onclick="toggleSecretMask()" title="Hide/Show typed number">👁️</button>
+            </div>
+
+            <button class="btn btn-brand" id="btnProjReveal" style="padding:9px 18px;font-size:13.5px;font-weight:800;" onclick="revealAndSaveStageWinner()">🏆 Declare Winner</button>
+          </div>
+
+          <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#fde68a;border-color:rgba(212,175,55,0.4);" onclick="showLedBrandPromoScreen()">🏛️ Gala Stage</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#f87171;border-color:rgba(248,113,113,0.35);" onclick="startFullScreenVideoAdLoop()">🎬 Ad Break</button>
+            <button type="button" class="btn btn-outline btn-xs" id="btnSplitVideoDraw" style="background:rgba(255,255,255,0.05);color:#7dd3fc;border-color:rgba(56,189,248,0.35);" onclick="toggleStageSplitVideoMode()">📺 Split Ad</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#fde68a;border-color:rgba(212,175,55,0.35);" onclick="showSegmentBoardOnLed()">📋 51/101 Grid</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border-color:#334155;" onclick="runDemoStageSuspense()" title="Preview Corporate Reveal">🧪 Preview</button>
+            <button type="button" class="btn btn-outline btn-xs" id="btnProjSlideshow" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border-color:#334155;" onclick="toggleLedWinnerSlideshow()">▶️ Auto-Roll</button>
+            <button type="button" class="btn btn-outline btn-xs" id="btnPreDrawAdToggle" style="background:rgba(255,255,255,0.05);color:#94a3b8;border-color:#334155;" onclick="togglePreDrawAdPref()">⚡ Pre-Ad: OFF</button>
+          </div>
         </div>
       </div>
-      <div class="proj-topbar">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em;" id="projHeaderTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</div>
-          <span class="badge" id="nextRevealBadge" style="background:rgba(251,191,36,0.16);color:#fde68a;border:1px solid rgba(251,191,36,0.35);font-size:10.5px;">🎲 Smart Variety Active</span>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
-          <button type="button" class="btn btn-xs" style="background:#fde047;color:#451a03;font-weight:800;" onclick="showLedBrandPromoScreen()">🌟 Brand</button>
-          <button type="button" class="btn btn-xs" style="background:#dc2626;color:#fff;font-weight:800;" onclick="startFullScreenVideoAdLoop()">🎬 Ad Loop</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnSplitVideoDraw" style="background:rgba(56,189,248,0.14);color:#7dd3fc;border-color:rgba(56,189,248,0.4);" onclick="toggleStageSplitVideoMode()">📺 Split Ad</button>
-          <button type="button" class="btn btn-outline btn-xs" style="background:rgba(251,191,36,0.14);color:#fde68a;border-color:rgba(251,191,36,0.4);" onclick="runDemoStageSuspense()" title="Har click par alag reveal style ka demo dekhein!">🎲 Next Demo</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnProjSlideshow" style="background:rgba(255,255,255,0.08);color:#e2e8f0;border-color:rgba(255,255,255,0.2);" onclick="toggleLedWinnerSlideshow()">▶️ Slide</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnProjSound" style="background:rgba(255,255,255,0.08);color:#86efac;border-color:rgba(134,239,172,0.3);" onclick="toggleStageSound()">🔊</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnToggleHostDeck" style="background:rgba(255,255,255,0.08);color:#cbd5e1;border-color:rgba(255,255,255,0.2);" onclick="toggleStageHostDeck()" title="Audience ke liye Control Bar chhupayein/dikhayein">🎛️ Deck</button>
-          <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);" onclick="goFullScreenLed()">⛶</button>
-          <button type="button" class="btn btn-danger btn-xs" onclick="closeStageProjector()">✕</button>
-        </div>
-      </div>
 
-      <!-- Clean Sleek Stage Host Control Deck -->
-      <div class="proj-ctrl-bar" id="projHostDeckBar">
-        <select id="projSegSelect" onchange="onProjSegmentChanged()" style="flex:1.4;min-width:200px;background:#090d16;color:#fde68a;border:1px solid rgba(251,191,36,0.5);font-weight:700;font-size:13px;padding:9px 11px;"></select>
-
-        <!-- LIVE REVEAL TIMING CONTROLLER (Seconds Preset + Custom Seconds Input) -->
-        <div style="display:flex;align-items:center;gap:4px;background:#090d16;border:1px solid rgba(56,189,248,0.45);border-radius:10px;padding:3px 7px;" title="Prize Reveal Timing (Kitne second me winner khule)">
-          <span style="font-size:11.5px;font-weight:800;color:#7dd3fc;">⏱️</span>
-          <select id="projTimingPresetSel" onchange="onStageTimingPresetChange(this.value)" style="width:118px;background:transparent;color:#e0f2fe;border:none;font-weight:800;font-size:12px;padding:5px 2px;">
-            <option value="2">⚡ 2s Superfast</option>
-            <option value="4">🚀 4s Fast</option>
-            <option value="8" selected>🎯 8s Standard</option>
-            <option value="12">🔥 12s Drama</option>
-            <option value="18">👑 18s Bumper</option>
-            <option value="CUSTOM">⚙️ Custom Sec</option>
-          </select>
-          <input type="number" id="projCustomSecInp" min="1" max="45" value="8" onchange="onStageCustomSecChange(this.value)" style="width:46px !important;padding:4px !important;font-size:12.5px !important;font-weight:900;text-align:center;background:#1e293b;color:#fde047;border:1px solid #475569;border-radius:6px;" title="Exact Reveal Seconds (1 to 45s)" />
-          <span style="font-size:10.5px;font-weight:800;color:#94a3b8;">sec</span>
-        </div>
-
-        <select id="projStyleSelect" onchange="updateNextRevealBadge()" style="width:210px;background:#090d16;color:#fff;border:1px solid #475569;font-weight:700;font-size:12.5px;padding:9px 10px;" title="Choose Reveal Show Theme">
-          <option value="ROTATE_ALL">🎲 Auto-Rotate All 6 Shows (Har Baar Naya!)</option>
-          <option value="WHEEL">🎡 1. Royal Chakra Spin Wheel</option>
-          <option value="LIFAFA">🧧 2. Shahi Golden Lifafa & Scratch</option>
-          <option value="KBC">🎯 3. KBC Hotseat Computer Lock</option>
-          <option value="ROCKET">🚀 4. Diwali Skyrocket & Fireworks</option>
-          <option value="TREASURE">💎 5. Shahi Khazana Box Unboxing</option>
-          <option value="RADAR_SLOT">🎰 6. Vegas Jackpot + Village Radar</option>
-          <option value="GRAND_STEP">🎙️ Anchor Step-by-Step Control</option>
-          <option value="INSTANT">⚡ Fast Instant Reveal (Bulk)</option>
-        </select>
-
-        <div style="display:flex;align-items:center;gap:5px;">
-          <input type="tel" inputmode="numeric" id="projCupInp" class="secret-cup-inp" style="width:125px !important;font-size:18px !important;padding:8px !important;" placeholder="Cup #" autocomplete="off" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" />
-          <button type="button" class="btn btn-outline btn-xs" id="btnProjMask" style="background:rgba(255,255,255,0.08);color:#cbd5e1;border-color:rgba(255,255,255,0.2);padding:9px;" onclick="toggleSecretMask()" title="Hide/Show typed number">👁️</button>
-        </div>
-
-        <button class="btn btn-brand" id="btnProjReveal" style="padding:10px 18px;font-size:14px;" onclick="revealAndSaveStageWinner()">🎉 Launch Reveal</button>
-        <button class="btn btn-outline btn-sm" type="button" style="background:rgba(255,255,255,0.08);color:#fde68a;border-color:rgba(251,191,36,0.35);" onclick="showSegmentBoardOnLed()">📋 51/101 Wall</button>
-        <button type="button" class="btn btn-outline btn-xs" id="btnPreDrawAdToggle" style="background:rgba(255,255,255,0.06);color:#94a3b8;border-color:rgba(255,255,255,0.15);" onclick="togglePreDrawAdPref()" title="10s Product Ad before Top-3 Draw">⚡ Pre-Ad: OFF</button>
-      </div>
-
-      <!-- Main Center LED Stage Arena (Supports Single & Split Video+Draw Mode) -->
+      <!-- CENTER WIDESCREEN CORPORATE STAGE ARENA -->
       <div class="proj-stage-arena" id="projStageArena">
         <!-- Side Product Commercial Video Dock (Visible when Split Video+Draw is ON) -->
         <div class="stage-video-dock" id="stageSideVideoDock">
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:8px;">
-              <span class="brand-gold-pill" id="sideVidBadge">🎬 ARYUSH RASOI DHAN • LIVE AD</span>
+              <span class="corp-cert-seal" style="font-size:9.5px;padding:3px 10px;" id="sideVidBadge">ARYUSH RASOI DHAN • COMMERCIAL</span>
               <div style="display:flex;gap:5px;">
                 <button type="button" class="btn btn-outline btn-xs" id="btnSideVidMute" style="padding:3px 7px;font-size:10.5px;color:#fff;border-color:rgba(255,255,255,0.3);" onclick="toggleSideVideoMute()">🔇 Muted</button>
                 <button type="button" class="btn btn-outline btn-xs" style="padding:3px 7px;font-size:10.5px;color:#fde68a;border-color:rgba(251,191,36,0.4);" onclick="playNextStageVideo(true)">⏭ Next</button>
@@ -2538,42 +3076,31 @@
             <div id="sideStagePhotoWrap" style="display:none;text-align:center;">
               <img id="sideStagePhotoEl" class="side-pack-slide-img" src="" alt="Product Pack" />
             </div>
-            <div id="sideVidEmptyHint" style="display:none;padding:24px 12px;text-align:center;background:rgba(255,255,255,0.05);border-radius:14px;border:1px dashed rgba(251,191,36,0.4);">
-              <div style="font-size:28px;">🎬🌶️</div>
-              <div style="font-size:13px;font-weight:800;color:#fde68a;margin-top:6px;">Product Video Select Karein</div>
-              <div style="font-size:11px;color:#cbd5e1;margin:4px 0 10px;">Lucky Draw ke sath side me chalane ke liye apne phone/PC se MP4 video chunein:</div>
+            <div id="sideVidEmptyHint" style="display:none;padding:24px 12px;text-align:center;background:rgba(255,255,255,0.03);border-radius:14px;border:1px dashed rgba(212,175,55,0.4);">
+              <div style="font-size:14px;font-weight:800;color:#fde68a;margin-bottom:6px;">Upload Commercial Video / Pack Photo</div>
               <label class="btn btn-brand btn-xs" style="cursor:pointer;">
                 📂 Select MP4 Video
                 <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event)" />
               </label>
             </div>
           </div>
-          <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.12);display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;gap:8px;">
             <div style="text-align:left;min-width:0;">
-              <div style="font-size:13px;font-weight:900;color:#fde047;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="sideVidProdTitle">आर्युष रसोई धन</div>
-              <div style="font-size:11px;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="sideVidProdSub">100% Shuddh Kacchi Ghani Mustard Oil & Spices</div>
+              <div style="font-size:13px;font-weight:800;color:#fde047;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="sideVidProdTitle">आर्युष रसोई धन</div>
+              <div style="font-size:11px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="sideVidProdSub">100% Pure Kacchi Ghani Mustard Oil & Spices</div>
             </div>
-            <button type="button" class="btn btn-outline btn-xs" style="color:#fca5a5;border-color:rgba(252,165,165,0.35);font-size:10.5px;" onclick="toggleStageSplitVideoMode()">✕ Hide Video</button>
+            <button type="button" class="btn btn-outline btn-xs" style="color:#fca5a5;border-color:rgba(252,165,165,0.3);font-size:10.5px;" onclick="toggleStageSplitVideoMode()">✕ Close</button>
           </div>
         </div>
 
-        <div id="projWinnerDisplay" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-          <div style="font-size:56px;">🚗 🛵 🏍️ 🏆</div>
-          <div style="font-size:24px;font-weight:900;color:#fde68a;margin-top:12px;">GRAND LUCKY DRAW STAGE READY!</div>
-          <div style="font-size:14px;color:#cbd5e1;margin-top:6px;max-width:640px;line-height:1.5;">
-            • <b>Top 3 Prizes (Alto K10, Activa, HF Deluxe):</b> Secret input + Drumroll + 3-Reel Slot Lock + Village Clue + Shop Roulette + Confetti Finale!<br/>
-            • <b>Chote / Bulk Prizes (51 Haldi, 101 Dhaniya):</b> Instant reveal ya <b>📋 Show Segment Board</b> se ek sath LED Wall par dikhayein!
-          </div>
-        </div>
+        <div id="projWinnerDisplay" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;"></div>
       </div>
 
-      <!-- Bottom Winner Ticker -->
-      <div style="max-width:980px;margin:12px auto 0;background:rgba(255,255,255,0.05);border-radius:16px;padding:12px 14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <span style="font-size:11.5px;font-weight:900;color:#fde68a;">🏆 DECLARED STAGE WINNERS TICKER:</span>
-          <span style="font-size:11px;color:#94a3b8;" id="projTickerCount">0 Winners</span>
-        </div>
-        <div id="projRecentList" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      <!-- BOTTOM BROADCAST NEWS TICKER & DECLARED WINNERS RIBBON -->
+      <div class="bcast-footer-bar">
+        <span class="bcast-ticker-tag" id="projTickerCount">0 / 301 WINNERS</span>
+        <div class="bcast-winners-strip" id="projRecentList"></div>
+        <div style="font-size:11px;font-weight:700;color:#94a3b8;white-space:nowrap;display:none;" id="ledMarqueeText"></div>
       </div>
     </div>
   </div>
@@ -5455,6 +5982,9 @@
     document.getElementById('segTitleInp').value = '';
     document.getElementById('segQtyInp').value = 10;
     document.getElementById('segIconInp').value = '🎁';
+    DRAFT_SEG_PRIZE_PHOTO = '';
+    const st = document.getElementById('segPrizePhotoStatus');
+    if (st) st.style.display = 'none';
     document.getElementById('btnSaveSeg').textContent = '+ Add Segment';
   }
 
@@ -5478,7 +6008,11 @@
     if (!title) return toast('Enter segment prize name!', true);
     try {
       await api('/api/segments', 'POST', { id: id ? Number(id) : null, rank, title, target_qty, icon });
-      toast('Segment saved!');
+      if (DRAFT_SEG_PRIZE_PHOTO) {
+        await persistSegmentPrizePhoto(rank, DRAFT_SEG_PRIZE_PHOTO);
+        DRAFT_SEG_PRIZE_PHOTO = '';
+      }
+      toast('Segment & Prize Visual saved!');
       resetSegForm();
       await refreshAll();
       renderSegManageList();
@@ -7351,6 +7885,98 @@
     } catch (e) { toast(e.message, true); }
   }
 
+  // ==================== PRIZE SEGMENT REAL PHOTOS & BESPOKE METALLIC GOLD SVG CRESTS ====================
+  const SEG_PHOTOS_LOCAL_KEY = 'aryush_v12_segment_prize_photos';
+  let DRAFT_SEG_PRIZE_PHOTO = '';
+
+  function getSegmentPrizePhotosMap() {
+    let obj = null;
+    if (STATE.settings && STATE.settings.segment_photos_json) {
+      try { obj = JSON.parse(STATE.settings.segment_photos_json); } catch (e) {}
+    }
+    if (!obj || typeof obj !== 'object') {
+      try { obj = JSON.parse(localStorage.getItem(SEG_PHOTOS_LOCAL_KEY) || '{}'); } catch (e) { obj = {}; }
+    }
+    return obj || {};
+  }
+
+  async function persistSegmentPrizePhoto(rankKey, dataUrl) {
+    const map = getSegmentPrizePhotosMap();
+    if (dataUrl) map[String(rankKey)] = dataUrl;
+    else delete map[String(rankKey)];
+    const jsonStr = JSON.stringify(map);
+    try { localStorage.setItem(SEG_PHOTOS_LOCAL_KEY, jsonStr); } catch (e) {}
+    STATE.settings.segment_photos_json = jsonStr;
+    try { await api('/api/settings', 'POST', { segment_photos_json: jsonStr }); } catch (e) {}
+  }
+
+  async function handleSegPrizePhotoPick(ev) {
+    const file = ev.target.files[0];
+    ev.target.value = '';
+    if (!file) return;
+    DRAFT_SEG_PRIZE_PHOTO = await compressProductPackPhoto(file, 560);
+    const st = document.getElementById('segPrizePhotoStatus');
+    if (st) { st.style.display = 'inline'; st.textContent = '✅ Prize Photo Ready'; }
+    toast('📸 Prize Photo Ready — Click + Add / Update Segment to save!');
+  }
+
+  // Bespoke Vector Gold Award Crests (ZERO childish cartoon emojis on the Stage!)
+  function renderPrizeVisualHtml(seg, sizePx = 150) {
+    const map = getSegmentPrizePhotosMap();
+    const customPic = seg ? (map[String(seg.rank)] || map[seg.title] || '') : '';
+    if (customPic && customPic.startsWith('data:image/')) {
+      return `<img src="${customPic}" class="corp-prize-photo" style="max-height:${sizePx}px;" alt="${esc(seg.title)}" />`;
+    }
+    const t = String(seg?.title || '').toUpperCase();
+    const rankNum = Number(seg?.rank) || 1;
+
+    let innerGlyph = '';
+    if (t.includes('ALTO') || t.includes('CAR')) {
+      // Sleek Executive Automobile Silhouette in Metallic Gold
+      innerGlyph = `<path d="M22 68 L32 46 C35 41 41 38 48 38 L72 38 C79 38 85 41 88 46 L98 68 L104 70 C107 71 108 74 108 78 L108 84 L12 84 L12 78 C12 74 13 71 16 70 Z" fill="none" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M35 66 L42 46 L78 46 L85 66 Z" fill="rgba(254,240,138,0.14)" stroke="url(#goldGrad)" stroke-width="2"/>
+        <circle cx="30" cy="84" r="9" fill="#090d16" stroke="url(#goldGrad)" stroke-width="3.5"/>
+        <circle cx="90" cy="84" r="9" fill="#090d16" stroke="url(#goldGrad)" stroke-width="3.5"/>`;
+    } else if (t.includes('ACTIVA') || t.includes('BIKE') || t.includes('DELUXE') || t.includes('SCOOTER')) {
+      // Sleek Two-Wheeler Crest
+      innerGlyph = `<circle cx="30" cy="78" r="13" fill="none" stroke="url(#goldGrad)" stroke-width="3.5"/>
+        <circle cx="90" cy="78" r="13" fill="none" stroke="url(#goldGrad)" stroke-width="3.5"/>
+        <path d="M30 78 L48 52 L74 52 L90 78 M48 52 L42 38 L32 38 M68 52 L82 40 L94 40" fill="none" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    } else if (t.includes('CHANDI') || t.includes('SILVER')) {
+      // Royal Fine Silver Medallion Ingot
+      innerGlyph = `<circle cx="60" cy="60" r="32" fill="rgba(226,232,240,0.12)" stroke="#e2e8f0" stroke-width="3.5"/>
+        <circle cx="60" cy="60" r="25" fill="none" stroke="#cbd5e1" stroke-dasharray="3 3" stroke-width="1.8"/>
+        <text x="60" y="57" text-anchor="middle" fill="#f8fafc" font-family="Cinzel, serif" font-weight="900" font-size="14">999 FINE</text>
+        <text x="60" y="73" text-anchor="middle" fill="#fde047" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="12">SILVER</text>`;
+    } else if (t.includes('FRIDGE') || t.includes('REFRIGERATOR') || t.includes('WASHING')) {
+      // Home Appliance Luxury Crest
+      innerGlyph = `<rect x="36" y="26" width="48" height="68" rx="6" fill="rgba(254,240,138,0.08)" stroke="url(#goldGrad)" stroke-width="3.2"/>
+        <line x1="36" y1="52" x2="84" y2="52" stroke="url(#goldGrad)" stroke-width="2.2"/>
+        <line x1="44" y1="36" x2="44" y2="46" stroke="#fde047" stroke-width="3" stroke-linecap="round"/>
+        <line x1="44" y1="60" x2="44" y2="76" stroke="#fde047" stroke-width="3" stroke-linecap="round"/>`;
+    } else {
+      // Grand Championship Laurel Trophy Cup
+      innerGlyph = `<path d="M40 32 L80 32 L76 58 C74 70 66 76 60 76 C54 76 46 70 44 58 Z" fill="rgba(254,240,138,0.14)" stroke="url(#goldGrad)" stroke-width="3.2"/>
+        <path d="M40 38 L28 38 C28 50 34 56 43 56 M80 38 L92 38 C92 50 86 56 77 56" fill="none" stroke="url(#goldGrad)" stroke-width="2.8"/>
+        <line x1="60" y1="76" x2="60" y2="90" stroke="url(#goldGrad)" stroke-width="3.5"/>
+        <rect x="44" y="90" width="32" height="6" rx="2" fill="url(#goldGrad)"/>`;
+    }
+
+    return `
+      <svg width="${sizePx}" height="${sizePx}" viewBox="0 0 120 120" style="filter:drop-shadow(0 10px 24px rgba(0,0,0,0.65));">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fef08a"/>
+            <stop offset="50%" stop-color="#f59e0b"/>
+            <stop offset="100%" stop-color="#b45309"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill="rgba(9,13,22,0.9)" stroke="url(#goldGrad)" stroke-width="2.2"/>
+        <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(254,240,138,0.28)" stroke-width="1"/>
+        ${innerGlyph}
+      </svg>`;
+  }
+
   function showLedBrandPromoScreen() {
     clearStageTimers();
     const s = STATE.settings;
@@ -7358,47 +7984,59 @@
     if (!disp) return;
 
     const logoSrc = getEffectiveLogoUrl();
-    const logoBlock = `<img src="${logoSrc}" style="width:92px;height:92px;border-radius:50%;border:3.5px solid #fde047;object-fit:contain;background:#fff;padding:3px;box-shadow:0 0 34px rgba(251,191,36,0.55);" />`;
+    const bcastLogo = document.getElementById('bcastStageLogo');
+    if (bcastLogo) bcastLogo.innerHTML = `<img src="${logoSrc}" alt="Aryush" />`;
+
     const topPrizes = STATE.segments.slice(0, 4);
 
     disp.innerHTML = `
-      <div class="winner-pop" style="width:100%;">
-        ${logoBlock}
-        <div style="margin-top:8px;">
-          <span class="brand-gold-pill" style="font-size:11px;padding:4px 14px;">✨ SHUDDHTA AUR VISHWAS KA PRATEEK • KAILARAS, MORENA ✨</span>
+      <div class="winner-pop" style="width:100%;max-width:1240px;margin:0 auto;text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:14px;margin-bottom:10px;">
+          <div style="height:1px;width:60px;background:linear-gradient(90deg,transparent,#f59e0b);"></div>
+          <span style="font-size:11.5px;font-weight:800;letter-spacing:3px;color:#fcd34d;text-transform:uppercase;">SHUDDHTA AUR VISHWAS KA PRATEEK • KAILARAS, MORENA</span>
+          <div style="height:1px;width:60px;background:linear-gradient(90deg,#f59e0b,transparent);"></div>
         </div>
-        <div class="grand-winner-crown" style="font-size:clamp(24px,4vw,44px);margin-top:7px;">
+
+        <div style="font-family:'Cinzel',serif;font-size:clamp(28px,4.4vw,52px);font-weight:900;letter-spacing:0.03em;background:linear-gradient(180deg,#ffffff 0%,#fef08a 60%,#f59e0b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15;">
           ${esc(s.company_name)} — आर्युष रसोई धन
         </div>
-        <div style="font-size:14.5px;font-weight:800;color:#fde68a;">
-          ${esc(s.brand_tagline || '100% Shuddh Kacchi Ghani Mustard Oil & Premium Spices')}
+        <div style="font-size:15px;font-weight:700;color:#cbd5e1;margin-top:4px;letter-spacing:0.5px;">
+          ${esc(s.brand_tagline || '100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices')}
         </div>
 
-        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:12px;">
+        <!-- Grand Prize Tier Pillars -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:20px;text-align:left;">
           ${topPrizes.map(p => `
-            <span style="background:rgba(251,191,36,0.16);border:1.5px solid #fbbf24;color:#fff;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:900;">
-              ${esc(p.icon)} ${esc(p.title)} (${p.target_qty})
-            </span>
+            <div style="background:linear-gradient(145deg,rgba(30,41,59,0.7),rgba(9,13,22,0.95));border:1px solid rgba(212,175,55,0.42);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 25px rgba(0,0,0,0.4);">
+              <div style="flex-shrink:0;">${renderPrizeVisualHtml(p, 54)}</div>
+              <div style="min-width:0;">
+                <div style="font-size:10px;font-weight:800;letter-spacing:1.4px;color:#fcd34d;text-transform:uppercase;">RANK #${p.rank} • ${p.target_qty} PRIZE${p.target_qty > 1 ? 'S' : ''}</div>
+                <div style="font-size:13.5px;font-weight:800;color:#ffffff;line-height:1.25;margin-top:2px;">${esc(p.title.replace(/^\d+\w+\s*Prize\s*-\s*/i, ''))}</div>
+              </div>
+            </div>
           `).join('')}
-          <span style="background:rgba(34,197,94,0.2);border:1.5px solid #4ade80;color:#86efac;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:900;">
-            🥈 चाँदी 200g से 20g तक • कुल ${s.max_coupons} पक्के इनाम!
-          </span>
         </div>
 
-        <div class="stage-prod-grid">
-          ${ARYUSH_PRODUCTS.map((p, idx) => {
-            const hasVid = Boolean(resolveProductVideoSrc(p));
-            const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
-            return `
-            <div class="stage-prod-card" style="cursor:pointer;" onclick="${(hasVid || hasPic) ? `STAGE_CUR_VID_INDEX=${idx};startFullScreenVideoAdLoop();` : `openProductStudioModal();editProductStudioItem(${idx});`}">
-              <div style="width:${hasPic ? '88px' : '48px'};height:${hasPic ? '88px' : '48px'};border-radius:${hasPic ? '14px' : '12px'};background:${hasPic ? '#ffffff' : p.bg};padding:${hasPic ? '4px' : '0'};border:${hasPic ? '2px solid #fde047' : 'none'};display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 8px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,0.38);">
-                ${hasPic ? `<img src="${p.photoData}" style="width:100%;height:100%;object-fit:contain;border-radius:9px;" />` : esc(p.icon)}
-              </div>
-              <div style="font-size:13.5px;font-weight:900;color:#fff;">${esc(p.hi)}</div>
-              <div style="font-size:10.5px;font-weight:700;color:#fde68a;margin-top:2px;">${esc(p.name)}</div>
-              <div style="font-size:10px;color:#cbd5e1;margin-top:2px;">${hasVid ? '🎬 Click to Play Ad' : (hasPic ? '🖼️ Click Full View' : '📸 Click to Upload Pic')}</div>
-            </div>`;
-          }).join('')}
+        <!-- Corporate Product Portfolio Strip -->
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(212,175,55,0.2);">
+          <div style="font-size:10.5px;font-weight:800;letter-spacing:2.2px;color:#94a3b8;text-transform:uppercase;margin-bottom:10px;">
+            OUR SIGNATURE PRODUCT PORTFOLIO • ${s.max_coupons} GUARANTEED PRIZES SCHEME
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;">
+            ${ARYUSH_PRODUCTS.map((p, idx) => {
+              const hasVid = Boolean(resolveProductVideoSrc(p));
+              const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
+              return `
+              <div style="background:rgba(15,23,42,0.75);border:1px solid rgba(212,175,55,0.28);border-radius:12px;padding:10px;cursor:pointer;transition:border-color 0.2s;" onclick="${(hasVid || hasPic) ? `STAGE_CUR_VID_INDEX=${idx};startFullScreenVideoAdLoop();` : `openProductStudioModal();editProductStudioItem(${idx});`}">
+                ${hasPic
+                  ? `<div style="width:68px;height:68px;background:#fff;border-radius:10px;padding:4px;margin:0 auto 7px;border:1.5px solid #fde047;"><img src="${p.photoData}" style="width:100%;height:100%;object-fit:contain;" /></div>`
+                  : `<div style="width:42px;height:42px;border-radius:50%;background:rgba(217,119,6,0.18);border:1px solid rgba(250,204,21,0.45);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;color:#fde047;font-size:15px;margin:0 auto 7px;">AR</div>`
+                }
+                <div style="font-size:13px;font-weight:800;color:#f8fafc;">${esc(p.hi)}</div>
+                <div style="font-size:10.5px;color:#fcd34d;font-weight:600;margin-top:2px;">${esc(p.tag)}</div>
+              </div>`;
+            }).join('')}
+          </div>
         </div>
       </div>
     `;
@@ -7728,10 +8366,9 @@
 
   // Smooth Full-Screen Gold & Tricolor Confetti Fireworks
   let CONFETTI_RAF = null;
-  let CELEBRATION_FX_COUNTER = 0;
 
-  // 3 Distinct Celebration Particle FX: 'RIBBONS' | 'FIREWORKS' | 'GOLD_STARS'
-  function launchStageConfetti(durationMs = 5000, particleCount = 150, fxMode = 'AUTO') {
+  // Dignified Metallic Champagne & 24K Gold Foil Shimmer (ZERO rainbow toy colors!)
+  function launchStageConfetti(durationMs = 5200, particleCount = 130) {
     const canvas = document.getElementById('confettiCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -7739,111 +8376,42 @@
     canvas.height = window.innerHeight;
     if (CONFETTI_RAF) cancelAnimationFrame(CONFETTI_RAF);
 
-    const modes = ['RIBBONS', 'FIREWORKS', 'GOLD_STARS'];
-    const activeFx = fxMode === 'AUTO' ? modes[CELEBRATION_FX_COUNTER++ % modes.length] : fxMode;
-    const colors = ['#fbbf24', '#f97316', '#22c55e', '#38bdf8', '#f43f5e', '#c084fc', '#ffffff', '#fde047'];
-
-    let parts = [];
-    if (activeFx === 'FIREWORKS') {
-      // Multi-center radial sky-firework bursts!
-      const bursts = 4;
-      for (let b = 0; b < bursts; b++) {
-        const cx = canvas.width * (0.2 + 0.2 * b);
-        const cy = canvas.height * (0.22 + (b % 2) * 0.14);
-        const col = colors[b % colors.length];
-        for (let i = 0; i < 42; i++) {
-          const ang = (Math.PI * 2 * i) / 42 + Math.random() * 0.15;
-          const spd = 2.5 + Math.random() * 6.5;
-          parts.push({
-            kind: 'spark', x: cx, y: cy,
-            vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd,
-            r: 3 + Math.random() * 3.5, alpha: 1,
-            color: i % 3 === 0 ? '#fde047' : col
-          });
-        }
-      }
-    } else if (activeFx === 'GOLD_STARS') {
-      // Rising shimmering golden coins & stars fountain from bottom!
-      parts = Array.from({ length: Math.min(120, particleCount) }, () => ({
-        kind: 'coin',
-        x: canvas.width * (0.15 + Math.random() * 0.7),
-        y: canvas.height + 10 + Math.random() * 80,
-        vx: (Math.random() - 0.5) * 6,
-        vy: -(8 + Math.random() * 8.5),
-        g: 0.18 + Math.random() * 0.08,
-        r: 6 + Math.random() * 6,
-        rot: Math.random() * Math.PI,
-        vrot: 0.12 + Math.random() * 0.15,
-        color: Math.random() > 0.35 ? '#fde047' : '#f59e0b'
-      }));
-    } else {
-      parts = Array.from({ length: particleCount }, () => ({
-        kind: 'ribbon',
-        x: Math.random() * canvas.width,
-        y: -20 - Math.random() * canvas.height * 0.5,
-        w: 7 + Math.random() * 7,
-        h: 11 + Math.random() * 8,
-        vx: (Math.random() - 0.5) * 5,
-        vy: 3 + Math.random() * 5.2,
-        rot: Math.random() * Math.PI * 2,
-        vrot: (Math.random() - 0.5) * 0.22,
-        color: colors[Math.floor(Math.random() * colors.length)]
-      }));
-    }
+    const goldPalette = ['#fef08a', '#fde047', '#f59e0b', '#d97706', '#fffbeb', '#e2e8f0'];
+    const parts = Array.from({ length: particleCount }, () => ({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * canvas.height * 0.55,
+      w: 5 + Math.random() * 6,
+      h: 9 + Math.random() * 8,
+      vx: (Math.random() - 0.5) * 3.6,
+      vy: 2.4 + Math.random() * 4.2,
+      rot: Math.random() * Math.PI * 2,
+      vrot: (Math.random() - 0.5) * 0.16,
+      flip: Math.random() * Math.PI,
+      vflip: 0.08 + Math.random() * 0.12,
+      color: goldPalette[Math.floor(Math.random() * goldPalette.length)]
+    }));
 
     const endAt = performance.now() + durationMs;
     const tick = (now) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (now >= endAt) return;
       for (const p of parts) {
-        if (p.kind === 'spark') {
-          p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.vx *= 0.985; p.alpha *= 0.986;
-          if (p.alpha < 0.08) {
-            p.x = canvas.width * (0.18 + Math.random() * 0.64);
-            p.y = canvas.height * (0.18 + Math.random() * 0.3);
-            const a = Math.random() * Math.PI * 2, s = 2.5 + Math.random() * 6;
-            p.vx = Math.cos(a) * s; p.vy = Math.sin(a) * s; p.alpha = 1;
-          }
-          ctx.save();
-          ctx.globalAlpha = Math.max(0, p.alpha);
-          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = p.color; ctx.fill();
-          ctx.restore();
-        } else if (p.kind === 'coin') {
-          p.x += p.vx; p.y += p.vy; p.vy += p.g; p.rot += p.vrot;
-          if (p.y > canvas.height + 60 && p.vy > 0) {
-            p.y = canvas.height + 10; p.vy = -(8 + Math.random() * 8);
-          }
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.scale(Math.cos(p.rot), 1);
-          ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = p.color; ctx.fill();
-          ctx.lineWidth = 1.5; ctx.strokeStyle = '#ffffff'; ctx.stroke();
-          ctx.restore();
-        } else {
-          p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
-          if (p.y > canvas.height + 20) { p.y = -15; p.x = Math.random() * canvas.width; }
-          ctx.save();
-          ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-          ctx.restore();
-        }
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vrot;
+        p.flip += p.vflip;
+        if (p.y > canvas.height + 24) { p.y = -16; p.x = Math.random() * canvas.width; }
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.scale(Math.cos(p.flip), 1);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
       }
       CONFETTI_RAF = requestAnimationFrame(tick);
     };
     CONFETTI_RAF = requestAnimationFrame(tick);
-  }
-
-  function playRocketWhoosh() {
-    playStageTone(190, 0.75, 'sine', 0.22, 920);
-    setTimeout(() => playStageTone(120, 0.32, 'sawtooth', 0.25, 48), 720);
-  }
-
-  function playKbcLockSynth() {
-    playStageTone(293.66, 0.22, 'triangle', 0.22);
-    setTimeout(() => playStageTone(440, 0.45, 'triangle', 0.24), 190);
   }
 
   function toggleStageSound() {
@@ -7867,10 +8435,27 @@
     }
   }
 
-  function toggleStageHostDeck() {
+  function toggleStageHostDeck(forceShow = null) {
     const bar = document.getElementById('projHostDeckBar');
-    if (bar) bar.classList.toggle('deck-hidden');
+    if (!bar) return;
+    if (forceShow === true) bar.classList.remove('deck-hidden');
+    else if (forceShow === false) bar.classList.add('deck-hidden');
+    else bar.classList.toggle('deck-hidden');
   }
+
+  // Keyboard shortcut 'H' to toggle Operator Controls on LED Wall!
+  document.addEventListener('keydown', (ev) => {
+    const ov = document.getElementById('stageProjectorOverlay');
+    if (!ov || !ov.classList.contains('open')) return;
+    if (ev.target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(ev.target.tagName)) return;
+    if (ev.key === 'h' || ev.key === 'H') {
+      ev.preventDefault();
+      toggleStageHostDeck();
+    } else if (ev.key === 'f' || ev.key === 'F') {
+      ev.preventDefault();
+      goFullScreenLed();
+    }
+  });
 
   function goFullScreenLed() {
     const el = document.documentElement;
@@ -7881,30 +8466,27 @@
     }
   }
 
-  // ==================== 6-THEME NON-REPEATING REVEAL DECK ENGINE ====================
-  const ALL_6_REVEAL_THEMES = ['WHEEL', 'LIFAFA', 'KBC', 'ROCKET', 'TREASURE', 'RADAR_SLOT'];
+  // ==================== 5 DIGNIFIED CORPORATE BROADCAST REVEAL SHOWS ====================
+  const ALL_5_CORP_SHOWS = ['TUMBLER', 'DIAL', 'MATRIX', 'SEAL', 'LASER'];
   const REVEAL_THEME_LABELS = {
-    WHEEL: '🎡 Royal Chakra Wheel',
-    LIFAFA: '🧧 Shahi Golden Lifafa',
-    KBC: '🎯 KBC Hotseat Lock',
-    ROCKET: '🚀 Skyrocket Fireworks',
-    TREASURE: '💎 Khazana Unboxing',
-    RADAR_SLOT: '🎰 Jackpot + Radar',
-    GRAND_STEP: '🎙️ Anchor Step Mode',
-    INSTANT: '⚡ Instant Flip'
+    TUMBLER: 'Vault Tumbler',
+    DIAL: 'Chronograph Dial',
+    MATRIX: 'Executive Matrix',
+    SEAL: 'Royal Charter',
+    LASER: 'Ledger Verification',
+    GRAND_STEP: 'Anchor Step Mode',
+    INSTANT: 'Direct Reveal'
   };
   let REVEAL_SHUFFLE_DECK = [];
   let LAST_PLAYED_REVEAL_THEME = '';
-  let WINNER_CARD_VARIANT_IDX = 0;
 
   function peekOrPopNextRevealTheme(consume = false) {
     if (REVEAL_SHUFFLE_DECK.length === 0) {
-      const fresh = [...ALL_6_REVEAL_THEMES];
+      const fresh = [...ALL_5_CORP_SHOWS];
       for (let i = fresh.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [fresh[i], fresh[j]] = [fresh[j], fresh[i]];
       }
-      // Guarantee 0% chance of consecutive duplicate across deck boundary!
       if (fresh[0] === LAST_PLAYED_REVEAL_THEME && fresh.length > 1) {
         [fresh[0], fresh[1]] = [fresh[1], fresh[0]];
       }
@@ -7922,34 +8504,25 @@
     if (!b) return;
     if (sel === 'ROTATE_ALL') {
       const nxt = peekOrPopNextRevealTheme(false);
-      b.textContent = `🎲 Next Show: ${REVEAL_THEME_LABELS[nxt] || nxt}`;
+      b.textContent = `Next: ${REVEAL_THEME_LABELS[nxt] || nxt}`;
     } else {
-      b.textContent = `🎬 Mode: ${REVEAL_THEME_LABELS[sel] || sel}`;
+      b.textContent = `Mode: ${REVEAL_THEME_LABELS[sel] || sel}`;
     }
   }
 
-  function setArenaThemeClass(themeKey) {
-    const arena = document.getElementById('projStageArena');
-    if (!arena) return;
-    arena.classList.remove('theme-wheel', 'theme-lifafa', 'theme-kbc', 'theme-rocket', 'theme-treasure', 'theme-radar');
-    const map = {
-      WHEEL: 'theme-wheel',
-      LIFAFA: 'theme-lifafa',
-      KBC: 'theme-kbc',
-      ROCKET: 'theme-rocket',
-      TREASURE: 'theme-treasure',
-      RADAR_SLOT: 'theme-radar'
-    };
-    if (map[themeKey]) arena.classList.add(map[themeKey]);
+  function onProjSegmentChanged() {
+    updateNextRevealBadge();
   }
 
-  function onProjSegmentChanged() {
-    const segId = Number(document.getElementById('projSegSelect').value);
-    const seg = STATE.segments.find(s => s.id === segId);
-    if (!seg) return;
-    const arena = document.getElementById('projStageArena');
-    arena.classList.toggle('grand-glow', seg.rank <= 3);
-    updateNextRevealBadge();
+  function updateBroadcastHeaderCounters() {
+    const maxC = Number(STATE.settings.max_coupons) || 301;
+    const allW = STATE.coupons.filter(c => c.prize_status !== 'NONE' && c.prize_title).length;
+    const cEl = document.getElementById('bcastStatCoupons');
+    const wEl = document.getElementById('bcastStatWinners');
+    if (cEl) cEl.textContent = `${STATE.coupons.length} / ${maxC}`;
+    if (wEl) wEl.textContent = `${allW} / ${maxC}`;
+    const bLogo = document.getElementById('bcastStageLogo');
+    if (bLogo) bLogo.innerHTML = `<img src="${getEffectiveLogoUrl()}" alt="Aryush" />`;
   }
 
   function openStageProjector() {
@@ -7958,10 +8531,11 @@
     document.getElementById('projHeaderTitle').textContent =
       `${STATE.settings.company_name} — ${STATE.settings.campaign_name}`;
     document.getElementById('projSegSelect').innerHTML = STATE.segments.map(s => {
-      const tag = s.rank <= 3 ? '🔥 BUMPER' : (s.target_qty >= 25 ? '📋 BULK' : '✨ PRIZE');
-      return `<option value="${s.id}" ${s.id === STATE.activeSegmentId ? 'selected' : ''}>${esc(s.icon)} #${s.rank}: ${esc(s.title)} [${tag}]</option>`;
+      return `<option value="${s.id}" ${s.id === STATE.activeSegmentId ? 'selected' : ''}>Rank #${s.rank}: ${esc(s.title)} (${s.target_qty} Qty)</option>`;
     }).join('');
     document.getElementById('projCupInp').value = '';
+    toggleStageHostDeck(true);
+    updateBroadcastHeaderCounters();
     onProjSegmentChanged();
     showLedBrandPromoScreen();
     renderProjectorRecentWinners();
@@ -7990,7 +8564,7 @@
       STAGE_STEP_RESOLVER = resolve;
       const slot = document.getElementById('stageNextStepSlot');
       if (slot) {
-        slot.innerHTML = `<button type="button" class="btn btn-brand" style="margin-top:18px;padding:12px 26px;font-size:15.5px;" onclick="triggerNextAnchorStep()">${btnLabel} ➤</button>`;
+        slot.innerHTML = `<button type="button" class="btn btn-brand" style="margin-top:20px;padding:12px 28px;font-size:15px;font-weight:800;" onclick="triggerNextAnchorStep()">${btnLabel} ➤</button>`;
       }
     });
   }
@@ -8002,7 +8576,6 @@
       fn();
     }
   }
-
 
   function getActiveRevealDurationSec() {
     const inp = document.getElementById('projCustomSecInp');
@@ -8032,7 +8605,7 @@
     STATE.settings.reveal_duration_sec = sec;
     if (document.getElementById('setRevealSec')) document.getElementById('setRevealSec').value = sec;
     try { await api('/api/settings', 'POST', { reveal_duration_sec: sec }); } catch (e) {}
-    toast(`⏱️ Prize Reveal Timing: ${sec} Seconds set!`);
+    toast(`⏱️ Reveal Duration: ${sec}s`);
   }
 
   async function onStageCustomSecChange(val) {
@@ -8044,298 +8617,292 @@
     STATE.settings.reveal_duration_sec = sec;
     if (document.getElementById('setRevealSec')) document.getElementById('setRevealSec').value = sec;
     try { await api('/api/settings', 'POST', { reveal_duration_sec: sec }); } catch (e) {}
-    toast(`⏱️ Custom Reveal Timing: ${sec} Seconds saved!`);
+    toast(`⏱️ Reveal Duration: ${sec}s`);
   }
 
-  function resolveEffectiveRevealMode(seg) {
+  function resolveEffectiveRevealMode() {
     const sel = document.getElementById('projStyleSelect')?.value || 'ROTATE_ALL';
-    if (sel === 'ROTATE_ALL') {
-      // Every draw picks a brand-new show from the 6-show non-repeating deck!
-      return peekOrPopNextRevealTheme(true);
-    }
+    if (sel === 'ROTATE_ALL') return peekOrPopNextRevealTheme(true);
     return sel;
   }
 
-  // ==================== MASTER 6-SHOW CHOREOGRAPHER ====================
-  async function executeDynamicStageShow(theme, seg, c, r, isBigRank, isDemo = false) {
+  // ==================== 5 LUXURY CORPORATE BROADCAST CHOREOGRAPHIES ====================
+  async function executeDynamicStageShow(theme, seg, c, r, isDemo = false) {
     const disp = document.getElementById('projWinnerDisplay');
     const winArea = r?.area || 'KAILARAS / MORENA';
-    const winShop = r?.name || 'LUCKY WINNER PARTY';
+    const winShop = r?.name || 'AUTHORIZED PARTNER';
     const cupCode = c.coupon_code || padCup(c.coupon_num || 1);
-    // Exact User-Controlled Reveal Timing! (Base choreographies are ~5.2s at speedMul=1.0 -> scales smoothly from 1s to 45s!)
+    const dArr = String(cupCode).replace(/[^0-9]/g, '').padStart(3, '0').slice(-3).split('');
     const targetSec = getActiveRevealDurationSec();
-    const speedMul = Math.max(0.18, targetSec / 5.2);
+    const speedMul = Math.max(0.2, targetSec / 5.5);
 
-    setArenaThemeClass(theme);
-    const demoBadge = isDemo ? `<div style="margin-bottom:6px;"><span class="badge" style="background:#fde047;color:#451a03;font-weight:900;">🎲 DEMO PREVIEW • ${esc(REVEAL_THEME_LABELS[theme] || theme)}</span></div>` : '';
+    const previewTag = isDemo
+      ? `<div style="margin-bottom:8px;"><span class="corp-cert-seal" style="font-size:10px;padding:3px 12px;">STAGE PREVIEW • ${esc(REVEAL_THEME_LABELS[theme] || theme)}</span></div>`
+      : '';
 
-    // ---------- SHOW 1: ROYAL CHAKRA FORTUNE WHEEL ----------
-    if (theme === 'WHEEL') {
+    // ---------- 1. MECHANICAL GOLD VAULT TUMBLER (OR ANCHOR STEP-BY-STEP) ----------
+    if (theme === 'TUMBLER' || theme === 'GRAND_STEP') {
+      const isStep = (theme === 'GRAND_STEP');
       disp.innerHTML = `
-        ${demoBadge}
-        <div style="font-size:12.5px;font-weight:800;color:#fde68a;letter-spacing:1.8px;">🎡 MAHA-CHAKRA SPIN OF FORTUNE</div>
-        <div style="font-size:clamp(20px,3.4vw,30px);font-weight:900;color:#fff;margin:4px 0 8px;">${esc(seg.icon || '🏆')} ${esc(seg.title)}</div>
-        <div class="wheel-stage-wrap">
-          <div class="wheel-pointer">🔻</div>
-          <div class="royal-wheel-disc" id="fortuneWheelDisc"></div>
-          <div class="wheel-center-hub" id="fortuneWheelHub">SPIN!</div>
+        <div style="text-align:center;width:100%;">
+          ${previewTag}
+          <div class="corp-stage-kicker">OFFICIAL COUPON VERIFICATION • RANK #${seg.rank}</div>
+          <div class="corp-stage-prize-headline">${esc(seg.title)}</div>
+          <div class="corp-drum-chassis">
+            <div class="corp-digit-tumbler rolling" id="cTumb0">0</div>
+            <div class="corp-digit-tumbler rolling" id="cTumb1">0</div>
+            <div class="corp-digit-tumbler rolling" id="cTumb2">0</div>
+          </div>
+          <div id="tumbSubStatus" style="margin-top:18px;font-size:14px;font-weight:700;letter-spacing:1.2px;color:#94a3b8;text-transform:uppercase;">
+            Synchronizing Master Coupon Register...
+          </div>
+          <div id="stageNextStepSlot"></div>
         </div>
-        <div id="wheelSubStatus" style="font-size:15px;font-weight:700;color:#fed7aa;margin-top:8px;">Kismat ka Maha-Chakra ghoom raha hai...</div>
       `;
-      await sleepStage(120);
-      const disc = document.getElementById('fortuneWheelDisc');
-      const spinDeg = 1800 + Math.floor(Math.random() * 360);
-      if (disc) {
-        disc.style.transitionDuration = `${(3.8 * speedMul).toFixed(2)}s`;
-        disc.style.transform = `rotate(${spinDeg}deg)`;
-      }
-      // Decelerating wheel click ticks
-      let elapsed = 0, delay = 65;
-      while (elapsed < 3500 * speedMul) {
+
+      let locked = 0;
+      const rollInt = setInterval(() => {
         playSlotTick();
-        await sleepStage(delay);
-        elapsed += delay;
-        delay = Math.min(340, Math.round(delay * 1.09));
+        for (let i = locked; i < 3; i++) {
+          const el = document.getElementById('cTumb' + i);
+          if (el) el.textContent = Math.floor(Math.random() * 10);
+        }
+      }, 70);
+      STAGE_ACTIVE_TIMERS.push(rollInt);
+
+      await waitForAnchorStepOrAuto(isStep, 1400 * speedMul, 'Lock First Digit');
+      locked = 1; playReelLockClunk(1);
+      const t0 = document.getElementById('cTumb0'); if (t0) { t0.className = 'corp-digit-tumbler locked'; t0.textContent = dArr[0]; }
+
+      await waitForAnchorStepOrAuto(isStep, 1400 * speedMul, 'Lock Second Digit');
+      locked = 2; playReelLockClunk(2);
+      const t1 = document.getElementById('cTumb1'); if (t1) { t1.className = 'corp-digit-tumbler locked'; t1.textContent = dArr[1]; }
+
+      await waitForAnchorStepOrAuto(isStep, 1600 * speedMul, 'Lock Final Winning Digit');
+      locked = 3; clearInterval(rollInt); playReelLockClunk(3);
+      const t2 = document.getElementById('cTumb2'); if (t2) { t2.className = 'corp-digit-tumbler locked'; t2.textContent = dArr[2]; }
+
+      const sub = document.getElementById('tumbSubStatus');
+      if (sub) {
+        sub.style.color = '#fde047';
+        sub.innerHTML = `COUPON #${esc(cupCode)} VERIFIED  •  TERRITORY: ${esc(winArea)}`;
+      }
+      await waitForAnchorStepOrAuto(isStep, 1100 * speedMul, 'Declare Official Winner');
+      return;
+    }
+
+    // ---------- 2. PRECISION SWISS GOLD CHRONOGRAPH DIAL ----------
+    if (theme === 'DIAL') {
+      disp.innerHTML = `
+        <div style="text-align:center;width:100%;">
+          ${previewTag}
+          <div class="corp-stage-kicker">PRECISION CHRONOGRAPH DRAW • RANK #${seg.rank}</div>
+          <div class="corp-stage-prize-headline">${esc(seg.title)}</div>
+          <div style="position:relative;width:270px;height:270px;margin:8px auto;display:flex;align-items:center;justify-content:center;">
+            <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:20px solid #fde047;z-index:10;filter:drop-shadow(0 4px 8px #000);"></div>
+            <svg id="chronoDialSvg" width="266" height="266" viewBox="0 0 260 260" style="transition:transform ${(3.8 * speedMul).toFixed(2)}s cubic-bezier(0.12, 0.86, 0.14, 1);">
+              <circle cx="130" cy="130" r="122" fill="#050811" stroke="#d4af37" stroke-width="5"/>
+              <circle cx="130" cy="130" r="108" fill="none" stroke="rgba(254,240,138,0.3)" stroke-width="1.5" stroke-dasharray="4 6"/>
+              ${Array.from({ length: 24 }, (_, k) => {
+                const ang = k * 15;
+                return `<line x1="130" y1="12" x2="130" y2="${k % 2 === 0 ? 28 : 20}" stroke="${k % 2 === 0 ? '#fde047' : '#64748b'}" stroke-width="${k % 2 === 0 ? 2.5 : 1.2}" transform="rotate(${ang} 130 130)"/>`;
+              }).join('')}
+            </svg>
+            <div style="position:absolute;width:128px;height:128px;border-radius:50%;background:radial-gradient(circle,#1e293b,#050811);border:2px solid #fde047;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.8);">
+              <div style="font-size:9px;font-weight:800;letter-spacing:1.5px;color:#94a3b8;">COUPON</div>
+              <div id="chronoCenterDigits" style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:800;color:#fde047;margin-top:2px;">---</div>
+            </div>
+          </div>
+          <div id="chronoAreaLine" style="font-size:14px;font-weight:700;letter-spacing:1.4px;color:#94a3b8;text-transform:uppercase;margin-top:12px;">
+            Calibrating Allotted Pool...
+          </div>
+        </div>
+      `;
+      await sleepStage(100);
+      const svgEl = document.getElementById('chronoDialSvg');
+      if (svgEl) svgEl.style.transform = `rotate(${1440 + Math.floor(Math.random() * 360)}deg)`;
+      const cDig = document.getElementById('chronoCenterDigits');
+      let elapsed = 0, stepMs = 70;
+      while (elapsed < 3600 * speedMul) {
+        playSlotTick();
+        if (cDig) cDig.textContent = String(Math.floor(Math.random() * 301) + 1).padStart(3, '0');
+        await sleepStage(stepMs);
+        elapsed += stepMs;
+        stepMs = Math.min(310, Math.round(stepMs * 1.09));
       }
       playReelLockClunk(3);
-      const hub = document.getElementById('fortuneWheelHub');
-      if (hub) hub.innerHTML = `#${esc(cupCode)}`;
-      const ws = document.getElementById('wheelSubStatus');
-      if (ws) ws.innerHTML = `🎯 CHAKRA RUKA COUPON <b style="color:#fde047;font-size:21px;">#${esc(cupCode)}</b> PAR — 📍 <b>${esc(winArea)}</b>!`;
-      await sleepStage(1450 * speedMul);
-      return 'GOLD_STARS';
+      if (cDig) cDig.textContent = `#${cupCode}`;
+      const cal = document.getElementById('chronoAreaLine');
+      if (cal) {
+        cal.style.color = '#fde047';
+        cal.innerHTML = `LOCKED ON COUPON #${esc(cupCode)}  •  BEAT: ${esc(winArea)}`;
+      }
+      await sleepStage(1350 * speedMul);
+      return;
     }
 
-    // ---------- SHOW 2: SHAHI GOLDEN LIFAFA & FOIL SCRATCH ----------
-    if (theme === 'LIFAFA') {
-      playHeartbeat();
-      disp.innerHTML = `
-        ${demoBadge}
-        <div style="font-size:12.5px;font-weight:800;color:#fda4af;letter-spacing:1.8px;">🧧 SHAHI SWARN LIFAFA UNBOXING</div>
-        <div style="font-size:clamp(20px,3.4vw,30px);font-weight:900;color:#fff;margin:4px 0 8px;">${esc(seg.icon || '🏆')} ${esc(seg.title)}</div>
-        <div class="shahi-lifafa-box shake-drama" id="lifafaEnvelope">
-          <div style="font-size:52px;">🧧</div>
-          <div style="display:inline-block;margin-top:8px;padding:5px 16px;border-radius:999px;background:#fde047;color:#4c0519;font-weight:900;font-size:13px;">👑 ARYUSH ROYAL SEAL</div>
-          <div style="font-size:15px;color:#ffe4e6;font-weight:700;margin-top:10px;">Shahi Lifafa khulne ja raha hai...</div>
-        </div>
-      `;
-      await sleepStage(1700 * speedMul);
-      playQuickChime();
-      disp.innerHTML = `
-        ${demoBadge}
-        <div style="font-size:12.5px;font-weight:800;color:#fde047;letter-spacing:1.8px;">✨ 24K GOLD SCRATCH CARD REVEAL ✨</div>
-        <div class="gold-scratch-card winner-pop">
-          <div class="foil-beam"></div>
-          <div style="font-size:12px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:#78350f;">Winning Lucky Coupon</div>
-          <div style="font-size:48px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#451a03;margin:4px 0;">#${esc(cupCode)}</div>
-          <div id="scratchClueLine" style="font-size:17px;font-weight:800;color:#9a3412;margin-top:6px;">Scratching Winner Village...</div>
-        </div>
-      `;
-      await sleepStage(1450 * speedMul);
-      playReelLockClunk(2);
-      const scl = document.getElementById('scratchClueLine');
-      if (scl) scl.innerHTML = `📍 विजेता क्षेत्र: <b style="color:#7f1d1d;font-size:21px;">${esc(winArea)}</b>!`;
-      await sleepStage(1450 * speedMul);
-      return 'RIBBONS';
-    }
-
-    // ---------- SHOW 3: KBC HOTSEAT COMPUTER JI LOCK ----------
-    if (theme === 'KBC') {
-      playKbcLockSynth();
-      // Build 4 KBC options: 3 decoy parties + 1 real winner shuffled!
+    // ---------- 3. EXECUTIVE BOARDROOM FINALIST MATRIX ----------
+    if (theme === 'MATRIX') {
       const decoys = STATE.retailers
         .filter(x => x.name !== winShop)
         .sort(() => Math.random() - 0.5)
         .slice(0, 3)
-        .map(x => `${x.name}${x.area ? ` (${x.area})` : ''}`);
-      const fallbackDecoys = ['SHREE GANESH KIRANA (MORENA)', 'AGRAWAL TRADERS (SABALGARH)', 'MAA SHARDA BHANDAR (JOURA)'];
-      while (decoys.length < 3) decoys.push(fallbackDecoys[decoys.length]);
+        .map(x => ({ name: x.name, area: x.area || 'MORENA' }));
+      const fallbacks = [
+        { name: 'SHREE GANESH TRADERS', area: 'KAILARAS' },
+        { name: 'AGRAWAL PROVISION STORE', area: 'JOURA' },
+        { name: 'MAA SHARDA BHANDAR', area: 'SABALGARH' }
+      ];
+      while (decoys.length < 3) decoys.push(fallbacks[decoys.length]);
 
-      const winLabel = `${winShop}${r?.area ? ` (${r.area})` : ''}`;
-      const options = [...decoys.map(t => ({ txt: t, win: false })), { txt: winLabel, win: true }]
-        .sort(() => Math.random() - 0.5);
-      const letters = ['A', 'B', 'C', 'D'];
+      const finalists = [
+        ...decoys.map(d => ({ ...d, win: false })),
+        { name: winShop, area: winArea, win: true }
+      ].sort(() => Math.random() - 0.5);
 
       disp.innerHTML = `
-        ${demoBadge}
-        <div style="display:inline-block;background:linear-gradient(90deg,#312e81,#6d28d9,#312e81);border:2px solid #fbbf24;padding:8px 24px;border-radius:999px;font-weight:900;color:#fde047;font-size:15px;">
-          🎯 KBC HOTSEAT • COUPON #${esc(cupCode)} KIS PARTY KA HAI?
+        <div style="text-align:center;width:100%;">
+          ${previewTag}
+          <div class="corp-stage-kicker">EXECUTIVE SHORTLIST VERIFICATION • COUPON #${esc(cupCode)}</div>
+          <div class="corp-stage-prize-headline">${esc(seg.title)}</div>
+          <div class="corp-matrix-grid">
+            ${finalists.map((f, idx) => `
+              <div class="corp-matrix-row" id="matRow_${idx}">
+                <div style="text-align:left;min-width:0;">
+                  <div style="font-size:10px;font-weight:800;color:#94a3b8;letter-spacing:1.2px;">FINALIST #0${idx + 1}</div>
+                  <div style="font-size:16px;font-weight:800;color:#f8fafc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;">${esc(f.name)}</div>
+                </div>
+                <span class="badge" style="background:rgba(212,175,55,0.14);color:#fde68a;border:1px solid rgba(212,175,55,0.35);flex-shrink:0;">${esc(f.area)}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div id="matStatusTxt" style="margin-top:16px;font-size:13.5px;font-weight:700;letter-spacing:1.3px;color:#94a3b8;text-transform:uppercase;">
+            Cross-Checking Official Coupon Ledger...
+          </div>
         </div>
-        <div style="font-size:20px;font-weight:800;color:#e9d5ff;margin-top:8px;">${esc(seg.icon)} ${esc(seg.title)}</div>
-        <div class="kbc-grid">
-          ${options.map((o, idx) => `
-            <div class="kbc-hex" id="kbcOpt_${idx}">
-              <span style="color:#fbbf24;font-weight:900;">${letters[idx]}:</span>
-              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(o.txt)}</span>
-            </div>
-          `).join('')}
-        </div>
-        <div id="kbcHostStatus" style="margin-top:14px;font-size:14.5px;font-weight:800;color:#fde68a;">"Computer Ji, 50:50 Lifeline lagaiye..."</div>
       `;
 
-      await sleepStage(1600 * speedMul);
-      // Eliminate 2 wrong options (50:50 Lifeline!)
-      let elim = 0;
-      options.forEach((o, idx) => {
-        if (!o.win && elim < 2) {
-          elim++;
-          const el = document.getElementById('kbcOpt_' + idx);
-          if (el) el.classList.add('eliminated');
+      await sleepStage(1700 * speedMul);
+      let removed = 0;
+      finalists.forEach((f, idx) => {
+        if (!f.win && removed < 2) {
+          removed++;
+          const el = document.getElementById('matRow_' + idx);
+          if (el) el.classList.add('dimmed');
         }
       });
       playReelLockClunk(1);
-      const khs = document.getElementById('kbcHostStatus');
-      if (khs) khs.textContent = `"Computer Ji, Sahi Vijeta Party Ko Lock Kiya Jaye!" 🔒`;
+      const ms = document.getElementById('matStatusTxt');
+      if (ms) ms.textContent = 'Two Finalists Remaining — Verifying Exact Coupon Ownership...';
 
-      await sleepStage(1450 * speedMul);
-      const winIdx = options.findIndex(o => o.win);
-      const winEl = document.getElementById('kbcOpt_' + winIdx);
-      if (winEl) winEl.classList.add('locking');
+      await sleepStage(1650 * speedMul);
+      finalists.forEach((f, idx) => {
+        const el = document.getElementById('matRow_' + idx);
+        if (!el) return;
+        if (f.win) el.classList.add('winner-lock');
+        else el.classList.add('dimmed');
+      });
+      playReelLockClunk(3);
+      if (ms) {
+        ms.style.color = '#fde047';
+        ms.textContent = `VERIFIED WINNER: ${winShop} (${winArea})`;
+      }
+      await sleepStage(1200 * speedMul);
+      return;
+    }
+
+    // ---------- 4. ROYAL GOLD CHARTER UNSEALING ----------
+    if (theme === 'SEAL') {
       playHeartbeat();
-
-      await sleepStage(1350 * speedMul);
-      if (winEl) { winEl.classList.remove('locking'); winEl.classList.add('correct'); }
-      playReelLockClunk(3);
-      await sleepStage(700 * speedMul);
-      return 'RIBBONS';
-    }
-
-    // ---------- SHOW 4: DIWALI SKYROCKET & STARBURST FIREWORKS ----------
-    if (theme === 'ROCKET') {
-      playRocketWhoosh();
       disp.innerHTML = `
-        ${demoBadge}
-        <div style="font-size:13px;font-weight:800;color:#7dd3fc;letter-spacing:1.8px;">🚀 AATISHBAAZI SKYROCKET DHAMAKA</div>
-        <div style="font-size:22px;font-weight:900;color:#fff;margin:6px 0 18px;">${esc(seg.icon)} ${esc(seg.title)}</div>
-        <div class="sky-rocket-anim">🚀</div>
-        <div style="font-size:15px;color:#bae6fd;font-weight:700;margin-top:12px;">Aasman me vijeta ka naam roshan hone ja raha hai...</div>
+        <div style="text-align:center;width:100%;">
+          ${previewTag}
+          <div class="corp-stage-kicker">SEALED EXECUTIVE AWARD CHARTER • RANK #${seg.rank}</div>
+          <div class="corp-stage-prize-headline">${esc(seg.title)}</div>
+          <div style="width:min(540px,94%);margin:10px auto;background:linear-gradient(145deg,#111827,#050811);border:2px solid #d4af37;border-radius:18px;padding:30px 24px;box-shadow:0 24px 60px rgba(0,0,0,0.75);position:relative;overflow:hidden;">
+            <div class="foil-beam"></div>
+            <img src="${getEffectiveLogoUrl()}" style="width:68px;height:68px;border-radius:50%;background:#fff;padding:3px;border:2px solid #fde047;box-shadow:0 0 25px rgba(250,204,21,0.45);" />
+            <div style="font-family:'Cinzel',serif;font-size:18px;font-weight:800;color:#fde047;letter-spacing:2px;margin-top:12px;">OFFICIAL WINNER ENVELOPE</div>
+            <div id="charterStatus" style="font-size:13.5px;color:#cbd5e1;font-weight:600;margin-top:8px;">Unsealing Authorized Coupon Record...</div>
+          </div>
+        </div>
       `;
-      await sleepStage(1150 * speedMul);
-      launchStageConfetti(2200, 120, 'FIREWORKS');
+      await sleepStage(2100 * speedMul);
       playReelLockClunk(2);
-
-      disp.innerHTML = `
-        ${demoBadge}
-        <div class="winner-pop">
-          <div style="font-size:14px;font-weight:800;color:#fde047;letter-spacing:2px;">🎇 1st SKY-BURST • LUCKY COUPON 🎇</div>
-          <div style="font-size:clamp(46px,7vw,74px);font-weight:900;font-family:'JetBrains Mono',monospace;color:#fde047;text-shadow:0 0 35px rgba(250,204,21,0.75);margin:6px 0;">
-            #${esc(cupCode)}
-          </div>
-          <div style="font-size:24px;font-weight:900;color:#38bdf8;margin-top:8px;">📍 BEAT / VILLAGE: ${esc(winArea)}</div>
-        </div>
-      `;
-      await sleepStage(1750 * speedMul);
-      playRocketWhoosh();
-      await sleepStage(850 * speedMul);
-      return 'FIREWORKS';
-    }
-
-    // ---------- SHOW 5: 3D SHAHI KHAZANA TREASURE CHEST UNBOXING ----------
-    if (theme === 'TREASURE') {
-      for (let pulse = 0; pulse < 2; pulse++) {
-        playHeartbeat();
-        disp.innerHTML = `
-          ${demoBadge}
-          <div style="font-size:13px;font-weight:800;color:#fde047;letter-spacing:1.8px;">💎 SHAHI KHAZANA PITARA UNBOXING</div>
-          <div style="font-size:22px;font-weight:900;color:#fff;margin:6px 0 14px;">${esc(seg.icon)} ${esc(seg.title)}</div>
-          <div class="shake-drama" style="font-size:88px;filter:drop-shadow(0 0 35px rgba(250,204,21,0.65));margin:10px 0;">🎁</div>
-          <div style="font-size:15px;color:#fef08a;font-weight:700;">Khazane ka pitara khul raha hai...</div>
-        `;
-        await sleepStage(850 * speedMul);
+      const cs = document.getElementById('charterStatus');
+      if (cs) {
+        cs.innerHTML = `<div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:800;color:#fde047;">COUPON #${esc(cupCode)}</div>
+          <div style="font-size:15px;font-weight:800;color:#f8fafc;letter-spacing:1.4px;margin-top:6px;">TERRITORY: ${esc(winArea)}</div>`;
       }
-      playReelLockClunk(3);
-      disp.innerHTML = `
-        ${demoBadge}
-        <div class="winner-pop">
-          <div style="font-size:64px;">✨🔓✨</div>
-          <div style="display:inline-block;padding:7px 22px;border-radius:999px;background:#fde047;color:#451a03;font-size:22px;font-weight:900;margin-top:6px;">
-            COUPON #${esc(cupCode)}
-          </div>
-          <div style="font-size:26px;font-weight:900;color:#86efac;margin-top:14px;">📍 ${esc(winArea)} KE VIJETA HAI...</div>
-        </div>
-      `;
-      await sleepStage(1550 * speedMul);
-      return 'GOLD_STARS';
+      await sleepStage(1800 * speedMul);
+      return;
     }
 
-    // ---------- SHOW 6: VEGAS 3D JACKPOT SLOT + SWEEPING VILLAGE RADAR (OR ANCHOR STEP) ----------
-    const isStep = (theme === 'GRAND_STEP');
-    const dArr = String(cupCode).replace(/[^0-9]/g, '').padStart(3, '0').slice(-3).split('');
-
+    // ---------- 5. DIGITAL LEDGER VERIFICATION SCAN ----------
     disp.innerHTML = `
-      ${demoBadge}
-      <div style="font-size:13px;font-weight:800;color:#34d399;letter-spacing:1.6px;">🎰 JACKPOT REELS & LIVE VILLAGE RADAR</div>
-      <div style="font-size:22px;font-weight:900;color:#fde68a;margin-top:4px;">${esc(seg.icon)} ${esc(seg.title)}</div>
-      <div class="slot-reels-wrap">
-        <div class="slot-reel spinning" id="sReel0">0</div>
-        <div class="slot-reel spinning" id="sReel1">0</div>
-        <div class="slot-reel spinning" id="sReel2">0</div>
+      <div style="text-align:center;width:100%;">
+        ${previewTag}
+        <div class="corp-stage-kicker">DIGITAL AUDIT & TERRITORY VERIFICATION • RANK #${seg.rank}</div>
+        <div class="corp-stage-prize-headline">${esc(seg.title)}</div>
+        <div style="width:min(620px,94%);margin:10px auto;background:#050811;border:1.5px solid rgba(212,175,55,0.5);border-radius:16px;padding:24px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:#94a3b8;letter-spacing:1.4px;margin-bottom:10px;">
+            <span>DATABASE AUDIT SCAN</span>
+            <span id="scanPctTxt" style="color:#fde047;">0%</span>
+          </div>
+          <div style="width:100%;height:10px;background:#1e293b;border-radius:999px;overflow:hidden;">
+            <div id="scanBarFill" style="width:0%;height:100%;background:linear-gradient(90deg,#d97706,#fde047);transition:width 0.12s linear;"></div>
+          </div>
+          <div id="scanTickerFirm" style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:#e2e8f0;margin-top:18px;min-height:30px;">
+            Scanning...
+          </div>
+        </div>
       </div>
-      <div id="reelStatusTxt" style="font-size:15px;font-weight:700;color:#cbd5e1;">Scanning 301 Lucky Coupons...</div>
-      <div id="stageNextStepSlot"></div>
     `;
 
-    let lockedCount = 0;
-    const spinInt = setInterval(() => {
+    const allNames = STATE.retailers.length ? STATE.retailers.map(x => x.name) : ['SHARMA KIRANA STORE', 'GUPTA TRADERS', winShop];
+    const totalSteps = 22;
+    for (let s = 1; s <= totalSteps; s++) {
       playSlotTick();
-      for (let i = lockedCount; i < 3; i++) {
-        const el = document.getElementById('sReel' + i);
-        if (el) el.textContent = Math.floor(Math.random() * 10);
-      }
-    }, 75);
-    STAGE_ACTIVE_TIMERS.push(spinInt);
-
-    await waitForAnchorStepOrAuto(isStep, 1100 * speedMul, '🔒 Lock 1st Digit');
-    lockedCount = 1; playReelLockClunk(1);
-    const r0 = document.getElementById('sReel0'); if (r0) { r0.className = 'slot-reel locked'; r0.textContent = dArr[0]; }
-
-    await waitForAnchorStepOrAuto(isStep, 1100 * speedMul, '🔒 Lock 2nd Digit');
-    lockedCount = 2; playReelLockClunk(2);
-    const r1 = document.getElementById('sReel1'); if (r1) { r1.className = 'slot-reel locked'; r1.textContent = dArr[1]; }
-
-    await waitForAnchorStepOrAuto(isStep, 1300 * speedMul, '🔥 Lock Final Digit');
-    lockedCount = 3; clearInterval(spinInt); playReelLockClunk(3);
-    const r2 = document.getElementById('sReel2'); if (r2) { r2.className = 'slot-reel locked'; r2.textContent = dArr[2]; }
-
-    await waitForAnchorStepOrAuto(isStep, 900 * speedMul, '📡 Scan Winner Beat Radar');
-    playHeartbeat();
-    disp.innerHTML = `
-      ${demoBadge}
-      <div style="font-size:13px;font-weight:800;color:#34d399;letter-spacing:1.5px;">📡 GPS BEAT RADAR LOCKED ON COUPON #${esc(cupCode)}</div>
-      <div class="radar-circle">
-        <div class="radar-beam"></div>
-        <div class="radar-pin suspense-pulse"></div>
-      </div>
-      <div style="font-size:26px;font-weight:900;color:#fde047;">📍 TARGET AREA: ${esc(winArea)}</div>
-      <div id="stageNextStepSlot"></div>
-    `;
-    await waitForAnchorStepOrAuto(isStep, 1750 * speedMul, '🏆 Reveal Grand Winner!');
-    return 'FIREWORKS';
+      const pct = Math.round((s / totalSteps) * 100);
+      const bf = document.getElementById('scanBarFill');
+      const pt = document.getElementById('scanPctTxt');
+      const tf = document.getElementById('scanTickerFirm');
+      if (bf) bf.style.width = pct + '%';
+      if (pt) pt.textContent = pct + '%';
+      if (tf) tf.textContent = s === totalSteps ? `COUPON #${cupCode}  •  ${winArea}` : allNames[s % allNames.length];
+      await sleepStage((3600 * speedMul) / totalSteps);
+    }
+    playReelLockClunk(3);
+    await sleepStage(1100 * speedMul);
   }
 
-  // Safe Practice / Demo Spin — Cycles through ALL 6 Reveal Shows so every click is a brand-new experience!
+  // Safe Preview Button
   async function runDemoStageSuspense() {
     if (STAGE_REVEAL_BUSY) return;
     clearStageTimers();
     STAGE_REVEAL_BUSY = true;
 
     const segId = Number(document.getElementById('projSegSelect').value);
-    const seg = STATE.segments.find(s => s.id === segId) || { rank: 1, title: '1st Prize - Maruti Suzuki Alto K10 LXi', icon: '🚗' };
-    const pool = STATE.coupons.length ? STATE.coupons : [{ coupon_num: 1, coupon_code: '001' }];
+    const seg = STATE.segments.find(s => s.id === segId) || { rank: 1, title: '1st Prize - Maruti Suzuki Alto K10 LXi', target_qty: 1 };
+    const pool = STATE.coupons.length ? STATE.coupons : [{ coupon_num: 1, coupon_code: '001', issue_date: todayISO() }];
     const sampleCup = pool[Math.floor(Math.random() * pool.length)];
-    const sampleRet = (sampleCup.retailer_id && STATE.retailers.find(x => x.id === sampleCup.retailer_id))
-      || STATE.retailers[Math.floor(Math.random() * Math.max(1, STATE.retailers.length))]
-      || { name: 'SHARMA KIRANA STORE (DEMO)', area: 'KAILARAS' };
+    const sampleRet = (sampleCup.retailer_id && STATE.summaryRows.find(x => x.id === sampleCup.retailer_id))
+      || STATE.summaryRows[0]
+      || { name: 'SHARMA KIRANA BHANDAR', area: 'KAILARAS', total_kg: 630, bags_eq: 21, earned: 3 };
+
+    const overlay = document.getElementById('stageProjectorOverlay');
+    overlay.classList.add('audience-clean');
 
     try {
-      const chosenTheme = resolveEffectiveRevealMode(seg);
-      const fxType = await executeDynamicStageShow(chosenTheme === 'INSTANT' ? peekOrPopNextRevealTheme(true) : chosenTheme, seg, { coupon_code: padCup(sampleCup.coupon_num || 1), coupon_num: sampleCup.coupon_num || 1 }, sampleRet, true, true);
+      const chosenTheme = resolveEffectiveRevealMode();
+      await executeDynamicStageShow(chosenTheme === 'INSTANT' ? peekOrPopNextRevealTheme(true) : chosenTheme, seg, { coupon_code: padCup(sampleCup.coupon_num || 1), coupon_num: sampleCup.coupon_num || 1, issue_date: sampleCup.issue_date || todayISO() }, sampleRet, true);
       playGrandFanfare();
-      launchStageConfetti(5200, 170, fxType);
-      renderFinalStageWinnerCard(seg, { coupon_code: padCup(sampleCup.coupon_num || 1) }, sampleRet, true, chosenTheme);
+      launchStageConfetti(5200, 140);
+      renderFinalStageWinnerCard(seg, { coupon_code: padCup(sampleCup.coupon_num || 1), issue_date: sampleCup.issue_date || todayISO() }, sampleRet, true);
       updateNextRevealBadge();
     } finally {
       STAGE_REVEAL_BUSY = false;
+      overlay.classList.remove('audience-clean');
     }
   }
 
@@ -8356,7 +8923,7 @@
     }
 
     if (STATE.coupons.length === 0) {
-      return toast('⚠️ Abhi koi Coupon Allot nahi hua hai! Pehle Allot tab se allot karein ya upar 🎲 Next Demo dabayein.', true);
+      return toast('Abhi koi Coupon Allot nahi hua hai! Pehle Allot tab se allot karein ya 🧪 Preview dabayein.', true);
     }
 
     let c = STATE.coupons.find(x => Number(x.coupon_num) === cupNum);
@@ -8367,13 +8934,15 @@
     if (!c) {
       return toast(`Coupon #${padCup(cupNum)} abhi kisi party ko allot nahi hai!`, true);
     }
-    const r = STATE.retailers.find(x => x.id === c.retailer_id);
+    const r = STATE.summaryRows.find(x => x.id === c.retailer_id) || STATE.retailers.find(x => x.id === c.retailer_id);
 
     document.getElementById('projCupInp').value = '';
     STAGE_REVEAL_BUSY = true;
 
-    const mode = resolveEffectiveRevealMode(seg);
+    const mode = resolveEffectiveRevealMode();
     const isBigRank = (seg.rank <= 5 || seg.target_qty <= 11);
+    const overlay = document.getElementById('stageProjectorOverlay');
+    if (mode !== 'GRAND_STEP') overlay.classList.add('audience-clean');
 
     try {
       const savePromise = api('/api/coupons/prize-bulk', 'POST', {
@@ -8389,70 +8958,103 @@
         await savePromise;
         await refreshAll();
         playQuickChime();
-        launchStageConfetti(2000, 60, 'AUTO');
-        renderFinalStageWinnerCard(seg, c, r, false, 'INSTANT');
+        launchStageConfetti(2600, 75);
+        const freshR = STATE.summaryRows.find(x => x.id === c.retailer_id) || r;
+        renderFinalStageWinnerCard(seg, c, freshR, false);
       } else {
         if (seg.rank <= 3) await maybePlayPreDrawCommercial(seg);
-        const fxType = await executeDynamicStageShow(mode, seg, c, r, isBigRank, false);
+        await executeDynamicStageShow(mode, seg, c, r, false);
         await savePromise;
         await refreshAll();
         if (isBigRank) playGrandFanfare(); else playQuickChime();
-        launchStageConfetti(isBigRank ? 6000 : 3400, isBigRank ? 190 : 110, fxType);
-        renderFinalStageWinnerCard(seg, c, r, isBigRank, mode);
+        launchStageConfetti(isBigRank ? 6200 : 3800, isBigRank ? 160 : 100);
+        const freshR = STATE.summaryRows.find(x => x.id === c.retailer_id) || r;
+        renderFinalStageWinnerCard(seg, c, freshR, isBigRank);
       }
 
+      updateBroadcastHeaderCounters();
       updateNextRevealBadge();
       renderProjectorRecentWinners();
     } catch (e) {
       toast(e.message, true);
     } finally {
       STAGE_REVEAL_BUSY = false;
+      overlay.classList.remove('audience-clean');
     }
   }
 
-  // 4 Rotating Winner Celebration Card Themes so even the Final Winner Screen looks fresh every draw!
-  function renderFinalStageWinnerCard(seg, c, r, isGrand, revealTheme = '') {
+  // ==================== EXECUTIVE CORPORATE AWARD CERTIFICATE CARD (ZERO CARTOON EMOJIS!) ====================
+  function renderFinalStageWinnerCard(seg, c, r) {
     const disp = document.getElementById('projWinnerDisplay');
-    const variants = [
-      { cls: 'wc-royal', badgeBg: 'linear-gradient(135deg,#fde047,#f59e0b)', badgeCol: '#0f172a', crownTxt: '👑 SHAHI MAHA-VIJETA 👑', prizeCol: '#fde047' },
-      { cls: 'wc-emerald', badgeBg: 'linear-gradient(135deg,#34d399,#10b981)', badgeCol: '#022c22', crownTxt: '🌟 GRAND LUCKY CHAMPION 🌟', prizeCol: '#6ee7b7' },
-      { cls: 'wc-kbc', badgeBg: 'linear-gradient(135deg,#e879f9,#a855f7)', badgeCol: '#ffffff', crownTxt: '🎯 KBC LOCKED WINNER 🎯', prizeCol: '#f0abfc' },
-      { cls: 'wc-saffron', badgeBg: 'linear-gradient(135deg,#fb923c,#ea580c)', badgeCol: '#ffffff', crownTxt: '🎇 BUMPER DHAMAKA WINNER 🎇', prizeCol: '#fdba74' }
-    ];
-    const v = variants[WINNER_CARD_VARIANT_IDX++ % variants.length];
+    const summaryR = (r && r.id) ? (STATE.summaryRows.find(x => x.id === r.id) || r) : r;
+    const totalKg = summaryR?.total_kg !== undefined ? summaryR.total_kg : null;
+    const totalBags = summaryR?.bags_eq !== undefined ? summaryR.bags_eq : null;
+    const totalCups = summaryR?.earned !== undefined ? summaryR.earned : null;
 
-    disp.innerHTML = `<div class="winner-pop winner-card-shell ${v.cls}">
-      <div style="font-size:11.5px;font-weight:900;letter-spacing:2px;color:#fde68a;margin-bottom:6px;">${v.crownTxt}</div>
-      <div style="font-size:${isGrand ? '58px' : '44px'};line-height:1.1;">${esc(seg.icon || '🏆')} 🎉</div>
-      <div style="display:inline-block;background:${v.badgeBg};color:${v.badgeCol};font-weight:900;font-family:'JetBrains Mono',monospace;font-size:${isGrand ? '22px' : '18px'};padding:6px 24px;border-radius:999px;margin-top:8px;box-shadow:0 8px 24px rgba(0,0,0,0.35);">
-        COUPON #${esc(c.coupon_code)}
-      </div>
-      <div class="${isGrand ? 'grand-winner-crown' : ''}" style="${isGrand ? 'margin-top:12px;' : 'font-size:clamp(24px,4vw,34px);font-weight:900;color:#fff;margin-top:12px;'}">
-        ${esc(r ? r.name : 'LUCKY WINNER')}
-      </div>
-      <div style="font-size:${isGrand ? '19px' : '16px'};font-weight:800;color:#bae6fd;margin-top:4px;">
-        📍 VILLAGE / BEAT: ${esc(r?.area || '-')}
-      </div>
-      <div style="display:inline-block;margin-top:14px;padding:10px 24px;border-radius:14px;background:rgba(255,255,255,0.08);border:1.5px solid ${v.prizeCol};font-size:${isGrand ? '23px' : '19px'};font-weight:900;color:${v.prizeCol};">
-        🏆 ${esc(seg.title)}
-      </div>
-      <div style="margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:8px;">
-        <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(15,23,42,0.65);padding:5px 15px;border-radius:999px;border:1px solid rgba(253,224,71,0.3);">
-          <img src="${getEffectiveLogoUrl()}" style="width:26px;height:26px;border-radius:50%;background:#fff;padding:1px;" />
-          <span style="font-size:12px;font-weight:800;color:#fde68a;">सौजन्य: ${esc(STATE.settings.company_name)} • आर्युष रसोई धन</span>
-        </div>
-        ${ARYUSH_PRODUCTS.some(p => p.photoData) ? `
-          <div style="display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:2px;">
-            ${ARYUSH_PRODUCTS.filter(p => p.photoData).slice(0, 8).map(p => `
-              <img src="${p.photoData}" title="${esc(p.hi)}" style="width:38px;height:38px;object-fit:contain;background:#fff;padding:2px;border-radius:8px;border:1.5px solid #fde047;" />
-            `).join('')}
+    disp.innerHTML = `
+      <div class="winner-pop corp-winner-certificate">
+        <!-- Top Official Verification Bar -->
+        <div class="corp-cert-top">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <img src="${getEffectiveLogoUrl()}" style="width:36px;height:36px;border-radius:50%;background:#fff;padding:2px;border:1.5px solid #fde047;" />
+            <div>
+              <div style="font-size:12px;font-weight:900;color:#f8fafc;letter-spacing:1px;">${esc(STATE.settings.company_name)} • आर्युष रसोई धन</div>
+              <div style="font-size:10px;color:#94a3b8;font-weight:700;letter-spacing:0.8px;">OFFICIAL LUCKY DRAW WINNER DECLARATION CERTIFICATE</div>
+            </div>
           </div>
-        ` : ''}
+          <span class="corp-cert-seal">VERIFIED WINNER • ${fmtDate(todayISO())}</span>
+        </div>
+
+        <!-- Asymmetric 2-Column Broadcast Body -->
+        <div class="corp-cert-grid">
+          <!-- Left Column: Real Uploaded Prize Photo or Bespoke Metallic Gold Crest -->
+          <div class="corp-prize-pedestal">
+            ${renderPrizeVisualHtml(seg, 155)}
+            <div class="corp-prize-rank-ribbon">RANK #${seg.rank || 1} OFFICIAL AWARD</div>
+          </div>
+
+          <!-- Right Column: Firm Credentials & Award Details -->
+          <div class="corp-winner-details">
+            <div class="corp-coupon-plaque">
+              <span class="lbl">WINNING COUPON NO.</span>
+              <span class="num">#${esc(c.coupon_code)}</span>
+            </div>
+
+            <div class="corp-winner-firm-name">
+              ${esc(summaryR ? summaryR.name : 'AUTHORIZED PARTNER')}
+            </div>
+
+            <div class="corp-meta-row">
+              <div class="corp-meta-chip">TERRITORY / BEAT: <b>${esc(summaryR?.area || 'KAILARAS')}</b></div>
+              ${totalKg !== null ? `<div class="corp-meta-chip">QUALIFIED VOLUME: <b>${totalKg} KG (${totalBags} BAGS)</b></div>` : ''}
+              ${totalCups !== null ? `<div class="corp-meta-chip">TOTAL COUPONS: <b>${totalCups}</b></div>` : ''}
+            </div>
+
+            <div class="corp-prize-banner-box">
+              <div class="corp-prize-banner-lbl">AWARDED GRAND PRIZE</div>
+              <div class="corp-prize-banner-val">${esc(seg.title)}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Corporate Signatory & Portfolio Strip -->
+        <div class="corp-cert-footer">
+          <div style="font-size:12px;font-weight:700;color:#cbd5e1;">
+            Authorized By: <b style="color:#fde68a;">${esc(STATE.settings.signatory || 'For Aryush Foods (Kailaras, Morena)')}</b>
+          </div>
+          ${ARYUSH_PRODUCTS.some(p => p.photoData) ? `
+            <div style="display:flex;gap:6px;align-items:center;">
+              ${ARYUSH_PRODUCTS.filter(p => p.photoData).slice(0, 7).map(p => `
+                <img src="${p.photoData}" title="${esc(p.hi)}" style="width:34px;height:34px;object-fit:contain;background:#fff;padding:2px;border-radius:6px;border:1px solid #fde047;" />
+              `).join('')}
+            </div>
+          ` : `<div style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:#fcd34d;">100% PURE KACCHI GHANI MUSTARD OIL & AUTHENTIC SPICES</div>`}
+        </div>
       </div>
-    </div>`;
+    `;
   }
 
-  // ==================== CHOTE / BULK PRIZES LED WALL BOARD (e.g. 51 HALDI / 101 DHANIYA) ====================
+  // ==================== BULK PRIZES (51 / 101) CORPORATE LED WALL BOARD ====================
   function showSegmentBoardOnLed(pageIdx = 0) {
     clearStageTimers();
     const segId = Number(document.getElementById('projSegSelect').value);
@@ -8466,9 +9068,10 @@
 
     const disp = document.getElementById('projWinnerDisplay');
     if (!segWinners.length) {
-      disp.innerHTML = `<div style="padding:30px;color:#fde68a;font-size:18px;font-weight:800;">
-        "${esc(seg.title)}" me abhi koi winner save nahi hai.<br/>
-        <span style="font-size:13px;color:#cbd5e1;">(301 Prize tab me 51/101 Slot Boxes ya Parchi Scan se bhar kar yahan 1-Click me poora LED Board dikhayein!)</span>
+      disp.innerHTML = `<div style="padding:36px;text-align:center;max-width:640px;">
+        <div class="corp-stage-kicker">OFFICIAL SEGMENT BOARD</div>
+        <div style="font-size:22px;font-weight:800;color:#fde68a;margin:8px 0;">${esc(seg.title)}</div>
+        <div style="font-size:14px;color:#94a3b8;line-height:1.6;">Is prize segment me abhi koi winner declare nahi hua hai. 301 Prize tab se bulk coupon numbers save karke yahan ek sath pura Winners Board dikhayein.</div>
       </div>`;
       return;
     }
@@ -8480,26 +9083,27 @@
 
     playQuickChime();
     disp.innerHTML = `
-      <div style="width:100%;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
-          <div style="font-size:20px;font-weight:900;color:#fde68a;">
-            ${esc(seg.icon)} ${esc(seg.title)} — WINNERS WALL (${segWinners.length} Winners)
+      <div style="width:100%;max-width:1240px;margin:0 auto;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-bottom:12px;border-bottom:1px solid rgba(212,175,55,0.3);">
+          <div>
+            <div class="corp-stage-kicker" style="margin-bottom:2px;">OFFICIAL DECLARED WINNERS BOARD (${segWinners.length} WINNERS)</div>
+            <div style="font-family:'Cinzel',serif;font-size:22px;font-weight:900;color:#ffffff;">${esc(seg.title)}</div>
           </div>
-          ${totalPages > 1 ? `<div style="display:flex;gap:6px;align-items:center;">
-            <button class="btn btn-outline btn-xs" style="color:#fff;border-color:#64748b;" onclick="showSegmentBoardOnLed(${STAGE_BOARD_PAGE - 1})">◀ Prev</button>
-            <span style="font-size:12px;font-weight:800;color:#cbd5e1;">Page ${STAGE_BOARD_PAGE + 1} / ${totalPages}</span>
-            <button class="btn btn-outline btn-xs" style="color:#fff;border-color:#64748b;" onclick="showSegmentBoardOnLed(${STAGE_BOARD_PAGE + 1})">Next ▶</button>
+          ${totalPages > 1 ? `<div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn btn-outline btn-xs" style="color:#fde68a;border-color:rgba(212,175,55,0.45);" onclick="showSegmentBoardOnLed(${STAGE_BOARD_PAGE - 1})">◀ Previous</button>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:800;color:#e2e8f0;">PAGE ${STAGE_BOARD_PAGE + 1} / ${totalPages}</span>
+            <button class="btn btn-outline btn-xs" style="color:#fde68a;border-color:rgba(212,175,55,0.45);" onclick="showSegmentBoardOnLed(${STAGE_BOARD_PAGE + 1})">Next ▶</button>
           </div>` : ''}
         </div>
-        <div class="led-board-grid">
+        <div class="led-board-grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:16px;">
           ${slice.map(c => {
             const r = rMap.get(c.retailer_id);
-            return `<div class="led-board-tile">
+            return `<div style="background:rgba(15,23,42,0.85);border:1px solid rgba(212,175,55,0.38);border-radius:12px;padding:12px 14px;">
               <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="background:#f59e0b;color:#0f172a;font-weight:900;font-size:12px;padding:2px 8px;border-radius:6px;">#${esc(c.coupon_code)}</span>
-                <span style="font-size:10.5px;color:#93c5fd;font-weight:800;">📍 ${esc(r?.area || '-')}</span>
+                <span style="background:#f59e0b;color:#090d16;font-family:'JetBrains Mono',monospace;font-weight:900;font-size:13px;padding:2px 9px;border-radius:6px;">#${esc(c.coupon_code)}</span>
+                <span style="font-size:11px;color:#fcd34d;font-weight:800;letter-spacing:0.5px;">${esc(r?.area || '-')}</span>
               </div>
-              <div style="font-size:13.5px;font-weight:900;color:#fff;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <div style="font-size:15px;font-weight:800;color:#ffffff;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                 ${esc(r?.name || '-')}
               </div>
             </div>`;
@@ -8509,48 +9113,50 @@
     `;
   }
 
-  // Auto-Slideshow across all declared winners / pages on LED Wall during lunch/dinner break!
   function toggleLedWinnerSlideshow() {
     if (STAGE_SLIDESHOW_TIMER) {
       clearStageTimers();
-      toast('⏹️ LED Auto-Slideshow Stopped');
+      toast('⏹️ Auto-Roll Stopped');
       return;
     }
     const allWinners = STATE.coupons
       .filter(c => c.prize_status !== 'NONE' && c.prize_title)
       .sort((a, b) => (a.prize_rank || 999) - (b.prize_rank || 999) || a.coupon_num - b.coupon_num);
 
-    if (!allWinners.length) return toast('Slideshow ke liye kam se kam 1 winner declare karein!', true);
+    if (!allWinners.length) return toast('Auto-Roll ke liye kam se kam 1 winner declare karein!', true);
 
-    document.getElementById('btnProjSlideshow').textContent = '⏹️ Stop Auto-Slide';
+    document.getElementById('btnProjSlideshow').textContent = '⏹️ Stop Roll';
     let idx = 0;
     const showSlide = () => {
       const c = allWinners[idx % allWinners.length];
-      const r = STATE.retailers.find(x => x.id === c.retailer_id);
-      const seg = STATE.segments.find(s => s.title === c.prize_title) || { icon: '🏆', title: c.prize_title, rank: c.prize_rank };
-      renderFinalStageWinnerCard(seg, c, r, (c.prize_rank || 999) <= 3);
+      const r = STATE.summaryRows.find(x => x.id === c.retailer_id) || STATE.retailers.find(x => x.id === c.retailer_id);
+      const seg = STATE.segments.find(s => s.title === c.prize_title) || { title: c.prize_title, rank: c.prize_rank || 1 };
+      renderFinalStageWinnerCard(seg, c, r);
       idx++;
     };
     showSlide();
-    STAGE_SLIDESHOW_TIMER = setInterval(showSlide, 4200);
-    toast('▶️ LED Winner Auto-Slideshow Started!');
+    STAGE_SLIDESHOW_TIMER = setInterval(showSlide, 4800);
+    toast('▶️ Official Winner Roll Started');
   }
 
   function renderProjectorRecentWinners() {
+    updateBroadcastHeaderCounters();
     const rMap = new Map(STATE.retailers.map(r => [r.id, r]));
     const allW = STATE.coupons.filter(c => c.prize_status !== 'NONE' && c.prize_title);
     const tc = document.getElementById('projTickerCount');
-    if (tc) tc.textContent = `${allW.length} / ${STATE.settings.max_coupons} Declared`;
+    if (tc) tc.textContent = `${allW.length} / ${STATE.settings.max_coupons} WINNERS`;
 
     const winners = [...allW]
       .sort((a, b) => (a.prize_rank || 999) - (b.prize_rank || 999) || a.coupon_num - b.coupon_num)
-      .slice(0, 18);
+      .slice(0, 24);
     document.getElementById('projRecentList').innerHTML = winners.map(c => {
       const r = rMap.get(c.retailer_id);
-      return `<div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);padding:6px 11px;border-radius:10px;font-size:12px;">
-        <b style="color:#fde68a;">#${esc(c.coupon_code)}</b> • <b>${esc(r?.name || '-')}</b> <span style="color:#86efac;">(${esc(c.prize_title.slice(0, 22))})</span>
+      return `<div style="background:rgba(255,255,255,0.05);border:1px solid rgba(212,175,55,0.28);padding:4px 11px;border-radius:7px;font-size:12px;white-space:nowrap;flex-shrink:0;">
+        <b style="font-family:'JetBrains Mono',monospace;color:#fde047;">#${esc(c.coupon_code)}</b>
+        <span style="color:#f8fafc;font-weight:700;margin-left:5px;">${esc(r?.name || '-')}</span>
+        <span style="color:#94a3b8;font-size:11px;margin-left:4px;">• ${esc(c.prize_title.replace(/^\d+\w+\s*Prize\s*-\s*/i, '').slice(0, 22))}</span>
       </div>`;
-    }).join('') || `<span style="color:#94a3b8;font-size:12px;">No winners declared yet.</span>`;
+    }).join('') || `<span style="color:#64748b;font-size:12px;font-weight:600;">Official Winner Declarations Will Appear Here Live</span>`;
   }
 
   let ADMIN_SESSION_UNLOCKED = false;

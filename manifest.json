@@ -1,11 +1,11 @@
 {
   "name": "ARYUSH FOODS • आर्युष रसोई धन",
   "short_name": "Aryush Foods",
-  "description": "आर्युष फूड्स (आर्युष रसोई धन) — आधिकारिक माल खाता पासबुक एवं मेगा लकी ड्रॉ पोर्टल",
-  "start_url": "/?v=11.7",
+  "description": "आर्युष फूड्स (आर्युष रसोई धन) — कॉर्पोरेट लकी ड्रॉ ब्रॉडकास्ट एवं माल खाता पोर्टल",
+  "start_url": "/?v=12.0",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "background_color": "#050811",
+  "theme_color": "#050811",
   "orientation": "any",
   "icons": [
     {

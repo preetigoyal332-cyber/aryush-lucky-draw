@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v10.2</title>
+  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v11.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
-  <meta name="theme-color" content="#1e1b4b" />
+  <meta name="theme-color" content="#0f172a" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -735,6 +738,401 @@
       border-radius: 7px; font-size: 11px; font-weight: 800; cursor: pointer;
     }
     .var-chip:active { background: #312e81; color: #fff; }
+
+    /* ==================== v11.0 EXECUTIVE CLEAN SAAS UI OVERHAUL ==================== */
+    :root {
+      --primary: #0f172a;
+      --primary-mid: #1e293b;
+      --accent: #d97706;
+      --accent-soft: #fffbeb;
+      --ai: #4f46e5;
+      --ai-soft: #eef2ff;
+      --gold: #b45309;
+      --gold-soft: #fef3c7;
+      --green: #15803d;
+      --green-soft: #dcfce7;
+      --teal: #0f766e;
+      --teal-soft: #ccfbf1;
+      --blue: #1d4ed8;
+      --blue-soft: #dbeafe;
+      --red: #dc2626;
+      --red-soft: #fee2e2;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 16px;
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 6px 18px rgba(15, 23, 42, 0.03);
+    }
+    * {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background: #f8fafc;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+    }
+
+    /* Sleek Obsidian Executive Topbar */
+    .topbar {
+      background: #0f172a !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.14) !important;
+      padding: 11px 16px !important;
+    }
+    .topbar-inner { max-width: 1140px; }
+    .logo-crest {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, #fde68a, #f59e0b);
+      padding: 2px; box-shadow: 0 2px 10px rgba(245, 158, 11, 0.32);
+    }
+    .brand-h1 { font-size: 15px; font-weight: 800; letter-spacing: -0.02em; }
+    .ver-tag {
+      background: rgba(251, 191, 36, 0.16) !important;
+      color: #fde68a !important;
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      font-size: 10px; font-weight: 800; padding: 2px 8px;
+    }
+    .brand-sub { font-size: 11.5px; color: #94a3b8; font-weight: 500; }
+
+    /* Clean Crisp Pill Navigation */
+    .desk-nav {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e2e8f0;
+      top: 64px;
+    }
+    .desk-nav-inner { max-width: 1140px; gap: 6px; padding: 9px 16px; }
+    .dtab {
+      padding: 8px 15px; border-radius: 10px; font-size: 13px; font-weight: 700;
+      color: #475569; transition: all 0.16s ease;
+    }
+    .dtab:hover { background: #f1f5f9; color: #0f172a; }
+    .dtab.active {
+      background: #0f172a; color: #ffffff;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16);
+    }
+    .container { max-width: 1140px; margin: 16px auto; padding: 0 14px; }
+
+    /* Clean Light Executive Brand Showcase Card (No heavy clashing maroon!) */
+    .brand-showcase-card {
+      background: linear-gradient(135deg, #ffffff 0%, #fffdf5 65%, #fef9c3 100%) !important;
+      border: 1px solid #fde68a !important;
+      border-radius: 18px !important;
+      padding: 16px 18px !important;
+      color: #0f172a !important;
+      margin-bottom: 14px !important;
+      box-shadow: 0 4px 18px rgba(180, 83, 9, 0.05) !important;
+    }
+    .brand-gold-pill {
+      background: #fef3c7 !important;
+      color: #92400e !important;
+      border: 1px solid #fde68a;
+      font-size: 10px; font-weight: 800; padding: 3px 10px; letter-spacing: 0.4px;
+    }
+    #homeBrandHeadline { color: #0f172a !important; font-size: 16.5px !important; letter-spacing: -0.02em; }
+    #homeBrandTagline { color: #64748b !important; font-size: 12px !important; font-weight: 600 !important; }
+
+    /* Clean Elevated White Product Cards */
+    .prod-ribbon { gap: 10px; padding: 12px 2px 4px; }
+    .prod-chip {
+      min-width: 162px; padding: 10px 12px; border-radius: 14px;
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      transition: all 0.16s ease;
+    }
+    .prod-chip:hover {
+      transform: translateY(-2px);
+      border-color: #f59e0b !important;
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.12);
+    }
+    .prod-nm { color: #0f172a !important; font-size: 12.5px !important; font-weight: 800 !important; }
+    .prod-tag { color: #64748b !important; font-size: 10.5px !important; font-weight: 600 !important; }
+    .prod-chip .pic-add-hint { color: #d97706 !important; font-weight: 700; }
+
+    /* Sleek Minimalist Quick-Actions Toolbar (Replaces loud purple AI strip) */
+    .ai-strip {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 14px !important;
+      padding: 10px 14px !important;
+      margin-bottom: 14px !important;
+      box-shadow: var(--shadow);
+    }
+    .ai-pill-tag {
+      background: #0f172a !important;
+      color: #fde68a !important;
+      font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 8px;
+    }
+    #aiNearAlertTxt { color: #334155 !important; font-weight: 600 !important; font-size: 12.5px !important; }
+
+    /* Crisp Executive KPI Cards */
+    .kpi-grid { gap: 11px; margin-bottom: 16px; }
+    .kpi {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .kpi:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
+      border-color: #cbd5e1;
+    }
+    .kpi::before { width: 3.5px; background: #cbd5e1; }
+    .kpi.accent-blue::before { background: #2563eb; }
+    .kpi.accent-amber::before { background: #d97706; }
+    .kpi.accent-green::before { background: #16a34a; }
+    .kpi-lbl { font-size: 11px; font-weight: 700; color: #64748b; letter-spacing: 0.04em; }
+    .kpi-val {
+      font-size: 23px; font-weight: 800; color: #0f172a !important;
+      margin: 5px 0 3px; font-variant-numeric: tabular-nums; letter-spacing: -0.03em;
+    }
+    .kpi.accent-amber .kpi-val { color: #b45309 !important; }
+    .kpi.accent-green .kpi-val { color: #15803d !important; }
+    .kpi.accent-blue .kpi-val { color: #1d4ed8 !important; }
+    .kpi-sub { font-size: 11.5px; color: #94a3b8; font-weight: 600; }
+
+    /* Clean Cards, Inputs & Buttons */
+    .card {
+      border: 1px solid #e2e8f0; border-radius: 18px; padding: 18px;
+      box-shadow: var(--shadow); margin-bottom: 16px; background: #ffffff;
+    }
+    .card-title { font-size: 15.5px; font-weight: 800; color: #0f172a; letter-spacing: -0.015em; }
+    input, select, textarea {
+      border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 12px;
+      font-size: 13.5px; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #0f172a; box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+    }
+    .btn { border-radius: 10px; font-weight: 700; letter-spacing: -0.005em; }
+    .btn-navy { background: #0f172a; color: #ffffff; }
+    .btn-brand { background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25); }
+    .btn-ai { background: #4f46e5; color: #ffffff; box-shadow: 0 2px 8px rgba(79, 70, 229, 0.22); }
+    .btn-outline { background: #ffffff; color: #334155; border: 1px solid #cbd5e1; }
+    .btn-outline:hover { background: #f8fafc; border-color: #94a3b8; }
+
+    /* Clean Party Directory Rows */
+    .party-row {
+      padding: 13px 15px; border: 1px solid #e2e8f0; border-radius: 14px;
+      transition: all 0.14s ease; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);
+    }
+    .party-row:hover { border-color: #cbd5e1; background: #fcfdff; transform: translateY(-1px); }
+    .party-avatar {
+      width: 42px; height: 42px; border-radius: 11px; background: #f1f5f9; color: #334155; font-weight: 800;
+    }
+    .party-avatar.active-shop { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .party-avatar.winner-shop { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .party-kg { font-size: 15.5px; font-weight: 800; color: #0f172a; font-variant-numeric: tabular-nums; }
+    .khata-pill-btn {
+      background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1;
+      font-size: 11.5px; font-weight: 700; padding: 6px 10px; border-radius: 8px;
+    }
+    .last-entry-banner {
+      background: #f0fdf4 !important; border: 1px solid #86efac !important;
+      border-radius: 14px !important; box-shadow: none !important;
+    }
+    .ai-fab {
+      background: #0f172a; color: #fde68a; border: 1px solid rgba(253, 230, 138, 0.35);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28); font-weight: 800;
+    }
+
+    /* ==================== v11.0 CINEMA STAGE & 6-THEME REVEAL STYLES ==================== */
+    .projector-overlay {
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 62%, #020617 100%) !important;
+      padding: 14px 18px !important;
+    }
+    .proj-topbar {
+      max-width: 1140px; margin: 0 auto; padding: 8px 4px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .proj-ctrl-bar {
+      max-width: 1140px; margin: 12px auto;
+      background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(12px);
+      border: 1px solid rgba(251, 191, 36, 0.32); border-radius: 16px;
+      padding: 10px 14px; transition: all 0.22s ease;
+    }
+    .proj-ctrl-bar.deck-hidden { display: none !important; }
+    .proj-stage-arena {
+      max-width: 1140px; min-height: 455px; margin: 12px auto;
+      border-radius: 26px; border: 2px solid rgba(251, 191, 36, 0.42);
+      transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+    }
+
+    /* Dynamic Stage Backdrops per Reveal Theme */
+    .proj-stage-arena.theme-wheel {
+      background: radial-gradient(circle at center, rgba(124, 45, 18, 0.62) 0%, rgba(15, 23, 42, 0.94) 72%, #020617 100%);
+      border-color: #f59e0b;
+    }
+    .proj-stage-arena.theme-lifafa {
+      background: radial-gradient(circle at center, rgba(136, 19, 55, 0.65) 0%, rgba(24, 10, 28, 0.95) 72%, #020617 100%);
+      border-color: #fb7185;
+    }
+    .proj-stage-arena.theme-kbc {
+      background: radial-gradient(circle at center, rgba(59, 7, 100, 0.78) 0%, rgba(15, 23, 42, 0.95) 72%, #020617 100%);
+      border-color: #a855f7;
+    }
+    .proj-stage-arena.theme-rocket {
+      background: radial-gradient(circle at bottom, rgba(30, 58, 138, 0.6) 0%, rgba(9, 13, 26, 0.96) 70%, #020617 100%);
+      border-color: #38bdf8;
+    }
+    .proj-stage-arena.theme-treasure {
+      background: radial-gradient(circle at center, rgba(113, 63, 18, 0.68) 0%, rgba(17, 24, 39, 0.95) 72%, #020617 100%);
+      border-color: #fde047;
+    }
+    .proj-stage-arena.theme-radar {
+      background: radial-gradient(circle at center, rgba(6, 78, 59, 0.65) 0%, rgba(15, 23, 42, 0.95) 72%, #020617 100%);
+      border-color: #34d399;
+    }
+
+    /* 1. Royal Fortune Chakra Wheel */
+    .wheel-stage-wrap {
+      position: relative; width: 270px; height: 270px; margin: 12px auto;
+      display: flex; align-items: center; justify-content: center;
+    }
+    @media (min-width: 680px) { .wheel-stage-wrap { width: 310px; height: 310px; } }
+    .wheel-pointer {
+      position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+      z-index: 12; font-size: 34px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+    }
+    .royal-wheel-disc {
+      width: 100%; height: 100%; border-radius: 50%;
+      border: 7px solid #fde047;
+      box-shadow: 0 0 45px rgba(251, 191, 36, 0.45), inset 0 0 24px rgba(0,0,0,0.65);
+      background: conic-gradient(
+        #991b1b 0deg 30deg, #d97706 30deg 60deg,
+        #1e3a8a 60deg 90deg, #b45309 90deg 120deg,
+        #065f46 120deg 150deg, #ea580c 150deg 180deg,
+        #581c87 180deg 210deg, #ca8a04 210deg 240deg,
+        #991b1b 240deg 270deg, #d97706 270deg 300deg,
+        #1e3a8a 300deg 330deg, #15803d 330deg 360deg
+      );
+      transition: transform 4.1s cubic-bezier(0.12, 0.86, 0.14, 1);
+      position: relative;
+    }
+    .wheel-center-hub {
+      position: absolute; width: 74px; height: 74px; border-radius: 50%;
+      background: radial-gradient(circle, #fffbeb, #f59e0b);
+      border: 4px solid #78350f; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 16px; color: #451a03;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+
+    /* 2. Shahi Golden Lifafa & Foil Scratch */
+    .shahi-lifafa-box {
+      width: min(440px, 92%); margin: 14px auto; border-radius: 22px;
+      background: linear-gradient(145deg, #9f1239 0%, #4c0519 100%);
+      border: 3px solid #fde047; padding: 26px 20px; position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.65), 0 0 35px rgba(251, 191, 36, 0.3);
+    }
+    @keyframes shakeIntense {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-2.5deg) scale(1.03); }
+      75% { transform: rotate(2.5deg) scale(1.03); }
+    }
+    .shake-drama { animation: shakeIntense 0.22s infinite; }
+    .gold-scratch-card {
+      width: min(460px, 94%); margin: 12px auto; border-radius: 20px;
+      background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #fde047 100%);
+      color: #451a03; padding: 24px 20px; border: 3px solid #ffffff;
+      box-shadow: 0 20px 50px rgba(245, 158, 11, 0.45);
+      position: relative; overflow: hidden;
+    }
+    @keyframes foilSweep {
+      0% { left: -120%; }
+      100% { left: 140%; }
+    }
+    .foil-beam {
+      position: absolute; top: 0; bottom: 0; width: 75%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
+      transform: skewX(-22deg); animation: foilSweep 1.15s ease-in-out infinite;
+    }
+
+    /* 3. KBC Hexagonal Lock Options */
+    .kbc-grid {
+      display: grid; grid-template-columns: 1fr; gap: 10px;
+      width: min(760px, 96%); margin: 16px auto 0;
+    }
+    @media (min-width: 660px) { .kbc-grid { grid-template-columns: 1fr 1fr; } }
+    .kbc-hex {
+      background: linear-gradient(90deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+      border: 2px solid #fbbf24; border-radius: 999px; padding: 12px 18px;
+      color: #ffffff; font-size: 14.5px; font-weight: 800; text-align: left;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45); transition: all 0.28s ease;
+    }
+    .kbc-hex.eliminated { opacity: 0.18; transform: scale(0.95); filter: grayscale(1); }
+    .kbc-hex.locking {
+      background: linear-gradient(90deg, #d97706, #f59e0b, #d97706);
+      color: #0f172a; border-color: #ffffff; transform: scale(1.04);
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.7);
+    }
+    .kbc-hex.correct {
+      background: linear-gradient(90deg, #15803d, #22c55e, #15803d);
+      color: #ffffff; border-color: #fde047; transform: scale(1.06);
+      box-shadow: 0 0 36px rgba(34, 197, 94, 0.75);
+    }
+
+    /* 4. Sweeping Beat Radar */
+    .radar-circle {
+      width: 220px; height: 220px; border-radius: 50%; margin: 12px auto;
+      background:
+        radial-gradient(circle, transparent 30%, rgba(52,211,153,0.22) 31%, transparent 32%),
+        radial-gradient(circle, transparent 60%, rgba(52,211,153,0.22) 61%, transparent 62%),
+        #022c22;
+      border: 3px solid #10b981; position: relative; overflow: hidden;
+      box-shadow: 0 0 40px rgba(16, 185, 129, 0.35);
+    }
+    @keyframes radarSweepSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .radar-beam {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(16, 185, 129, 0.55) 0deg 55deg, transparent 60deg 360deg);
+      animation: radarSweepSpin 1.35s linear infinite;
+    }
+    .radar-pin {
+      position: absolute; top: 44%; left: 54%; width: 16px; height: 16px;
+      border-radius: 50%; background: #fde047; border: 3px solid #ef4444;
+      box-shadow: 0 0 18px #fde047; transform: translate(-50%, -50%);
+    }
+
+    /* 5. Rocket Launch Trail */
+    @keyframes rocketRise {
+      0% { transform: translateY(150px) scale(0.8); opacity: 0.3; }
+      75% { transform: translateY(-25px) scale(1.2); opacity: 1; }
+      100% { transform: translateY(-55px) scale(1.5); opacity: 0; }
+    }
+    .sky-rocket-anim { font-size: 68px; animation: rocketRise 1.15s ease-out forwards; }
+
+    /* Rotating Winner Card Variants */
+    .winner-card-shell {
+      width: min(820px, 98%); margin: 0 auto; padding: 24px 20px;
+      border-radius: 24px; position: relative; overflow: hidden;
+    }
+    .wc-royal {
+      background: linear-gradient(145deg, rgba(124,45,18,0.55), rgba(15,23,42,0.88));
+      border: 2px solid #fbbf24; box-shadow: 0 0 50px rgba(251,191,36,0.28);
+    }
+    .wc-emerald {
+      background: linear-gradient(145deg, rgba(6,78,59,0.62), rgba(15,23,42,0.9));
+      border: 2px solid #34d399; box-shadow: 0 0 50px rgba(52,211,153,0.28);
+    }
+    .wc-kbc {
+      background: linear-gradient(145deg, rgba(76,29,149,0.62), rgba(15,23,42,0.9));
+      border: 2px solid #c084fc; box-shadow: 0 0 50px rgba(192,132,252,0.28);
+    }
+    .wc-saffron {
+      background: linear-gradient(145deg, rgba(154,52,18,0.6), rgba(30,27,75,0.9));
+      border: 2px solid #fb923c; box-shadow: 0 0 50px rgba(251,146,60,0.3);
+    }
   </style>
 </head>
 <body>
@@ -752,7 +1150,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">रसोई धन v10.2</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v11.0 Pro</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -802,11 +1200,10 @@
               </div>
             </div>
           </div>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-            <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-weight:900;" onclick="openStageProjector();startFullScreenVideoAdLoop();">🎬 LED Video Ad</button>
-            <button type="button" class="btn btn-xs" style="background:#fde047;color:#450a0a;font-weight:900;" onclick="openProductStudioModal()">📸 Upload Pics & Video</button>
-            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="openStageProjector();showLedBrandPromoScreen();">📺 Poster</button>
-            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="toggleHomeProductsRibbon()" id="btnToggleProdRibbon">Hide</button>
+          <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn btn-navy btn-sm" onclick="openStageProjector()">📺 Live Stage TV</button>
+            <button type="button" class="btn btn-brand btn-sm" onclick="openProductStudioModal()">📸 Products & Videos</button>
+            <button type="button" class="btn btn-outline btn-xs" onclick="toggleHomeProductsRibbon()" id="btnToggleProdRibbon">Hide</button>
           </div>
         </div>
 
@@ -820,12 +1217,11 @@
           <span style="font-size:12px;font-weight:800;color:#4c1d95;" id="aiNearAlertTxt">Voice Entry, Bill Photo Scan, Target Coach & Duplicate Guard Ready!</span>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="btn btn-brand btn-xs" onclick="openBeatBulkModal()">🚚 Area Bulk Sheet</button>
+          <button class="btn btn-outline btn-xs" onclick="openBeatBulkModal()">🚚 Beat Sheet</button>
           <button class="btn btn-wa btn-xs" onclick="openAiTargetCoachModal()">📲 Target WTS <span id="nearCountBadge"></span></button>
-          <button class="btn btn-outline btn-xs" style="border-color:#86efac;color:#15803d;" onclick="openWaTemplateModal()">✏️ Customize WTS</button>
-          <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="sharePublicCheckLink()">🔗 Party Check Link</button>
-          <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="openStageProjector()">📺 Stage TV</button>
-          <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="openDuplicateGuardModal()">🔍 Dup Guard</button>
+          <button class="btn btn-outline btn-xs" onclick="openWaTemplateModal()">✏️ Edit WTS</button>
+          <button class="btn btn-outline btn-xs" onclick="sharePublicCheckLink()">🔗 Check Link</button>
+          <button class="btn btn-outline btn-xs" onclick="openDuplicateGuardModal()">🔍 Dup Check</button>
         </div>
       </div>
 
@@ -2000,44 +2396,47 @@
         </div>
       </div>
       <div class="proj-topbar">
-        <div>
-          <div style="font-size:11px;font-weight:900;color:#fde68a;letter-spacing:1.2px;">✨ ARYUSH FOODS • OFFICIAL LIVE LED WALL STAGE SHOW</div>
-          <div style="font-size:19px;font-weight:900;color:#fff;" id="projHeaderTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em;" id="projHeaderTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</div>
+          <span class="badge" id="nextRevealBadge" style="background:rgba(251,191,36,0.16);color:#fde68a;border:1px solid rgba(251,191,36,0.35);font-size:10.5px;">🎲 Smart Variety Active</span>
         </div>
-        <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;">
-          <button type="button" class="btn btn-outline btn-xs" id="btnProjSound" style="background:rgba(255,255,255,0.12);color:#86efac;border-color:rgba(134,239,172,0.4);" onclick="toggleStageSound()">🔊 Sound ON</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnProjMask" style="background:rgba(255,255,255,0.12);color:#cbd5e1;border-color:rgba(255,255,255,0.28);" onclick="toggleSecretMask()" title="LED par number chhupane ke liye dabayein">👁️ Typing Visible</button>
-          <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-weight:900;" onclick="startFullScreenVideoAdLoop()" title="LED Wall par Product Videos lagatar loop me chalayein">🎬 Video Ad Loop</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnSplitVideoDraw" style="background:rgba(56,189,248,0.16);color:#7dd3fc;border-color:rgba(56,189,248,0.45);font-weight:900;" onclick="toggleStageSplitVideoMode()" title="Lucky Draw ke sath side me Product Video chalayein">📺 Split: Video+Draw</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnPreDrawAdToggle" style="background:rgba(255,255,255,0.1);color:#fde68a;border-color:rgba(251,191,36,0.35);" onclick="togglePreDrawAdPref()" title="Top-3 Prize se pehle 10s Product Video dikhayein">⚡ Pre-Draw Ad: OFF</button>
-          <label class="btn btn-outline btn-xs" style="background:rgba(34,197,94,0.18);color:#86efac;border-color:rgba(74,222,128,0.45);cursor:pointer;" title="Phone/PC se MP4 Product Ad Videos load karein">
-            📂 + MP4 Video
-            <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event)" />
-          </label>
-          <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#fde047,#f59e0b);color:#450a0a;font-weight:900;" onclick="showLedBrandPromoScreen()" title="LED Wall par Company & Rasoi Dhan Products ka shandar poster dikhayein">🌟 Brand Show</button>
-          <button type="button" class="btn btn-outline btn-xs" style="background:rgba(251,191,36,0.16);color:#fde68a;border-color:rgba(251,191,36,0.45);" onclick="runDemoStageSuspense()" title="Bina data badle Stage Suspense Demo dekhein">🧪 Demo Spin</button>
-          <button type="button" class="btn btn-outline btn-xs" id="btnProjSlideshow" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.28);" onclick="toggleLedWinnerSlideshow()">▶️ Auto-Slide Winners</button>
-          <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.28);" onclick="goFullScreenLed()">⛶ Fullscreen</button>
-          <button type="button" class="btn btn-danger btn-xs" onclick="closeStageProjector()">✕ Exit TV</button>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+          <button type="button" class="btn btn-xs" style="background:#fde047;color:#451a03;font-weight:800;" onclick="showLedBrandPromoScreen()">🌟 Brand</button>
+          <button type="button" class="btn btn-xs" style="background:#dc2626;color:#fff;font-weight:800;" onclick="startFullScreenVideoAdLoop()">🎬 Ad Loop</button>
+          <button type="button" class="btn btn-outline btn-xs" id="btnSplitVideoDraw" style="background:rgba(56,189,248,0.14);color:#7dd3fc;border-color:rgba(56,189,248,0.4);" onclick="toggleStageSplitVideoMode()">📺 Split Ad</button>
+          <button type="button" class="btn btn-outline btn-xs" style="background:rgba(251,191,36,0.14);color:#fde68a;border-color:rgba(251,191,36,0.4);" onclick="runDemoStageSuspense()" title="Har click par alag reveal style ka demo dekhein!">🎲 Next Demo</button>
+          <button type="button" class="btn btn-outline btn-xs" id="btnProjSlideshow" style="background:rgba(255,255,255,0.08);color:#e2e8f0;border-color:rgba(255,255,255,0.2);" onclick="toggleLedWinnerSlideshow()">▶️ Slide</button>
+          <button type="button" class="btn btn-outline btn-xs" id="btnProjSound" style="background:rgba(255,255,255,0.08);color:#86efac;border-color:rgba(134,239,172,0.3);" onclick="toggleStageSound()">🔊</button>
+          <button type="button" class="btn btn-outline btn-xs" id="btnToggleHostDeck" style="background:rgba(255,255,255,0.08);color:#cbd5e1;border-color:rgba(255,255,255,0.2);" onclick="toggleStageHostDeck()" title="Audience ke liye Control Bar chhupayein/dikhayein">🎛️ Deck</button>
+          <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.2);" onclick="goFullScreenLed()">⛶</button>
+          <button type="button" class="btn btn-danger btn-xs" onclick="closeStageProjector()">✕</button>
         </div>
       </div>
 
-      <!-- Stage Host Control Deck -->
-      <div class="proj-ctrl-bar">
-        <select id="projSegSelect" onchange="onProjSegmentChanged()" style="flex:1.5;min-width:210px;background:#0f172a;color:#fde68a;border:1.5px solid #f59e0b;font-weight:800;font-size:13.5px;padding:10px;"></select>
+      <!-- Clean Sleek Stage Host Control Deck -->
+      <div class="proj-ctrl-bar" id="projHostDeckBar">
+        <select id="projSegSelect" onchange="onProjSegmentChanged()" style="flex:1.4;min-width:200px;background:#090d16;color:#fde68a;border:1px solid rgba(251,191,36,0.5);font-weight:700;font-size:13px;padding:9px 11px;"></select>
 
-        <select id="projStyleSelect" style="width:195px;background:#1e293b;color:#fff;border:1.5px solid #64748b;font-weight:800;font-size:12.5px;padding:10px;" title="Reveal Drama Mode">
-          <option value="AUTO">🎯 Auto (Top 3 = Full Suspense)</option>
-          <option value="GRAND_AUTO">🔥 Full Suspense (Auto 11s)</option>
-          <option value="GRAND_STEP">🎙️ Anchor Step-by-Step</option>
-          <option value="QUICK_SPIN">⚡ Fast Spin (2.5s Medium)</option>
-          <option value="INSTANT">🚀 Instant Chota Prize</option>
+        <select id="projStyleSelect" onchange="updateNextRevealBadge()" style="width:225px;background:#090d16;color:#fff;border:1px solid #475569;font-weight:700;font-size:12.5px;padding:9px 10px;" title="Choose Reveal Show Theme">
+          <option value="ROTATE_ALL">🎲 Auto-Rotate All 6 Shows (Har Baar Naya!)</option>
+          <option value="WHEEL">🎡 1. Royal Chakra Spin Wheel</option>
+          <option value="LIFAFA">🧧 2. Shahi Golden Lifafa & Scratch</option>
+          <option value="KBC">🎯 3. KBC Hotseat Computer Lock</option>
+          <option value="ROCKET">🚀 4. Diwali Skyrocket & Fireworks</option>
+          <option value="TREASURE">💎 5. Shahi Khazana Box Unboxing</option>
+          <option value="RADAR_SLOT">🎰 6. Vegas Jackpot + Village Radar</option>
+          <option value="GRAND_STEP">🎙️ Anchor Step-by-Step Control</option>
+          <option value="INSTANT">⚡ Fast Instant Reveal (Bulk)</option>
         </select>
 
-        <input type="tel" inputmode="numeric" id="projCupInp" class="secret-cup-inp" placeholder="e.g. 01" autocomplete="off" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" />
+        <div style="display:flex;align-items:center;gap:5px;">
+          <input type="tel" inputmode="numeric" id="projCupInp" class="secret-cup-inp" style="width:125px !important;font-size:18px !important;padding:8px !important;" placeholder="Cup #" autocomplete="off" onkeydown="if(event.key==='Enter') revealAndSaveStageWinner()" />
+          <button type="button" class="btn btn-outline btn-xs" id="btnProjMask" style="background:rgba(255,255,255,0.08);color:#cbd5e1;border-color:rgba(255,255,255,0.2);padding:9px;" onclick="toggleSecretMask()" title="Hide/Show typed number">👁️</button>
+        </div>
 
-        <button class="btn btn-brand" id="btnProjReveal" style="padding:11px 18px;font-size:14.5px;" onclick="revealAndSaveStageWinner()">🎉 Launch Reveal!</button>
-        <button class="btn btn-ai btn-sm" type="button" onclick="showSegmentBoardOnLed()" title="51 ya 101 chote inam ek sath LED board par dikhayein">📋 Show Segment Board</button>
+        <button class="btn btn-brand" id="btnProjReveal" style="padding:10px 18px;font-size:14px;" onclick="revealAndSaveStageWinner()">🎉 Launch Reveal</button>
+        <button class="btn btn-outline btn-sm" type="button" style="background:rgba(255,255,255,0.08);color:#fde68a;border-color:rgba(251,191,36,0.35);" onclick="showSegmentBoardOnLed()">📋 51/101 Wall</button>
+        <button type="button" class="btn btn-outline btn-xs" id="btnPreDrawAdToggle" style="background:rgba(255,255,255,0.06);color:#94a3b8;border-color:rgba(255,255,255,0.15);" onclick="togglePreDrawAdPref()" title="10s Product Ad before Top-3 Draw">⚡ Pre-Ad: OFF</button>
       </div>
 
       <!-- Main Center LED Stage Arena (Supports Single & Split Video+Draw Mode) -->
@@ -6747,7 +7146,10 @@
 
   // Smooth Full-Screen Gold & Tricolor Confetti Fireworks
   let CONFETTI_RAF = null;
-  function launchStageConfetti(durationMs = 4800, particleCount = 150) {
+  let CELEBRATION_FX_COUNTER = 0;
+
+  // 3 Distinct Celebration Particle FX: 'RIBBONS' | 'FIREWORKS' | 'GOLD_STARS'
+  function launchStageConfetti(durationMs = 5000, particleCount = 150, fxMode = 'AUTO') {
     const canvas = document.getElementById('confettiCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -6755,45 +7157,120 @@
     canvas.height = window.innerHeight;
     if (CONFETTI_RAF) cancelAnimationFrame(CONFETTI_RAF);
 
-    const colors = ['#fbbf24', '#f97316', '#22c55e', '#38bdf8', '#f43f5e', '#a855f7', '#ffffff'];
-    const parts = Array.from({ length: particleCount }, () => ({
-      x: Math.random() * canvas.width,
-      y: -20 - Math.random() * canvas.height * 0.5,
-      w: 7 + Math.random() * 7,
-      h: 10 + Math.random() * 8,
-      vx: (Math.random() - 0.5) * 5,
-      vy: 3 + Math.random() * 5.5,
-      rot: Math.random() * Math.PI * 2,
-      vrot: (Math.random() - 0.5) * 0.22,
-      color: colors[Math.floor(Math.random() * colors.length)]
-    }));
+    const modes = ['RIBBONS', 'FIREWORKS', 'GOLD_STARS'];
+    const activeFx = fxMode === 'AUTO' ? modes[CELEBRATION_FX_COUNTER++ % modes.length] : fxMode;
+    const colors = ['#fbbf24', '#f97316', '#22c55e', '#38bdf8', '#f43f5e', '#c084fc', '#ffffff', '#fde047'];
+
+    let parts = [];
+    if (activeFx === 'FIREWORKS') {
+      // Multi-center radial sky-firework bursts!
+      const bursts = 4;
+      for (let b = 0; b < bursts; b++) {
+        const cx = canvas.width * (0.2 + 0.2 * b);
+        const cy = canvas.height * (0.22 + (b % 2) * 0.14);
+        const col = colors[b % colors.length];
+        for (let i = 0; i < 42; i++) {
+          const ang = (Math.PI * 2 * i) / 42 + Math.random() * 0.15;
+          const spd = 2.5 + Math.random() * 6.5;
+          parts.push({
+            kind: 'spark', x: cx, y: cy,
+            vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd,
+            r: 3 + Math.random() * 3.5, alpha: 1,
+            color: i % 3 === 0 ? '#fde047' : col
+          });
+        }
+      }
+    } else if (activeFx === 'GOLD_STARS') {
+      // Rising shimmering golden coins & stars fountain from bottom!
+      parts = Array.from({ length: Math.min(120, particleCount) }, () => ({
+        kind: 'coin',
+        x: canvas.width * (0.15 + Math.random() * 0.7),
+        y: canvas.height + 10 + Math.random() * 80,
+        vx: (Math.random() - 0.5) * 6,
+        vy: -(8 + Math.random() * 8.5),
+        g: 0.18 + Math.random() * 0.08,
+        r: 6 + Math.random() * 6,
+        rot: Math.random() * Math.PI,
+        vrot: 0.12 + Math.random() * 0.15,
+        color: Math.random() > 0.35 ? '#fde047' : '#f59e0b'
+      }));
+    } else {
+      parts = Array.from({ length: particleCount }, () => ({
+        kind: 'ribbon',
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * canvas.height * 0.5,
+        w: 7 + Math.random() * 7,
+        h: 11 + Math.random() * 8,
+        vx: (Math.random() - 0.5) * 5,
+        vy: 3 + Math.random() * 5.2,
+        rot: Math.random() * Math.PI * 2,
+        vrot: (Math.random() - 0.5) * 0.22,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      }));
+    }
 
     const endAt = performance.now() + durationMs;
     const tick = (now) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (now >= endAt) return;
       for (const p of parts) {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.rot += p.vrot;
-        if (p.y > canvas.height + 20) { p.y = -15; p.x = Math.random() * canvas.width; }
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rot);
-        ctx.fillStyle = p.color;
-        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-        ctx.restore();
+        if (p.kind === 'spark') {
+          p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.vx *= 0.985; p.alpha *= 0.986;
+          if (p.alpha < 0.08) {
+            p.x = canvas.width * (0.18 + Math.random() * 0.64);
+            p.y = canvas.height * (0.18 + Math.random() * 0.3);
+            const a = Math.random() * Math.PI * 2, s = 2.5 + Math.random() * 6;
+            p.vx = Math.cos(a) * s; p.vy = Math.sin(a) * s; p.alpha = 1;
+          }
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color; ctx.fill();
+          ctx.restore();
+        } else if (p.kind === 'coin') {
+          p.x += p.vx; p.y += p.vy; p.vy += p.g; p.rot += p.vrot;
+          if (p.y > canvas.height + 60 && p.vy > 0) {
+            p.y = canvas.height + 10; p.vy = -(8 + Math.random() * 8);
+          }
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.scale(Math.cos(p.rot), 1);
+          ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color; ctx.fill();
+          ctx.lineWidth = 1.5; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+          ctx.restore();
+        } else {
+          p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
+          if (p.y > canvas.height + 20) { p.y = -15; p.x = Math.random() * canvas.width; }
+          ctx.save();
+          ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        }
       }
       CONFETTI_RAF = requestAnimationFrame(tick);
     };
     CONFETTI_RAF = requestAnimationFrame(tick);
   }
 
+  function playRocketWhoosh() {
+    playStageTone(190, 0.75, 'sine', 0.22, 920);
+    setTimeout(() => playStageTone(120, 0.32, 'sawtooth', 0.25, 48), 720);
+  }
+
+  function playKbcLockSynth() {
+    playStageTone(293.66, 0.22, 'triangle', 0.22);
+    setTimeout(() => playStageTone(440, 0.45, 'triangle', 0.24), 190);
+  }
+
   function toggleStageSound() {
     STAGE_SOUND_ON = !STAGE_SOUND_ON;
     const b = document.getElementById('btnProjSound');
-    b.textContent = STAGE_SOUND_ON ? '🔊 Sound ON' : '🔇 Muted';
-    b.style.color = STAGE_SOUND_ON ? '#86efac' : '#94a3b8';
+    if (b) {
+      b.textContent = STAGE_SOUND_ON ? '🔊' : '🔇';
+      b.style.color = STAGE_SOUND_ON ? '#86efac' : '#94a3b8';
+    }
     if (STAGE_SOUND_ON) playQuickChime();
   }
 
@@ -6802,8 +7279,15 @@
     const inp = document.getElementById('projCupInp');
     const b = document.getElementById('btnProjMask');
     inp.type = STAGE_MASK_INPUT ? 'password' : 'tel';
-    b.textContent = STAGE_MASK_INPUT ? '🙈 Typing Hidden' : '👁️ Typing Visible';
-    b.style.color = STAGE_MASK_INPUT ? '#fde68a' : '#cbd5e1';
+    if (b) {
+      b.textContent = STAGE_MASK_INPUT ? '🙈' : '👁️';
+      b.style.color = STAGE_MASK_INPUT ? '#fde68a' : '#cbd5e1';
+    }
+  }
+
+  function toggleStageHostDeck() {
+    const bar = document.getElementById('projHostDeckBar');
+    if (bar) bar.classList.toggle('deck-hidden');
   }
 
   function goFullScreenLed() {
@@ -6815,12 +7299,75 @@
     }
   }
 
+  // ==================== 6-THEME NON-REPEATING REVEAL DECK ENGINE ====================
+  const ALL_6_REVEAL_THEMES = ['WHEEL', 'LIFAFA', 'KBC', 'ROCKET', 'TREASURE', 'RADAR_SLOT'];
+  const REVEAL_THEME_LABELS = {
+    WHEEL: '🎡 Royal Chakra Wheel',
+    LIFAFA: '🧧 Shahi Golden Lifafa',
+    KBC: '🎯 KBC Hotseat Lock',
+    ROCKET: '🚀 Skyrocket Fireworks',
+    TREASURE: '💎 Khazana Unboxing',
+    RADAR_SLOT: '🎰 Jackpot + Radar',
+    GRAND_STEP: '🎙️ Anchor Step Mode',
+    INSTANT: '⚡ Instant Flip'
+  };
+  let REVEAL_SHUFFLE_DECK = [];
+  let LAST_PLAYED_REVEAL_THEME = '';
+  let WINNER_CARD_VARIANT_IDX = 0;
+
+  function peekOrPopNextRevealTheme(consume = false) {
+    if (REVEAL_SHUFFLE_DECK.length === 0) {
+      const fresh = [...ALL_6_REVEAL_THEMES];
+      for (let i = fresh.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [fresh[i], fresh[j]] = [fresh[j], fresh[i]];
+      }
+      // Guarantee 0% chance of consecutive duplicate across deck boundary!
+      if (fresh[0] === LAST_PLAYED_REVEAL_THEME && fresh.length > 1) {
+        [fresh[0], fresh[1]] = [fresh[1], fresh[0]];
+      }
+      REVEAL_SHUFFLE_DECK = fresh;
+    }
+    if (!consume) return REVEAL_SHUFFLE_DECK[0];
+    const picked = REVEAL_SHUFFLE_DECK.shift();
+    LAST_PLAYED_REVEAL_THEME = picked;
+    return picked;
+  }
+
+  function updateNextRevealBadge() {
+    const sel = document.getElementById('projStyleSelect')?.value || 'ROTATE_ALL';
+    const b = document.getElementById('nextRevealBadge');
+    if (!b) return;
+    if (sel === 'ROTATE_ALL') {
+      const nxt = peekOrPopNextRevealTheme(false);
+      b.textContent = `🎲 Next Show: ${REVEAL_THEME_LABELS[nxt] || nxt}`;
+    } else {
+      b.textContent = `🎬 Mode: ${REVEAL_THEME_LABELS[sel] || sel}`;
+    }
+  }
+
+  function setArenaThemeClass(themeKey) {
+    const arena = document.getElementById('projStageArena');
+    if (!arena) return;
+    arena.classList.remove('theme-wheel', 'theme-lifafa', 'theme-kbc', 'theme-rocket', 'theme-treasure', 'theme-radar');
+    const map = {
+      WHEEL: 'theme-wheel',
+      LIFAFA: 'theme-lifafa',
+      KBC: 'theme-kbc',
+      ROCKET: 'theme-rocket',
+      TREASURE: 'theme-treasure',
+      RADAR_SLOT: 'theme-radar'
+    };
+    if (map[themeKey]) arena.classList.add(map[themeKey]);
+  }
+
   function onProjSegmentChanged() {
     const segId = Number(document.getElementById('projSegSelect').value);
     const seg = STATE.segments.find(s => s.id === segId);
     if (!seg) return;
     const arena = document.getElementById('projStageArena');
     arena.classList.toggle('grand-glow', seg.rank <= 3);
+    updateNextRevealBadge();
   }
 
   function openStageProjector() {
@@ -6829,8 +7376,8 @@
     document.getElementById('projHeaderTitle').textContent =
       `${STATE.settings.company_name} — ${STATE.settings.campaign_name}`;
     document.getElementById('projSegSelect').innerHTML = STATE.segments.map(s => {
-      const tag = s.rank <= 3 ? '🔥 TOP-3 SUSPENSE' : (s.target_qty >= 25 ? '📋 BULK' : '⚡ SPIN');
-      return `<option value="${s.id}" ${s.id === STATE.activeSegmentId ? 'selected' : ''}>${esc(s.icon)} Rank #${s.rank}: ${esc(s.title)} [${tag}]</option>`;
+      const tag = s.rank <= 3 ? '🔥 BUMPER' : (s.target_qty >= 25 ? '📋 BULK' : '✨ PRIZE');
+      return `<option value="${s.id}" ${s.id === STATE.activeSegmentId ? 'selected' : ''}>${esc(s.icon)} #${s.rank}: ${esc(s.title)} [${tag}]</option>`;
     }).join('');
     document.getElementById('projCupInp').value = '';
     onProjSegmentChanged();
@@ -6848,80 +7395,6 @@
     document.body.style.overflow = '';
   }
 
-  // Safe Practice / Demo Thriller Spin (Does NOT modify database!)
-  async function runDemoStageSuspense() {
-    if (STAGE_REVEAL_BUSY) return;
-    clearStageTimers();
-    STAGE_REVEAL_BUSY = true;
-    const segId = Number(document.getElementById('projSegSelect').value);
-    const seg = STATE.segments.find(s => s.id === segId) || { rank: 1, title: '1st Prize - Maruti Suzuki Alto K10 LXi', icon: '🚗' };
-
-    // Use real allotted coupon if one exists, otherwise sample demo coupon #001
-    const sampleCup = STATE.coupons[0] || { coupon_num: 1, coupon_code: '001' };
-    const sampleRet = (sampleCup.retailer_id && STATE.retailers.find(x => x.id === sampleCup.retailer_id))
-      || STATE.retailers[0]
-      || { name: 'SHARMA KIRANA STORE (DEMO)', area: 'KAILARAS' };
-
-    const disp = document.getElementById('projWinnerDisplay');
-    const arena = document.getElementById('projStageArena');
-    arena.classList.add('grand-glow');
-
-    try {
-      for (let cnt = 3; cnt >= 1; cnt--) {
-        playHeartbeat();
-        disp.innerHTML = `
-          <div style="font-size:13px;font-weight:900;color:#fbbf24;letter-spacing:2px;">🧪 DEMO PREVIEW • GRAND MEGA PRIZE DRAW</div>
-          <div style="font-size:clamp(22px,4vw,36px);font-weight:900;color:#fff;margin:8px 0 14px;">${esc(seg.icon || '🚗')} ${esc(seg.title)}</div>
-          <div class="suspense-pulse" style="width:112px;height:112px;border-radius:50%;background:radial-gradient(circle,#ea580c,#7c2d12);border:4px solid #fde047;display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:900;color:#fff;">${cnt}</div>
-        `;
-        await sleepStage(850);
-      }
-
-      const dArr = String(sampleCup.coupon_code).replace(/[^0-9]/g, '').padStart(3, '0').slice(-3).split('');
-      disp.innerHTML = `
-        <div style="font-size:13px;font-weight:900;color:#38bdf8;">🎰 LOCKING COUPON DIGITS...</div>
-        <div class="slot-reels-wrap">
-          <div class="slot-reel spinning" id="sReel0">0</div>
-          <div class="slot-reel spinning" id="sReel1">0</div>
-          <div class="slot-reel spinning" id="sReel2">0</div>
-        </div>
-        <div id="reelStatusTxt" style="font-size:15px;font-weight:800;color:#cbd5e1;">Spinning...</div>
-      `;
-      let lockedCount = 0;
-      const spinInt = setInterval(() => {
-        playSlotTick();
-        for (let i = lockedCount; i < 3; i++) {
-          const el = document.getElementById('sReel' + i);
-          if (el) el.textContent = Math.floor(Math.random() * 10);
-        }
-      }, 75);
-      STAGE_ACTIVE_TIMERS.push(spinInt);
-
-      await sleepStage(1400); lockedCount = 1; playReelLockClunk(1);
-      const r0 = document.getElementById('sReel0'); if (r0) { r0.className = 'slot-reel locked'; r0.textContent = dArr[0]; }
-      await sleepStage(1400); lockedCount = 2; playReelLockClunk(2);
-      const r1 = document.getElementById('sReel1'); if (r1) { r1.className = 'slot-reel locked'; r1.textContent = dArr[1]; }
-      await sleepStage(1700); lockedCount = 3; clearInterval(spinInt); playReelLockClunk(3);
-      const r2 = document.getElementById('sReel2'); if (r2) { r2.className = 'slot-reel locked'; r2.textContent = dArr[2]; }
-
-      await sleepStage(1100);
-      playHeartbeat();
-      disp.innerHTML = `
-        <div class="winner-pop">
-          <div style="display:inline-block;background:#f59e0b;color:#0f172a;font-weight:900;font-size:16px;padding:5px 18px;border-radius:999px;">COUPON #${esc(padCup(sampleCup.coupon_num || 1))} • AREA CLUE!</div>
-          <div style="font-size:19px;color:#cbd5e1;font-weight:800;margin-top:16px;">Yeh Bada Inam Ja Raha Hai...</div>
-          <div class="suspense-pulse" style="font-size:clamp(28px,5vw,48px);font-weight:900;color:#38bdf8;margin:12px 0;">📍 ${esc(sampleRet.area || 'KAILARAS')} AREA MEIN!</div>
-        </div>
-      `;
-      await sleepStage(2200);
-      playGrandFanfare();
-      launchStageConfetti(5500, 180);
-      renderFinalStageWinnerCard(seg, { coupon_code: padCup(sampleCup.coupon_num || 1) }, sampleRet, true);
-    } finally {
-      STAGE_REVEAL_BUSY = false;
-    }
-  }
-
   function sleepStage(ms) {
     return new Promise(resolve => {
       const t = setTimeout(resolve, ms);
@@ -6935,7 +7408,7 @@
       STAGE_STEP_RESOLVER = resolve;
       const slot = document.getElementById('stageNextStepSlot');
       if (slot) {
-        slot.innerHTML = `<button type="button" class="btn btn-brand" style="margin-top:18px;padding:13px 28px;font-size:16px;" onclick="triggerNextAnchorStep()">${btnLabel} ➤</button>`;
+        slot.innerHTML = `<button type="button" class="btn btn-brand" style="margin-top:18px;padding:12px 26px;font-size:15.5px;" onclick="triggerNextAnchorStep()">${btnLabel} ➤</button>`;
       }
     });
   }
@@ -6949,11 +7422,293 @@
   }
 
   function resolveEffectiveRevealMode(seg) {
-    const sel = document.getElementById('projStyleSelect').value;
-    if (sel !== 'AUTO') return sel;
-    if (seg.rank <= 3) return 'GRAND_AUTO';       // 1st Alto K10, 2nd Activa, 3rd HF Deluxe -> Full Suspense Thriller!
-    if (seg.target_qty <= 25) return 'QUICK_SPIN'; // Fridge, Washing Machine, Silver -> Crisp 2.5s Spin!
-    return 'INSTANT';                              // 51 Haldi / 101 Dhaniya -> Instant snappy reveal!
+    const sel = document.getElementById('projStyleSelect')?.value || 'ROTATE_ALL';
+    if (sel === 'ROTATE_ALL') {
+      // Every draw picks a brand-new show from the 6-show non-repeating deck!
+      return peekOrPopNextRevealTheme(true);
+    }
+    return sel;
+  }
+
+  // ==================== MASTER 6-SHOW CHOREOGRAPHER ====================
+  async function executeDynamicStageShow(theme, seg, c, r, isBigRank, isDemo = false) {
+    const disp = document.getElementById('projWinnerDisplay');
+    const winArea = r?.area || 'KAILARAS / MORENA';
+    const winShop = r?.name || 'LUCKY WINNER PARTY';
+    const cupCode = c.coupon_code || padCup(c.coupon_num || 1);
+    const speedMul = isBigRank ? 1.0 : 0.65; // Snappier pacing for mid/regular prizes while keeping full visual variety!
+
+    setArenaThemeClass(theme);
+    const demoBadge = isDemo ? `<div style="margin-bottom:6px;"><span class="badge" style="background:#fde047;color:#451a03;font-weight:900;">🎲 DEMO PREVIEW • ${esc(REVEAL_THEME_LABELS[theme] || theme)}</span></div>` : '';
+
+    // ---------- SHOW 1: ROYAL CHAKRA FORTUNE WHEEL ----------
+    if (theme === 'WHEEL') {
+      disp.innerHTML = `
+        ${demoBadge}
+        <div style="font-size:12.5px;font-weight:800;color:#fde68a;letter-spacing:1.8px;">🎡 MAHA-CHAKRA SPIN OF FORTUNE</div>
+        <div style="font-size:clamp(20px,3.4vw,30px);font-weight:900;color:#fff;margin:4px 0 8px;">${esc(seg.icon || '🏆')} ${esc(seg.title)}</div>
+        <div class="wheel-stage-wrap">
+          <div class="wheel-pointer">🔻</div>
+          <div class="royal-wheel-disc" id="fortuneWheelDisc"></div>
+          <div class="wheel-center-hub" id="fortuneWheelHub">SPIN!</div>
+        </div>
+        <div id="wheelSubStatus" style="font-size:15px;font-weight:700;color:#fed7aa;margin-top:8px;">Kismat ka Maha-Chakra ghoom raha hai...</div>
+      `;
+      await sleepStage(120);
+      const disc = document.getElementById('fortuneWheelDisc');
+      const spinDeg = 1800 + Math.floor(Math.random() * 360);
+      if (disc) {
+        disc.style.transitionDuration = `${(3.8 * speedMul).toFixed(2)}s`;
+        disc.style.transform = `rotate(${spinDeg}deg)`;
+      }
+      // Decelerating wheel click ticks
+      let elapsed = 0, delay = 65;
+      while (elapsed < 3500 * speedMul) {
+        playSlotTick();
+        await sleepStage(delay);
+        elapsed += delay;
+        delay = Math.min(340, Math.round(delay * 1.09));
+      }
+      playReelLockClunk(3);
+      const hub = document.getElementById('fortuneWheelHub');
+      if (hub) hub.innerHTML = `#${esc(cupCode)}`;
+      const ws = document.getElementById('wheelSubStatus');
+      if (ws) ws.innerHTML = `🎯 CHAKRA RUKA COUPON <b style="color:#fde047;font-size:21px;">#${esc(cupCode)}</b> PAR — 📍 <b>${esc(winArea)}</b>!`;
+      await sleepStage(1450 * speedMul);
+      return 'GOLD_STARS';
+    }
+
+    // ---------- SHOW 2: SHAHI GOLDEN LIFAFA & FOIL SCRATCH ----------
+    if (theme === 'LIFAFA') {
+      playHeartbeat();
+      disp.innerHTML = `
+        ${demoBadge}
+        <div style="font-size:12.5px;font-weight:800;color:#fda4af;letter-spacing:1.8px;">🧧 SHAHI SWARN LIFAFA UNBOXING</div>
+        <div style="font-size:clamp(20px,3.4vw,30px);font-weight:900;color:#fff;margin:4px 0 8px;">${esc(seg.icon || '🏆')} ${esc(seg.title)}</div>
+        <div class="shahi-lifafa-box shake-drama" id="lifafaEnvelope">
+          <div style="font-size:52px;">🧧</div>
+          <div style="display:inline-block;margin-top:8px;padding:5px 16px;border-radius:999px;background:#fde047;color:#4c0519;font-weight:900;font-size:13px;">👑 ARYUSH ROYAL SEAL</div>
+          <div style="font-size:15px;color:#ffe4e6;font-weight:700;margin-top:10px;">Shahi Lifafa khulne ja raha hai...</div>
+        </div>
+      `;
+      await sleepStage(1700 * speedMul);
+      playQuickChime();
+      disp.innerHTML = `
+        ${demoBadge}
+        <div style="font-size:12.5px;font-weight:800;color:#fde047;letter-spacing:1.8px;">✨ 24K GOLD SCRATCH CARD REVEAL ✨</div>
+        <div class="gold-scratch-card winner-pop">
+          <div class="foil-beam"></div>
+          <div style="font-size:12px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:#78350f;">Winning Lucky Coupon</div>
+          <div style="font-size:48px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#451a03;margin:4px 0;">#${esc(cupCode)}</div>
+          <div id="scratchClueLine" style="font-size:17px;font-weight:800;color:#9a3412;margin-top:6px;">Scratching Winner Village...</div>
+        </div>
+      `;
+      await sleepStage(1450 * speedMul);
+      playReelLockClunk(2);
+      const scl = document.getElementById('scratchClueLine');
+      if (scl) scl.innerHTML = `📍 विजेता क्षेत्र: <b style="color:#7f1d1d;font-size:21px;">${esc(winArea)}</b>!`;
+      await sleepStage(1450 * speedMul);
+      return 'RIBBONS';
+    }
+
+    // ---------- SHOW 3: KBC HOTSEAT COMPUTER JI LOCK ----------
+    if (theme === 'KBC') {
+      playKbcLockSynth();
+      // Build 4 KBC options: 3 decoy parties + 1 real winner shuffled!
+      const decoys = STATE.retailers
+        .filter(x => x.name !== winShop)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3)
+        .map(x => `${x.name}${x.area ? ` (${x.area})` : ''}`);
+      const fallbackDecoys = ['SHREE GANESH KIRANA (MORENA)', 'AGRAWAL TRADERS (SABALGARH)', 'MAA SHARDA BHANDAR (JOURA)'];
+      while (decoys.length < 3) decoys.push(fallbackDecoys[decoys.length]);
+
+      const winLabel = `${winShop}${r?.area ? ` (${r.area})` : ''}`;
+      const options = [...decoys.map(t => ({ txt: t, win: false })), { txt: winLabel, win: true }]
+        .sort(() => Math.random() - 0.5);
+      const letters = ['A', 'B', 'C', 'D'];
+
+      disp.innerHTML = `
+        ${demoBadge}
+        <div style="display:inline-block;background:linear-gradient(90deg,#312e81,#6d28d9,#312e81);border:2px solid #fbbf24;padding:8px 24px;border-radius:999px;font-weight:900;color:#fde047;font-size:15px;">
+          🎯 KBC HOTSEAT • COUPON #${esc(cupCode)} KIS PARTY KA HAI?
+        </div>
+        <div style="font-size:20px;font-weight:800;color:#e9d5ff;margin-top:8px;">${esc(seg.icon)} ${esc(seg.title)}</div>
+        <div class="kbc-grid">
+          ${options.map((o, idx) => `
+            <div class="kbc-hex" id="kbcOpt_${idx}">
+              <span style="color:#fbbf24;font-weight:900;">${letters[idx]}:</span>
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(o.txt)}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div id="kbcHostStatus" style="margin-top:14px;font-size:14.5px;font-weight:800;color:#fde68a;">"Computer Ji, 50:50 Lifeline lagaiye..."</div>
+      `;
+
+      await sleepStage(1600 * speedMul);
+      // Eliminate 2 wrong options (50:50 Lifeline!)
+      let elim = 0;
+      options.forEach((o, idx) => {
+        if (!o.win && elim < 2) {
+          elim++;
+          const el = document.getElementById('kbcOpt_' + idx);
+          if (el) el.classList.add('eliminated');
+        }
+      });
+      playReelLockClunk(1);
+      const khs = document.getElementById('kbcHostStatus');
+      if (khs) khs.textContent = `"Computer Ji, Sahi Vijeta Party Ko Lock Kiya Jaye!" 🔒`;
+
+      await sleepStage(1450 * speedMul);
+      const winIdx = options.findIndex(o => o.win);
+      const winEl = document.getElementById('kbcOpt_' + winIdx);
+      if (winEl) winEl.classList.add('locking');
+      playHeartbeat();
+
+      await sleepStage(1350 * speedMul);
+      if (winEl) { winEl.classList.remove('locking'); winEl.classList.add('correct'); }
+      playReelLockClunk(3);
+      await sleepStage(700 * speedMul);
+      return 'RIBBONS';
+    }
+
+    // ---------- SHOW 4: DIWALI SKYROCKET & STARBURST FIREWORKS ----------
+    if (theme === 'ROCKET') {
+      playRocketWhoosh();
+      disp.innerHTML = `
+        ${demoBadge}
+        <div style="font-size:13px;font-weight:800;color:#7dd3fc;letter-spacing:1.8px;">🚀 AATISHBAAZI SKYROCKET DHAMAKA</div>
+        <div style="font-size:22px;font-weight:900;color:#fff;margin:6px 0 18px;">${esc(seg.icon)} ${esc(seg.title)}</div>
+        <div class="sky-rocket-anim">🚀</div>
+        <div style="font-size:15px;color:#bae6fd;font-weight:700;margin-top:12px;">Aasman me vijeta ka naam roshan hone ja raha hai...</div>
+      `;
+      await sleepStage(1150 * speedMul);
+      launchStageConfetti(2200, 120, 'FIREWORKS');
+      playReelLockClunk(2);
+
+      disp.innerHTML = `
+        ${demoBadge}
+        <div class="winner-pop">
+          <div style="font-size:14px;font-weight:800;color:#fde047;letter-spacing:2px;">🎇 1st SKY-BURST • LUCKY COUPON 🎇</div>
+          <div style="font-size:clamp(46px,7vw,74px);font-weight:900;font-family:'JetBrains Mono',monospace;color:#fde047;text-shadow:0 0 35px rgba(250,204,21,0.75);margin:6px 0;">
+            #${esc(cupCode)}
+          </div>
+          <div style="font-size:24px;font-weight:900;color:#38bdf8;margin-top:8px;">📍 BEAT / VILLAGE: ${esc(winArea)}</div>
+        </div>
+      `;
+      await sleepStage(1750 * speedMul);
+      playRocketWhoosh();
+      await sleepStage(850 * speedMul);
+      return 'FIREWORKS';
+    }
+
+    // ---------- SHOW 5: 3D SHAHI KHAZANA TREASURE CHEST UNBOXING ----------
+    if (theme === 'TREASURE') {
+      for (let pulse = 0; pulse < 2; pulse++) {
+        playHeartbeat();
+        disp.innerHTML = `
+          ${demoBadge}
+          <div style="font-size:13px;font-weight:800;color:#fde047;letter-spacing:1.8px;">💎 SHAHI KHAZANA PITARA UNBOXING</div>
+          <div style="font-size:22px;font-weight:900;color:#fff;margin:6px 0 14px;">${esc(seg.icon)} ${esc(seg.title)}</div>
+          <div class="shake-drama" style="font-size:88px;filter:drop-shadow(0 0 35px rgba(250,204,21,0.65));margin:10px 0;">🎁</div>
+          <div style="font-size:15px;color:#fef08a;font-weight:700;">Khazane ka pitara khul raha hai...</div>
+        `;
+        await sleepStage(850 * speedMul);
+      }
+      playReelLockClunk(3);
+      disp.innerHTML = `
+        ${demoBadge}
+        <div class="winner-pop">
+          <div style="font-size:64px;">✨🔓✨</div>
+          <div style="display:inline-block;padding:7px 22px;border-radius:999px;background:#fde047;color:#451a03;font-size:22px;font-weight:900;margin-top:6px;">
+            COUPON #${esc(cupCode)}
+          </div>
+          <div style="font-size:26px;font-weight:900;color:#86efac;margin-top:14px;">📍 ${esc(winArea)} KE VIJETA HAI...</div>
+        </div>
+      `;
+      await sleepStage(1550 * speedMul);
+      return 'GOLD_STARS';
+    }
+
+    // ---------- SHOW 6: VEGAS 3D JACKPOT SLOT + SWEEPING VILLAGE RADAR (OR ANCHOR STEP) ----------
+    const isStep = (theme === 'GRAND_STEP');
+    const dArr = String(cupCode).replace(/[^0-9]/g, '').padStart(3, '0').slice(-3).split('');
+
+    disp.innerHTML = `
+      ${demoBadge}
+      <div style="font-size:13px;font-weight:800;color:#34d399;letter-spacing:1.6px;">🎰 JACKPOT REELS & LIVE VILLAGE RADAR</div>
+      <div style="font-size:22px;font-weight:900;color:#fde68a;margin-top:4px;">${esc(seg.icon)} ${esc(seg.title)}</div>
+      <div class="slot-reels-wrap">
+        <div class="slot-reel spinning" id="sReel0">0</div>
+        <div class="slot-reel spinning" id="sReel1">0</div>
+        <div class="slot-reel spinning" id="sReel2">0</div>
+      </div>
+      <div id="reelStatusTxt" style="font-size:15px;font-weight:700;color:#cbd5e1;">Scanning 301 Lucky Coupons...</div>
+      <div id="stageNextStepSlot"></div>
+    `;
+
+    let lockedCount = 0;
+    const spinInt = setInterval(() => {
+      playSlotTick();
+      for (let i = lockedCount; i < 3; i++) {
+        const el = document.getElementById('sReel' + i);
+        if (el) el.textContent = Math.floor(Math.random() * 10);
+      }
+    }, 75);
+    STAGE_ACTIVE_TIMERS.push(spinInt);
+
+    await waitForAnchorStepOrAuto(isStep, 1100 * speedMul, '🔒 Lock 1st Digit');
+    lockedCount = 1; playReelLockClunk(1);
+    const r0 = document.getElementById('sReel0'); if (r0) { r0.className = 'slot-reel locked'; r0.textContent = dArr[0]; }
+
+    await waitForAnchorStepOrAuto(isStep, 1100 * speedMul, '🔒 Lock 2nd Digit');
+    lockedCount = 2; playReelLockClunk(2);
+    const r1 = document.getElementById('sReel1'); if (r1) { r1.className = 'slot-reel locked'; r1.textContent = dArr[1]; }
+
+    await waitForAnchorStepOrAuto(isStep, 1300 * speedMul, '🔥 Lock Final Digit');
+    lockedCount = 3; clearInterval(spinInt); playReelLockClunk(3);
+    const r2 = document.getElementById('sReel2'); if (r2) { r2.className = 'slot-reel locked'; r2.textContent = dArr[2]; }
+
+    await waitForAnchorStepOrAuto(isStep, 900 * speedMul, '📡 Scan Winner Beat Radar');
+    playHeartbeat();
+    disp.innerHTML = `
+      ${demoBadge}
+      <div style="font-size:13px;font-weight:800;color:#34d399;letter-spacing:1.5px;">📡 GPS BEAT RADAR LOCKED ON COUPON #${esc(cupCode)}</div>
+      <div class="radar-circle">
+        <div class="radar-beam"></div>
+        <div class="radar-pin suspense-pulse"></div>
+      </div>
+      <div style="font-size:26px;font-weight:900;color:#fde047;">📍 TARGET AREA: ${esc(winArea)}</div>
+      <div id="stageNextStepSlot"></div>
+    `;
+    await waitForAnchorStepOrAuto(isStep, 1750 * speedMul, '🏆 Reveal Grand Winner!');
+    return 'FIREWORKS';
+  }
+
+  // Safe Practice / Demo Spin — Cycles through ALL 6 Reveal Shows so every click is a brand-new experience!
+  async function runDemoStageSuspense() {
+    if (STAGE_REVEAL_BUSY) return;
+    clearStageTimers();
+    STAGE_REVEAL_BUSY = true;
+
+    const segId = Number(document.getElementById('projSegSelect').value);
+    const seg = STATE.segments.find(s => s.id === segId) || { rank: 1, title: '1st Prize - Maruti Suzuki Alto K10 LXi', icon: '🚗' };
+    const pool = STATE.coupons.length ? STATE.coupons : [{ coupon_num: 1, coupon_code: '001' }];
+    const sampleCup = pool[Math.floor(Math.random() * pool.length)];
+    const sampleRet = (sampleCup.retailer_id && STATE.retailers.find(x => x.id === sampleCup.retailer_id))
+      || STATE.retailers[Math.floor(Math.random() * Math.max(1, STATE.retailers.length))]
+      || { name: 'SHARMA KIRANA STORE (DEMO)', area: 'KAILARAS' };
+
+    try {
+      const chosenTheme = resolveEffectiveRevealMode(seg);
+      const fxType = await executeDynamicStageShow(chosenTheme === 'INSTANT' ? peekOrPopNextRevealTheme(true) : chosenTheme, seg, { coupon_code: padCup(sampleCup.coupon_num || 1), coupon_num: sampleCup.coupon_num || 1 }, sampleRet, true, true);
+      playGrandFanfare();
+      launchStageConfetti(5200, 170, fxType);
+      renderFinalStageWinnerCard(seg, { coupon_code: padCup(sampleCup.coupon_num || 1) }, sampleRet, true, chosenTheme);
+      updateNextRevealBadge();
+    } finally {
+      STAGE_REVEAL_BUSY = false;
+    }
   }
 
   async function revealAndSaveStageWinner() {
@@ -6973,30 +7728,26 @@
     }
 
     if (STATE.coupons.length === 0) {
-      return toast('⚠️ Abhi koi Coupon Allot nahi hua hai! Pehle Allot tab se allot karein ya upar 🧪 Demo Test dabayein.', true);
+      return toast('⚠️ Abhi koi Coupon Allot nahi hua hai! Pehle Allot tab se allot karein ya upar 🎲 Next Demo dabayein.', true);
     }
 
-    // Smart match: handles 1, 01, 001, or prefixed coupon_code seamlessly
     let c = STATE.coupons.find(x => Number(x.coupon_num) === cupNum);
     if (!c) {
       const cleanTyped = rawInput.replace(/^#/, '').toUpperCase();
       c = STATE.coupons.find(x => String(x.coupon_code).toUpperCase() === cleanTyped);
     }
     if (!c) {
-      return toast(`Coupon #${padCup(cupNum)} (input: ${rawDigits}) abhi kisi party ko allot nahi hai! (Allotted: ${STATE.coupons.length})`, true);
+      return toast(`Coupon #${padCup(cupNum)} abhi kisi party ko allot nahi hai!`, true);
     }
     const r = STATE.retailers.find(x => x.id === c.retailer_id);
 
-    // Clear input immediately so secret number stays clean
     document.getElementById('projCupInp').value = '';
     STAGE_REVEAL_BUSY = true;
 
     const mode = resolveEffectiveRevealMode(seg);
-    const disp = document.getElementById('projWinnerDisplay');
-    const arena = document.getElementById('projStageArena');
+    const isBigRank = (seg.rank <= 5 || seg.target_qty <= 11);
 
     try {
-      // Save winner to D1 in background so zero lag during stage show
       const savePromise = api('/api/coupons/prize-bulk', 'POST', {
         mode: 'LIST',
         coupon_nums: [cupNum],
@@ -7006,176 +7757,23 @@
         draw_date: todayISO()
       });
 
-      // ==================== TIER 1: TOP-3 GRAND SUSPENSE THRILLER ====================
-      if (mode === 'GRAND_AUTO' || mode === 'GRAND_STEP') {
-        const isStep = (mode === 'GRAND_STEP');
-        arena.classList.add('grand-glow');
-
-        await maybePlayPreDrawCommercial(seg);
-        // PHASE 1: Spotlight Prize Announcement + 3..2..1 Heartbeat Countdown!
-        for (let cnt = 3; cnt >= 1; cnt--) {
-          playHeartbeat();
-          disp.innerHTML = `
-            <div style="font-size:14px;font-weight:900;color:#fbbf24;letter-spacing:2px;">🔥 GRAND MEGA PRIZE DRAW 🔥</div>
-            <div style="font-size:clamp(24px,4vw,38px);font-weight:900;color:#fff;margin:8px 0 14px;">
-              ${esc(seg.icon || '🏆')} ${esc(seg.title)}
-            </div>
-            <div class="suspense-pulse" style="width:118px;height:118px;border-radius:50%;background:radial-gradient(circle,#ea580c,#7c2d12);border:4px solid #fde047;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:900;color:#fff;box-shadow:0 0 40px rgba(251,191,36,0.5);">
-              ${cnt}
-            </div>
-            <div style="font-size:15px;color:#fde68a;font-weight:800;margin-top:14px;">Dil tham kar baithiye... Kismat ka tala khul raha hai!</div>
-          `;
-          await sleepStage(950);
-        }
-
-        // PHASE 2: 3 Giant Casino Slot Reels Spinning & Locking Digit-by-Digit!
-        const digitsStr = String(c.coupon_code).replace(/[^0-9]/g, '').padStart(3, '0').slice(-3);
-        const dArr = digitsStr.split('');
-
-        disp.innerHTML = `
-          <div style="font-size:14px;font-weight:900;color:#38bdf8;letter-spacing:1.5px;">🎰 LOCKING WINNING COUPON NUMBER...</div>
-          <div style="font-size:22px;font-weight:900;color:#fde68a;margin-top:4px;">${esc(seg.icon)} ${esc(seg.title)}</div>
-          <div class="slot-reels-wrap">
-            <div class="slot-reel spinning" id="sReel0">0</div>
-            <div class="slot-reel spinning" id="sReel1">0</div>
-            <div class="slot-reel spinning" id="sReel2">0</div>
-          </div>
-          <div id="reelStatusTxt" style="font-size:16px;font-weight:800;color:#cbd5e1;">Spinning all 301 Lucky Coupons...</div>
-          <div id="stageNextStepSlot"></div>
-        `;
-
-        let lockedCount = 0;
-        const spinInt = setInterval(() => {
-          playSlotTick();
-          for (let i = lockedCount; i < 3; i++) {
-            const el = document.getElementById('sReel' + i);
-            if (el) el.textContent = Math.floor(Math.random() * 10);
-          }
-        }, 75);
-        STAGE_ACTIVE_TIMERS.push(spinInt);
-
-        await waitForAnchorStepOrAuto(isStep, 1700, '🔒 Lock 1st Digit');
-        lockedCount = 1;
-        playReelLockClunk(1);
-        const r0 = document.getElementById('sReel0');
-        if (r0) { r0.className = 'slot-reel locked'; r0.textContent = dArr[0]; }
-        const st0 = document.getElementById('reelStatusTxt');
-        if (st0) st0.innerHTML = `Pehla Ank Lock Hua: <b style="color:#fde047;font-size:20px;">${dArr[0]} _ _</b> !`;
-
-        await waitForAnchorStepOrAuto(isStep, 1800, '🔒 Lock 2nd Digit');
-        lockedCount = 2;
-        playReelLockClunk(2);
-        const r1 = document.getElementById('sReel1');
-        if (r1) { r1.className = 'slot-reel locked'; r1.textContent = dArr[1]; }
-        if (st0) st0.innerHTML = `Doosra Ank Bhi Lock: <b style="color:#fde047;font-size:22px;">${dArr[0]} ${dArr[1]} _</b> — Aakhiri ank kiska hai?!`;
-
-        await waitForAnchorStepOrAuto(isStep, 2200, '🔥 Lock Final Digit!');
-        lockedCount = 3;
-        clearInterval(spinInt);
-        playReelLockClunk(3);
-        const r2 = document.getElementById('sReel2');
-        if (r2) { r2.className = 'slot-reel locked'; r2.textContent = dArr[2]; }
-        if (st0) st0.innerHTML = `🎟️ WINNING COUPON LOCKED: <b style="color:#4ade80;font-size:24px;">#${esc(c.coupon_code)}</b> !`;
-
-        await waitForAnchorStepOrAuto(isStep, 1600, '📍 Reveal Winner Area / Village Clue');
-
-        // PHASE 3: AREA / VILLAGE MYSTERY TEASER CLUE!
-        const winArea = r?.area || 'SPECIAL BEAT';
-        playHeartbeat();
-        disp.innerHTML = `
-          <div class="winner-pop">
-            <div style="display:inline-block;background:#f59e0b;color:#0f172a;font-weight:900;font-size:17px;padding:5px 18px;border-radius:999px;">
-              COUPON #${esc(c.coupon_code)} • MYSTERY CLUE!
-            </div>
-            <div style="font-size:20px;color:#cbd5e1;font-weight:800;margin-top:18px;">
-              Yeh Shandar <b>${esc(seg.title)}</b> Ja Raha Hai...
-            </div>
-            <div class="suspense-pulse" style="font-size:clamp(30px,5.5vw,52px);font-weight:900;color:#38bdf8;margin:14px 0;text-shadow:0 0 30px rgba(56,189,248,0.5);">
-              📍 ${esc(winArea)} AREA MEIN!
-            </div>
-            <div style="font-size:16px;color:#fde68a;font-weight:800;">Kya aap bata sakte hain ${esc(winArea)} ke kis dukandar ki kismat chamki hai?!</div>
-            <div id="stageNextStepSlot"></div>
-          </div>
-        `;
-
-        await waitForAnchorStepOrAuto(isStep, 2600, '🏆 REVEAL GRAND WINNER PARTY NAME!');
-
-        // PHASE 4: 1.6s High-Speed Shop Name Roulette in that Area/Pool!
-        const candidateNames = STATE.retailers
-          .filter(x => !r?.area || x.area === r.area)
-          .map(x => x.name);
-        const poolNames = candidateNames.length >= 3 ? candidateNames : STATE.retailers.map(x => x.name);
-
-        if (poolNames.length > 1) {
-          disp.innerHTML = `
-            <div style="font-size:14px;font-weight:900;color:#fde68a;letter-spacing:1.5px;">🥁 FINDING LUCKY SHOP IN ${esc(winArea)}...</div>
-            <div id="rouletteNameBox" style="margin:26px 0;padding:18px 28px;border-radius:18px;background:rgba(255,255,255,0.08);border:2px dashed #fbbf24;font-size:clamp(22px,4vw,36px);font-weight:900;color:#fff;min-width:300px;">
-              ...
-            </div>
-          `;
-          const nameInt = setInterval(() => {
-            playSlotTick();
-            const nb = document.getElementById('rouletteNameBox');
-            if (nb) nb.textContent = poolNames[Math.floor(Math.random() * poolNames.length)];
-          }, 85);
-          STAGE_ACTIVE_TIMERS.push(nameInt);
-          await sleepStage(1650);
-          clearInterval(nameInt);
-        }
-
-        // PHASE 5: GRAND CONFETTI & FANFARE EXPLOSION!
-        await savePromise;
-        await refreshAll();
-        playGrandFanfare();
-        launchStageConfetti(6500, 200);
-        renderFinalStageWinnerCard(seg, c, r, true);
-      }
-
-      // ==================== TIER 2: MEDIUM PRIZE FAST 2.2s SPIN ====================
-      else if (mode === 'QUICK_SPIN') {
-        const digitsStr = String(c.coupon_code).replace(/[^0-9]/g, '').padStart(3, '0').slice(-3);
-        disp.innerHTML = `
-          <div style="font-size:13px;font-weight:900;color:#38bdf8;">⚡ DRAWING WINNER FOR</div>
-          <div style="font-size:24px;font-weight:900;color:#fde68a;margin-top:4px;">${esc(seg.icon)} ${esc(seg.title)}</div>
-          <div class="slot-reels-wrap">
-            <div class="slot-reel spinning" id="qReel0">0</div>
-            <div class="slot-reel spinning" id="qReel1">0</div>
-            <div class="slot-reel spinning" id="qReel2">0</div>
-          </div>
-        `;
-        const qInt = setInterval(() => {
-          playSlotTick();
-          for (let i = 0; i < 3; i++) {
-            const el = document.getElementById('qReel' + i);
-            if (el) el.textContent = Math.floor(Math.random() * 10);
-          }
-        }, 70);
-        STAGE_ACTIVE_TIMERS.push(qInt);
-        await sleepStage(1800);
-        clearInterval(qInt);
-        digitsStr.split('').forEach((d, idx) => {
-          const el = document.getElementById('qReel' + idx);
-          if (el) { el.className = 'slot-reel locked'; el.textContent = d; }
-        });
-        playReelLockClunk(3);
-        await sleepStage(450);
-
+      if (mode === 'INSTANT') {
         await savePromise;
         await refreshAll();
         playQuickChime();
-        launchStageConfetti(2800, 85);
-        renderFinalStageWinnerCard(seg, c, r, false);
-      }
-
-      // ==================== TIER 3: CHOTE PRIZE INSTANT SNAPPY REVEAL ====================
-      else {
+        launchStageConfetti(2000, 60, 'AUTO');
+        renderFinalStageWinnerCard(seg, c, r, false, 'INSTANT');
+      } else {
+        if (seg.rank <= 3) await maybePlayPreDrawCommercial(seg);
+        const fxType = await executeDynamicStageShow(mode, seg, c, r, isBigRank, false);
         await savePromise;
         await refreshAll();
-        playQuickChime();
-        launchStageConfetti(1600, 45);
-        renderFinalStageWinnerCard(seg, c, r, false);
+        if (isBigRank) playGrandFanfare(); else playQuickChime();
+        launchStageConfetti(isBigRank ? 6000 : 3400, isBigRank ? 190 : 110, fxType);
+        renderFinalStageWinnerCard(seg, c, r, isBigRank, mode);
       }
 
+      updateNextRevealBadge();
       renderProjectorRecentWinners();
     } catch (e) {
       toast(e.message, true);
@@ -7184,31 +7782,41 @@
     }
   }
 
-  function renderFinalStageWinnerCard(seg, c, r, isGrand) {
+  // 4 Rotating Winner Celebration Card Themes so even the Final Winner Screen looks fresh every draw!
+  function renderFinalStageWinnerCard(seg, c, r, isGrand, revealTheme = '') {
     const disp = document.getElementById('projWinnerDisplay');
-    disp.innerHTML = `<div class="winner-pop" style="width:100%;">
-      <div style="font-size:${isGrand ? '64px' : '48px'};">${esc(seg.icon || '🏆')} 🎉</div>
-      <div style="display:inline-block;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#0f172a;font-weight:900;font-size:${isGrand ? '22px' : '17px'};padding:6px 22px;border-radius:999px;margin-top:6px;box-shadow:0 6px 20px rgba(245,158,11,0.4);">
-        WINNING COUPON #${esc(c.coupon_code)}
+    const variants = [
+      { cls: 'wc-royal', badgeBg: 'linear-gradient(135deg,#fde047,#f59e0b)', badgeCol: '#0f172a', crownTxt: '👑 SHAHI MAHA-VIJETA 👑', prizeCol: '#fde047' },
+      { cls: 'wc-emerald', badgeBg: 'linear-gradient(135deg,#34d399,#10b981)', badgeCol: '#022c22', crownTxt: '🌟 GRAND LUCKY CHAMPION 🌟', prizeCol: '#6ee7b7' },
+      { cls: 'wc-kbc', badgeBg: 'linear-gradient(135deg,#e879f9,#a855f7)', badgeCol: '#ffffff', crownTxt: '🎯 KBC LOCKED WINNER 🎯', prizeCol: '#f0abfc' },
+      { cls: 'wc-saffron', badgeBg: 'linear-gradient(135deg,#fb923c,#ea580c)', badgeCol: '#ffffff', crownTxt: '🎇 BUMPER DHAMAKA WINNER 🎇', prizeCol: '#fdba74' }
+    ];
+    const v = variants[WINNER_CARD_VARIANT_IDX++ % variants.length];
+
+    disp.innerHTML = `<div class="winner-pop winner-card-shell ${v.cls}">
+      <div style="font-size:11.5px;font-weight:900;letter-spacing:2px;color:#fde68a;margin-bottom:6px;">${v.crownTxt}</div>
+      <div style="font-size:${isGrand ? '58px' : '44px'};line-height:1.1;">${esc(seg.icon || '🏆')} 🎉</div>
+      <div style="display:inline-block;background:${v.badgeBg};color:${v.badgeCol};font-weight:900;font-family:'JetBrains Mono',monospace;font-size:${isGrand ? '22px' : '18px'};padding:6px 24px;border-radius:999px;margin-top:8px;box-shadow:0 8px 24px rgba(0,0,0,0.35);">
+        COUPON #${esc(c.coupon_code)}
       </div>
-      <div class="${isGrand ? 'grand-winner-crown' : ''}" style="${isGrand ? '' : 'font-size:30px;font-weight:900;color:#fff;margin-top:12px;'}">
+      <div class="${isGrand ? 'grand-winner-crown' : ''}" style="${isGrand ? 'margin-top:12px;' : 'font-size:clamp(24px,4vw,34px);font-weight:900;color:#fff;margin-top:12px;'}">
         ${esc(r ? r.name : 'LUCKY WINNER')}
       </div>
-      <div style="font-size:${isGrand ? '21px' : '17px'};font-weight:800;color:#93c5fd;margin-top:4px;">
-        📍 VILLAGE / AREA: ${esc(r?.area || '-')}
+      <div style="font-size:${isGrand ? '19px' : '16px'};font-weight:800;color:#bae6fd;margin-top:4px;">
+        📍 VILLAGE / BEAT: ${esc(r?.area || '-')}
       </div>
-      <div style="display:inline-block;margin-top:15px;padding:10px 24px;border-radius:14px;background:rgba(34,197,94,0.16);border:1.5px solid #4ade80;font-size:${isGrand ? '25px' : '20px'};font-weight:900;color:#4ade80;">
+      <div style="display:inline-block;margin-top:14px;padding:10px 24px;border-radius:14px;background:rgba(255,255,255,0.08);border:1.5px solid ${v.prizeCol};font-size:${isGrand ? '23px' : '19px'};font-weight:900;color:${v.prizeCol};">
         🏆 ${esc(seg.title)}
       </div>
       <div style="margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:8px;">
-        <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,0.08);padding:5px 15px;border-radius:999px;border:1px solid rgba(253,224,71,0.35);">
-          <img src="${getEffectiveLogoUrl()}" style="width:28px;height:28px;border-radius:50%;background:#fff;padding:1px;" />
-          <span style="font-size:12.5px;font-weight:900;color:#fde68a;">सौजन्य: ${esc(STATE.settings.company_name)} • आर्युष रसोई धन</span>
+        <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(15,23,42,0.65);padding:5px 15px;border-radius:999px;border:1px solid rgba(253,224,71,0.3);">
+          <img src="${getEffectiveLogoUrl()}" style="width:26px;height:26px;border-radius:50%;background:#fff;padding:1px;" />
+          <span style="font-size:12px;font-weight:800;color:#fde68a;">सौजन्य: ${esc(STATE.settings.company_name)} • आर्युष रसोई धन</span>
         </div>
         ${ARYUSH_PRODUCTS.some(p => p.photoData) ? `
           <div style="display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:2px;">
             ${ARYUSH_PRODUCTS.filter(p => p.photoData).slice(0, 8).map(p => `
-              <img src="${p.photoData}" title="${esc(p.hi)}" style="width:40px;height:40px;object-fit:contain;background:#fff;padding:2px;border-radius:8px;border:1.5px solid #fde047;" />
+              <img src="${p.photoData}" title="${esc(p.hi)}" style="width:38px;height:38px;object-fit:contain;background:#fff;padding:2px;border-radius:8px;border:1.5px solid #fde047;" />
             `).join('')}
           </div>
         ` : ''}

@@ -1,11 +1,11 @@
 {
-  "name": "Aryush Foods — Rasoi Dhan Lucky Draw ERP v10.2",
-  "short_name": "Aryush Draw",
-  "description": "Aryush Foods & Aryush Rasoi Dhan Lucky Draw ERP v10.2 with In-App Logo, Product Photo & Stage LED Video Studio",
-  "start_url": "/?v=10.2",
+  "name": "Aryush Foods — Rasoi Dhan Lucky Draw ERP v11.0 Pro",
+  "short_name": "Aryush Draw Pro",
+  "description": "Executive Clean ERP & 6-Theme Rotating Live Stage Lucky Draw System for Aryush Foods",
+  "start_url": "/?v=11.0",
   "display": "standalone",
-  "background_color": "#1e1b4b",
-  "theme_color": "#7f1d1d",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
   "orientation": "any",
   "icons": [
     {

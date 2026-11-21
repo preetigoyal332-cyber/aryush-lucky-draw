@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aryush-draw-erp-v16.5-secure';
+const CACHE_NAME = 'aryush-draw-erp-v17.0-video-patti';
 const STATIC_ASSETS = ['/', '/index.html', '/manifest.json', '/logo.png', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {

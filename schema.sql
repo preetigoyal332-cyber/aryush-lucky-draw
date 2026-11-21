@@ -44,3 +44,11 @@ CREATE TABLE IF NOT EXISTS segments (
   target_qty INTEGER NOT NULL DEFAULT 1,
   icon TEXT DEFAULT '🎁'
 );
+
+CREATE TABLE IF NOT EXISTS media_chunks (
+  media_key TEXT NOT NULL,
+  chunk_idx INTEGER NOT NULL,
+  mime_type TEXT DEFAULT 'video/mp4',
+  data_b64 TEXT NOT NULL,
+  PRIMARY KEY (media_key, chunk_idx)
+);

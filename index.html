@@ -1924,6 +1924,175 @@
     .bbtn { font-size: 10px !important; font-weight: 700 !important; color: #64748b !important; }
     .bbtn.active { color: #0f172a !important; font-weight: 800 !important; }
     .bbtn.active .ico-pill { background: #f1f5f9 !important; border: 1px solid #cbd5e1; }
+
+    /* ==================== v14.5 ROYAL WELCOME PATTI & PRODUCT KHASIYAT SPOTLIGHT CSS ==================== */
+    .welcome-patti-ribbon {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, #451a03 0%, #78350f 15%, #090d16 50%, #78350f 85%, #451a03 100%);
+      border: 1px solid rgba(250, 204, 21, 0.55);
+      border-radius: 12px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(254, 240, 138, 0.25);
+      min-height: 38px;
+    }
+    .welcome-patti-Ribbon-hidden {
+      display: none !important;
+    }
+    .welcome-patti-badge {
+      background: linear-gradient(135deg, #fde047 0%, #f59e0b 100%);
+      color: #290f02;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      padding: 8px 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      border-right: 2px solid #fffbeb;
+      box-shadow: 4px 0 14px rgba(0, 0, 0, 0.45);
+      z-index: 2;
+    }
+    .welcome-patti-viewport {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      padding: 6px 0;
+    }
+    .welcome-patti-track {
+      display: inline-block;
+      padding-left: 100%;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #fef08a;
+      letter-spacing: 0.4px;
+      animation: welcomeMarqueeFlow 38s linear infinite;
+    }
+    @keyframes welcomeMarqueeFlow {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Home & Public Compact Welcome Strip */
+    .app-welcome-strip {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(90deg, #0f172a, #1e293b);
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .app-welcome-tag {
+      background: #f59e0b;
+      color: #0f172a;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 6px 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .app-welcome-track {
+      display: inline-block;
+      padding-left: 100%;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fde68a;
+      white-space: nowrap;
+      animation: welcomeMarqueeFlow 32s linear infinite;
+    }
+
+    /* Stage Product Khasiyat (USP) Showcase Card */
+    .usp-spotlight-shell {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(17, 24, 39, 0.96) 0%, rgba(7, 11, 20, 0.99) 100%);
+      border: 2px solid #d4af37;
+      border-radius: 22px;
+      padding: 24px 28px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.78), inset 0 0 40px rgba(212, 175, 55, 0.08);
+      text-align: left;
+    }
+    .usp-spotlight-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      align-items: center;
+    }
+    @media (min-width: 820px) {
+      .usp-spotlight-grid {
+        grid-template-columns: 340px 1fr;
+      }
+    }
+    .usp-pack-pedestal {
+      background: radial-gradient(circle at 50% 40%, rgba(254, 240, 138, 0.2) 0%, rgba(15, 23, 42, 0.9) 75%);
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 270px;
+      text-align: center;
+    }
+    .usp-bullet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .usp-bullet-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-left: 4px solid #fbbf24;
+      padding: 11px 16px;
+      border-radius: 0 12px 12px 0;
+      font-size: clamp(14.5px, 1.8vw, 19px);
+      font-weight: 700;
+      color: #f8fafc;
+      opacity: 0;
+      transform: translateX(18px);
+      animation: uspSlideIn 0.38s ease-out forwards;
+    }
+    @keyframes uspSlideIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .usp-check-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fde047, #f59e0b);
+      color: #290f02;
+      font-size: 14px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .side-usp-mini-box {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      text-align: left;
+    }
+    .side-usp-pill {
+      background: rgba(254, 240, 138, 0.08);
+      border: 1px solid rgba(250, 204, 21, 0.3);
+      border-radius: 8px;
+      padding: 5px 9px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #fef08a;
+    }
   </style>
 </head>
 <body>
@@ -1941,7 +2110,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v14.0 Pro</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v14.5 Pro</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -1971,6 +2140,14 @@
 
     <!-- ==================== TAB 1: CLEAN CORPORATE OVERVIEW & PARTY KHATA DIRECTORY ==================== -->
     <section id="screen-overview" class="screen active">
+
+      <!-- 0. SCROLLING WELCOME & PRODUCT KHASIYAT PATTI ON HOME -->
+      <div class="app-welcome-strip" id="homeWelcomePattiWrap" onclick="openWelcomePattiModal()" style="cursor:pointer;" title="Tap to edit Welcome Patti & Product Khasiyat">
+        <span class="app-welcome-tag">🙏 स्वागतम</span>
+        <div style="flex:1;overflow:hidden;">
+          <div class="app-welcome-track" id="homeWelcomePattiTrack"></div>
+        </div>
+      </div>
 
       <!-- 1. COMPACT EXECUTIVE SUMMARY HERO CARD (All Key Metrics in One Glance — Zero Mobile Clutter!) -->
       <div class="exec-hero-summary">
@@ -2033,7 +2210,8 @@
         <button type="button" class="qtool-btn wa" onclick="openAiTargetCoachModal()">📲 Target WTS <span id="nearCountBadge"></span></button>
         <button type="button" class="qtool-btn" onclick="openBeatBulkModal()">🚚 Beat Sheet</button>
         <button type="button" class="qtool-btn" onclick="openAreaManagerModal()">📍 Areas</button>
-        <button type="button" class="qtool-btn" onclick="openProductStudioModal()">📸 Products</button>
+        <button type="button" class="qtool-btn" onclick="openProductStudioModal()">📸 Products & Khasiyat</button>
+        <button type="button" class="qtool-btn" onclick="openWelcomePattiModal()">🎊 Welcome Patti</button>
         <button type="button" class="qtool-btn" onclick="openWaTemplateModal()">✏️ WTS Msg</button>
         <button type="button" class="qtool-btn" onclick="openSheetImportModal()">📥 Excel/Sheet</button>
         <button type="button" class="qtool-btn" onclick="openDuplicateGuardModal()">🔍 Dup Check</button>
@@ -3117,9 +3295,13 @@
             <input type="text" id="prodEnInp" placeholder="e.g. Mustard Oil 1L Bottle" />
           </div>
           <div class="field">
-            <label>Highlight Tagline</label>
+            <label>Short Tagline</label>
             <input type="text" id="prodTagInp" placeholder="e.g. 100% Shuddh & Asli Swad" />
           </div>
+        </div>
+        <div class="field" style="margin-top:8px;">
+          <label>✨ Product Ki Khasiyat / फायदें (Comma `,` या नई लाइन देकर 3–4 खासियत लिखें — LED Screen व App पर दिखेंगी):</label>
+          <textarea id="prodKhasiyatInp" rows="2" placeholder="e.g. 100% कोल्हू की शुद्ध कच्ची घानी, प्राकृतिक तेज़ झाँझ और भरपूर सुगंध, बिना किसी केमिकल या मिलावट के, सेहत और स्वाद में नंबर-1" style="font-size:12.5px;font-weight:600;"></textarea>
         </div>
         <div class="form-grid cols-3" style="gap:8px;margin-top:8px;align-items:end;">
           <div class="field">
@@ -3234,8 +3416,9 @@
         <button class="btn btn-danger btn-xs" onclick="closeQuickProdVideoModal()">✕</button>
       </div>
       <div id="qpvImgWrap" style="display:none;text-align:center;background:#ffffff;padding:14px;border-radius:14px;margin-bottom:8px;border:2px solid #fde047;">
-        <img id="qpvImgEl" src="" alt="Product Pack" style="max-width:100%;max-height:50vh;object-fit:contain;border-radius:10px;" />
+        <img id="qpvImgEl" src="" alt="Product Pack" style="max-width:100%;max-height:42vh;object-fit:contain;border-radius:10px;" />
       </div>
+      <div id="qpvKhasiyatBox" style="margin-bottom:8px;display:flex;flex-direction:column;gap:5px;"></div>
       <video id="qpvVideoEl" controls playsinline style="width:100%;max-height:54vh;border-radius:12px;background:#000;"></video>
       <div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px;flex-wrap:wrap;">
         <label class="btn btn-wa btn-xs" id="qpvQuickUploadBtn" style="cursor:pointer;">
@@ -3307,9 +3490,10 @@
           <label style="color:#cbd3e1;">Quick Screen Mode Commands</label>
           <div style="display:flex;gap:5px;flex-wrap:wrap;">
             <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#fde68a;border-color:#475569;" onclick="sendLiveRemoteCommand('GALA')">🏛️ Gala</button>
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#f87171;border-color:#475569;" onclick="sendLiveRemoteCommand('AD_LOOP')">🎬 Video Ad</button>
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#7dd3fc;border-color:#475569;" onclick="sendLiveRemoteCommand('BOARD')">📋 Full Grid</button>
-            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#86efac;border-color:#475569;" onclick="sendLiveRemoteCommand('SLIDESHOW')">▶️ Roll</button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#fde047;border-color:#f59e0b;font-weight:800;" onclick="sendLiveRemoteCommand('KHASIYAT')">✨ Khasiyat</button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#f87171;border-color:#475569;" onclick="sendLiveRemoteCommand('AD_LOOP')">🎬 Video</button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#7dd3fc;border-color:#475569;" onclick="sendLiveRemoteCommand('BOARD')">📋 Grid</button>
+            <button type="button" class="btn btn-outline btn-xs" style="flex:1;color:#86efac;border-color:#475569;" onclick="closeModal('mobileLiveRemoteModal');openWelcomePattiModal();">🎊 Patti</button>
           </div>
         </div>
       </div>
@@ -3336,11 +3520,69 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL 20: LIVE WELCOME PATTI & PRODUCT KHASIYAT TICKER STUDIO ==================== -->
+  <div class="modal-bg" id="welcomePattiModal">
+    <div class="modal" style="max-width:660px;">
+      <div class="modal-hd">
+        <div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🎊 Welcome Patti & Product Khasiyat Ticker</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Yahan se Swagat Sandesh (Welcome Patti) likhein — Save karte hi <b>Live Stage LED TV, Home aur Party Link</b> par turant chalne lagegi!</div>
+        </div>
+        <button class="btn btn-outline btn-xs" onclick="closeModal('welcomePattiModal')">✕</button>
+      </div>
+
+      <div class="form-grid cols-2" style="gap:8px;margin-bottom:10px;">
+        <div class="field">
+          <label>📺 Welcome Patti Status</label>
+          <select id="wpEnabledSel" style="font-weight:800;">
+            <option value="1">✅ ON — Har Jagah Chalayein</option>
+            <option value="0">🚫 OFF — Patti Chhupayein</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>⚡ چلने की रफ़्तार (Scrolling Speed)</label>
+          <select id="wpSpeedSel" style="font-weight:800;">
+            <option value="52">🐢 Slow & Royal (आराम से पढ़ने योग्य)</option>
+            <option value="38" selected>🎯 Medium Broadcast (Standard TV Speed)</option>
+            <option value="24">🚀 Fast News Ticker (तेज़ रफ़्तार)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:8px;">
+        <div style="font-size:11px;font-weight:800;color:#334155;margin-bottom:5px;">✨ 1-Tap Ready Templates (Tap karke jodein):</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('WELCOME_FULL')">🙏 भव्य स्वागत + सभी प्रोडक्ट खासियत</button>
+          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('VIP_GUEST')">👑 मुख्य अतिथि व व्यापारी स्वागत</button>
+          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('AUTO_PRODUCTS')">🌶️ सभी प्रोडक्ट्स की खासियत Auto-जोड़ें</button>
+          <button type="button" class="btn btn-outline btn-xs" onclick="setWelcomePreset('LUNCH_BREAK')">🍽️ स्वरुचि भोज / ब्रेक सूचना</button>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:12px;">
+        <label>Welcome Patti Text (आप यहाँ किसी विशेष अतिथि या एरिया के व्यापारियों का नाम भी लिख सकते हैं):</label>
+        <textarea id="wpTextInp" rows="5" style="font-size:13.5px;line-height:1.5;font-weight:700;"></textarea>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button type="button" class="btn btn-brand" style="flex:1;padding:12px;font-weight:800;" onclick="saveWelcomePattiSettings()">💾 Save & Update Live on LED Screen</button>
+        <button type="button" class="btn btn-navy" onclick="saveWelcomePattiSettings();openStageProjector();startProductKhasiyatSpotlightLoop();">📺 Save & Launch Khasiyat Show</button>
+      </div>
+    </div>
+  </div>
+
   <canvas id="confettiCanvas"></canvas>
   <div class="projector-overlay" id="stageProjectorOverlay">
     <div class="bcast-shell">
-      <!-- TOP CORPORATE BROADCAST HEADER -->
+      <!-- TOP ROYAL WELCOME & PRODUCT KHASIYAT SCROLLING PATTI (24x7 LIVE TICKER ON LED WALL!) -->
       <div>
+        <div class="welcome-patti-ribbon" id="stageWelcomePattiBar">
+          <span class="welcome-patti-badge">🙏 स्वागत एवं उत्पाद खासियत</span>
+          <div class="welcome-patti-viewport">
+            <div class="welcome-patti-track" id="stageWelcomePattiTrack"></div>
+          </div>
+        </div>
+
         <div class="bcast-header">
           <div class="bcast-brand-left">
             <div class="bcast-logo-ring" id="bcastStageLogo">
@@ -3414,8 +3656,10 @@
           </div>
 
           <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
-            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#fde68a;border-color:rgba(212,175,55,0.4);" onclick="showLedBrandPromoScreen()">🏛️ Gala Stage</button>
-            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#f87171;border-color:rgba(248,113,113,0.35);" onclick="startFullScreenVideoAdLoop()">🎬 Ad Break</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#fde68a;border-color:rgba(212,175,55,0.4);" onclick="showLedBrandPromoScreen()">🏛️ Gala</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(250,204,21,0.16);color:#fde047;border-color:#f59e0b;font-weight:800;" onclick="startProductKhasiyatSpotlightLoop()" title="Har Product ki Photo aur uski 3-4 Khasiyat badi LED screen par ek-ek karke chalayein!">✨ Khasiyat Show</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#86efac;border-color:rgba(134,239,172,0.35);" onclick="openWelcomePattiModal()" title="Edit Live Welcome Patti">🎊 Patti</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#f87171;border-color:rgba(248,113,113,0.35);" onclick="startFullScreenVideoAdLoop()">🎬 Video Ad</button>
             <button type="button" class="btn btn-outline btn-xs" id="btnSplitVideoDraw" style="background:rgba(255,255,255,0.05);color:#7dd3fc;border-color:rgba(56,189,248,0.35);" onclick="toggleStageSplitVideoMode()">📺 Split Ad</button>
             <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#fde68a;border-color:rgba(212,175,55,0.35);" onclick="showSegmentBoardOnLed()">📋 51/101 Grid</button>
             <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border-color:#334155;" onclick="runDemoStageSuspense()" title="Preview Corporate Reveal">🧪 Preview</button>
@@ -3441,6 +3685,7 @@
             <div id="sideStagePhotoWrap" style="display:none;text-align:center;">
               <img id="sideStagePhotoEl" class="side-pack-slide-img" src="" alt="Product Pack" />
             </div>
+            <div id="sideStageUspBox" class="side-usp-mini-box"></div>
             <div id="sideVidEmptyHint" style="display:none;padding:24px 12px;text-align:center;background:rgba(255,255,255,0.03);border-radius:14px;border:1px dashed rgba(212,175,55,0.4);">
               <div style="font-size:14px;font-weight:800;color:#fde68a;margin-bottom:6px;">Upload Commercial Video / Pack Photo</div>
               <label class="btn btn-brand btn-xs" style="cursor:pointer;">
@@ -3482,7 +3727,13 @@
       <h1 style="font-size:19.5px;font-weight:900;letter-spacing:-0.02em;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
       <p style="font-size:12px;color:#fde68a;font-weight:600;margin-top:3px;" id="pubBrandSub">100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices</p>
       <p style="font-size:12px;color:#94a3b8;margin-top:5px;" id="pubHdrSub">लकी कूपन, माल खाता और इनाम स्टेटस का लाइव स्टेटमेंट</p>
-      <div class="prod-ribbon" id="pubProdRibbon" style="max-width:860px;margin:12px auto 0;justify-content:flex-start;"></div>
+      <div style="max-width:860px;margin:10px auto 0;background:rgba(0,0,0,0.35);border:1px solid rgba(250,204,21,0.4);border-radius:999px;overflow:hidden;display:flex;align-items:center;" id="pubWelcomePattiWrap">
+        <span style="background:#f59e0b;color:#0f172a;font-size:10px;font-weight:900;padding:4px 10px;white-space:nowrap;">✨ स्वागत एवं खासियत</span>
+        <div style="flex:1;overflow:hidden;white-space:nowrap;">
+          <div class="app-welcome-track" id="pubWelcomePattiTrack" style="font-size:11.5px;padding-top:3px;padding-bottom:3px;"></div>
+        </div>
+      </div>
+      <div class="prod-ribbon" id="pubProdRibbon" style="max-width:860px;margin:10px auto 0;justify-content:flex-start;"></div>
     </div>
 
     <div style="max-width:680px;margin:16px auto;padding:0 12px;">
@@ -3522,7 +3773,10 @@
       brand_logo_data: DEFAULT_OFFICIAL_LOGO_DATA,
       bonus_every_coupons: 7,
       bonus_free_coupons: 1,
-      reveal_duration_sec: 8
+      reveal_duration_sec: 8,
+      welcome_patti_enabled: '1',
+      welcome_patti_speed: 38,
+      welcome_patti_text: '🙏 हार्दिक स्वागत एवं अभिनंदन! आर्युष फूड्स (कैलारस, मुरैना) के भव्य मेगा लकी ड्रॉ समारोह में पधारे सभी सम्मानित व्यापारी बंधुओं का हार्दिक स्वागत है!  ★  आर्युष रसोई धन की खासियत: 100% शुद्ध कोल्हू की कच्ची घानी सरसों तेल (तेज़ प्राकृतिक झाँझ) • बिना मिलावट शुद्ध मसाले • स्पेशल पटना की कुटी मिर्ची • हाई-करक्यूमिन असली हल्दी • ताज़ा खुशबूदार धनिया • शाही गरम मसाला व नुखरा हींग दाना  ★  स्पेशल ऑफर: हर 210 kg पर 1 पक्का कूपन + 7 कूपन पर 1 कूपन बिल्कुल FREE!'
     },
     ai_ready: false,
     retailers: [],
@@ -7721,15 +7975,50 @@
   
   // ==================== V10.2 IN-APP LOGO, PRODUCT PACK PHOTO & VIDEO STUDIO ENGINE ====================
   const DEFAULT_ARYUSH_PRODUCTS = [
-    { name: 'Kacchi Ghani Mustard Oil', hi: 'कच्ची घानी सरसों तेल', tag: '100% Shuddh & Tez Jhaanjh', icon: '🟡', bg: 'linear-gradient(135deg,#eab308,#ca8a04)', photoData: '', videoUrl: '', localVideoId: '' },
-    { name: 'Special Patna Kuti Mirchi', hi: 'स्पेशल पटना की कुटी मिर्ची', tag: 'Asli Swad & प्रीमियम कुटी मिर्च', icon: '🌶️', bg: 'linear-gradient(135deg,#dc2626,#991b1b)', photoData: '', videoUrl: '', localVideoId: '' },
-    { name: 'Lal Mirch Powder', hi: 'लाल मिर्च पाउडर', tag: 'Shahi Lal Rang & Teekhapan', icon: '🌶️', bg: 'linear-gradient(135deg,#ef4444,#b91c1c)', photoData: '', videoUrl: '', localVideoId: '' },
-    { name: 'Haldi Powder', hi: 'हल्दी पाउडर', tag: 'High Curcumin Asli Haldi', icon: '🟠', bg: 'linear-gradient(135deg,#f59e0b,#d97706)', photoData: '', videoUrl: '', localVideoId: '' },
-    { name: 'Dhaniya Powder', hi: 'धनिया पाउडर', tag: 'Taaza Khushbudar Dhaniya', icon: '🟢', bg: 'linear-gradient(135deg,#22c55e,#15803d)', photoData: '', videoUrl: '', localVideoId: '' },
-    { name: 'Shahi Garam Masala', hi: 'शाही गरम मसाला', tag: 'Khade Masalon Ka Asli Swad', icon: '🟤', bg: 'linear-gradient(135deg,#92400e,#78350f)', photoData: '', videoUrl: '', localVideoId: '' },
-    { name: 'Amchoor Powder', hi: 'अमचूर पाउडर', tag: 'Khatta Chatpata Zayka', icon: '🥭', bg: 'linear-gradient(135deg,#84cc16,#4d7c0f)', photoData: '', videoUrl: '', localVideoId: '' },
-    { name: 'Nukhra Hing Dana', hi: 'नुखरा हींग दाना', tag: '1 Chutki Me Mehek Uthe Rasoi', icon: '✨', bg: 'linear-gradient(135deg,#a855f7,#6d28d9)', photoData: '', videoUrl: '', localVideoId: '' }
+    {
+      name: 'Kacchi Ghani Mustard Oil', hi: 'कच्ची घानी सरसों तेल', tag: '100% शुद्ध कोल्हू की कच्ची घानी व तेज़ झाँझ', icon: '🟡', bg: 'linear-gradient(135deg,#eab308,#ca8a04)', photoData: '', videoUrl: '', localVideoId: '',
+      khasiyat: ['100% चुननिंदा पीली व काली सरसों से पारंपरिक कोल्हू विधि द्वारा तैयार', 'प्राकृतिक तेज़ झाँझ, भरपूर खुशबू और बिना किसी केमिकल या मिलावट के', 'हृदय व पाचन के लिए उत्तम — हर व्यंजन व अचार का स्वाद दोगुना करे']
+    },
+    {
+      name: 'Special Patna Kuti Mirchi', hi: 'स्पेशल पटना की कुटी मिर्ची', tag: 'प्रीमियम दरदरी कुटी मिर्च व असली तीखापन', icon: '🌶️', bg: 'linear-gradient(135deg,#dc2626,#991b1b)', photoData: '', videoUrl: '', localVideoId: '',
+      khasiyat: ['अव्वल दर्जे की सूखी लाल मिर्च से पारंपरिक दरदरी कुटाई', 'बिना कृत्रिम रंग (Zero Artificial Color) — प्राकृतिक सुर्ख लाल चमक', 'सब्ज़ी, दाल तड़का और चाट में होटल जैसा लाजवाब ज़ायका']
+    },
+    {
+      name: 'Lal Mirch Powder', hi: 'लाल मिर्च पाउडर', tag: 'शाही सुर्ख लाल रंग और दमदार तीखापन', icon: '🌶️', bg: 'linear-gradient(135deg,#ef4444,#b91c1c)', photoData: '', videoUrl: '', localVideoId: '',
+      khasiyat: ['डंठल-रहित साफ व धूप में सुखाई गई प्रीमियम लाल मिर्च से निर्मित', 'सब्ज़ी में शानदार प्राकृतिक रंगत और संतुलित तीखापन', 'हाइजीनिक कोल्ड-ग्राइंडिंग तकनीक से प्राकृतिक तेल व गुण बरकरार']
+    },
+    {
+      name: 'Haldi Powder', hi: 'हल्दी पाउडर', tag: 'हाई-करक्यूमिन असली सेलम हल्दी', icon: '🟠', bg: 'linear-gradient(135deg,#f59e0b,#d97706)', photoData: '', videoUrl: '', localVideoId: '',
+      khasiyat: ['उच्च करक्यूमिन (High Curcumin) वाली चुनिंदा हल्दी की गाँठों से तैयार', 'प्राकृतिक सुनहरा पीला रंग और रोग-प्रतिरोधक गुणों से भरपूर', 'थोड़ी सी मात्रा में ही पूरी रसोई को दे शुद्ध रंग और सुगंध']
+    },
+    {
+      name: 'Dhaniya Powder', hi: 'धनिया पाउडर', tag: 'ताज़ा खुशबूदार हरा धनिया पाउडर', icon: '🟢', bg: 'linear-gradient(135deg,#22c55e,#15803d)', photoData: '', videoUrl: '', localVideoId: '',
+      khasiyat: ['ताज़ा कोटा/कुम्भराज के सुगंधित साबुत धनिये की ठंडी पिसाई', 'ग्रेवी को दे शानदार गाढ़ापन और ताज़ा देसी खुशबू', '100% शुद्ध — किसी भी प्रकार के छिलके या फिलर से मुक्त']
+    },
+    {
+      name: 'Shahi Garam Masala', hi: 'शाही गरम मसाला', tag: '15+ खड़े मसालों का शाही संगम', icon: '🟤', bg: 'linear-gradient(135deg,#92400e,#78350f)', photoData: '', videoUrl: '', localVideoId: '',
+      khasiyat: ['इलायची, लौंग, दालचीनी, काली मिर्च व जावित्री सहित प्रीमियम खड़े मसालों का मिश्रण', 'सब्ज़ी बनने के बाद सिर्फ एक चुटकी डालते ही शाही दावत जैसी महक', 'एयर-टाइट पैकिंग जिससे आखिरी चुटकी तक खुशबू ताज़ा रहे']
+    },
+    {
+      name: 'Amchoor Powder', hi: 'अमचूर पाउडर', tag: 'कच्ची कैरी का खट्टा-चटपटा स्वाद', icon: '🥭', bg: 'linear-gradient(135deg,#84cc16,#4d7c0f)', photoData: '', videoUrl: '', localVideoId: '',
+      khasiyat: ['ताज़ा कच्चे आम की साफ़ फाँकों से बना 100% शुद्ध अमचूर', 'सब्ज़ी, दाल, समोसे व चाट को दे शानदार खट्टा-चटपटा ज़ायका', 'गुठली व बाहरी मिलावट से पूरी तरह मुक्त महीन पाउडर']
+    },
+    {
+      name: 'Nukhra Hing Dana', hi: 'नुखरा हींग दाना', tag: '1 चुटकी में महक उठे पूरी रसोई', icon: '✨', bg: 'linear-gradient(135deg,#a855f7,#6d28d9)', photoData: '', videoUrl: '', localVideoId: '',
+      khasiyat: ['असली तेज़ सुगंध वाला प्रीमियम कम्पाउंडेड नुखरा हींग दाना', 'दाल, कढ़ी और तड़के में सिर्फ एक दाने से लाजवाब खुशबू', 'पाचन के लिए गुणकारी और लंबे समय तक नमी से सुरक्षित पैकिंग']
+    }
   ];
+
+  function getProductKhasiyatList(p) {
+    if (!p) return [];
+    if (Array.isArray(p.khasiyat) && p.khasiyat.length > 0) {
+      return p.khasiyat.map(s => String(s || '').trim()).filter(Boolean);
+    }
+    const defMatch = DEFAULT_ARYUSH_PRODUCTS.find(d => d.name === p.name || d.hi === p.hi);
+    if (defMatch && Array.isArray(defMatch.khasiyat)) return [...defMatch.khasiyat];
+    if (p.tag) return [p.tag, '100% शुद्ध एवं हाइजीनिक पैकिंग', 'आर्युष फूड्स (कैलारस) की शुद्धता की गारंटी'];
+    return ['100% शुद्ध एवं उच्च गुणवत्ता उत्पाद'];
+  }
 
   const PRODUCTS_STORAGE_KEY = 'aryush_v10_custom_products';
   let ARYUSH_PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_ARYUSH_PRODUCTS));
@@ -7862,6 +8151,7 @@
       tag: p.tag,
       icon: p.icon,
       bg: p.bg,
+      khasiyat: getProductKhasiyatList(p),
       videoUrl: p.videoUrl || '',
       localVideoId: p.localVideoId || '',
       photoData: ''
@@ -8082,6 +8372,8 @@
     document.getElementById('prodHiInp').value = '';
     document.getElementById('prodEnInp').value = '';
     document.getElementById('prodTagInp').value = '';
+    const khInp = document.getElementById('prodKhasiyatInp');
+    if (khInp) khInp.value = '';
     document.getElementById('prodIconInp').value = '🌶️';
     document.getElementById('prodVidUrlInp').value = '';
     document.getElementById('prodFormHeading').textContent = '➕ Naya Product Add Karein (Ya Upar ✏️ Daba Kar Edit Karein)';
@@ -8153,6 +8445,8 @@
     document.getElementById('prodHiInp').value = p.hi || '';
     document.getElementById('prodEnInp').value = p.name || '';
     document.getElementById('prodTagInp').value = p.tag || '';
+    const khInp = document.getElementById('prodKhasiyatInp');
+    if (khInp) khInp.value = getProductKhasiyatList(p).join(', ');
     document.getElementById('prodIconInp').value = p.icon || '🌶️';
     document.getElementById('prodBgSel').value = p.bg || 'linear-gradient(135deg,#ef4444,#b91c1c)';
     document.getElementById('prodVidUrlInp').value = p.videoUrl || '';
@@ -8175,7 +8469,11 @@
     const videoUrl = document.getElementById('prodVidUrlInp').value.trim();
 
     if (!hi) return toast('Product ka Hindi naam dalein!', true);
-    const item = { name, hi, tag, icon, bg, photoData: DRAFT_PROD_PHOTO, videoUrl, localVideoId: DRAFT_PROD_VID_ID };
+    const rawKh = (document.getElementById('prodKhasiyatInp')?.value || '').trim();
+    const khasiyat = rawKh
+      ? rawKh.split(/[,\n•]+/).map(s => s.trim()).filter(Boolean)
+      : (idx >= 0 && ARYUSH_PRODUCTS[idx] ? getProductKhasiyatList(ARYUSH_PRODUCTS[idx]) : [tag, '100% शुद्ध एवं उच्च गुणवत्ता उत्पाद']);
+    const item = { name, hi, tag, icon, bg, khasiyat, photoData: DRAFT_PROD_PHOTO, videoUrl, localVideoId: DRAFT_PROD_VID_ID };
 
     if (idx >= 0 && idx < ARYUSH_PRODUCTS.length) ARYUSH_PRODUCTS[idx] = item;
     else ARYUSH_PRODUCTS.push(item);
@@ -8282,6 +8580,12 @@
 
     document.getElementById('qpvTitle').textContent = `${p.icon || '🌶️'} ${p.hi}`;
     document.getElementById('qpvSub').textContent = `${p.name} • ${p.tag}`;
+    const khBox = document.getElementById('qpvKhasiyatBox');
+    if (khBox) {
+      const kList = getProductKhasiyatList(p);
+      khBox.innerHTML = `<div style="font-size:10.5px;font-weight:900;color:#fde047;letter-spacing:1px;">✨ उत्पाद की खासियत (KEY HIGHLIGHTS):</div>` +
+        kList.map(k => `<div style="background:rgba(255,255,255,0.06);border-left:3px solid #fde047;padding:6px 10px;border-radius:0 8px 8px 0;font-size:12px;font-weight:600;color:#f8fafc;">✓ ${esc(k)}</div>`).join('');
+    }
 
     const imgWrap = document.getElementById('qpvImgWrap');
     const imgEl = document.getElementById('qpvImgEl');
@@ -8446,6 +8750,12 @@
     const cur = playlist[STAGE_CUR_VID_INDEX % playlist.length];
     document.getElementById('sideVidProdTitle').textContent = cur.title;
     document.getElementById('sideVidProdSub').textContent = cur.sub;
+    const sideUsp = document.getElementById('sideStageUspBox');
+    if (sideUsp) {
+      const matchedP = ARYUSH_PRODUCTS.find(x => x.hi === cur.title || x.name === cur.title);
+      const uList = matchedP ? getProductKhasiyatList(matchedP).slice(0, 3) : [];
+      sideUsp.innerHTML = uList.map(u => `<div class="side-usp-pill">✓ ${esc(u)}</div>`).join('');
+    }
 
     if (cur.type === 'photo') {
       try { vidEl.pause(); } catch (e) {}
@@ -8586,11 +8896,186 @@
     const pubRib = document.getElementById('pubProdRibbon');
     if (pubRib) pubRib.innerHTML = buildChips(true);
 
-    const mq = document.getElementById('ledMarqueeText');
-    if (mq) {
-      const pNames = ARYUSH_PRODUCTS.map(p => p.hi).join(' • ');
-      mq.textContent = `★ ${s.company_name} (KAILARAS, MORENA) PRESENTS — ${s.campaign_name} ★ हमारे शुद्ध उत्पाद: ${pNames} ★ कुल ${s.max_coupons} कूपन = ${s.max_coupons} पक्के इनाम (Alto K10, Activa, HF Deluxe, 200g से 20g चाँदी, फ्रिज, वाशिंग मशीन व मसाले) ★`;
+    renderAllWelcomePattis();
+  }
+
+  // ==================== v14.5 WELCOME PATTI & PRODUCT KHASIYAT SPOTLIGHT ENGINE ====================
+  let KHASIYAT_SPOTLIGHT_IDX = 0;
+
+  function buildAutoWelcomeAndKhasiyatText() {
+    const s = STATE.settings;
+    const prodHighlights = ARYUSH_PRODUCTS.map(p => {
+      const firstUsp = getProductKhasiyatList(p)[0] || p.tag;
+      return `✦ ${p.hi}: ${firstUsp}`;
+    }).join('   ');
+    return (
+      `🙏 हार्दिक स्वागत एवं अभिनंदन! ${s.company_name} (कैलारस, मुरैना) के भव्य "${s.campaign_name}" समारोह में पधारे सभी सम्मानित व्यापारी बंधुओं एवं अतिथियों का हार्दिक स्वागत है!   ★   ` +
+      `👑 आर्युष रसोई धन उत्पादों की बेमिसाल खासियत: ${prodHighlights}   ★   ` +
+      `🎁 धमाका स्कीम: हर ${s.kg_per_coupon} kg पर 1 पक्का कूपन + ${s.bonus_every_coupons || 7} कूपन पर +${s.bonus_free_coupons || 1} कूपन बिल्कुल FREE! (कुल ${s.max_coupons} कूपन = ${s.max_coupons} गारंटीड इनाम)`
+    );
+  }
+
+  function getActiveWelcomePattiText() {
+    const custom = String(STATE.settings?.welcome_patti_text || '').trim();
+    return custom || buildAutoWelcomeAndKhasiyatText();
+  }
+
+  function renderAllWelcomePattis() {
+    const s = STATE.settings || {};
+    const enabled = String(s.welcome_patti_enabled ?? '1') !== '0';
+    const speedSec = Math.max(15, Number(s.welcome_patti_speed) || 38);
+    const fullText = getActiveWelcomePattiText();
+    // Duplicate text with separator so marquee feels rich and continuous
+    const loopStr = `${fullText}     ★     ${fullText}`;
+
+    const stageBar = document.getElementById('stageWelcomePattiBar');
+    const stageTrack = document.getElementById('stageWelcomePattiTrack');
+    if (stageBar && stageTrack) {
+      stageBar.style.display = enabled ? 'flex' : 'none';
+      stageTrack.textContent = loopStr;
+      stageTrack.style.animationDuration = `${speedSec}s`;
     }
+
+    const homeBar = document.getElementById('homeWelcomePattiWrap');
+    const homeTrack = document.getElementById('homeWelcomePattiTrack');
+    if (homeBar && homeTrack) {
+      homeBar.style.display = enabled ? 'flex' : 'none';
+      homeTrack.textContent = fullText;
+      homeTrack.style.animationDuration = `${Math.max(20, speedSec - 4)}s`;
+    }
+
+    const pubBar = document.getElementById('pubWelcomePattiWrap');
+    const pubTrack = document.getElementById('pubWelcomePattiTrack');
+    if (pubBar && pubTrack) {
+      pubBar.style.display = enabled ? 'flex' : 'none';
+      pubTrack.textContent = fullText;
+      pubTrack.style.animationDuration = `${Math.max(20, speedSec - 4)}s`;
+    }
+  }
+
+  function openWelcomePattiModal() {
+    const s = STATE.settings || {};
+    document.getElementById('wpEnabledSel').value = String(s.welcome_patti_enabled ?? '1') === '0' ? '0' : '1';
+    document.getElementById('wpSpeedSel').value = String(Number(s.welcome_patti_speed) || 38);
+    document.getElementById('wpTextInp').value = getActiveWelcomePattiText();
+    openModal('welcomePattiModal');
+  }
+
+  function setWelcomePreset(mode) {
+    const s = STATE.settings;
+    const box = document.getElementById('wpTextInp');
+    if (mode === 'WELCOME_FULL') {
+      box.value = buildAutoWelcomeAndKhasiyatText();
+    } else if (mode === 'VIP_GUEST') {
+      box.value = `🙏 हार्दिक स्वागत एवं अभिनंदन! ${s.company_name} (कैलारस, मुरैना) परिवार की ओर से आज के लकी ड्रॉ समारोह में पधारे सभी मुख्य अतिथियों, डिस्ट्रीब्यूटर्स एवं सम्मानित दुकानदार भाइयों का सहृदय स्वागत है! ★ शुद्धता और विश्वास का प्रतीक — आर्युष रसोई धन!`;
+    } else if (mode === 'AUTO_PRODUCTS') {
+      box.value = `👑 आर्युष रसोई धन — हर रसोई की पहली पसंद! हमारे उत्पादों की खासियत:  ` +
+        ARYUSH_PRODUCTS.map(p => `★ ${p.hi}: ${getProductKhasiyatList(p).join(' • ')}`).join('   ');
+    } else if (mode === 'LUNCH_BREAK') {
+      box.value = `🍽️ सादर अनुरोध: सभी सम्मानित व्यापारी बंधुओं एवं अतिथियों से निवेदन है कि लकी ड्रॉ समारोह के साथ स्वरुचि भोज / जलपान का आनंद अवश्य लें! ★ सौजन्य: ${s.company_name} (कैलारस, मुरैना)`;
+    }
+  }
+
+  async function saveWelcomePattiSettings() {
+    const enabled = document.getElementById('wpEnabledSel').value === '0' ? '0' : '1';
+    const speed = Number(document.getElementById('wpSpeedSel').value) || 38;
+    const text = document.getElementById('wpTextInp').value.trim() || buildAutoWelcomeAndKhasiyatText();
+
+    STATE.settings.welcome_patti_enabled = enabled;
+    STATE.settings.welcome_patti_speed = speed;
+    STATE.settings.welcome_patti_text = text;
+    renderAllWelcomePattis();
+
+    try {
+      await api('/api/settings', 'POST', {
+        welcome_patti_enabled: enabled,
+        welcome_patti_speed: String(speed),
+        welcome_patti_text: text
+      });
+      broadcastStageCommandToLiveScreens({ action: 'REFRESH_PATTI' }).catch(() => {});
+      closeModal('welcomePattiModal');
+      toast('🎊 Welcome Patti Saved & Live Updated on LED Screen!');
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  // Full-Screen Widescreen TV Show: Cycles through every Product with its Pack Photo + Animated Khasiyat Bullets!
+  function startProductKhasiyatSpotlightLoop(manualIdx = null) {
+    clearStageTimers();
+    stopAllStageVideoElements();
+    if (!ARYUSH_PRODUCTS.length) return;
+    if (manualIdx !== null) {
+      KHASIYAT_SPOTLIGHT_IDX = ((manualIdx % ARYUSH_PRODUCTS.length) + ARYUSH_PRODUCTS.length) % ARYUSH_PRODUCTS.length;
+    }
+
+    const disp = document.getElementById('projWinnerDisplay');
+    if (!disp) return;
+
+    const renderSlide = () => {
+      const total = ARYUSH_PRODUCTS.length;
+      const idx = ((KHASIYAT_SPOTLIGHT_IDX % total) + total) % total;
+      const p = ARYUSH_PRODUCTS[idx];
+      const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
+      const kList = getProductKhasiyatList(p);
+      const logoSrc = getEffectiveLogoUrl();
+
+      disp.innerHTML = `
+        <div class="winner-pop usp-spotlight-shell">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid rgba(212,175,55,0.28);flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <img src="${logoSrc}" style="width:36px;height:36px;border-radius:50%;background:#fff;padding:2px;border:1.5px solid #fde047;" />
+              <div>
+                <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#fcd34d;text-transform:uppercase;">PRODUCT QUALITY SPOTLIGHT (${idx + 1} / ${total})</div>
+                <div style="font-size:12.5px;font-weight:700;color:#cbd5e1;">${esc(STATE.settings.company_name)} • आर्युष रसोई धन — शुद्धता का वादा</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <button type="button" class="btn btn-outline btn-xs" style="color:#fde68a;border-color:rgba(212,175,55,0.45);" onclick="startProductKhasiyatSpotlightLoop(${idx - 1})">◀ Prev</button>
+              <button type="button" class="btn btn-outline btn-xs" style="color:#fde68a;border-color:rgba(212,175,55,0.45);" onclick="startProductKhasiyatSpotlightLoop(${idx + 1})">Next Product ▶</button>
+            </div>
+          </div>
+
+          <div class="usp-spotlight-grid" style="margin-top:18px;">
+            <!-- Left Pedestal: Full Pack Photo or Royal Crest -->
+            <div class="usp-pack-pedestal">
+              ${hasPic
+                ? `<img src="${p.photoData}" class="stage-pack-hero-img" style="max-height:225px;max-width:94%;" alt="${esc(p.hi)}" />`
+                : `<div style="width:130px;height:130px;border-radius:50%;background:${p.bg};border:3px solid #fde047;display:flex;align-items:center;justify-content:center;font-size:58px;box-shadow:0 12px 35px rgba(0,0,0,0.6);">${esc(p.icon || '🌶️')}</div>`
+              }
+              <div class="corp-prize-rank-ribbon" style="margin-top:14px;">100% PURE & HYGIENIC</div>
+            </div>
+
+            <!-- Right Column: Product Title, Tagline & Animated Khasiyat Bullets -->
+            <div>
+              <div style="font-family:'Cinzel','Plus Jakarta Sans',serif;font-size:clamp(26px,3.8vw,44px);font-weight:900;background:linear-gradient(90deg,#ffffff 0%,#fef08a 60%,#f59e0b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.18;">
+                ${esc(p.hi)}
+              </div>
+              <div style="font-size:15.5px;font-weight:800;color:#fcd34d;margin-top:4px;">
+                ${esc(p.name)}  •  ${esc(p.tag)}
+              </div>
+
+              <div style="margin-top:14px;font-size:11px;font-weight:900;letter-spacing:1.8px;color:#94a3b8;text-transform:uppercase;">
+                ✨ हमारे इस उत्पाद की प्रमुख खासियतें (WHY CUSTOMERS LOVE IT):
+              </div>
+              <div class="usp-bullet-list">
+                ${kList.map((pt, kIdx) => `
+                  <div class="usp-bullet-row" style="animation-delay:${(kIdx * 0.16).toFixed(2)}s;">
+                    <span class="usp-check-circle">✓</span>
+                    <span>${esc(pt)}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      KHASIYAT_SPOTLIGHT_IDX++;
+    };
+
+    renderSlide();
+    const rotTimer = setInterval(renderSlide, 6500);
+    STAGE_ACTIVE_TIMERS.push(rotTimer);
   }
 
   async function handleBrandLogoUpload(ev) {
@@ -9916,7 +10401,9 @@
       if (sel) sel.value = String(cmd.segId);
     }
 
+    if (cmd.action === 'REFRESH_PATTI') { renderAllWelcomePattis(); return; }
     if (cmd.action === 'GALA') { showLedBrandPromoScreen(); return; }
+    if (cmd.action === 'KHASIYAT') { startProductKhasiyatSpotlightLoop(); return; }
     if (cmd.action === 'AD_LOOP') { startFullScreenVideoAdLoop(); return; }
     if (cmd.action === 'BOARD') { showSegmentBoardOnLed(0); return; }
     if (cmd.action === 'SLIDESHOW') { toggleLedWinnerSlideshow(); return; }

@@ -1,11 +1,12 @@
 {
-  "name": "Aryush Foods — Lucky Draw & Party Khata ERP v9.0",
-  "short_name": "Aryush Draw",
-  "start_url": "/",
+  "name": "Aryush Foods — Rasoi Dhan Lucky Draw ERP v10.0",
+  "short_name": "Aryush Draw v10",
+  "description": "Aryush Foods & Aryush Rasoi Dhan Lucky Draw ERP v10.0 with Stage LED Video Studio & Smart WhatsApp",
+  "start_url": "/?v=10.0",
   "display": "standalone",
-  "background_color": "#7f1d1d",
+  "background_color": "#1e1b4b",
   "theme_color": "#7f1d1d",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "icons": [
     {
       "src": "/icon-192.png",

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v9.0</title>
+  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v10.0</title>
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -639,6 +639,79 @@
       text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
 
+
+    /* v10.0 Product Video Studio, Split-Screen LED & Smart WhatsApp Styles */
+    .prod-chip { cursor: pointer; position: relative; }
+    .prod-chip .vid-dot {
+      position: absolute; top: 5px; right: 6px; background: #dc2626; color: #fff;
+      font-size: 9px; font-weight: 900; padding: 1px 6px; border-radius: 999px;
+      box-shadow: 0 2px 6px rgba(220,38,38,0.5);
+    }
+    .prod-ico img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+    .proj-stage-arena.split-mode {
+      display: grid !important;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: stretch;
+      padding: 18px;
+    }
+    @media (min-width: 860px) {
+      .proj-stage-arena.split-mode {
+        grid-template-columns: 1.02fr 1.18fr;
+      }
+    }
+    .stage-video-dock {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(160deg, rgba(2,6,23,0.95), rgba(30,27,75,0.85));
+      border: 2px solid rgba(251,191,36,0.55);
+      border-radius: 22px;
+      padding: 12px;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.55);
+      overflow: hidden;
+      position: relative;
+    }
+    .proj-stage-arena.split-mode .stage-video-dock {
+      display: flex;
+    }
+    .stage-video-frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 360px;
+      background: #000;
+      border-radius: 14px;
+      object-fit: contain;
+      border: 1.5px solid rgba(253,224,71,0.35);
+    }
+    .full-ad-video {
+      width: 100%;
+      max-width: 840px;
+      max-height: 55vh;
+      background: #000;
+      border-radius: 18px;
+      border: 2.5px solid #fbbf24;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.65);
+      object-fit: contain;
+    }
+    .wa-quick-pill {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 5px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .wa-quick-pill:active { transform: scale(0.95); }
+    .var-chip {
+      display: inline-flex; align-items: center; padding: 4px 8px;
+      background: #eef2ff; color: #312e81; border: 1px solid #c7d2fe;
+      border-radius: 7px; font-size: 11px; font-weight: 800; cursor: pointer;
+    }
+    .var-chip:active { background: #312e81; color: #fff; }
   </style>
 </head>
 <body>
@@ -656,7 +729,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">रसोई धन v9.0</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">रसोई धन v10.0</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -706,9 +779,11 @@
               </div>
             </div>
           </div>
-          <div style="display:flex;gap:6px;align-items:center;">
-            <button type="button" class="btn btn-xs" style="background:#fde047;color:#450a0a;font-weight:900;" onclick="openStageProjector();showLedBrandPromoScreen();">📺 LED Brand Show</button>
-            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="toggleHomeProductsRibbon()" id="btnToggleProdRibbon">🌶️ Hide</button>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-weight:900;" onclick="openStageProjector();startFullScreenVideoAdLoop();">🎬 LED Video Ad</button>
+            <button type="button" class="btn btn-xs" style="background:#fde047;color:#450a0a;font-weight:900;" onclick="openProductStudioModal()">🌶️ + Product / Video</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="openStageProjector();showLedBrandPromoScreen();">📺 Poster</button>
+            <button type="button" class="btn btn-outline btn-xs" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.25);" onclick="toggleHomeProductsRibbon()" id="btnToggleProdRibbon">Hide</button>
           </div>
         </div>
 
@@ -723,7 +798,8 @@
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <button class="btn btn-brand btn-xs" onclick="openBeatBulkModal()">🚚 Area Bulk Sheet</button>
-          <button class="btn btn-ai btn-xs" onclick="openAiTargetCoachModal()">🎯 Target Coach <span id="nearCountBadge"></span></button>
+          <button class="btn btn-wa btn-xs" onclick="openAiTargetCoachModal()">📲 Target WTS <span id="nearCountBadge"></span></button>
+          <button class="btn btn-outline btn-xs" style="border-color:#86efac;color:#15803d;" onclick="openWaTemplateModal()">✏️ Customize WTS</button>
           <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="sharePublicCheckLink()">🔗 Party Check Link</button>
           <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="openStageProjector()">📺 Stage TV</button>
           <button class="btn btn-outline btn-xs" style="border-color:#c4b5fd;color:#5b21b6;" onclick="openDuplicateGuardModal()">🔍 Dup Guard</button>
@@ -1241,7 +1317,9 @@
         </div>
 
         <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <label class="btn btn-brand btn-sm" style="cursor:pointer;">
+          <button type="button" class="btn btn-brand btn-sm" onclick="openProductStudioModal()">🎬 Manage Products & Ad Videos</button>
+          <button type="button" class="btn btn-wa btn-sm" onclick="openWaTemplateModal()">📲 Customize Target WhatsApp Msg</button>
+          <label class="btn btn-navy btn-sm" style="cursor:pointer;">
             🖼️ Upload Company / Rasoi Dhan Logo
             <input type="file" accept="image/*" style="display:none" onchange="handleBrandLogoUpload(event)" />
           </label>
@@ -1459,17 +1537,28 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL 8: AI NEAR-COUPON SALES TARGET COACH ==================== -->
+  <!-- ==================== MODAL 8: SMART WHATSAPP TARGET & DRAW BENEFITS SENDER ==================== -->
   <div class="modal-bg" id="aiTargetCoachModal">
-    <div class="modal">
+    <div class="modal" style="max-width:680px;">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16px;font-weight:900;color:#4c1d95;">🎯 AI Sales Target Coach (Near Next Coupon)</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Jo dukandar agle coupon ke bilkul kareeb hain unhe 1-Tap Hindi WhatsApp reminder bhejein!</div>
+          <h3 style="font-size:16px;font-weight:900;color:#15803d;">📲 Party Target & Lucky Draw Fayde WhatsApp</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Har party ko bhejein: "Aap par itna maal pahunch gaya, itna aur mangalo + 301 Inam ke fayde!"</div>
         </div>
-        <button class="btn btn-outline btn-xs" onclick="closeModal('aiTargetCoachModal')">✕</button>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-outline btn-xs" style="border-color:#86efac;color:#15803d;" onclick="openWaTemplateModal()">✏️ Customize Msg</button>
+          <button class="btn btn-outline btn-xs" onclick="closeModal('aiTargetCoachModal')">✕</button>
+        </div>
       </div>
-      <div id="aiCoachList" style="max-height:58vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
+      <div class="form-grid cols-2" style="margin-bottom:10px;gap:8px;">
+        <select id="coachFilterMode" onchange="renderAiTargetCoachList()" style="font-weight:800;">
+          <option value="ALL_ACTIVE">🏪 Sabhi Active Parties (All Buyers)</option>
+          <option value="NEAR">🎯 Near Next Coupon Parties (≥55%)</option>
+          <option value="ALL">📋 Sabhi Parties (Including 0 kg)</option>
+        </select>
+        <input type="text" id="coachSearchInp" placeholder="🔍 Party ya Area khojein..." oninput="renderAiTargetCoachList()" />
+      </div>
+      <div id="aiCoachList" style="max-height:56vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
     </div>
   </div>
 
@@ -1544,11 +1633,12 @@
           <div class="prog-bar" style="height:6px;margin-top:5px;"><div class="prog-fill" id="khataProgFill" style="width:0%"></div></div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1.2fr 1.2fr auto auto;gap:7px;margin-top:14px;">
-          <button class="btn btn-brand btn-sm" id="btnKhataNewEntry">+ Maal Entry</button>
-          <button class="btn btn-wa btn-sm" id="btnKhataSharePdf">📲 Khata PDF</button>
+        <div style="display:grid;grid-template-columns:1fr 1.15fr 1fr auto auto;gap:6px;margin-top:14px;">
+          <button class="btn btn-brand btn-sm" id="btnKhataNewEntry">+ Entry</button>
+          <button class="btn btn-wa btn-sm" id="btnKhataTargetWa" title="Maal Pahunch Gaya + Target + Draw Benefits WhatsApp">🎯 Target WTS</button>
+          <button class="btn btn-navy btn-sm" id="btnKhataSharePdf">📄 PDF</button>
           <button class="btn btn-outline btn-sm" id="btnKhataDownloadPdf" title="Download PDF">⬇️</button>
-          <button class="btn btn-outline btn-sm" id="btnKhataWaMsg" title="WhatsApp Message">💬</button>
+          <button class="btn btn-outline btn-sm" id="btnKhataWaMsg" title="Coupon Summary WhatsApp">💬</button>
         </div>
       </div>
 
@@ -1688,6 +1778,158 @@
   </div>
 
   <!-- ==================== OVERLAY 15: GRAND STAGE SUSPENSE & LED WALL TV MODE ==================== -->
+  <!-- ==================== MODAL 16: PRODUCT CATALOG & AD VIDEO STUDIO (v10.0) ==================== -->
+  <div class="modal-bg" id="productStudioModal">
+    <div class="modal" style="max-width:720px;">
+      <div class="modal-hd">
+        <div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">🌶️🎬 Manage Products & Lucky Draw Videos</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Apne naye products add karein aur har product ki MP4 Ad Video jodein jo Stage LED Draw ke sath chalegi!</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-outline btn-xs" onclick="resetDefaultProductsList()">↺ Default</button>
+          <button class="btn btn-outline btn-xs" onclick="closeModal('productStudioModal')">✕</button>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#fff7ed,#ffedd5);border:1.5px solid #fb923c;border-radius:13px;padding:11px 13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div style="min-width:0;flex:1;">
+          <div style="font-size:13px;font-weight:900;color:#9a3412;">🎬 Direct HD MP4 Ad Videos (Offline / Zero Buffering!)</div>
+          <div style="font-size:11.5px;color:#7c2d12;margin-top:2px;" id="savedVideosStatusTxt">Phone ya Laptop se apni MP4 ad videos select karein — browser me offline save rahengi!</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <label class="btn btn-brand btn-xs" style="cursor:pointer;">
+            📂 + Add MP4 Videos
+            <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event)" />
+          </label>
+          <button type="button" class="btn btn-navy btn-xs" onclick="closeModal('productStudioModal');openStageProjector();startFullScreenVideoAdLoop();">📺 Test on Stage TV</button>
+        </div>
+      </div>
+
+      <div id="standaloneVideosBox" style="display:none;margin-bottom:12px;"></div>
+
+      <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:14px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:12.5px;font-weight:900;color:var(--primary);margin-bottom:8px;" id="prodFormHeading">➕ Add / Update Product</div>
+        <input type="hidden" id="editProdIdx" value="-1" />
+        <div class="form-grid cols-3" style="gap:8px;">
+          <div class="field">
+            <label>Product Name (Hindi) *</label>
+            <input type="text" id="prodHiInp" placeholder="e.g. स्पेशल पटना की कुटी मिर्ची" />
+          </div>
+          <div class="field">
+            <label>English Name *</label>
+            <input type="text" id="prodEnInp" placeholder="e.g. Special Patna Kuti Mirchi" />
+          </div>
+          <div class="field">
+            <label>Highlight Tagline</label>
+            <input type="text" id="prodTagInp" placeholder="e.g. Asli Swad & Shuddhata" />
+          </div>
+        </div>
+        <div class="form-grid cols-3" style="gap:8px;margin-top:8px;align-items:end;">
+          <div class="field">
+            <label>Icon & Color Theme</label>
+            <div style="display:flex;gap:6px;">
+              <input type="text" id="prodIconInp" value="🌶️" style="width:54px;text-align:center;font-size:17px;" />
+              <select id="prodBgSel" style="flex:1;font-size:12px;">
+                <option value="linear-gradient(135deg,#ef4444,#b91c1c)">🔴 Red (Mirchi)</option>
+                <option value="linear-gradient(135deg,#eab308,#ca8a04)">🟡 Gold (Mustard Oil)</option>
+                <option value="linear-gradient(135deg,#f59e0b,#d97706)">🟠 Haldi Amber</option>
+                <option value="linear-gradient(135deg,#22c55e,#15803d)">🟢 Dhaniya Green</option>
+                <option value="linear-gradient(135deg,#92400e,#78350f)">🟤 Garam Masala Brown</option>
+                <option value="linear-gradient(135deg,#a855f7,#6d28d9)">🟣 Royal Hing Purple</option>
+                <option value="linear-gradient(135deg,#2563eb,#1e40af)">🔵 Royal Blue</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Direct Video Link (.mp4) — Optional</label>
+            <input type="url" id="prodVidUrlInp" placeholder="https://.../promo.mp4 (or upload MP4)" />
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <label class="btn btn-outline btn-xs" style="cursor:pointer;flex:1;">
+              🖼️ Pack Photo
+              <input type="file" accept="image/*" style="display:none;" onchange="handleProdPhotoPick(event)" />
+            </label>
+            <label class="btn btn-outline btn-xs" style="cursor:pointer;flex:1;border-color:#fb923c;color:#c2410c;">
+              🎬 Product MP4
+              <input type="file" accept="video/*" style="display:none;" onchange="handleProdVideoPick(event)" />
+            </label>
+          </div>
+        </div>
+        <div id="prodDraftMediaInfo" style="font-size:11px;color:#15803d;font-weight:800;margin-top:6px;display:none;"></div>
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button type="button" class="btn btn-brand btn-sm" style="flex:1;" id="btnSaveProdItem" onclick="saveProductStudioItem()">✓ Save Product & Video</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="clearProdForm()">Clear</button>
+        </div>
+      </div>
+
+      <div style="font-size:12px;font-weight:900;color:var(--muted);margin-bottom:6px;">YOUR ACTIVE PRODUCTS (<span id="prodTotalCountLbl">0</span>):</div>
+      <div id="prodStudioList" style="max-height:38vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 17: CUSTOM WHATSAPP TARGET & DRAW BENEFITS EDITOR (v10.0) ==================== -->
+  <div class="modal-bg" id="waTemplateModal">
+    <div class="modal" style="max-width:680px;">
+      <div class="modal-hd">
+        <div>
+          <h3 style="font-size:16px;font-weight:900;color:#15803d;">📲 Customize WhatsApp Target & Draw Fayde Message</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Apne hisab se message badlein — har party ka Maal, Baki KG/Bori aur Coupons apne aap jud jayega!</div>
+        </div>
+        <button class="btn btn-outline btn-xs" onclick="closeModal('waTemplateModal')">✕</button>
+      </div>
+
+      <div style="margin-bottom:8px;">
+        <div style="font-size:11px;font-weight:800;color:#334155;margin-bottom:5px;">👇 Tap करके कोई भी Auto-Tag मैसेज में जोड़ें:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span class="var-chip" onclick="insertWaTag('{SHOP}')">{SHOP} (दुकान नाम)</span>
+          <span class="var-chip" onclick="insertWaTag('{TOTAL_KG}')">{TOTAL_KG} (कुल KG)</span>
+          <span class="var-chip" onclick="insertWaTag('{TOTAL_BAGS}')">{TOTAL_BAGS} (कुल बोरी)</span>
+          <span class="var-chip" onclick="insertWaTag('{LAST_ENTRY_LINE}')">{LAST_ENTRY_LINE} (पिछली एंट्री)</span>
+          <span class="var-chip" onclick="insertWaTag('{COUPONS}')">{COUPONS} (पक्के कूपन)</span>
+          <span class="var-chip" onclick="insertWaTag('{NEED_KG}')">{NEED_KG} (बाकी KG)</span>
+          <span class="var-chip" onclick="insertWaTag('{NEED_BAGS}')">{NEED_BAGS} (बाकी बोरी)</span>
+          <span class="var-chip" onclick="insertWaTag('{NEXT_COUPON_NO}')">{NEXT_COUPON_NO} (अगला कूपन #)</span>
+          <span class="var-chip" onclick="insertWaTag('{KG_PER_COUPON}')">{KG_PER_COUPON} (210)</span>
+          <span class="var-chip" onclick="insertWaTag('{CHECK_LINK}')">{CHECK_LINK} (लाइव खाता लिंक)</span>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:10px;">
+        <label>WhatsApp Message Template (Hindi / Hinglish):</label>
+        <textarea id="waTemplateBox" rows="11" oninput="updateWaLivePreview()" style="font-size:13px;line-height:1.45;font-weight:600;"></textarea>
+      </div>
+
+      <div style="background:#dcfce7;border:1px solid #86efac;border-radius:12px;padding:10px 12px;margin-bottom:12px;">
+        <div style="font-size:10.5px;font-weight:900;color:#166534;text-transform:uppercase;margin-bottom:4px;">👁️ Live WhatsApp Preview (Sample Party):</div>
+        <div id="waLivePreviewBox" style="font-size:12px;color:#0f172a;white-space:pre-wrap;line-height:1.4;max-height:150px;overflow-y:auto;"></div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button type="button" class="btn btn-wa" style="flex:1;padding:12px;" onclick="saveCustomWaTemplate()">💾 Save Custom WhatsApp Message</button>
+        <button type="button" class="btn btn-outline" onclick="resetDefaultWaTemplate()">↺ Reset Default (200g–20g Chandi)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 18: QUICK PRODUCT VIDEO PREVIEW POPUP ==================== -->
+  <div class="modal-bg" id="quickProdVideoModal">
+    <div class="modal" style="max-width:560px;background:#0f172a;color:#fff;border:2px solid #f59e0b;">
+      <div class="modal-hd" style="border-color:rgba(255,255,255,0.15);">
+        <div>
+          <h3 style="font-size:15.5px;font-weight:900;color:#fde047;" id="qpvTitle">🎬 Product Video</h3>
+          <div style="font-size:11.5px;color:#cbd5e1;" id="qpvSub">Aryush Rasoi Dhan</div>
+        </div>
+        <button class="btn btn-danger btn-xs" onclick="closeQuickProdVideoModal()">✕</button>
+      </div>
+      <video id="qpvVideoEl" controls playsinline style="width:100%;max-height:62vh;border-radius:12px;background:#000;"></video>
+      <div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px;">
+        <button class="btn btn-outline btn-xs" style="color:#fde68a;border-color:#f59e0b;" onclick="closeQuickProdVideoModal();openProductStudioModal();">✏️ Edit Product / Video</button>
+        <button class="btn btn-brand btn-xs" onclick="closeQuickProdVideoModal();openStageProjector();startFullScreenVideoAdLoop();">📺 Play on Stage LED TV</button>
+      </div>
+    </div>
+  </div>
+
   <canvas id="confettiCanvas"></canvas>
   <div class="projector-overlay" id="stageProjectorOverlay">
     <div style="max-width:1060px;margin:0 auto;">
@@ -1704,6 +1946,13 @@
         <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;">
           <button type="button" class="btn btn-outline btn-xs" id="btnProjSound" style="background:rgba(255,255,255,0.12);color:#86efac;border-color:rgba(134,239,172,0.4);" onclick="toggleStageSound()">🔊 Sound ON</button>
           <button type="button" class="btn btn-outline btn-xs" id="btnProjMask" style="background:rgba(255,255,255,0.12);color:#cbd5e1;border-color:rgba(255,255,255,0.28);" onclick="toggleSecretMask()" title="LED par number chhupane ke liye dabayein">👁️ Typing Visible</button>
+          <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-weight:900;" onclick="startFullScreenVideoAdLoop()" title="LED Wall par Product Videos lagatar loop me chalayein">🎬 Video Ad Loop</button>
+          <button type="button" class="btn btn-outline btn-xs" id="btnSplitVideoDraw" style="background:rgba(56,189,248,0.16);color:#7dd3fc;border-color:rgba(56,189,248,0.45);font-weight:900;" onclick="toggleStageSplitVideoMode()" title="Lucky Draw ke sath side me Product Video chalayein">📺 Split: Video+Draw</button>
+          <button type="button" class="btn btn-outline btn-xs" id="btnPreDrawAdToggle" style="background:rgba(255,255,255,0.1);color:#fde68a;border-color:rgba(251,191,36,0.35);" onclick="togglePreDrawAdPref()" title="Top-3 Prize se pehle 10s Product Video dikhayein">⚡ Pre-Draw Ad: OFF</button>
+          <label class="btn btn-outline btn-xs" style="background:rgba(34,197,94,0.18);color:#86efac;border-color:rgba(74,222,128,0.45);cursor:pointer;" title="Phone/PC se MP4 Product Ad Videos load karein">
+            📂 + MP4 Video
+            <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event)" />
+          </label>
           <button type="button" class="btn btn-xs" style="background:linear-gradient(135deg,#fde047,#f59e0b);color:#450a0a;font-weight:900;" onclick="showLedBrandPromoScreen()" title="LED Wall par Company & Rasoi Dhan Products ka shandar poster dikhayein">🌟 Brand Show</button>
           <button type="button" class="btn btn-outline btn-xs" style="background:rgba(251,191,36,0.16);color:#fde68a;border-color:rgba(251,191,36,0.45);" onclick="runDemoStageSuspense()" title="Bina data badle Stage Suspense Demo dekhein">🧪 Demo Spin</button>
           <button type="button" class="btn btn-outline btn-xs" id="btnProjSlideshow" style="background:rgba(255,255,255,0.12);color:#fff;border-color:rgba(255,255,255,0.28);" onclick="toggleLedWinnerSlideshow()">▶️ Auto-Slide Winners</button>
@@ -1730,8 +1979,38 @@
         <button class="btn btn-ai btn-sm" type="button" onclick="showSegmentBoardOnLed()" title="51 ya 101 chote inam ek sath LED board par dikhayein">📋 Show Segment Board</button>
       </div>
 
-      <!-- Main Center LED Stage Arena -->
+      <!-- Main Center LED Stage Arena (Supports Single & Split Video+Draw Mode) -->
       <div class="proj-stage-arena" id="projStageArena">
+        <!-- Side Product Commercial Video Dock (Visible when Split Video+Draw is ON) -->
+        <div class="stage-video-dock" id="stageSideVideoDock">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:8px;">
+              <span class="brand-gold-pill" id="sideVidBadge">🎬 ARYUSH RASOI DHAN • LIVE AD</span>
+              <div style="display:flex;gap:5px;">
+                <button type="button" class="btn btn-outline btn-xs" id="btnSideVidMute" style="padding:3px 7px;font-size:10.5px;color:#fff;border-color:rgba(255,255,255,0.3);" onclick="toggleSideVideoMute()">🔇 Muted</button>
+                <button type="button" class="btn btn-outline btn-xs" style="padding:3px 7px;font-size:10.5px;color:#fde68a;border-color:rgba(251,191,36,0.4);" onclick="playNextStageVideo(true)">⏭ Next</button>
+              </div>
+            </div>
+            <video id="sideStageVideoEl" class="stage-video-frame" playsinline muted controls></video>
+            <div id="sideVidEmptyHint" style="display:none;padding:24px 12px;text-align:center;background:rgba(255,255,255,0.05);border-radius:14px;border:1px dashed rgba(251,191,36,0.4);">
+              <div style="font-size:28px;">🎬🌶️</div>
+              <div style="font-size:13px;font-weight:800;color:#fde68a;margin-top:6px;">Product Video Select Karein</div>
+              <div style="font-size:11px;color:#cbd5e1;margin:4px 0 10px;">Lucky Draw ke sath side me chalane ke liye apne phone/PC se MP4 video chunein:</div>
+              <label class="btn btn-brand btn-xs" style="cursor:pointer;">
+                📂 Select MP4 Video
+                <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event)" />
+              </label>
+            </div>
+          </div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.12);display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <div style="text-align:left;min-width:0;">
+              <div style="font-size:13px;font-weight:900;color:#fde047;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="sideVidProdTitle">आर्युष रसोई धन</div>
+              <div style="font-size:11px;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="sideVidProdSub">100% Shuddh Kacchi Ghani Mustard Oil & Spices</div>
+            </div>
+            <button type="button" class="btn btn-outline btn-xs" style="color:#fca5a5;border-color:rgba(252,165,165,0.35);font-size:10.5px;" onclick="toggleStageSplitVideoMode()">✕ Hide Video</button>
+          </div>
+        </div>
+
         <div id="projWinnerDisplay" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
           <div style="font-size:56px;">🚗 🛵 🏍️ 🏆</div>
           <div style="font-size:24px;font-weight:900;color:#fde68a;margin-top:12px;">GRAND LUCKY DRAW STAGE READY!</div>
@@ -2200,6 +2479,7 @@
         aiBadge.className = STATE.ai_ready ? 'badge b-green' : 'badge b-amber';
       }
 
+      syncV10SettingsFromState();
       computeState();
       populateDropdownsAndSettings();
       renderAiHomeSummaryStrip();
@@ -2286,51 +2566,176 @@
     }
   }
 
+  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v10_wa_target_template';
+
+  function getDefaultWaTargetTemplate() {
+    return (
+      `🙏 *नमस्ते {SHOP} जी!*\n\n` +
+      `*{COMPANY} — आर्युष रसोई धन* परिवार से जुड़ने के लिए धन्यवाद! 👑\n\n` +
+      `📦 *आपका माल खाता अपडेट:*\n` +
+      `{LAST_ENTRY_LINE}` +
+      `• आप तक कुल माल पहुँच चुका है: *{TOTAL_KG} kg ({TOTAL_BAGS} बोरी)*\n` +
+      `• आपके पक्के हो चुके लकी कूपन: *{COUPONS} कूपन* 🎟️\n` +
+      `• 🔥 *अगला कूपन पूरा करने का मौका:* बस *{NEED_KG} kg (लगभग {NEED_BAGS} बोरी)* माल और मँगवा लीजिए, जिससे आपके *{KG_PER_COUPON} kg* पूरे होकर आपका *#{NEXT_COUPON_NO}वाँ लकी कूपन तुरंत पक्का हो जाए!*\n\n` +
+      `🏆 *मेगा लकी ड्रॉ के जबरदस्त फायदे (कुल {MAX_COUPONS} कूपन = {MAX_COUPONS} पक्के इनाम!):*\n` +
+      `• 🚗 *1st इनाम:* Maruti Alto K10 कार (1)\n` +
+      `• 🛵 *2nd इनाम:* Honda Activa स्कूटर (2)\n` +
+      `• 🏍️ *3rd इनाम:* Hero HF Deluxe बाइक (2)\n` +
+      `• 🥈 *चाँदी के पक्के इनाम (200g से 20g तक):* 200g (2), 100g (5), 50g (11), 30g (25), 25g (30) व 20g (40) चाँदी!\n` +
+      `• 🧊 *होम अप्लायंसेज:* 10 Lloyd फ्रिज व 21 Voltas वाशिंग मशीन\n` +
+      `• 🌶️ *हर कूपन पर गारंटीड इनाम:* 51 हल्दी पाउडर (25kg) और 101 धनिया पाउडर (30kg) — यानी *एक भी कूपन खाली नहीं जाएगा!*\n\n` +
+      `🔗 *अपना लाइव खाता व कूपन यहाँ देखें:* {CHECK_LINK}\n` +
+      `📞 आज ही अपना ऑर्डर लिखवाने के लिए रिप्लाई करें!\n` +
+      `_{SIGNATORY}_`
+    );
+  }
+
+  function getActiveWaTemplate() {
+    if (STATE.settings && STATE.settings.wa_target_template && String(STATE.settings.wa_target_template).trim()) {
+      return String(STATE.settings.wa_target_template);
+    }
+    try {
+      const loc = localStorage.getItem(WA_TEMPLATE_STORAGE_KEY);
+      if (loc && loc.trim()) return loc;
+    } catch (e) {}
+    return getDefaultWaTargetTemplate();
+  }
+
+  function buildPartyTargetWaMessage(r, customTpl = null) {
+    const s = STATE.settings;
+    const bagKg = Math.max(1, Number(s.kg_per_bag) || 30);
+    const cupKg = Math.max(1, Number(s.kg_per_coupon) || 210);
+    const maxC = Number(s.max_coupons) || 301;
+    const needKg = Math.round(((r.need_kg !== undefined ? r.need_kg : (cupKg - (r.total_kg % cupKg)))) * 10) / 10;
+    const bagsNeed = Math.max(0.5, Math.round((needKg / bagKg) * 10) / 10);
+    const totalBags = r.bags_eq !== undefined ? r.bags_eq : (Math.round((r.total_kg / bagKg) * 10) / 10);
+    const earned = r.earned !== undefined ? r.earned : Math.floor((r.total_kg + 1e-9) / cupKg);
+    const lastLine = r.last_entry
+      ? `• हाल ही में पहुँचा माल: *${r.last_entry.total_kg} kg* (${fmtDate(r.last_entry.entry_date)})\n`
+      : '';
+    const pubUrl = (window.location.origin && window.location.origin !== 'null' ? window.location.origin + window.location.pathname : 'https://aryushfoods.pages.dev/') + '?check=1';
+
+    const tpl = customTpl !== null ? customTpl : getActiveWaTemplate();
+    return tpl
+      .replace(/\{SHOP\}/g, r.name || 'दुकानदार भाई')
+      .replace(/\{AREA\}/g, r.area || '')
+      .replace(/\{LAST_ENTRY_LINE\}/g, lastLine)
+      .replace(/\{LAST_KG\}/g, r.last_entry ? String(r.last_entry.total_kg) : '0')
+      .replace(/\{LAST_DATE\}/g, r.last_entry ? fmtDate(r.last_entry.entry_date) : '-')
+      .replace(/\{TOTAL_KG\}/g, String(r.total_kg || 0))
+      .replace(/\{TOTAL_BAGS\}/g, String(totalBags))
+      .replace(/\{COUPONS\}/g, String(earned))
+      .replace(/\{NEED_KG\}/g, String(needKg))
+      .replace(/\{NEED_BAGS\}/g, String(bagsNeed))
+      .replace(/\{NEXT_COUPON_NO\}/g, String(earned + 1))
+      .replace(/\{KG_PER_COUPON\}/g, String(cupKg))
+      .replace(/\{MAX_COUPONS\}/g, String(maxC))
+      .replace(/\{COMPANY\}/g, s.company_name || 'ARYUSH FOODS')
+      .replace(/\{SIGNATORY\}/g, s.signatory || 'सौजन्य: आर्युष फूड्स (कैलारस, मुरैना)')
+      .replace(/\{CHECK_LINK\}/g, pubUrl);
+  }
+
+  function openWaTemplateModal() {
+    document.getElementById('waTemplateBox').value = getActiveWaTemplate();
+    updateWaLivePreview();
+    openModal('waTemplateModal');
+  }
+
+  function insertWaTag(tag) {
+    const box = document.getElementById('waTemplateBox');
+    const start = box.selectionStart || box.value.length;
+    const end = box.selectionEnd || box.value.length;
+    box.value = box.value.slice(0, start) + tag + box.value.slice(end);
+    box.focus();
+    box.selectionStart = box.selectionEnd = start + tag.length;
+    updateWaLivePreview();
+  }
+
+  function updateWaLivePreview() {
+    const sampleParty = STATE.summaryRows.find(x => x.total_kg > 0) || {
+      name: 'SHARMA KIRANA STORE',
+      area: 'KAILARAS',
+      total_kg: 150,
+      bags_eq: 5,
+      earned: 0,
+      need_kg: 60,
+      last_entry: { total_kg: 60, entry_date: todayISO() }
+    };
+    const draft = document.getElementById('waTemplateBox').value;
+    document.getElementById('waLivePreviewBox').textContent = buildPartyTargetWaMessage(sampleParty, draft);
+  }
+
+  async function saveCustomWaTemplate() {
+    const txt = document.getElementById('waTemplateBox').value.trim();
+    if (!txt) return toast('Message khali nahi ho sakta!', true);
+    try { localStorage.setItem(WA_TEMPLATE_STORAGE_KEY, txt); } catch (e) {}
+    STATE.settings.wa_target_template = txt;
+    try { await api('/api/settings', 'POST', { wa_target_template: txt }); } catch (e) {}
+    closeModal('waTemplateModal');
+    toast('✅ Custom WhatsApp Target Message Save Ho Gaya!');
+  }
+
+  async function resetDefaultWaTemplate() {
+    const def = getDefaultWaTargetTemplate();
+    document.getElementById('waTemplateBox').value = def;
+    try { localStorage.removeItem(WA_TEMPLATE_STORAGE_KEY); } catch (e) {}
+    STATE.settings.wa_target_template = def;
+    try { await api('/api/settings', 'POST', { wa_target_template: def }); } catch (e) {}
+    updateWaLivePreview();
+    toast('↺ Default Message (200g–20g Chandi + 301 Prizes) Set Ho Gaya!');
+  }
+
   function openAiTargetCoachModal() {
-    const nearList = getNearCouponParties();
-    const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+    renderAiTargetCoachList();
+    openModal('aiTargetCoachModal');
+  }
+
+  function renderAiTargetCoachList() {
+    const mode = document.getElementById('coachFilterMode')?.value || 'ALL_ACTIVE';
+    const q = (document.getElementById('coachSearchInp')?.value || '').trim().toLowerCase();
+    const bagKg = Math.max(1, Number(STATE.settings.kg_per_bag) || 30);
     const box = document.getElementById('aiCoachList');
 
-    if (!nearList.length) {
-      box.innerHTML = `<div style="text-align:center;padding:26px;color:var(--muted);">Abhi koi bhi party agle coupon ke 55%+ kareeb nahi hai.</div>`;
-    } else {
-      box.innerHTML = nearList.map(r => {
-        const bagsNeeded = Math.ceil((r.need_kg / bagKg) * 10) / 10;
-        return `<div class="ret-item" style="border-left:4px solid #7c3aed;">
-          <div class="ret-top">
-            <div>
-              <div class="ret-name">${esc(r.name)} ${r.area ? `<span class="badge b-area">📍 ${esc(r.area)}</span>` : ''}</div>
-              <div style="font-size:12px;color:#4c1d95;font-weight:800;margin-top:4px;">
-                🎯 Sirf <b>${r.need_kg} kg (${bagsNeeded} Bag)</b> aur lete hi Coupon #${r.earned + 1} pakka ho jayega!
-              </div>
-              <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">
-                Kul Khata: <b>${r.total_kg} kg</b> • Current Progress: ${r.rem_kg}/${STATE.settings.kg_per_coupon} kg (${r.pct}%)
-              </div>
+    let baseList = [];
+    if (mode === 'NEAR') baseList = getNearCouponParties();
+    else if (mode === 'ALL') baseList = [...STATE.summaryRows].sort((a, b) => a.need_kg - b.need_kg || b.total_kg - a.total_kg);
+    else baseList = STATE.summaryRows.filter(r => r.total_kg > 0).sort((a, b) => a.need_kg - b.need_kg);
+
+    if (q) {
+      baseList = baseList.filter(r => r.name.toLowerCase().includes(q) || (r.area || '').toLowerCase().includes(q) || (r.phone || '').includes(q));
+    }
+
+    if (!baseList.length) {
+      box.innerHTML = `<div style="text-align:center;padding:26px;color:var(--muted);">Is filter me koi party nahi mili. Upar dropdown se "Sabhi Parties" chunein.</div>`;
+      return;
+    }
+
+    box.innerHTML = baseList.map(r => {
+      const bagsNeeded = Math.max(0.5, Math.ceil((r.need_kg / bagKg) * 10) / 10);
+      return `<div class="ret-item" style="border-left:4px solid #16a34a;">
+        <div class="ret-top">
+          <div>
+            <div class="ret-name">${esc(r.name)} ${r.area ? `<span class="badge b-area">📍 ${esc(r.area)}</span>` : ''}</div>
+            <div style="font-size:12px;color:#166534;font-weight:800;margin-top:4px;">
+              📦 Pahuncha Maal: <b>${r.total_kg} kg (${r.bags_eq} Bori)</b> • 🎯 Baki: <b>${r.need_kg} kg (~${bagsNeeded} Bori)</b> for Coupon #${r.earned + 1}
             </div>
-            <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
-              <button class="btn btn-wa btn-xs" onclick="sendAiTargetWhatsApp(${r.id})">📲 AI WhatsApp</button>
-              <button class="btn btn-brand btn-xs" onclick="closeModal('aiTargetCoachModal');jumpToDelivery('${esc(r.name)}')">+ Entry</button>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">
+              Earned Coupons: <b>${r.earned}</b> • Progress: ${r.rem_kg}/${STATE.settings.kg_per_coupon} kg (${r.pct}%)
             </div>
           </div>
-        </div>`;
-      }).join('');
-    }
-    openModal('aiTargetCoachModal');
+          <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
+            <button class="btn btn-wa btn-xs" onclick="sendAiTargetWhatsApp(${r.id})">📲 Target + Fayde WTS</button>
+            <button class="btn btn-brand btn-xs" onclick="closeModal('aiTargetCoachModal');jumpToDelivery('${esc(r.name)}')">+ Maal Entry</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
   }
 
   function sendAiTargetWhatsApp(retailerId) {
     const r = STATE.summaryRows.find(x => x.id === retailerId);
-    if (!r) return;
-    const s = STATE.settings;
-    const bagKg = Number(s.kg_per_bag) || 30;
-    const bagsNeed = Math.max(1, Math.round((r.need_kg / bagKg) * 10) / 10);
-
-    const msg =
-      `🙏 *Namaste ${r.name} Ji!*\n\n` +
-      `*${s.company_name} — ${s.campaign_name}* me aapki kul kharid *${r.total_kg} kg* (${r.earned} Lucky Coupons) ho chuki hai! 🎉\n\n` +
-      `🎯 *Khushkhabri:* Aap agle Lucky Coupon se sirf *${r.need_kg} kg (lagbhag ${bagsNeed} Bori)* door hain! Agle order me *${bagsNeed} Bori* mangwate hi aapka *#${r.earned + 1}wan Lucky Coupon* (Alto K10, Activa, Bike, Fridge & 301 Inam Draw) turant pakka ho jayega! 🚗🏆\n\n` +
-      `_Order likhwane ke liye reply karein._\n*${s.signatory}*`;
-
+    if (!r) return toast('Party nahi mili!', true);
+    const msg = buildPartyTargetWaMessage(r);
     const digits = String(r.phone || '').replace(/[^0-9]/g, '');
     const waPhone = digits.length === 10 ? '91' + digits : digits;
     window.open(waPhone ? `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}` : `https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
@@ -2877,8 +3282,11 @@
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
-        <button class="btn btn-outline btn-xs" onclick="openRetailerKhata(${last.retailer_id})">📒 Khata</button>
-        <button class="btn btn-navy btn-xs" onclick="switchTab('deliveries');editDelRow(${last.id})">✏️ Edit</button>
+        <button class="btn btn-wa btn-xs" onclick="sendAiTargetWhatsApp(${last.retailer_id})">📲 Target WTS</button>
+        <div style="display:flex;gap:4px;">
+          <button class="btn btn-outline btn-xs" onclick="openRetailerKhata(${last.retailer_id})">📒 Khata</button>
+          <button class="btn btn-navy btn-xs" onclick="switchTab('deliveries');editDelRow(${last.id})">✏️</button>
+        </div>
       </div>
     `;
     homeStrip.style.display = 'flex';
@@ -2988,6 +3396,7 @@
             <div class="party-kg">${r.total_kg} kg</div>
             <div class="party-bags">${r.bags_eq} Bags • ${r.entry_count} Bill</div>
           </div>
+          <button type="button" class="wa-quick-pill" title="Maal Pahunch Gaya + Target + Draw Benefits WhatsApp" onclick="event.stopPropagation();sendAiTargetWhatsApp(${r.id})">📲 WTS</button>
           <span class="khata-pill-btn">Khata ›</span>
         </div>
       </div>`;
@@ -3043,6 +3452,8 @@
       closePartyKhata();
       jumpToDelivery(r.name);
     };
+    const btnTargetWa = document.getElementById('btnKhataTargetWa');
+    if (btnTargetWa) btnTargetWa.onclick = () => sendAiTargetWhatsApp(r.id);
     document.getElementById('btnKhataSharePdf').onclick = () => shareRetailerSlipPDF(r.id, true);
     document.getElementById('btnKhataDownloadPdf').onclick = () => shareRetailerSlipPDF(r.id, false);
     document.getElementById('btnKhataWaMsg').onclick = () => sendRetailerWhatsAppText(r.id);
@@ -4710,9 +5121,13 @@
 
   function exportFullJSON() {
     const blob = new Blob([JSON.stringify({
-      version: '6.0',
+      version: '10.0',
       exported_at: new Date().toISOString(),
-      settings: STATE.settings,
+      settings: {
+        ...STATE.settings,
+        custom_products_json: JSON.stringify(ARYUSH_PRODUCTS),
+        wa_target_template: getActiveWaTemplate()
+      },
       segments: STATE.segments,
       retailers: STATE.retailers,
       deliveries: STATE.deliveries,
@@ -5070,16 +5485,481 @@
 
   
   
-  // ==================== V9.0 ARYUSH RASOI DHAN BRAND & PRODUCT SHOWCASE ENGINE ====================
-  const ARYUSH_PRODUCTS = [
-    { name: 'Kacchi Ghani Mustard Oil', hi: 'कच्ची घानी सरसों तेल', tag: '100% Shuddh & Tez Jhaanjh', icon: '🟡', bg: 'linear-gradient(135deg,#eab308,#ca8a04)' },
-    { name: 'Lal Mirch Powder', hi: 'लाल मिर्च पाउडर', tag: 'Shahi Lal Rang & Teekhapan', icon: '🌶️', bg: 'linear-gradient(135deg,#ef4444,#b91c1c)' },
-    { name: 'Haldi Powder', hi: 'हल्दी पाउडर', tag: 'High Curcumin Asli Haldi', icon: '🟠', bg: 'linear-gradient(135deg,#f59e0b,#d97706)' },
-    { name: 'Dhaniya Powder', hi: 'धनिया पाउडर', tag: 'Taaza Khushbudar Dhaniya', icon: '🟢', bg: 'linear-gradient(135deg,#22c55e,#15803d)' },
-    { name: 'Shahi Garam Masala', hi: 'शाही गरम मसाला', tag: 'Khade Masalon Ka Asli Swad', icon: '🟤', bg: 'linear-gradient(135deg,#92400e,#78350f)' },
-    { name: 'Amchoor Powder', hi: 'अमचूर पाउडर', tag: 'Khatta Chatpata Zayka', icon: '🥭', bg: 'linear-gradient(135deg,#84cc16,#4d7c0f)' },
-    { name: 'Nukhra Hing Dana', hi: 'नुखरा हींग दाना', tag: '1 Chutki Me Mehek Uthe Rasoi', icon: '✨', bg: 'linear-gradient(135deg,#a855f7,#6d28d9)' }
+  // ==================== V10.0 PRODUCT STUDIO, OFFLINE MP4 VIDEO DB & LED STAGE VIDEO ENGINE ====================
+  const DEFAULT_ARYUSH_PRODUCTS = [
+    { name: 'Kacchi Ghani Mustard Oil', hi: 'कच्ची घानी सरसों तेल', tag: '100% Shuddh & Tez Jhaanjh', icon: '🟡', bg: 'linear-gradient(135deg,#eab308,#ca8a04)', photoData: '', videoUrl: '', localVideoId: '' },
+    { name: 'Special Patna Kuti Mirchi', hi: 'स्पेशल पटना की कुटी मिर्ची', tag: 'Asli Swad & प्रीमियम कुटी मिर्च', icon: '🌶️', bg: 'linear-gradient(135deg,#dc2626,#991b1b)', photoData: '', videoUrl: '', localVideoId: '' },
+    { name: 'Lal Mirch Powder', hi: 'लाल मिर्च पाउडर', tag: 'Shahi Lal Rang & Teekhapan', icon: '🌶️', bg: 'linear-gradient(135deg,#ef4444,#b91c1c)', photoData: '', videoUrl: '', localVideoId: '' },
+    { name: 'Haldi Powder', hi: 'हल्दी पाउडर', tag: 'High Curcumin Asli Haldi', icon: '🟠', bg: 'linear-gradient(135deg,#f59e0b,#d97706)', photoData: '', videoUrl: '', localVideoId: '' },
+    { name: 'Dhaniya Powder', hi: 'धनिया पाउडर', tag: 'Taaza Khushbudar Dhaniya', icon: '🟢', bg: 'linear-gradient(135deg,#22c55e,#15803d)', photoData: '', videoUrl: '', localVideoId: '' },
+    { name: 'Shahi Garam Masala', hi: 'शाही गरम मसाला', tag: 'Khade Masalon Ka Asli Swad', icon: '🟤', bg: 'linear-gradient(135deg,#92400e,#78350f)', photoData: '', videoUrl: '', localVideoId: '' },
+    { name: 'Amchoor Powder', hi: 'अमचूर पाउडर', tag: 'Khatta Chatpata Zayka', icon: '🥭', bg: 'linear-gradient(135deg,#84cc16,#4d7c0f)', photoData: '', videoUrl: '', localVideoId: '' },
+    { name: 'Nukhra Hing Dana', hi: 'नुखरा हींग दाना', tag: '1 Chutki Me Mehek Uthe Rasoi', icon: '✨', bg: 'linear-gradient(135deg,#a855f7,#6d28d9)', photoData: '', videoUrl: '', localVideoId: '' }
   ];
+
+  const PRODUCTS_STORAGE_KEY = 'aryush_v10_custom_products';
+  let ARYUSH_PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_ARYUSH_PRODUCTS));
+  let STAGE_VIDEO_BLOBS = []; // { id, name, blobUrl }
+  let STAGE_SPLIT_VIDEO_ON = false;
+  let STAGE_PRE_DRAW_AD_ON = false;
+  let STAGE_CUR_VID_INDEX = 0;
+  let DRAFT_PROD_PHOTO = '';
+  let DRAFT_PROD_VID_ID = '';
+  let DRAFT_PROD_VID_NAME = '';
+
+  function syncV10SettingsFromState() {
+    let loaded = null;
+    if (STATE.settings && STATE.settings.custom_products_json) {
+      try { loaded = JSON.parse(STATE.settings.custom_products_json); } catch (e) {}
+    }
+    if (!Array.isArray(loaded) || !loaded.length) {
+      try { loaded = JSON.parse(localStorage.getItem(PRODUCTS_STORAGE_KEY) || 'null'); } catch (e) {}
+    }
+    if (Array.isArray(loaded) && loaded.length) {
+      ARYUSH_PRODUCTS = loaded;
+    }
+  }
+
+  async function persistProductsCatalog() {
+    const jsonStr = JSON.stringify(ARYUSH_PRODUCTS);
+    try { localStorage.setItem(PRODUCTS_STORAGE_KEY, jsonStr); } catch (e) {}
+    STATE.settings.custom_products_json = jsonStr;
+    try { await api('/api/settings', 'POST', { custom_products_json: jsonStr }); } catch (e) {}
+  }
+
+  // IndexedDB Engine for Offline Zero-Buffering HD MP4 Videos
+  function openStageVideoDB() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open('AryushRasoiStageVideoDB', 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('videos')) db.createObjectStore('videos', { keyPath: 'id' });
+      };
+      req.onsuccess = (e) => resolve(e.target.result);
+      req.onerror = reject;
+    });
+  }
+
+  async function refreshStageVideosFromIDB() {
+    try {
+      const db = await openStageVideoDB();
+      const tx = db.transaction('videos', 'readonly');
+      const req = tx.objectStore('videos').getAll();
+      req.onsuccess = () => {
+        STAGE_VIDEO_BLOBS.forEach(v => { if (v.blobUrl) URL.revokeObjectURL(v.blobUrl); });
+        STAGE_VIDEO_BLOBS = (req.result || []).map(rec => ({
+          id: rec.id,
+          name: rec.name,
+          blobUrl: URL.createObjectURL(rec.blob)
+        }));
+        renderProductStudioUI();
+        renderBrandIdentityAndProducts();
+      };
+    } catch (e) {}
+  }
+
+  async function saveVideoBlobToIDB(file) {
+    const db = await openStageVideoDB();
+    const id = 'vid_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+    const cleanName = file.name.replace(/\.[^.]+$/, '');
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction('videos', 'readwrite');
+      tx.objectStore('videos').put({ id, name: cleanName, blob: file });
+      tx.oncomplete = resolve;
+      tx.onerror = reject;
+    });
+    await refreshStageVideosFromIDB();
+    return { id, name: cleanName };
+  }
+
+  async function deleteStageVideoFromIDB(vidId) {
+    try {
+      const db = await openStageVideoDB();
+      await new Promise((resolve) => {
+        const tx = db.transaction('videos', 'readwrite');
+        tx.objectStore('videos').delete(vidId);
+        tx.oncomplete = resolve;
+      });
+      ARYUSH_PRODUCTS.forEach(p => { if (p.localVideoId === vidId) p.localVideoId = ''; });
+      await persistProductsCatalog();
+      await refreshStageVideosFromIDB();
+      toast('Video removed');
+    } catch (e) {}
+  }
+
+  async function handleQuickStageVideoFiles(ev) {
+    const files = Array.from(ev.target.files || []);
+    ev.target.value = '';
+    if (!files.length) return;
+    for (const f of files) {
+      await saveVideoBlobToIDB(f);
+    }
+    toast(`🎬 ${files.length} HD Product Video(s) Ready!`);
+    if (STAGE_SPLIT_VIDEO_ON) startSideStageVideoPlayer();
+  }
+
+  function resolveProductVideoSrc(p) {
+    if (!p) return '';
+    if (p.localVideoId) {
+      const found = STAGE_VIDEO_BLOBS.find(v => v.id === p.localVideoId);
+      if (found) return found.blobUrl;
+    }
+    if (p.videoUrl && String(p.videoUrl).trim()) return String(p.videoUrl).trim();
+    return '';
+  }
+
+  function getPlayableStagePlaylist() {
+    const list = [];
+    const usedIds = new Set();
+    for (const p of ARYUSH_PRODUCTS) {
+      const src = resolveProductVideoSrc(p);
+      if (src) {
+        if (p.localVideoId) usedIds.add(p.localVideoId);
+        list.push({ title: p.hi || p.name, sub: p.tag || p.name, src });
+      }
+    }
+    for (const v of STAGE_VIDEO_BLOBS) {
+      if (!usedIds.has(v.id)) {
+        list.push({ title: v.name, sub: STATE.settings.brand_tagline || 'Aryush Rasoi Dhan Commercial', src: v.blobUrl });
+      }
+    }
+    return list;
+  }
+
+  // Product Studio Modal Handlers
+  function openProductStudioModal() {
+    clearProdForm();
+    refreshStageVideosFromIDB();
+    renderProductStudioUI();
+    openModal('productStudioModal');
+  }
+
+  function clearProdForm() {
+    document.getElementById('editProdIdx').value = '-1';
+    document.getElementById('prodHiInp').value = '';
+    document.getElementById('prodEnInp').value = '';
+    document.getElementById('prodTagInp').value = '';
+    document.getElementById('prodIconInp').value = '🌶️';
+    document.getElementById('prodVidUrlInp').value = '';
+    document.getElementById('prodFormHeading').textContent = '➕ Add New Product';
+    DRAFT_PROD_PHOTO = '';
+    DRAFT_PROD_VID_ID = '';
+    DRAFT_PROD_VID_NAME = '';
+    const info = document.getElementById('prodDraftMediaInfo');
+    if (info) info.style.display = 'none';
+  }
+
+  async function handleProdPhotoPick(ev) {
+    const file = ev.target.files[0];
+    ev.target.value = '';
+    if (!file) return;
+    const { base64 } = await compressImageToBase64(file, 320);
+    DRAFT_PROD_PHOTO = 'data:image/jpeg;base64,' + base64;
+    showProdDraftMediaStatus();
+  }
+
+  async function handleProdVideoPick(ev) {
+    const file = ev.target.files[0];
+    ev.target.value = '';
+    if (!file) return;
+    const saved = await saveVideoBlobToIDB(file);
+    DRAFT_PROD_VID_ID = saved.id;
+    DRAFT_PROD_VID_NAME = saved.name;
+    showProdDraftMediaStatus();
+  }
+
+  function showProdDraftMediaStatus() {
+    const info = document.getElementById('prodDraftMediaInfo');
+    if (!info) return;
+    const parts = [];
+    if (DRAFT_PROD_PHOTO) parts.push('🖼️ Pack Photo Ready');
+    if (DRAFT_PROD_VID_ID) parts.push(`🎬 Video Linked: ${DRAFT_PROD_VID_NAME}`);
+    info.style.display = parts.length ? 'block' : 'none';
+    info.textContent = parts.join('  •  ');
+  }
+
+  function editProductStudioItem(idx) {
+    const p = ARYUSH_PRODUCTS[idx];
+    if (!p) return;
+    document.getElementById('editProdIdx').value = String(idx);
+    document.getElementById('prodHiInp').value = p.hi || '';
+    document.getElementById('prodEnInp').value = p.name || '';
+    document.getElementById('prodTagInp').value = p.tag || '';
+    document.getElementById('prodIconInp').value = p.icon || '🌶️';
+    document.getElementById('prodBgSel').value = p.bg || 'linear-gradient(135deg,#ef4444,#b91c1c)';
+    document.getElementById('prodVidUrlInp').value = p.videoUrl || '';
+    DRAFT_PROD_PHOTO = p.photoData || '';
+    DRAFT_PROD_VID_ID = p.localVideoId || '';
+    DRAFT_PROD_VID_NAME = STAGE_VIDEO_BLOBS.find(v => v.id === DRAFT_PROD_VID_ID)?.name || (DRAFT_PROD_VID_ID ? 'Saved MP4' : '');
+    document.getElementById('prodFormHeading').textContent = `✏️ Edit Product: ${p.hi}`;
+    showProdDraftMediaStatus();
+  }
+
+  async function saveProductStudioItem() {
+    const idx = parseInt(document.getElementById('editProdIdx').value, 10);
+    const hi = document.getElementById('prodHiInp').value.trim();
+    const name = document.getElementById('prodEnInp').value.trim() || hi;
+    const tag = document.getElementById('prodTagInp').value.trim() || '100% Shuddh & Asli Swad';
+    const icon = document.getElementById('prodIconInp').value.trim() || '🌶️';
+    const bg = document.getElementById('prodBgSel').value;
+    const videoUrl = document.getElementById('prodVidUrlInp').value.trim();
+
+    if (!hi) return toast('Product ka Hindi naam dalein!', true);
+    const item = { name, hi, tag, icon, bg, photoData: DRAFT_PROD_PHOTO, videoUrl, localVideoId: DRAFT_PROD_VID_ID };
+
+    if (idx >= 0 && idx < ARYUSH_PRODUCTS.length) ARYUSH_PRODUCTS[idx] = item;
+    else ARYUSH_PRODUCTS.push(item);
+
+    await persistProductsCatalog();
+    clearProdForm();
+    renderProductStudioUI();
+    renderBrandIdentityAndProducts();
+    toast('✅ Product & Video Saved!');
+  }
+
+  async function deleteProductStudioItem(idx) {
+    if (ARYUSH_PRODUCTS.length <= 1) return toast('Kam se kam 1 product zaroori hai!', true);
+    if (!confirm(`"${ARYUSH_PRODUCTS[idx].hi}" ko list se hatayein?`)) return;
+    ARYUSH_PRODUCTS.splice(idx, 1);
+    await persistProductsCatalog();
+    renderProductStudioUI();
+    renderBrandIdentityAndProducts();
+  }
+
+  async function resetDefaultProductsList() {
+    if (!confirm('Default Aryush Rasoi Dhan products restore karein?')) return;
+    ARYUSH_PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_ARYUSH_PRODUCTS));
+    await persistProductsCatalog();
+    renderProductStudioUI();
+    renderBrandIdentityAndProducts();
+    toast('↺ Default Products Restored!');
+  }
+
+  function renderProductStudioUI() {
+    const playlist = getPlayableStagePlaylist();
+    const stTxt = document.getElementById('savedVideosStatusTxt');
+    if (stTxt) {
+      stTxt.innerHTML = playlist.length
+        ? `✅ <b>${playlist.length} Commercial Video(s)</b> Stage LED aur Lucky Draw ke sath chalne ke liye taiyar hain!`
+        : `Phone ya Laptop se apni MP4 ad videos select karein — browser me offline save rahengi!`;
+    }
+
+    const sBox = document.getElementById('standaloneVideosBox');
+    if (sBox) {
+      if (STAGE_VIDEO_BLOBS.length) {
+        sBox.style.display = 'block';
+        sBox.innerHTML = `<div style="font-size:11px;font-weight:900;color:#9a3412;margin-bottom:5px;">📂 OFFLINE SAVED MP4 VIDEOS (${STAGE_VIDEO_BLOBS.length}):</div>` +
+          `<div style="display:flex;flex-wrap:wrap;gap:6px;">` +
+          STAGE_VIDEO_BLOBS.map(v => `<span class="badge b-amber" style="padding:5px 9px;">🎬 ${esc(v.name)} <b style="margin-left:6px;color:#dc2626;cursor:pointer;" onclick="deleteStageVideoFromIDB('${v.id}')">✕</b></span>`).join('') +
+          `</div>`;
+      } else {
+        sBox.style.display = 'none';
+      }
+    }
+
+    const cntLbl = document.getElementById('prodTotalCountLbl');
+    if (cntLbl) cntLbl.textContent = String(ARYUSH_PRODUCTS.length);
+
+    const listEl = document.getElementById('prodStudioList');
+    if (listEl) {
+      listEl.innerHTML = ARYUSH_PRODUCTS.map((p, i) => {
+        const hasVid = Boolean(resolveProductVideoSrc(p));
+        return `<div class="ret-item" style="padding:9px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div style="display:flex;align-items:center;gap:9px;min-width:0;">
+            <div class="prod-ico" style="background:${p.bg};width:36px;height:36px;">
+              ${p.photoData ? `<img src="${p.photoData}" alt="" />` : esc(p.icon)}
+            </div>
+            <div style="min-width:0;">
+              <div style="font-size:13px;font-weight:900;color:var(--text);">
+                ${esc(p.hi)} <span style="font-size:11px;color:var(--muted);">(${esc(p.name)})</span>
+                ${hasVid ? `<span class="badge b-green" style="margin-left:4px;">🎬 Video Ready</span>` : ''}
+              </div>
+              <div style="font-size:11px;color:var(--muted);">${esc(p.tag)}</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:5px;flex-shrink:0;">
+            ${hasVid ? `<button class="btn btn-navy btn-xs" onclick="previewSingleProductVideo(${i})">▶️</button>` : ''}
+            <button class="btn btn-outline btn-xs" onclick="editProductStudioItem(${i})">✏️</button>
+            <button class="btn btn-danger btn-xs" onclick="deleteProductStudioItem(${i})">🗑️</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  function onHomeProductChipClick(idx) {
+    const p = ARYUSH_PRODUCTS[idx];
+    if (!p) return;
+    if (resolveProductVideoSrc(p)) previewSingleProductVideo(idx);
+    else {
+      openProductStudioModal();
+      editProductStudioItem(idx);
+    }
+  }
+
+  function previewSingleProductVideo(idx) {
+    const p = ARYUSH_PRODUCTS[idx];
+    const src = resolveProductVideoSrc(p);
+    if (!src) return;
+    document.getElementById('qpvTitle').textContent = `🎬 ${p.hi}`;
+    document.getElementById('qpvSub').textContent = `${p.name} • ${p.tag}`;
+    const vEl = document.getElementById('qpvVideoEl');
+    vEl.src = src;
+    openModal('quickProdVideoModal');
+    vEl.play().catch(() => {});
+  }
+
+  function closeQuickProdVideoModal() {
+    const vEl = document.getElementById('qpvVideoEl');
+    if (vEl) { try { vEl.pause(); vEl.removeAttribute('src'); } catch (e) {} }
+    closeModal('quickProdVideoModal');
+  }
+
+  // Stage LED Video Modes: (1) Full-Screen Ad Break Loop, (2) Split-Screen Video + Lucky Draw, (3) Pre-Draw 10s Ad
+  function stopAllStageVideoElements() {
+    ['sideStageVideoEl', 'fullStageAdVideoEl', 'preDrawAdVideoEl'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { try { el.pause(); } catch (e) {} }
+    });
+  }
+
+  function startFullScreenVideoAdLoop() {
+    clearStageTimers();
+    const playlist = getPlayableStagePlaylist();
+    const disp = document.getElementById('projWinnerDisplay');
+    if (!disp) return;
+
+    if (!playlist.length) {
+      disp.innerHTML = `<div class="winner-pop" style="padding:28px;max-width:560px;">
+        <div style="font-size:52px;">🎬🌶️</div>
+        <div style="font-size:22px;font-weight:900;color:#fde047;margin-top:8px;">STAGE LED VIDEO AD PLAYER</div>
+        <div style="font-size:13.5px;color:#cbd5e1;margin:8px 0 18px;line-height:1.5;">
+          Apne phone ya laptop se <b>Aryush Rasoi Dhan</b> products ki MP4 video select karein — bina internet ke full HD me lagatar loop par chalegi!
+        </div>
+        <label class="btn btn-brand" style="cursor:pointer;padding:13px 22px;font-size:15px;">
+          📂 Select MP4 Product Video(s)
+          <input type="file" accept="video/*" multiple style="display:none;" onchange="handleQuickStageVideoFiles(event);setTimeout(startFullScreenVideoAdLoop,450);" />
+        </label>
+      </div>`;
+      return;
+    }
+
+    const cur = playlist[STAGE_CUR_VID_INDEX % playlist.length];
+    disp.innerHTML = `<div class="winner-pop" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;max-width:840px;margin-bottom:8px;flex-wrap:wrap;">
+        <span class="brand-gold-pill" style="font-size:11.5px;padding:4px 12px;">🎬 COMMERCIAL BREAK • ${esc(cur.title)}</span>
+        <div style="display:flex;gap:6px;">
+          <button type="button" class="btn btn-outline btn-xs" style="color:#fde68a;border-color:#f59e0b;" onclick="STAGE_CUR_VID_INDEX++;startFullScreenVideoAdLoop();">⏭ Next Video (${(STAGE_CUR_VID_INDEX % playlist.length) + 1}/${playlist.length})</button>
+          <button type="button" class="btn btn-brand btn-xs" onclick="toggleStageSplitVideoMode();showLedBrandPromoScreen();">📺 Switch to Split Video + Draw</button>
+        </div>
+      </div>
+      <video id="fullStageAdVideoEl" class="full-ad-video" src="${cur.src}" autoplay controls playsinline></video>
+      <div style="margin-top:10px;font-size:14px;font-weight:900;color:#fde68a;">👑 ${esc(STATE.settings.company_name)} — ${esc(cur.title)} (${esc(cur.sub)})</div>
+    </div>`;
+
+    const vEl = document.getElementById('fullStageAdVideoEl');
+    if (vEl) {
+      vEl.loop = (playlist.length === 1);
+      vEl.onended = () => {
+        STAGE_CUR_VID_INDEX++;
+        startFullScreenVideoAdLoop();
+      };
+      vEl.play().catch(() => { vEl.muted = true; vEl.play().catch(() => {}); });
+    }
+  }
+
+  function toggleStageSplitVideoMode() {
+    STAGE_SPLIT_VIDEO_ON = !STAGE_SPLIT_VIDEO_ON;
+    const arena = document.getElementById('projStageArena');
+    const btn = document.getElementById('btnSplitVideoDraw');
+    if (arena) arena.classList.toggle('split-mode', STAGE_SPLIT_VIDEO_ON);
+    if (btn) {
+      btn.textContent = STAGE_SPLIT_VIDEO_ON ? '📺 Split: ON (Video+Draw)' : '📺 Split: Video+Draw';
+      btn.style.background = STAGE_SPLIT_VIDEO_ON ? '#0284c7' : 'rgba(56,189,248,0.16)';
+      btn.style.color = STAGE_SPLIT_VIDEO_ON ? '#fff' : '#7dd3fc';
+    }
+    if (STAGE_SPLIT_VIDEO_ON) startSideStageVideoPlayer();
+    else {
+      const sv = document.getElementById('sideStageVideoEl');
+      if (sv) { try { sv.pause(); } catch (e) {} }
+    }
+  }
+
+  function startSideStageVideoPlayer() {
+    const playlist = getPlayableStagePlaylist();
+    const vidEl = document.getElementById('sideStageVideoEl');
+    const emptyHint = document.getElementById('sideVidEmptyHint');
+    if (!vidEl || !emptyHint) return;
+
+    if (!playlist.length) {
+      vidEl.style.display = 'none';
+      emptyHint.style.display = 'block';
+      return;
+    }
+    vidEl.style.display = 'block';
+    emptyHint.style.display = 'none';
+
+    const cur = playlist[STAGE_CUR_VID_INDEX % playlist.length];
+    document.getElementById('sideVidProdTitle').textContent = cur.title;
+    document.getElementById('sideVidProdSub').textContent = cur.sub;
+    vidEl.src = cur.src;
+    vidEl.loop = (playlist.length === 1);
+    vidEl.onended = () => playNextStageVideo(false);
+    vidEl.play().catch(() => {});
+  }
+
+  function playNextStageVideo(manual = false) {
+    STAGE_CUR_VID_INDEX++;
+    if (STAGE_SPLIT_VIDEO_ON) startSideStageVideoPlayer();
+    else if (manual) startFullScreenVideoAdLoop();
+  }
+
+  function toggleSideVideoMute() {
+    const vidEl = document.getElementById('sideStageVideoEl');
+    const btn = document.getElementById('btnSideVidMute');
+    if (!vidEl) return;
+    vidEl.muted = !vidEl.muted;
+    if (btn) btn.textContent = vidEl.muted ? '🔇 Muted' : '🔊 Audio ON';
+  }
+
+  function togglePreDrawAdPref() {
+    STAGE_PRE_DRAW_AD_ON = !STAGE_PRE_DRAW_AD_ON;
+    const b = document.getElementById('btnPreDrawAdToggle');
+    if (b) {
+      b.textContent = STAGE_PRE_DRAW_AD_ON ? '⚡ Pre-Draw Ad: ON (10s)' : '⚡ Pre-Draw Ad: OFF';
+      b.style.background = STAGE_PRE_DRAW_AD_ON ? 'rgba(234,88,12,0.35)' : 'rgba(255,255,255,0.1)';
+    }
+    toast(STAGE_PRE_DRAW_AD_ON ? '⚡ Top-3 Prize se pehle 10-sec Product Video chalegi!' : 'Pre-Draw Ad OFF');
+  }
+
+  async function maybePlayPreDrawCommercial(seg) {
+    if (!STAGE_PRE_DRAW_AD_ON || STAGE_SPLIT_VIDEO_ON) return;
+    const playlist = getPlayableStagePlaylist();
+    if (!playlist.length) return;
+    const cur = playlist[STAGE_CUR_VID_INDEX++ % playlist.length];
+    const disp = document.getElementById('projWinnerDisplay');
+    if (!disp) return;
+
+    await new Promise((resolve) => {
+      let done = false;
+      const finish = () => { if (!done) { done = true; resolve(); } };
+      window._skipPreDrawAd = finish;
+      disp.innerHTML = `<div style="width:100%;display:flex;flex-direction:column;align-items:center;">
+        <div style="margin-bottom:8px;display:flex;gap:10px;align-items:center;">
+          <span class="brand-gold-pill">⚡ SPONSORED BY: ${esc(cur.title)} — NEXT: ${esc(seg.title)}</span>
+          <button type="button" class="btn btn-brand btn-xs" onclick="if(window._skipPreDrawAd) window._skipPreDrawAd()">Skip to Draw ➤</button>
+        </div>
+        <video id="preDrawAdVideoEl" class="full-ad-video" src="${cur.src}" autoplay playsinline></video>
+      </div>`;
+      const v = document.getElementById('preDrawAdVideoEl');
+      if (v) {
+        v.onended = finish;
+        v.play().catch(() => { v.muted = true; v.play().catch(finish); });
+      }
+      const tm = setTimeout(finish, 10500);
+      STAGE_ACTIVE_TIMERS.push(tm);
+    });
+  }
 
   let HOME_PROD_VISIBLE = true;
   function toggleHomeProductsRibbon() {
@@ -5087,7 +5967,7 @@
     const rib = document.getElementById('homeProdRibbon');
     const btn = document.getElementById('btnToggleProdRibbon');
     if (rib) rib.style.display = HOME_PROD_VISIBLE ? 'flex' : 'none';
-    if (btn) btn.textContent = HOME_PROD_VISIBLE ? '🌶️ Hide' : '🌶️ Products';
+    if (btn) btn.textContent = HOME_PROD_VISIBLE ? 'Hide' : '🌶️ Show';
   }
 
   function renderBrandIdentityAndProducts() {
@@ -5115,20 +5995,31 @@
     const tl = document.getElementById('homeBrandTagline');
     if (tl) tl.textContent = s.brand_tagline || '100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices';
 
-    const chipsHtml = ARYUSH_PRODUCTS.map(p => `
-      <div class="prod-chip">
-        <div class="prod-ico" style="background:${p.bg};">${p.icon}</div>
+    const chipsHtml = ARYUSH_PRODUCTS.map((p, idx) => {
+      const hasVid = Boolean(resolveProductVideoSrc(p));
+      return `
+      <div class="prod-chip" onclick="onHomeProductChipClick(${idx})" title="${hasVid ? 'Tap to play product video' : 'Tap to edit / add product video'}">
+        ${hasVid ? `<span class="vid-dot">▶ AD</span>` : ''}
+        <div class="prod-ico" style="background:${p.bg};">
+          ${p.photoData ? `<img src="${p.photoData}" alt="" />` : esc(p.icon)}
+        </div>
         <div>
           <div class="prod-nm">${esc(p.hi)}</div>
           <div class="prod-tag">${esc(p.tag)}</div>
         </div>
-      </div>
-    `).join('');
+      </div>`;
+    }).join('');
 
     const homeRib = document.getElementById('homeProdRibbon');
     if (homeRib) homeRib.innerHTML = chipsHtml;
     const pubRib = document.getElementById('pubProdRibbon');
     if (pubRib) pubRib.innerHTML = chipsHtml;
+
+    const mq = document.getElementById('ledMarqueeText');
+    if (mq) {
+      const pNames = ARYUSH_PRODUCTS.map(p => p.hi).join(' • ');
+      mq.textContent = `★ ${s.company_name} (KAILARAS, MORENA) PRESENTS — ${s.campaign_name} ★ हमारे शुद्ध उत्पाद: ${pNames} ★ कुल ${s.max_coupons} कूपन = ${s.max_coupons} पक्के इनाम (Alto K10, Activa, HF Deluxe, 200g से 20g चाँदी, फ्रिज, वाशिंग मशीन व मसाले) ★`;
+    }
   }
 
   async function handleBrandLogoUpload(ev) {
@@ -5154,7 +6045,6 @@
     } catch (e) { toast(e.message, true); }
   }
 
-  // Full-Screen LED Wall Brand & Bumper Prizes Commercial Screen!
   function showLedBrandPromoScreen() {
     clearStageTimers();
     const s = STATE.settings;
@@ -5162,11 +6052,11 @@
     if (!disp) return;
 
     const logoBlock = (s.brand_logo_data && s.brand_logo_data.startsWith('data:image/'))
-      ? `<img src="${s.brand_logo_data}" style="width:88px;height:88px;border-radius:20px;border:3px solid #fde047;object-fit:cover;background:#fff;box-shadow:0 0 30px rgba(251,191,36,0.5);" />`
-      : `<div style="width:86px;height:86px;border-radius:22px;background:linear-gradient(135deg,#fde047,#ea580c);padding:3px;margin:0 auto;box-shadow:0 0 35px rgba(251,191,36,0.5);">
+      ? `<img src="${s.brand_logo_data}" style="width:84px;height:84px;border-radius:20px;border:3px solid #fde047;object-fit:cover;background:#fff;box-shadow:0 0 30px rgba(251,191,36,0.5);" />`
+      : `<div style="width:82px;height:82px;border-radius:22px;background:linear-gradient(135deg,#fde047,#ea580c);padding:3px;margin:0 auto;box-shadow:0 0 35px rgba(251,191,36,0.5);">
            <div style="width:100%;height:100%;border-radius:19px;background:#7f1d1d;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;color:#fde047;">
-             <span style="font-size:28px;">👑</span>
-             <span style="font-size:11px;color:#fff;">ARYUSH</span>
+             <span style="font-size:26px;">👑</span>
+             <span style="font-size:10.5px;color:#fff;">ARYUSH</span>
            </div>
          </div>`;
 
@@ -5175,40 +6065,40 @@
     disp.innerHTML = `
       <div class="winner-pop" style="width:100%;">
         ${logoBlock}
-        <div style="margin-top:10px;">
-          <span class="brand-gold-pill" style="font-size:11.5px;padding:4px 14px;">✨ SHUDDHTA AUR VISHWAS KA PRATEEK • KAILARAS, MORENA ✨</span>
+        <div style="margin-top:8px;">
+          <span class="brand-gold-pill" style="font-size:11px;padding:4px 14px;">✨ SHUDDHTA AUR VISHWAS KA PRATEEK • KAILARAS, MORENA ✨</span>
         </div>
-        <div class="grand-winner-crown" style="font-size:clamp(26px,4.5vw,48px);margin-top:8px;">
+        <div class="grand-winner-crown" style="font-size:clamp(24px,4vw,44px);margin-top:7px;">
           ${esc(s.company_name)} — आर्युष रसोई धन
         </div>
-        <div style="font-size:15px;font-weight:800;color:#fde68a;">
+        <div style="font-size:14.5px;font-weight:800;color:#fde68a;">
           ${esc(s.brand_tagline || '100% Shuddh Kacchi Ghani Mustard Oil & Premium Spices')}
         </div>
 
-        <!-- Bumper Prizes Strip -->
-        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:12px;">
           ${topPrizes.map(p => `
-            <span style="background:rgba(251,191,36,0.16);border:1.5px solid #fbbf24;color:#fff;padding:6px 13px;border-radius:999px;font-size:13px;font-weight:900;">
+            <span style="background:rgba(251,191,36,0.16);border:1.5px solid #fbbf24;color:#fff;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:900;">
               ${esc(p.icon)} ${esc(p.title)} (${p.target_qty})
             </span>
           `).join('')}
-          <span style="background:rgba(34,197,94,0.2);border:1.5px solid #4ade80;color:#86efac;padding:6px 13px;border-radius:999px;font-size:13px;font-weight:900;">
-            🎁 Kul ${s.max_coupons} Pakke Inam!
+          <span style="background:rgba(34,197,94,0.2);border:1.5px solid #4ade80;color:#86efac;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:900;">
+            🥈 चाँदी 200g से 20g तक • कुल ${s.max_coupons} पक्के इनाम!
           </span>
         </div>
 
-        <!-- Aryush Rasoi Dhan Products Showcase Grid on Big LED -->
         <div class="stage-prod-grid">
-          ${ARYUSH_PRODUCTS.map(p => `
-            <div class="stage-prod-card">
-              <div style="width:44px;height:44px;border-radius:12px;background:${p.bg};display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 7px;box-shadow:0 4px 12px rgba(0,0,0,0.35);">
-                ${p.icon}
+          ${ARYUSH_PRODUCTS.map((p, idx) => {
+            const hasVid = Boolean(resolveProductVideoSrc(p));
+            return `
+            <div class="stage-prod-card" style="cursor:pointer;" onclick="${hasVid ? `STAGE_CUR_VID_INDEX=${idx};startFullScreenVideoAdLoop();` : `openProductStudioModal();editProductStudioItem(${idx});`}">
+              <div style="width:44px;height:44px;border-radius:12px;background:${p.bg};display:flex;align-items:center;justify-content:center;font-size:23px;margin:0 auto 7px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.35);">
+                ${p.photoData ? `<img src="${p.photoData}" style="width:100%;height:100%;object-fit:cover;" />` : esc(p.icon)}
               </div>
-              <div style="font-size:14px;font-weight:900;color:#fff;">${esc(p.hi)}</div>
-              <div style="font-size:11px;font-weight:700;color:#fde68a;margin-top:2px;">${esc(p.name)}</div>
-              <div style="font-size:10px;color:#cbd5e1;margin-top:2px;">${esc(p.tag)}</div>
-            </div>
-          `).join('')}
+              <div style="font-size:13.5px;font-weight:900;color:#fff;">${esc(p.hi)}</div>
+              <div style="font-size:10.5px;font-weight:700;color:#fde68a;margin-top:2px;">${esc(p.name)}</div>
+              <div style="font-size:10px;color:#cbd5e1;margin-top:2px;">${hasVid ? '🎬 Click to Play Ad' : esc(p.tag)}</div>
+            </div>`;
+          }).join('')}
         </div>
       </div>
     `;
@@ -5633,6 +6523,7 @@
 
   function closeStageProjector() {
     clearStageTimers();
+    stopAllStageVideoElements();
     STAGE_REVEAL_BUSY = false;
     document.getElementById('stageProjectorOverlay').classList.remove('open');
     document.body.style.overflow = '';
@@ -5801,6 +6692,7 @@
         const isStep = (mode === 'GRAND_STEP');
         arena.classList.add('grand-glow');
 
+        await maybePlayPreDrawCommercial(seg);
         // PHASE 1: Spotlight Prize Announcement + 3..2..1 Heartbeat Countdown!
         for (let cnt = 3; cnt >= 1; cnt--) {
           playHeartbeat();
@@ -6239,6 +7131,8 @@
       }
       return;
     }
+    syncV10SettingsFromState();
+    refreshStageVideosFromIDB();
     document.getElementById('delDateInp').value = todayISO();
     document.getElementById('allotDateInp').value = todayISO();
     refreshAll();

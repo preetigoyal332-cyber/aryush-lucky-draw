@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v11.0</title>
+  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v11.3</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -1150,7 +1150,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v11.0 Pro</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v11.3 Pro</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -1287,7 +1287,7 @@
             <div class="card-sub">Har dukandar ka alag passbook khata, date-wise maal entry, coupons aur PDF</div>
           </div>
           <div style="display:flex;gap:6px;">
-            <button class="btn btn-outline btn-sm" onclick="openAreaManagerModal()">📍 Areas</button>
+            <button class="btn btn-outline btn-sm" onclick="openAreaManagerModal()">📍 Manage Areas</button>
             <button class="btn btn-navy btn-sm" onclick="openRetailerModal()">+ New Party</button>
           </div>
         </div>
@@ -1362,8 +1362,11 @@
           </div>
 
           <div class="field">
-            <label>📍 Area / Village (Auto)</label>
-            <input type="text" id="delAreaInp" list="dlAreas" placeholder="e.g. KAILARAS / FARAK" />
+            <label style="display:flex;justify-content:space-between;align-items:center;">
+              <span>📍 Area / Village</span>
+              <span style="color:#2563eb;cursor:pointer;font-size:11px;font-weight:800;" onclick="openAreaManagerModal()">⚙️ Manage List</span>
+            </label>
+            <input type="text" id="delAreaInp" list="dlAreas" placeholder="Select or type Area..." />
             <datalist id="dlAreas"></datalist>
           </div>
         </div>
@@ -1846,8 +1849,11 @@
         </div>
         <div id="liveDupWarning" style="display:none;padding:9px 11px;border-radius:10px;background:#fffbeb;border:1px solid #f59e0b;font-size:12px;color:#92400e;"></div>
         <div class="field">
-          <label>📍 Area / Village / Beat *</label>
-          <input type="text" id="modRetArea" list="dlAreas" placeholder="e.g. FARAK / KAILARAS" />
+          <label style="display:flex;justify-content:space-between;align-items:center;">
+            <span>📍 Area / Village / Beat *</span>
+            <span style="color:#2563eb;cursor:pointer;font-size:11px;font-weight:800;" onclick="closeModal('retailerModal');openAreaManagerModal();">⚙️ Update Area List</span>
+          </label>
+          <input type="text" id="modRetArea" list="dlAreas" placeholder="Select or type Area..." />
         </div>
         <div class="field">
           <label>📞 WhatsApp / Mobile Number</label>
@@ -1861,19 +1867,54 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL 3: SMART AREA MANAGER ==================== -->
+  <!-- ==================== MODAL 3: MASTER AREA / BEAT LIST STUDIO (ADD, RENAME, MERGE, DELETE & SHOP ASSIGN) ==================== -->
   <div class="modal-bg" id="areaManagerModal">
-    <div class="modal">
+    <div class="modal" style="max-width:700px;">
       <div class="modal-hd">
-        <h3 style="font-size:16px;font-weight:900;">📍 Smart Area / Beat Manager</h3>
+        <div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">📍 Master Area / Beat List Manager</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Naye Area/Beat add karein, purane Area ka naam badlein (Rename/Merge), delete karein ya party-wise set karein</div>
+        </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('areaManagerModal')">✕</button>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-        <p style="font-size:12px;color:var(--muted);">Shop ke naam se 1-Click me Area auto-fill karein ya edit karke Save dabayein.</p>
-        <button class="btn btn-navy btn-sm" onclick="autoGuessBlankAreasInModal()">✨ Auto-Detect Areas</button>
+
+      <!-- 2 Clean Sub-Tabs -->
+      <div class="subtabs" style="grid-template-columns:repeat(2,1fr);margin-bottom:12px;">
+        <button type="button" class="stab active" id="areaTabBtnMaster" onclick="switchAreaStudioTab('MASTER')">📍 1. Area List (Add / Rename / Delete)</button>
+        <button type="button" class="stab" id="areaTabBtnShops" onclick="switchAreaStudioTab('SHOPS')">🏪 2. Party-Wise Area Set Karein</button>
       </div>
-      <div id="areaEditList" style="max-height:52vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;margin-bottom:12px;"></div>
-      <button class="btn btn-green" style="width:100%;padding:12px;" onclick="saveAllEditedAreas()">💾 Save All Retailer Areas</button>
+
+      <!-- TAB A: MASTER AREA LIST CRUD (Add, Bulk Add, Rename/Merge, Delete) -->
+      <div id="areaStudioMasterPane">
+        <div style="background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:11px;margin-bottom:12px;">
+          <label style="font-size:11.5px;font-weight:800;color:#334155;display:block;margin-bottom:5px;">➕ Naya Area / Village / Beat Jodein (Comma `,` laga kar ek sath kai Area bhi likh sakte hain):</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="text" id="newMasterAreaInp" placeholder="e.g. KAILARAS, PAHADGARH, JOURA, SABALGARH..." onkeydown="if(event.key==='Enter') addNewMasterAreas()" style="flex:1;min-width:210px;font-weight:700;" />
+            <button type="button" class="btn btn-navy btn-sm" onclick="addNewMasterAreas()">+ Add Area</button>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+          <div style="font-size:12px;font-weight:800;color:var(--muted);" id="masterAreaCountSummary">Total 0 Areas</div>
+          <input type="text" id="masterAreaSearchInp" placeholder="🔍 Area khojein..." oninput="renderMasterAreasList()" style="width:185px;padding:6px 10px;font-size:12.5px;" />
+        </div>
+
+        <div id="masterAreasContainer" style="max-height:46vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;"></div>
+      </div>
+
+      <!-- TAB B: PARTY-WISE AREA ASSIGNMENT -->
+      <div id="areaStudioShopsPane" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+          <input type="text" id="shopAreaSearchInp" placeholder="🔍 Search party or area..." oninput="renderShopWiseAreaRows()" style="flex:1;min-width:160px;padding:7px 10px;font-size:12.5px;" />
+          <select id="shopAreaOnlyBlankSel" onchange="renderShopWiseAreaRows()" style="width:165px;padding:7px 9px;font-size:12px;font-weight:700;">
+            <option value="ALL">All Parties</option>
+            <option value="BLANK">⚠️ Only Blank Area</option>
+          </select>
+          <button type="button" class="btn btn-navy btn-xs" onclick="autoGuessBlankAreasInModal()">✨ Auto-Detect</button>
+        </div>
+        <div id="areaEditList" style="max-height:44vh;overflow-y:auto;display:flex;flex-direction:column;gap:7px;margin-bottom:12px;"></div>
+        <button type="button" class="btn btn-green" style="width:100%;padding:12px;" onclick="saveAllEditedAreas()">💾 Save All Party Areas</button>
+      </div>
     </div>
   </div>
 
@@ -2495,27 +2536,38 @@
     </div>
   </div>
 
-  <!-- ==================== READ-ONLY PUBLIC RETAILER KHATA & PRIZE CHECK PORTAL (`?check=1`) ==================== -->
-  <div id="publicCheckPortal">
-    <div style="background:linear-gradient(135deg,#450a0a 0%,#9a3412 48%,#1e1b4b 100%);color:#fff;padding:20px 16px 16px;text-align:center;border-bottom:3px solid #f59e0b;box-shadow:0 4px 18px rgba(0,0,0,0.22);">
-      <div class="logo-crest" id="pubPortalLogo" style="width:68px;height:68px;margin:0 auto 8px;padding:3px;cursor:default;">
+  <!-- ==================== READ-ONLY PUBLIC RETAILER VIP PASSBOOK & PRIZE PORTAL (`?check=1`) ==================== -->
+  <div id="publicCheckPortal" style="background:#f8fafc;min-height:100vh;padding-bottom:48px;">
+    <div style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#0f172a 100%);color:#fff;padding:22px 16px 18px;text-align:center;border-bottom:2px solid #f59e0b;box-shadow:0 6px 24px rgba(15,23,42,0.16);">
+      <div class="logo-crest" id="pubPortalLogo" style="width:68px;height:68px;margin:0 auto 10px;padding:3px;cursor:default;">
         <img src="/logo.png" alt="Aryush Logo" />
       </div>
-      <div style="display:inline-block;background:linear-gradient(90deg,#fde047,#f59e0b);color:#450a0a;font-weight:900;font-size:10.5px;padding:3px 12px;border-radius:999px;margin-bottom:7px;">👑 ARYUSH RASOI DHAN • OFFICIAL PORTAL</div>
-      <h1 style="font-size:20px;font-weight:900;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
-      <p style="font-size:12px;color:#fde68a;font-weight:700;margin-top:3px;" id="pubBrandSub">Shuddh Kacchi Ghani Mustard Oil • Lal Mirch • Haldi • Dhaniya • Garam Masala • Hing Dana</p>
-      <p style="font-size:12px;color:#e2e8f0;margin-top:5px;" id="pubHdrSub">Apna Shop Name, Mobile Number ya Coupon Number daal kar Khata aur Prize check karein</p>
-      <div class="prod-ribbon" id="pubProdRibbon" style="max-width:760px;margin:10px auto 0;justify-content:flex-start;"></div>
+      <div style="display:inline-block;background:rgba(251,191,36,0.16);border:1px solid rgba(251,191,36,0.45);color:#fde68a;font-weight:800;font-size:10.5px;padding:3px 12px;border-radius:999px;margin-bottom:7px;letter-spacing:0.5px;">
+        👑 ARYUSH RASOI DHAN • OFFICIAL DIGITAL KHATA
+      </div>
+      <h1 style="font-size:19.5px;font-weight:900;letter-spacing:-0.02em;" id="pubHdrTitle">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</h1>
+      <p style="font-size:12px;color:#fde68a;font-weight:600;margin-top:3px;" id="pubBrandSub">100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices</p>
+      <p style="font-size:12px;color:#94a3b8;margin-top:5px;" id="pubHdrSub">लकी कूपन, माल खाता और इनाम स्टेटस का लाइव स्टेटमेंट</p>
+      <div class="prod-ribbon" id="pubProdRibbon" style="max-width:860px;margin:12px auto 0;justify-content:flex-start;"></div>
     </div>
 
-    <div style="max-width:640px;margin:16px auto;padding:0 12px;">
-      <div class="card">
+    <div style="max-width:680px;margin:16px auto;padding:0 12px;">
+      <!-- Search Bar (Automatically Hidden when Direct Personal Link ?check=1&id=XX is opened!) -->
+      <div class="card" id="pubSearchBoxCard" style="padding:14px;">
+        <div style="font-size:11.5px;font-weight:800;color:#475569;margin-bottom:6px;">🔍 अपनी दुकान का नाम, मोबाइल या कूपन नंबर डालें:</div>
         <div style="display:flex;gap:8px;">
-          <input type="text" id="pubSearchInp" placeholder="🔍 Enter Shop Name, Mobile or Coupon # (e.g. 045)" onkeydown="if(event.key==='Enter') runPublicCheck()" style="font-weight:800;font-size:15px;" />
-          <button class="btn btn-brand" onclick="runPublicCheck()">Check</button>
+          <input type="text" id="pubSearchInp" placeholder="e.g. Sharma Kirana or 045" onkeydown="if(event.key==='Enter') runPublicCheck()" style="font-weight:700;font-size:14.5px;" />
+          <button class="btn btn-navy" onclick="runPublicCheck()">Check</button>
         </div>
       </div>
-      <div id="pubResultsBox" style="display:flex;flex-direction:column;gap:10px;"></div>
+
+      <!-- Direct Personal Link Toggle Banner (Shown when opened via personal WhatsApp link) -->
+      <div id="pubDirectWelcomeStrip" style="display:none;justify-content:space-between;align-items:center;gap:8px;background:#ecfdf5;border:1px solid #86efac;border-radius:12px;padding:9px 13px;margin-bottom:12px;">
+        <span style="font-size:12px;font-weight:800;color:#065f46;">✅ Verified Personal Digital Passbook</span>
+        <button type="button" class="btn btn-outline btn-xs" style="padding:4px 9px;font-size:11px;" onclick="showPublicManualSearchBox()">🔍 दूसरी पार्टी खोजें</button>
+      </div>
+
+      <div id="pubResultsBox" style="display:flex;flex-direction:column;gap:12px;"></div>
     </div>
   </div>
 
@@ -2676,6 +2728,21 @@
       }
       setLocalDB(db); return { ok: true };
     }
+    if (path === '/api/areas/rename-or-delete') {
+      const oldA = String(body.old_area || '').trim().toUpperCase();
+      const newA = String(body.new_area || '').trim().toUpperCase();
+      let moved = 0;
+      for (const r of db.retailers) {
+        if (String(r.area || '').trim().toUpperCase() === oldA) {
+          r.area = newA;
+          moved++;
+        }
+      }
+      if (body.master_areas_json !== undefined) {
+        db.settings = { ...db.settings, master_areas_json: String(body.master_areas_json) };
+      }
+      setLocalDB(db); return { ok: true, moved };
+    }
     if (path.startsWith('/api/retailers/') && method === 'DELETE') {
       const id = Number(path.split('/').pop());
       db.retailers = db.retailers.filter(x => x.id !== id);
@@ -2796,12 +2863,29 @@
       setLocalDB(db); return { ok: true, saved: (body.items || []).length, auto_allotted: 0 };
     }
     if (path.startsWith('/api/public/check')) {
-      const q = decodeURIComponent((path.split('q=')[1] || '')).trim().toUpperCase();
-      const matches = db.retailers.filter(r => r.name.includes(q) || (r.phone || '').includes(q)).map(r => {
-        const dels = db.deliveries.filter(d => d.retailer_id === r.id);
+      const uObj = new URL(path, 'https://local.app');
+      const rid = Number(uObj.searchParams.get('id')) || 0;
+      const q = String(uObj.searchParams.get('q') || '').trim().toUpperCase();
+      const cupKg = Number(db.settings?.kg_per_coupon) || 210;
+      const bagKg = Number(db.settings?.kg_per_bag) || 30;
+      let pool = [];
+      if (rid > 0) pool = db.retailers.filter(r => Number(r.id) === rid);
+      else if (q) pool = db.retailers.filter(r => r.name.toUpperCase().includes(q) || (r.phone || '').includes(q));
+      const matches = pool.map(r => {
+        const dels = db.deliveries.filter(d => d.retailer_id === r.id).sort((a, b) => (b.id || 0) - (a.id || 0));
         const cups = db.coupons.filter(c => c.retailer_id === r.id);
-        const total_kg = dels.reduce((s, d) => s + Number(d.total_kg || 0), 0);
-        return { name: r.name, area: r.area, total_kg, bags_eq: Math.round(total_kg / 3) / 10, earned: Math.floor(total_kg / 210), need_kg: 210 - (total_kg % 210), coupons: cups, recent_deliveries: dels };
+        const total_kg = Math.round(dels.reduce((s, d) => s + Number(d.total_kg || 0), 0) * 100) / 100;
+        const rem_kg = Math.round((total_kg % cupKg) * 100) / 100;
+        return {
+          id: r.id, name: r.name, area: r.area, total_kg,
+          bags_eq: Math.round((total_kg / bagKg) * 10) / 10,
+          earned: Math.floor((total_kg + 1e-9) / cupKg),
+          rem_kg,
+          need_kg: Math.round((cupKg - rem_kg) * 10) / 10,
+          pct: Math.min(100, Math.round((rem_kg / cupKg) * 100)),
+          coupons: cups,
+          recent_deliveries: dels.slice(0, 25)
+        };
       });
       return { ok: true, settings: db.settings, matches };
     }
@@ -2916,6 +3000,9 @@
       rows.push(r);
     }
     rows.sort((a, b) => b.total_kg - a.total_kg || a.name.localeCompare(b.name));
+    for (const savedArea of getSavedMasterAreas()) {
+      if (savedArea) areaSet.add(savedArea);
+    }
     STATE.summaryRows = rows;
     STATE.areas = Array.from(areaSet).sort();
 
@@ -3033,33 +3120,50 @@
     }
   }
 
-  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v10_wa_target_template';
+  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v11_2_wa_exec_template';
+
+  function getPersonalPartyPortalUrl(r) {
+    const base = (window.location.origin && window.location.origin !== 'null')
+      ? (window.location.origin + window.location.pathname)
+      : 'https://aryushfoods.pages.dev/';
+    if (r && r.id) {
+      return `${base}?check=1&id=${encodeURIComponent(r.id)}`;
+    }
+    if (r && r.name) {
+      return `${base}?check=1&q=${encodeURIComponent(r.name)}`;
+    }
+    return `${base}?check=1`;
+  }
 
   function getDefaultWaTargetTemplate() {
     return (
-      `🙏 *नमस्ते {SHOP} जी!*\n\n` +
-      `*{COMPANY} — आर्युष रसोई धन* परिवार से जुड़ने के लिए धन्यवाद! 👑\n\n` +
-      `📦 *आपका माल खाता अपडेट:*\n` +
+      `*{COMPANY} • आर्युष रसोई धन*\n` +
+      `_आधिकारिक लकी ड्रॉ खाता अपडेट_\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `🙏 *सादर नमस्कार, {SHOP} जी* {AREA_TAG}\n\n` +
+      `📊 *आपका वर्तमान माल विवरण:*\n` +
       `{LAST_ENTRY_LINE}` +
-      `• आप तक कुल माल पहुँच चुका है: *{TOTAL_KG} kg ({TOTAL_BAGS} बोरी)*\n` +
-      `• आपके पक्के हो चुके लकी कूपन: *{COUPONS} कूपन* 🎟️\n` +
-      `• 🔥 *अगला कूपन पूरा करने का मौका:* बस *{NEED_KG} kg (लगभग {NEED_BAGS} बोरी)* माल और मँगवा लीजिए, जिससे आपके *{KG_PER_COUPON} kg* पूरे होकर आपका *#{NEXT_COUPON_NO}वाँ लकी कूपन तुरंत पक्का हो जाए!*\n\n` +
-      `🏆 *मेगा लकी ड्रॉ के जबरदस्त फायदे (कुल {MAX_COUPONS} कूपन = {MAX_COUPONS} पक्के इनाम!):*\n` +
-      `• 🚗 *1st इनाम:* Maruti Alto K10 कार (1)\n` +
-      `• 🛵 *2nd इनाम:* Honda Activa स्कूटर (2)\n` +
-      `• 🏍️ *3rd इनाम:* Hero HF Deluxe बाइक (2)\n` +
-      `• 🥈 *चाँदी के पक्के इनाम (200g से 20g तक):* 200g (2), 100g (5), 50g (11), 30g (25), 25g (30) व 20g (40) चाँदी!\n` +
-      `• 🧊 *होम अप्लायंसेज:* 10 Lloyd फ्रिज व 21 Voltas वाशिंग मशीन\n` +
-      `• 🌶️ *हर कूपन पर गारंटीड इनाम:* 51 हल्दी पाउडर (25kg) और 101 धनिया पाउडर (30kg) — यानी *एक भी कूपन खाली नहीं जाएगा!*\n\n` +
-      `🔗 *अपना लाइव खाता व कूपन यहाँ देखें:* {CHECK_LINK}\n` +
-      `📞 आज ही अपना ऑर्डर लिखवाने के लिए रिप्लाई करें!\n` +
+      `• कुल प्राप्त माल: *{TOTAL_KG} kg ({TOTAL_BAGS} बोरी)*\n` +
+      `• अर्जित लकी कूपन: *{COUPONS} पक्के कूपन* {COUPON_CODES_LINE}\n\n` +
+      `🎯 *अगला कूपन लक्ष्य (#{NEXT_COUPON_NO}):*\n` +
+      `• आपका अगला कूपन पूरा होने में मात्र *{NEED_KG} kg (लगभग {NEED_BAGS} बोरी)* शेष है।\n` +
+      `• बस *{NEED_BAGS} बोरी* का ऑर्डर और जोड़ते ही आपके *{KG_PER_COUPON} kg* पूरे हो जाएँगे और आपका अगला कूपन तुरंत पक्का हो जाएगा!\n\n` +
+      `🏆 *मेगा ड्रॉ इनाम योजना ({MAX_COUPONS} कूपन = {MAX_COUPONS} पक्के इनाम):*\n` +
+      `▸ *1st:* Maruti Alto K10 कार (1)\n` +
+      `▸ *2nd & 3rd:* Honda Activa (2) • HF Deluxe बाइक (2)\n` +
+      `▸ *चाँदी उपहार (200g से 20g तक):* 200g (2), 100g (5), 50g (11), 30g (25), 25g (30), 20g (40)\n` +
+      `▸ *होम अप्लायंसेज:* 10 Lloyd फ्रिज • 21 Voltas वाशिंग मशीन\n` +
+      `▸ *गारंटीड उपहार:* 51 हल्दी (25kg) व 101 धनिया (30kg) — _एक भी कूपन खाली नहीं!_\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `📲 *बिना सर्च किए अपना सीधा लाइव खाता व कूपन देखें:*\n` +
+      `👉 {CHECK_LINK}\n\n` +
       `_{SIGNATORY}_`
     );
   }
 
   function getActiveWaTemplate() {
-    if (STATE.settings && STATE.settings.wa_target_template && String(STATE.settings.wa_target_template).trim()) {
-      return String(STATE.settings.wa_target_template);
+    if (STATE.settings && STATE.settings.wa_target_template_v11 && String(STATE.settings.wa_target_template_v11).trim()) {
+      return String(STATE.settings.wa_target_template_v11);
     }
     try {
       const loc = localStorage.getItem(WA_TEMPLATE_STORAGE_KEY);
@@ -3078,20 +3182,25 @@
     const totalBags = r.bags_eq !== undefined ? r.bags_eq : (Math.round((r.total_kg / bagKg) * 10) / 10);
     const earned = r.earned !== undefined ? r.earned : Math.floor((r.total_kg + 1e-9) / cupKg);
     const lastLine = r.last_entry
-      ? `• हाल ही में पहुँचा माल: *${r.last_entry.total_kg} kg* (${fmtDate(r.last_entry.entry_date)})\n`
+      ? `• पिछली डिलीवरी: *${r.last_entry.total_kg} kg* (${fmtDate(r.last_entry.entry_date)})\n`
       : '';
-    const pubUrl = (window.location.origin && window.location.origin !== 'null' ? window.location.origin + window.location.pathname : 'https://aryushfoods.pages.dev/') + '?check=1';
+    const areaTag = r.area ? `_(${r.area})_` : '';
+    const codesArr = (r.coupons || []).map(c => '#' + c.coupon_code);
+    const couponCodesLine = codesArr.length ? `_(No: ${codesArr.join(', ')})_` : '';
+    const directPersonalUrl = getPersonalPartyPortalUrl(r);
 
     const tpl = customTpl !== null ? customTpl : getActiveWaTemplate();
     return tpl
-      .replace(/\{SHOP\}/g, r.name || 'दुकानदार भाई')
+      .replace(/\{SHOP\}/g, r.name || 'व्यापारी बंधु')
       .replace(/\{AREA\}/g, r.area || '')
+      .replace(/\{AREA_TAG\}/g, areaTag)
       .replace(/\{LAST_ENTRY_LINE\}/g, lastLine)
       .replace(/\{LAST_KG\}/g, r.last_entry ? String(r.last_entry.total_kg) : '0')
       .replace(/\{LAST_DATE\}/g, r.last_entry ? fmtDate(r.last_entry.entry_date) : '-')
       .replace(/\{TOTAL_KG\}/g, String(r.total_kg || 0))
       .replace(/\{TOTAL_BAGS\}/g, String(totalBags))
       .replace(/\{COUPONS\}/g, String(earned))
+      .replace(/\{COUPON_CODES_LINE\}/g, couponCodesLine)
       .replace(/\{NEED_KG\}/g, String(needKg))
       .replace(/\{NEED_BAGS\}/g, String(bagsNeed))
       .replace(/\{NEXT_COUPON_NO\}/g, String(earned + 1))
@@ -3099,7 +3208,7 @@
       .replace(/\{MAX_COUPONS\}/g, String(maxC))
       .replace(/\{COMPANY\}/g, s.company_name || 'ARYUSH FOODS')
       .replace(/\{SIGNATORY\}/g, s.signatory || 'सौजन्य: आर्युष फूड्स (कैलारस, मुरैना)')
-      .replace(/\{CHECK_LINK\}/g, pubUrl);
+      .replace(/\{CHECK_LINK\}/g, directPersonalUrl);
   }
 
   function openWaTemplateModal() {
@@ -3120,12 +3229,14 @@
 
   function updateWaLivePreview() {
     const sampleParty = STATE.summaryRows.find(x => x.total_kg > 0) || {
+      id: 101,
       name: 'SHARMA KIRANA STORE',
       area: 'KAILARAS',
       total_kg: 150,
       bags_eq: 5,
       earned: 0,
       need_kg: 60,
+      coupons: [],
       last_entry: { total_kg: 60, entry_date: todayISO() }
     };
     const draft = document.getElementById('waTemplateBox').value;
@@ -3136,20 +3247,20 @@
     const txt = document.getElementById('waTemplateBox').value.trim();
     if (!txt) return toast('Message khali nahi ho sakta!', true);
     try { localStorage.setItem(WA_TEMPLATE_STORAGE_KEY, txt); } catch (e) {}
-    STATE.settings.wa_target_template = txt;
-    try { await api('/api/settings', 'POST', { wa_target_template: txt }); } catch (e) {}
+    STATE.settings.wa_target_template_v11 = txt;
+    try { await api('/api/settings', 'POST', { wa_target_template_v11: txt }); } catch (e) {}
     closeModal('waTemplateModal');
-    toast('✅ Custom WhatsApp Target Message Save Ho Gaya!');
+    toast('✅ Professional WhatsApp Message Save Ho Gaya!');
   }
 
   async function resetDefaultWaTemplate() {
     const def = getDefaultWaTargetTemplate();
     document.getElementById('waTemplateBox').value = def;
     try { localStorage.removeItem(WA_TEMPLATE_STORAGE_KEY); } catch (e) {}
-    STATE.settings.wa_target_template = def;
-    try { await api('/api/settings', 'POST', { wa_target_template: def }); } catch (e) {}
+    STATE.settings.wa_target_template_v11 = def;
+    try { await api('/api/settings', 'POST', { wa_target_template_v11: def }); } catch (e) {}
     updateWaLivePreview();
-    toast('↺ Default Message (200g–20g Chandi + 301 Prizes) Set Ho Gaya!');
+    toast('↺ Executive Corporate Message Set Ho Gaya!');
   }
 
   function openAiTargetCoachModal() {
@@ -3184,14 +3295,14 @@
           <div>
             <div class="ret-name">${esc(r.name)} ${r.area ? `<span class="badge b-area">📍 ${esc(r.area)}</span>` : ''}</div>
             <div style="font-size:12px;color:#166534;font-weight:800;margin-top:4px;">
-              📦 Pahuncha Maal: <b>${r.total_kg} kg (${r.bags_eq} Bori)</b> • 🎯 Baki: <b>${r.need_kg} kg (~${bagsNeeded} Bori)</b> for Coupon #${r.earned + 1}
+              📦 कुल माल: <b>${r.total_kg} kg (${r.bags_eq} बोरी)</b> • 🎯 बाकी: <b>${r.need_kg} kg (~${bagsNeeded} बोरी)</b> कूपन #${r.earned + 1} हेतु
             </div>
             <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">
-              Earned Coupons: <b>${r.earned}</b> • Progress: ${r.rem_kg}/${STATE.settings.kg_per_coupon} kg (${r.pct}%)
+              पर्सनल लिंक के साथ — दुकानदार क्लिक करते ही बिना सर्च सीधा अपना खाता देखेगा!
             </div>
           </div>
           <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
-            <button class="btn btn-wa btn-xs" onclick="sendAiTargetWhatsApp(${r.id})">📲 Target + Fayde WTS</button>
+            <button class="btn btn-wa btn-xs" onclick="sendAiTargetWhatsApp(${r.id})">📲 Send WTS + Direct Link</button>
             <button class="btn btn-brand btn-xs" onclick="closeModal('aiTargetCoachModal');jumpToDelivery('${esc(r.name)}')">+ Maal Entry</button>
           </div>
         </div>
@@ -5253,37 +5364,236 @@
     } catch (e) { toast(e.message, true); }
   }
 
-  function openAreaManagerModal() {
-    const box = document.getElementById('areaEditList');
-    box.innerHTML = STATE.retailers.map(r => `
-      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:8px;align-items:center;background:#f8fafc;padding:7px 10px;border-radius:9px;">
-        <div style="font-size:12.5px;font-weight:800;">${esc(r.name)}</div>
-        <input type="text" class="bulk-area-inp" data-id="${r.id}" data-name="${esc(r.name)}" list="dlAreas" value="${esc(r.area || '')}" placeholder="Enter Area..." style="padding:6px 9px;font-size:12.5px;" />
-      </div>
-    `).join('') || `<div style="text-align:center;padding:18px;color:var(--muted);">No parties yet.</div>`;
+  const MASTER_AREAS_LOCAL_KEY = 'aryush_v11_master_areas';
+  let SHOP_AREA_DRAFT_MAP = new Map();
+
+  function getSavedMasterAreas() {
+    let arr = null;
+    if (STATE.settings && STATE.settings.master_areas_json) {
+      try { arr = JSON.parse(STATE.settings.master_areas_json); } catch (e) {}
+    }
+    if (!Array.isArray(arr)) {
+      try { arr = JSON.parse(localStorage.getItem(MASTER_AREAS_LOCAL_KEY) || '[]'); } catch (e) { arr = []; }
+    }
+    return (Array.isArray(arr) ? arr : [])
+      .map(a => String(a || '').trim().toUpperCase())
+      .filter(Boolean);
+  }
+
+  async function persistMasterAreasArray(areaList) {
+    const clean = Array.from(new Set((areaList || []).map(a => String(a || '').trim().toUpperCase()).filter(Boolean))).sort();
+    const jsonStr = JSON.stringify(clean);
+    try { localStorage.setItem(MASTER_AREAS_LOCAL_KEY, jsonStr); } catch (e) {}
+    STATE.settings.master_areas_json = jsonStr;
+    try { await api('/api/settings', 'POST', { master_areas_json: jsonStr }); } catch (e) {}
+    return clean;
+  }
+
+  function openAreaManagerModal(defaultTab = 'MASTER') {
+    SHOP_AREA_DRAFT_MAP = new Map(STATE.retailers.map(r => [r.id, String(r.area || '').trim().toUpperCase()]));
+    switchAreaStudioTab(defaultTab);
+    renderMasterAreasList();
+    renderShopWiseAreaRows();
     openModal('areaManagerModal');
+  }
+
+  function switchAreaStudioTab(tab) {
+    const isMaster = (tab === 'MASTER');
+    document.getElementById('areaStudioMasterPane').style.display = isMaster ? 'block' : 'none';
+    document.getElementById('areaStudioShopsPane').style.display = isMaster ? 'none' : 'block';
+    document.getElementById('areaTabBtnMaster').classList.toggle('active', isMaster);
+    document.getElementById('areaTabBtnShops').classList.toggle('active', !isMaster);
+  }
+
+  async function addNewMasterAreas() {
+    const inp = document.getElementById('newMasterAreaInp');
+    const raw = inp.value.trim();
+    if (!raw) return toast('Pehle Area ka naam likhein!', true);
+
+    const newNames = raw.split(/[,;\n]+/).map(s => s.trim().toUpperCase()).filter(Boolean);
+    if (!newNames.length) return;
+
+    const merged = Array.from(new Set([...STATE.areas, ...getSavedMasterAreas(), ...newNames])).sort();
+    await persistMasterAreasArray(merged);
+    inp.value = '';
+    computeState();
+    populateDropdownsAndSettings();
+    renderMasterAreasList();
+    renderShopWiseAreaRows();
+    toast(`✅ ${newNames.length} Area List me jud gaya!`);
+  }
+
+  function renderMasterAreasList() {
+    const q = (document.getElementById('masterAreaSearchInp')?.value || '').trim().toUpperCase();
+    const statsByArea = new Map();
+    for (const a of STATE.areas) statsByArea.set(a, { parties: 0, kg: 0 });
+    for (const r of STATE.summaryRows) {
+      if (r.area) {
+        if (!statsByArea.has(r.area)) statsByArea.set(r.area, { parties: 0, kg: 0 });
+        const st = statsByArea.get(r.area);
+        st.parties++;
+        st.kg = Math.round((st.kg + r.total_kg) * 10) / 10;
+      }
+    }
+
+    const allAreas = Array.from(statsByArea.keys()).sort();
+    const filtered = allAreas.filter(a => !q || a.includes(q));
+    const blankCount = STATE.summaryRows.filter(r => !r.area).length;
+
+    const sumEl = document.getElementById('masterAreaCountSummary');
+    if (sumEl) {
+      sumEl.innerHTML = `Total <b>${allAreas.length} Areas</b>` +
+        (blankCount > 0 ? ` • <span style="color:#d97706;cursor:pointer;" onclick="switchAreaStudioTab('SHOPS');document.getElementById('shopAreaOnlyBlankSel').value='BLANK';renderShopWiseAreaRows();">⚠️ ${blankCount} Parties bina Area ke (Set karein ›)</span>` : '');
+    }
+
+    const box = document.getElementById('masterAreasContainer');
+    if (!box) return;
+    if (!filtered.length) {
+      box.innerHTML = `<div style="text-align:center;padding:24px;color:var(--muted);font-size:13px;">Koi Area nahi mila. Upar box me Area likh kar <b>+ Add Area</b> dabayein.</div>`;
+      return;
+    }
+
+    box.innerHTML = filtered.map((areaName, idx) => {
+      const st = statsByArea.get(areaName) || { parties: 0, kg: 0 };
+      return `
+      <div class="ret-item" style="padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:190px;">
+          <span class="badge b-navy" style="min-width:28px;justify-content:center;">${idx + 1}</span>
+          <input type="text" id="renAreaInp_${idx}" value="${esc(areaName)}" style="font-weight:800;font-size:13px;padding:6px 10px;max-width:210px;" onkeydown="if(event.key==='Enter') renameOrMergeMasterArea('${esc(areaName)}', this.value)" />
+          <span style="font-size:11.5px;color:var(--muted);font-weight:700;white-space:nowrap;">
+            🏪 ${st.parties} Parties • ${st.kg} kg
+          </span>
+        </div>
+        <div style="display:flex;gap:5px;align-items:center;">
+          <button type="button" class="btn btn-navy btn-xs" onclick="renameOrMergeMasterArea('${esc(areaName)}', document.getElementById('renAreaInp_${idx}').value)">✏️ Save Name</button>
+          <button type="button" class="btn btn-danger btn-xs" onclick="deleteMasterAreaItem('${esc(areaName)}', ${st.parties})" title="Delete Area">🗑️</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  async function renameOrMergeMasterArea(oldArea, newRaw) {
+    const oldClean = String(oldArea || '').trim().toUpperCase();
+    const newClean = String(newRaw || '').trim().toUpperCase();
+    if (!newClean) return toast('Area ka naya naam khali nahi ho sakta!', true);
+    if (oldClean === newClean) return toast('Naam pehle se wahi hai!');
+
+    const alreadyExists = STATE.areas.includes(newClean);
+    const msg = alreadyExists
+      ? `"${oldClean}" ki sabhi parties ko "${newClean}" Area me Merge (ek) kar dein?`
+      : `Area "${oldClean}" ka naam badal kar "${newClean}" kar dein? (Sabhi judi hui parties par bhi update ho jayega)`;
+    if (!confirm(msg)) {
+      renderMasterAreasList();
+      return;
+    }
+
+    const updatedMaster = Array.from(new Set(
+      [...STATE.areas, ...getSavedMasterAreas()]
+        .map(a => a === oldClean ? newClean : a)
+        .filter(Boolean)
+    )).sort();
+
+    try {
+      const jsonStr = JSON.stringify(updatedMaster);
+      try { localStorage.setItem(MASTER_AREAS_LOCAL_KEY, jsonStr); } catch (e) {}
+      await api('/api/areas/rename-or-delete', 'POST', {
+        old_area: oldClean,
+        new_area: newClean,
+        master_areas_json: jsonStr
+      });
+      toast(`✅ "${oldClean}" update hokar "${newClean}" ho gaya!`);
+      await refreshAll();
+      SHOP_AREA_DRAFT_MAP = new Map(STATE.retailers.map(r => [r.id, String(r.area || '').trim().toUpperCase()]));
+      renderMasterAreasList();
+      renderShopWiseAreaRows();
+    } catch (e) { toast(e.message, true); }
+  }
+
+  async function deleteMasterAreaItem(areaName, partyCount) {
+    if (!(await ensureAdminUnlocked())) return;
+    const clean = String(areaName || '').trim().toUpperCase();
+    const warn = partyCount > 0
+      ? `Area "${clean}" me ${partyCount} parties judi hain. Delete karne par un parties ka Area khali (Unassigned) ho jayega. Kya hata dein?`
+      : `Area "${clean}" ko Area List se hata dein?`;
+    if (!confirm(warn)) return;
+
+    const updatedMaster = [...STATE.areas, ...getSavedMasterAreas()].filter(a => a && a !== clean);
+    const uniqSorted = Array.from(new Set(updatedMaster)).sort();
+    try {
+      const jsonStr = JSON.stringify(uniqSorted);
+      try { localStorage.setItem(MASTER_AREAS_LOCAL_KEY, jsonStr); } catch (e) {}
+      await api('/api/areas/rename-or-delete', 'POST', {
+        old_area: clean,
+        new_area: '',
+        master_areas_json: jsonStr
+      });
+      toast(`🗑️ Area "${clean}" list se hata diya gaya`);
+      await refreshAll();
+      SHOP_AREA_DRAFT_MAP = new Map(STATE.retailers.map(r => [r.id, String(r.area || '').trim().toUpperCase()]));
+      renderMasterAreasList();
+      renderShopWiseAreaRows();
+    } catch (e) { toast(e.message, true); }
+  }
+
+  function renderShopWiseAreaRows() {
+    const box = document.getElementById('areaEditList');
+    if (!box) return;
+    const q = (document.getElementById('shopAreaSearchInp')?.value || '').trim().toLowerCase();
+    const filterBlank = document.getElementById('shopAreaOnlyBlankSel')?.value === 'BLANK';
+
+    const list = STATE.retailers.filter(r => {
+      const curA = SHOP_AREA_DRAFT_MAP.has(r.id) ? SHOP_AREA_DRAFT_MAP.get(r.id) : String(r.area || '').toUpperCase();
+      if (filterBlank && curA) return false;
+      if (q && !r.name.toLowerCase().includes(q) && !curA.toLowerCase().includes(q)) return false;
+      return true;
+    });
+
+    if (!list.length) {
+      box.innerHTML = `<div style="text-align:center;padding:22px;color:var(--muted);">Koi matching party nahi mili.</div>`;
+      return;
+    }
+
+    box.innerHTML = list.map(r => {
+      const curA = SHOP_AREA_DRAFT_MAP.has(r.id) ? SHOP_AREA_DRAFT_MAP.get(r.id) : String(r.area || '').toUpperCase();
+      return `
+      <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:8px;align-items:center;background:#f8fafc;padding:7px 10px;border-radius:9px;border:1px solid #e2e8f0;">
+        <div style="font-size:12.5px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(r.name)}</div>
+        <input type="text" class="bulk-area-inp" data-id="${r.id}" data-name="${esc(r.name)}" list="dlAreas" value="${esc(curA)}" oninput="SHOP_AREA_DRAFT_MAP.set(${r.id}, this.value.trim().toUpperCase())" placeholder="Select or type Area..." style="padding:6px 9px;font-size:12.5px;font-weight:700;" />
+      </div>`;
+    }).join('');
   }
 
   function autoGuessBlankAreasInModal() {
     let filled = 0;
-    document.querySelectorAll('.bulk-area-inp').forEach(inp => {
-      if (!inp.value.trim()) {
-        const g = guessAreaClient(inp.dataset.name || '');
-        if (g) { inp.value = g; filled++; }
+    for (const r of STATE.retailers) {
+      const cur = SHOP_AREA_DRAFT_MAP.get(r.id) || '';
+      if (!cur) {
+        const g = guessAreaClient(r.name || '');
+        if (g) {
+          SHOP_AREA_DRAFT_MAP.set(r.id, g.toUpperCase());
+          filled++;
+        }
       }
-    });
-    toast(filled > 0 ? `✨ Auto-filled ${filled} blank areas!` : 'No new area guesses found.');
+    }
+    renderShopWiseAreaRows();
+    toast(filled > 0 ? `✨ Auto-filled ${filled} blank areas! Ab Save dabayein.` : 'Koi naya blank area guess nahi mila.');
   }
 
   async function saveAllEditedAreas() {
-    const updates = Array.from(document.querySelectorAll('.bulk-area-inp')).map(inp => ({
-      id: Number(inp.dataset.id),
-      area: inp.value.trim().toUpperCase()
+    document.querySelectorAll('.bulk-area-inp').forEach(inp => {
+      SHOP_AREA_DRAFT_MAP.set(Number(inp.dataset.id), inp.value.trim().toUpperCase());
+    });
+    const updates = STATE.retailers.map(r => ({
+      id: r.id,
+      area: SHOP_AREA_DRAFT_MAP.has(r.id) ? SHOP_AREA_DRAFT_MAP.get(r.id) : String(r.area || '').toUpperCase()
     }));
+    const newMasterSet = new Set([...STATE.areas, ...getSavedMasterAreas(), ...updates.map(u => u.area).filter(Boolean)]);
+
     try {
       await api('/api/retailers/bulk-area', 'POST', { updates });
+      await persistMasterAreasArray(Array.from(newMasterSet));
       closeModal('areaManagerModal');
-      toast('📍 All areas updated!');
+      toast('📍 Sabhi Parties aur Master Area List update ho gayi!');
       await refreshAll();
     } catch (e) { toast(e.message, true); }
   }
@@ -5593,6 +5903,7 @@
       settings: {
         ...STATE.settings,
         custom_products_json: JSON.stringify(ARYUSH_PRODUCTS),
+        master_areas_json: JSON.stringify(STATE.areas || []),
         wa_target_template: getActiveWaTemplate()
       },
       segments: STATE.segments,
@@ -5797,14 +6108,18 @@
     const r = STATE.summaryRows.find(x => x.id === retailerId);
     if (!r) return;
     const s = STATE.settings;
-    const cupLines = r.coupons.map(c => c.prize_title ? `🎟️ *#${c.coupon_code}* — 🏆 *${c.prize_title}*` : `🎟️ *#${c.coupon_code}*`).join('\n');
+    const directUrl = getPersonalPartyPortalUrl(r);
+    const cupLines = r.coupons.map(c => c.prize_title ? `▸ कूपन *#${c.coupon_code}* — 🏆 *${c.prize_title}*` : `▸ कूपन *#${c.coupon_code}* _(ड्रॉ में शामिल)_`).join('\n');
     const msg =
-      `*${s.company_name} — ${s.campaign_name}*\n━━━━━━━━━━━━━━━\n` +
-      `🏪 *${r.name}* ${r.area ? `(${r.area})` : ''}\n` +
-      `📦 Kul Khata: *${r.total_kg} kg* (${r.bags_eq} Bags)\n` +
-      `🎟️ Kul Coupons: *${r.issued}* (Earned: ${r.earned})\n` +
-      (cupLines ? `\n*Coupon & Prize Vivaran:*\n${cupLines}\n` : '') +
-      `━━━━━━━━━━━━━━━\n_${s.signatory}_`;
+      `*${s.company_name} • आर्युष रसोई धन*\n` +
+      `_आधिकारिक कूपन एवं खाता पासबुक_\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `🏪 *${r.name}* ${r.area ? `_(${r.area})_` : ''}\n` +
+      `📦 कुल प्राप्त माल: *${r.total_kg} kg* (${r.bags_eq} बोरी)\n` +
+      `🎟️ जारी लकी कूपन: *${r.issued}* (अर्जित: ${r.earned})\n` +
+      (cupLines ? `\n*कूपन एवं इनाम विवरण:*\n${cupLines}\n` : '') +
+      `\n📲 *अपनी लाइव डिजिटल पासबुक यहाँ खोलें (बिना सर्च किए):*\n👉 ${directUrl}\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n_${s.signatory}_`;
     const digits = String(r.phone || '').replace(/[^0-9]/g, '');
     const waPhone = digits.length === 10 ? '91' + digits : digits;
     window.open(waPhone ? `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}` : `https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
@@ -7982,48 +8297,150 @@
     }
   }
 
-  async function runPublicCheck() {
-    const q = document.getElementById('pubSearchInp').value.trim();
-    if (!q) return toast('Shop ka naam, mobile ya coupon # dalein!', true);
+  const PUB_REMEMBER_PARTY_KEY = 'aryush_pub_last_party_id';
+
+  function showPublicManualSearchBox() {
+    const sc = document.getElementById('pubSearchBoxCard');
+    const ws = document.getElementById('pubDirectWelcomeStrip');
+    if (sc) sc.style.display = 'block';
+    if (ws) ws.style.display = 'none';
+    const inp = document.getElementById('pubSearchInp');
+    if (inp) inp.focus();
+  }
+
+  async function runPublicCheck(directId = null, autoQuery = null) {
+    const q = autoQuery !== null ? String(autoQuery).trim() : document.getElementById('pubSearchInp').value.trim();
+    if (!directId && !q) return toast('अपनी दुकान का नाम, मोबाइल या कूपन # डालें!', true);
+
     const box = document.getElementById('pubResultsBox');
-    box.innerHTML = `<div style="text-align:center;padding:24px;color:var(--muted);font-weight:700;">⏳ Searching...</div>`;
+    box.innerHTML = `<div class="card" style="text-align:center;padding:28px;color:var(--muted);font-weight:700;">⏳ आपका डिजिटल खाता खुल रहा है...</div>`;
+
     try {
-      const res = await api('/api/public/check?q=' + encodeURIComponent(q));
+      const endpoint = directId
+        ? `/api/public/check?id=${encodeURIComponent(directId)}`
+        : `/api/public/check?q=${encodeURIComponent(q)}`;
+      const res = await api(endpoint);
+
       if (res.settings) {
+        STATE.settings = { ...STATE.settings, ...res.settings };
+        syncV10SettingsFromState();
+        renderBrandIdentityAndProducts();
         document.getElementById('pubHdrTitle').textContent = `${res.settings.company_name} — ${res.settings.campaign_name}`;
+        if (res.settings.brand_tagline) {
+          document.getElementById('pubBrandSub').textContent = res.settings.brand_tagline;
+        }
       }
+
       const list = res.matches || [];
       if (!list.length) {
-        box.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);">Koi record nahi mila. Sahi Shop Name ya Coupon # dalein.</div>`;
+        showPublicManualSearchBox();
+        box.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:24px;">कोई रिकॉर्ड नहीं मिला। कृपया अपनी दुकान का नाम या कूपन नंबर ऊपर बॉक्स में लिखें।</div>`;
         return;
       }
-      box.innerHTML = list.map(r => `
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+
+      if (list.length === 1 && list[0].id) {
+        try { localStorage.setItem(PUB_REMEMBER_PARTY_KEY, String(list[0].id)); } catch (e) {}
+      }
+
+      if (directId && list.length > 0) {
+        const sc = document.getElementById('pubSearchBoxCard');
+        const ws = document.getElementById('pubDirectWelcomeStrip');
+        if (sc) sc.style.display = 'none';
+        if (ws) ws.style.display = 'flex';
+      }
+
+      const cupKg = Number(STATE.settings.kg_per_coupon) || 210;
+      const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+
+      box.innerHTML = list.map(r => {
+        const remKg = r.rem_kg !== undefined ? r.rem_kg : Math.round(((r.total_kg || 0) % cupKg) * 10) / 10;
+        const needKg = r.need_kg !== undefined ? r.need_kg : Math.round((cupKg - remKg) * 10) / 10;
+        const needBags = Math.max(0.5, Math.round((needKg / bagKg) * 10) / 10);
+        const pct = r.pct !== undefined ? r.pct : Math.min(100, Math.round((remKg / cupKg) * 100));
+        const dels = r.recent_deliveries || [];
+
+        return `
+        <div class="card" style="padding:18px;border:1.5px solid #cbd5e1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-bottom:12px;border-bottom:1px solid #f1f5f9;">
             <div>
-              <div style="font-size:16px;font-weight:900;color:var(--primary);">🏪 ${esc(r.name)}</div>
-              <div style="font-size:12px;color:var(--muted);margin-top:2px;">📍 Area: ${esc(r.area || '-')}</div>
+              <span class="badge b-green" style="margin-bottom:5px;">🏪 VERIFIED PARTY KHATA</span>
+              <div style="font-size:18px;font-weight:900;color:#0f172a;line-height:1.25;">${esc(r.name)}</div>
+              <div style="font-size:12px;color:#64748b;font-weight:700;margin-top:3px;">📍 क्षेत्र / एरिया: ${esc(r.area || '-')}</div>
             </div>
-            <div style="text-align:right;">
-              <div style="font-size:18px;font-weight:900;color:#15803d;">${r.total_kg} kg</div>
-              <div style="font-size:11px;color:var(--muted);font-weight:700;">${r.bags_eq} Bags</div>
+            <div style="text-align:right;background:#f0fdf4;border:1px solid #bbf7d0;padding:8px 12px;border-radius:12px;flex-shrink:0;">
+              <div style="font-size:10px;font-weight:800;color:#166534;text-transform:uppercase;">कुल माल</div>
+              <div style="font-size:20px;font-weight:900;color:#15803d;">${r.total_kg} kg</div>
+              <div style="font-size:11px;color:#166534;font-weight:700;">${r.bags_eq} बोरी</div>
             </div>
           </div>
-          <div style="margin-top:10px;padding:9px 11px;background:#f8fafc;border-radius:10px;font-size:12px;font-weight:700;color:#334155;">
-            🎯 Agle Coupon ke liye sirf <b>${r.need_kg} kg</b> aur chahiye! (Kul Earned Coupons: <b>${r.earned}</b>)
+
+          <div class="khata-stats-3" style="margin-top:12px;background:#f8fafc;padding:10px 6px;border-radius:12px;border:1px solid #e2e8f0;">
+            <div class="khata-stat-col">
+              <div class="khata-stat-lbl">पक्के कूपन</div>
+              <div class="khata-stat-val" style="color:#1d4ed8;">${r.earned}</div>
+              <div class="khata-stat-sub">${cupKg} kg / कूपन</div>
+            </div>
+            <div class="khata-stat-col">
+              <div class="khata-stat-lbl">जारी कूपन #</div>
+              <div class="khata-stat-val" style="color:#0f172a;">${(r.coupons || []).length}</div>
+              <div class="khata-stat-sub">ड्रॉ में शामिल</div>
+            </div>
+            <div class="khata-stat-col">
+              <div class="khata-stat-lbl">अगले कूपन हेतु</div>
+              <div class="khata-stat-val" style="color:#d97706;">${needKg} kg</div>
+              <div class="khata-stat-sub">~${needBags} बोरी शेष</div>
+            </div>
           </div>
-          <div style="margin-top:10px;">
-            <div style="font-size:11.5px;font-weight:800;color:var(--muted);margin-bottom:5px;">🎟️ ALLOTTED COUPONS & PRIZE STATUS:</div>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+
+          <div style="margin-top:12px;padding:11px 13px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#92400e;">
+              <span>🎯 कूपन #${(r.earned || 0) + 1} प्रोग्रेस: ${remKg} / ${cupKg} kg (${pct}%)</span>
+              <span>बस ${needBags} बोरी और!</span>
+            </div>
+            <div class="prog-bar" style="height:8px;margin-top:6px;background:#fef3c7;">
+              <div class="prog-fill" style="width:${pct}%;background:linear-gradient(90deg,#f59e0b,#16a34a);"></div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div style="font-size:11.5px;font-weight:800;color:#475569;margin-bottom:6px;text-transform:uppercase;">🎟️ आपके लकी कूपन नंबर और इनाम स्थिति:</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;">
               ${(r.coupons || []).map(c => c.prize_title
-                ? `<span class="badge b-green" style="font-size:12px;padding:5px 9px;">#${esc(c.coupon_code)} — 🏆 ${esc(c.prize_title)} (${c.prize_status === 'DELIVERED' ? 'Delivered' : 'Winner!'})</span>`
-                : `<span class="badge b-navy" style="font-size:12px;padding:5px 9px;">#${esc(c.coupon_code)} (In Draw)</span>`
-              ).join('') || '<span style="font-size:12px;color:var(--muted);">No coupons allotted yet</span>'}
+                ? `<span class="badge b-green" style="font-size:12.5px;padding:6px 11px;border:1px solid #86efac;">🎟️ #${esc(c.coupon_code)} — 🏆 ${esc(c.prize_title)} (${c.prize_status === 'DELIVERED' ? 'प्राप्त' : 'विजेता!'})</span>`
+                : `<span class="badge b-navy" style="font-size:12.5px;padding:6px 11px;">🎟️ कूपन #${esc(c.coupon_code)} (लकी ड्रॉ में शामिल)</span>`
+              ).join('') || '<span style="font-size:12px;color:var(--muted);background:#f8fafc;padding:8px 12px;border-radius:9px;border:1px dashed #cbd5e1;">अभी कूपन नंबर अलॉट होना शेष है</span>'}
             </div>
           </div>
-        </div>
-      `).join('');
+
+          ${dels.length > 0 ? `
+            <div style="margin-top:16px;">
+              <div style="font-size:11.5px;font-weight:800;color:#475569;margin-bottom:6px;text-transform:uppercase;">📦 आपकी माल डिलीवरी पासबुक (${dels.length} एंट्री):</div>
+              <div class="passbook" style="border-radius:11px;">
+                <div class="pb-head" style="grid-template-columns:1.1fr 1fr 1fr;background:#f1f5f9;color:#334155;border-color:#e2e8f0;">
+                  <div>तारीख</div>
+                  <div>बोरी / खुला</div>
+                  <div style="text-align:right;">कुल वजन</div>
+                </div>
+                ${dels.map((d, idx) => `
+                  <div class="pb-row" style="grid-template-columns:1.1fr 1fr 1fr;padding:9px 12px;${idx === 0 ? 'background:#f0fdf4;' : ''}">
+                    <div style="font-size:12.5px;font-weight:700;color:#0f172a;">
+                      ${fmtDate(d.entry_date)} ${idx === 0 ? '<span class="b-latest" style="font-size:9px;">NEW</span>' : ''}
+                    </div>
+                    <div style="font-size:12px;color:#475569;font-weight:600;">
+                      ${d.bags || 0} बोरी${d.loose_kg ? ` + ${d.loose_kg}kg` : ''}
+                    </div>
+                    <div style="text-align:right;font-size:13.5px;font-weight:800;color:#15803d;">
+                      +${d.total_kg} kg
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+        </div>`;
+      }).join('');
     } catch (e) {
+      showPublicManualSearchBox();
       box.innerHTML = `<div class="card" style="color:#dc2626;">Error: ${esc(e.message)}</div>`;
     }
   }
@@ -8069,9 +8486,22 @@
           }
         }
       } catch (e) {}
-      if (params.get('q')) {
-        document.getElementById('pubSearchInp').value = params.get('q');
-        runPublicCheck();
+      const directIdParam = params.get('id');
+      const queryParam = params.get('q');
+      let rememberedId = '';
+      try { rememberedId = localStorage.getItem(PUB_REMEMBER_PARTY_KEY) || ''; } catch (e) {}
+
+      if (directIdParam) {
+        document.getElementById('pubSearchBoxCard').style.display = 'none';
+        runPublicCheck(directIdParam, null);
+      } else if (queryParam) {
+        document.getElementById('pubSearchInp').value = queryParam;
+        document.getElementById('pubSearchBoxCard').style.display = 'none';
+        document.getElementById('pubDirectWelcomeStrip').style.display = 'flex';
+        runPublicCheck(null, queryParam);
+      } else if (rememberedId) {
+        document.getElementById('pubSearchBoxCard').style.display = 'none';
+        runPublicCheck(rememberedId, null);
       }
       return;
     }

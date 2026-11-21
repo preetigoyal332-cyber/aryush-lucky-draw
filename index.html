@@ -2093,6 +2093,167 @@
       font-weight: 700;
       color: #fef08a;
     }
+
+    /* ==================== v16.0 RETAILER PASSBOOK AUTOMATIC AD CAROUSEL & PROMO BANNER ==================== */
+    .pub-ad-showcase-wrap {
+      margin-bottom: 14px;
+    }
+    .pub-ad-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 58%, #31102f 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.65);
+      border-radius: 18px;
+      padding: 15px 16px;
+      color: #ffffff;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+      position: relative;
+      overflow: hidden;
+    }
+    .pub-ad-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .pub-ad-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(90deg, #fde047, #f59e0b);
+      color: #290f02;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .pub-ad-body {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 14px;
+      align-items: center;
+      animation: appSlide 0.28s ease-out;
+    }
+    @media (max-width: 420px) {
+      .pub-ad-body {
+        grid-template-columns: 84px 1fr;
+        gap: 11px;
+      }
+    }
+    .pub-ad-img-frame {
+      width: 96px;
+      height: 96px;
+      border-radius: 14px;
+      background: #ffffff;
+      padding: 5px;
+      border: 2px solid #fde047;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    @media (max-width: 420px) {
+      .pub-ad-img-frame { width: 84px; height: 84px; }
+    }
+    .pub-ad-img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 9px;
+    }
+    .pub-ad-title {
+      font-size: 16.5px;
+      font-weight: 900;
+      color: #fde047;
+      line-height: 1.22;
+    }
+    .pub-ad-sub {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-top: 2px;
+    }
+    .pub-ad-usp-list {
+      margin-top: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .pub-ad-usp-item {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #cbd5e1;
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      line-height: 1.3;
+    }
+    .pub-ad-usp-item b { color: #4ade80; }
+    .pub-ad-full-poster {
+      width: 100%;
+      max-height: 230px;
+      object-fit: contain;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1.5px solid #fde047;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    .pub-ad-video-player {
+      width: 100%;
+      max-height: 240px;
+      border-radius: 12px;
+      background: #000000;
+      border: 1.5px solid #fde047;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    .pub-ad-foot {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pub-ad-dots {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .pub-ad-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.28);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .pub-ad-dot.active {
+      width: 20px;
+      background: #fde047;
+    }
+    .pub-ad-order-btn {
+      background: #22c55e;
+      color: #052e16;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
+    }
+    .pub-ad-order-btn:active { transform: scale(0.96); }
   </style>
 </head>
 <body>
@@ -2110,7 +2271,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v15.2 Corporate</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v16.0 Corporate</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -2203,6 +2364,7 @@
         <button type="button" class="qtool-btn" onclick="openBeatBulkModal()">🚚 Beat Sheet</button>
         <button type="button" class="qtool-btn" onclick="openAreaManagerModal()">📍 Areas</button>
         <button type="button" class="qtool-btn" onclick="openProductStudioModal()">📸 Brand & Products</button>
+        <button type="button" class="qtool-btn" style="border-color:#fde68a;background:#fffbeb;color:#92400e;" onclick="openPassbookAdStudioModal()">📢 Passbook Ad</button>
         <button type="button" class="qtool-btn" onclick="openWelcomePattiModal()">🎊 Welcome Ticker</button>
         <button type="button" class="qtool-btn" onclick="openWaTemplateModal()">✏️ Message Format</button>
         <button type="button" class="qtool-btn" onclick="openSheetImportModal()">📥 Excel/Sheet</button>
@@ -2698,6 +2860,7 @@
 
         <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
           <button type="button" class="btn btn-brand btn-sm" onclick="openProductStudioModal()">🎬 Manage Products & Ad Videos</button>
+          <button type="button" class="btn btn-navy btn-sm" onclick="openPassbookAdStudioModal()">📢 Passbook Ad Banner Studio</button>
           <button type="button" class="btn btn-wa btn-sm" onclick="openWaTemplateModal()">📲 Customize Target WhatsApp Msg</button>
           <label class="btn btn-navy btn-sm" style="cursor:pointer;">
             🖼️ Upload Company / Rasoi Dhan Logo
@@ -3563,6 +3726,93 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL 21: RETAILER PASSBOOK AUTOMATIC AD BANNER STUDIO ==================== -->
+  <div class="modal-bg" id="passbookAdStudioModal">
+    <div class="modal" style="max-width:680px;">
+      <div class="modal-hd">
+        <div>
+          <h3 style="font-size:16.5px;font-weight:900;color:var(--primary);">📢 Passbook Automatic Ad Banner Studio</h3>
+          <div style="font-size:11.5px;color:var(--muted);">जब भी कोई दुकानदार अपना ऑनलाइन पासबुक लिंक खोलेगा, तो उसे यह विज्ञापन बैनर अपने-आप चलता हुआ दिखेगा!</div>
+        </div>
+        <button class="btn btn-outline btn-xs" onclick="closeModal('passbookAdStudioModal')">✕</button>
+      </div>
+
+      <div class="form-grid cols-3" style="gap:8px;margin-bottom:10px;">
+        <div class="field">
+          <label>📺 Ad Banner Status</label>
+          <select id="padEnabledSel" style="font-weight:800;">
+            <option value="1">✅ ON — पासबुक पर ऑटोमैटिक चलाएँ</option>
+            <option value="0">🚫 OFF — बंद रखें</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>🎯 विज्ञापन का प्रकार (Ad Mode)</label>
+          <select id="padModeSel" onchange="togglePassbookAdModeFields()" style="font-weight:800;">
+            <option value="AUTO_ALL">🔄 Auto-Slide: सभी प्रोडक्ट्स + कस्टम पोस्टर</option>
+            <option value="CUSTOM_POSTER">🖼️ सिर्फ कस्टम ऑफर पोस्टर / नया लॉन्च</option>
+            <option value="VIDEO_AD">🎬 ऑटो-प्ले वीडियो विज्ञापन (.mp4 लिंक)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>⏱️ स्लाइड बदलने का समय</label>
+          <select id="padIntervalSel" style="font-weight:800;">
+            <option value="3">3 सेकंड (तेज़)</option>
+            <option value="4" selected>4 सेकंड (स्टैंडर्ड)</option>
+            <option value="6">6 सेकंड (आराम से)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="background:#fffbeb;border:1.5px solid #fcd34d;border-radius:13px;padding:12px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+          <div style="font-size:12.5px;font-weight:900;color:#92400e;">🖼️ स्पेशल ऑफर पोस्टर या नया प्रोडक्ट बैनर (Optional):</div>
+          <div style="display:flex;gap:6px;">
+            <label class="btn btn-brand btn-xs" style="cursor:pointer;">
+              📸 Upload Ad Poster / Banner
+              <input type="file" accept="image/*" style="display:none;" onchange="handlePassbookAdPosterPick(event)" />
+            </label>
+            <button type="button" class="btn btn-outline btn-xs" id="btnClearPadPoster" style="display:none;" onclick="clearPassbookAdPoster()">✕ Remove Poster</button>
+          </div>
+        </div>
+        <div id="padPosterPreviewWrap" style="display:none;text-align:center;margin-bottom:8px;">
+          <img id="padPosterPreviewImg" src="" alt="Ad Poster" style="max-height:130px;max-width:100%;object-fit:contain;border-radius:10px;background:#fff;padding:4px;border:1.5px solid #f59e0b;" />
+        </div>
+
+        <div class="form-grid cols-2" style="gap:8px;">
+          <div class="field">
+            <label>हेडलाइन / ऑफर टाइटल (Optional)</label>
+            <input type="text" id="padHeadlineInp" placeholder="e.g. नया लॉन्च: स्पेशल पटना की कुटी मिर्ची!" />
+          </div>
+          <div class="field">
+            <label>ऑफर विवरण / सब-टेक्स्ट (Optional)</label>
+            <input type="text" id="padSubInp" placeholder="e.g. आज ही ऑर्डर पर पाएँ विशेष स्कीम व लकी कूपन लाभ" />
+          </div>
+        </div>
+
+        <div class="field" id="padVideoUrlField" style="margin-top:8px;">
+          <label>🎬 Direct MP4 Video Ad URL (Optional — यदि ऑनलाइन वीडियो चलाना हो):</label>
+          <input type="url" id="padVideoUrlInp" placeholder="https://.../aryush_ad.mp4" />
+        </div>
+      </div>
+
+      <div class="form-grid cols-2" style="gap:8px;margin-bottom:12px;">
+        <div class="field">
+          <label>📞 ऑर्डर हेतु आपका WhatsApp नंबर (10 अंक)</label>
+          <input type="tel" id="padWaPhoneInp" placeholder="e.g. 98XXXXXXXX (खाली छोड़ने पर सामान्य WhatsApp खुलेगा)" />
+        </div>
+        <div class="field">
+          <label>🔘 ऑर्डर बटन का नाम</label>
+          <input type="text" id="padCtaLabelInp" placeholder="📲 WhatsApp पर ऑर्डर लिखवाएँ" />
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button type="button" class="btn btn-wa" style="flex:1;padding:12px;font-weight:800;" onclick="savePassbookAdSettings()">💾 Save & Activate Passbook Ad</button>
+        <button type="button" class="btn btn-outline" onclick="previewPassbookPortalInNewTab()">👁️ Live Passbook Preview</button>
+      </div>
+    </div>
+  </div>
+
   <canvas id="confettiCanvas"></canvas>
   <div class="projector-overlay" id="stageProjectorOverlay">
     <div class="bcast-shell">
@@ -3741,6 +3991,9 @@
         <button type="button" class="btn btn-outline btn-xs" style="padding:4px 9px;font-size:11px;" onclick="showPublicManualSearchBox()">🔍 दूसरी पार्टी खोजें</button>
       </div>
 
+      <!-- AUTOMATIC RETAILER PASSBOOK PROMO AD BANNER / CAROUSEL -->
+      <div id="pubAutoAdBannerSlot" class="pub-ad-showcase-wrap" style="display:none;"></div>
+
       <div id="pubResultsBox" style="display:flex;flex-direction:column;gap:12px;"></div>
     </div>
   </div>
@@ -3763,6 +4016,15 @@
       bonus_every_coupons: 7,
       bonus_free_coupons: 1,
       reveal_duration_sec: 8,
+      passbook_ad_enabled: '1',
+      passbook_ad_mode: 'AUTO_ALL',
+      passbook_ad_badge: '✨ विशेष उत्पाद प्रस्तुति • ARYUSH RASOI DHAN',
+      passbook_ad_headline: '',
+      passbook_ad_subtext: '',
+      passbook_ad_video_url: '',
+      passbook_ad_whatsapp: '',
+      passbook_ad_cta_label: '📲 WhatsApp पर ऑर्डर लिखवाएँ',
+      passbook_ad_interval_sec: 4,
       welcome_patti_enabled: '1',
       welcome_patti_speed: 38,
       welcome_ticker_v15_text: '🙏 हार्दिक स्वागत एवं अभिनंदन! आर्युष फूड्स (कैलारस, मुरैना) के भव्य मेगा लकी ड्रॉ समारोह में पधारे सभी सम्मानित व्यापारी बंधुओं एवं अतिथियों का सहृदय अभिनंदन!  ★  आर्युष रसोई धन की प्रमुख विशेषताएँ: 100% शुद्ध कोल्हू की कच्ची घानी सरसों तेल (प्राकृतिक तेज़ झाँझ) • उच्च गुणवत्ता वाले शुद्ध मसाले • स्पेशल पटना की कुटी मिर्ची • हाई-करक्यूमिन सेलम हल्दी • सुगंधित धनिया पाउडर • शाही गरम मसाला एवं नुखरा हींग दाना  ★  विशेष उपहार योजना: प्रत्येक 210 kg पर 1 निश्चित कूपन + 7 कूपन पर 1 अतिरिक्त कूपन निःशुल्क (FREE)!'
@@ -10797,6 +11059,299 @@
   function bagsNeedLabel(b){ return b + " बैग"; }
   const PUB_REMEMBER_PARTY_KEY = 'aryush_pub_last_party_id';
 
+
+  // ==================== v16.0 RETAILER PASSBOOK AUTOMATIC AD BANNER & CAROUSEL ENGINE ====================
+  let DRAFT_PAD_POSTER_DATA = '';
+  let PUB_AD_SLIDE_TIMER = null;
+  let PUB_AD_CUR_IDX = 0;
+  let PUB_AD_ACTIVE_RETAILER_NAME = '';
+
+  function openPassbookAdStudioModal() {
+    const s = STATE.settings || {};
+    document.getElementById('padEnabledSel').value = String(s.passbook_ad_enabled ?? '1') === '0' ? '0' : '1';
+    document.getElementById('padModeSel').value = s.passbook_ad_mode || 'AUTO_ALL';
+    document.getElementById('padIntervalSel').value = String(Number(s.passbook_ad_interval_sec) || 4);
+    document.getElementById('padHeadlineInp').value = s.passbook_ad_headline || '';
+    document.getElementById('padSubInp').value = s.passbook_ad_subtext || '';
+    document.getElementById('padVideoUrlInp').value = s.passbook_ad_video_url || '';
+    document.getElementById('padWaPhoneInp').value = s.passbook_ad_whatsapp || '';
+    document.getElementById('padCtaLabelInp').value = s.passbook_ad_cta_label || '📲 WhatsApp पर ऑर्डर लिखवाएँ';
+
+    DRAFT_PAD_POSTER_DATA = s.passbook_ad_poster_pic || '';
+    renderPadPosterPreview();
+    togglePassbookAdModeFields();
+    openModal('passbookAdStudioModal');
+  }
+
+  function togglePassbookAdModeFields() {
+    const mode = document.getElementById('padModeSel')?.value || 'AUTO_ALL';
+    const vf = document.getElementById('padVideoUrlField');
+    if (vf) vf.style.display = (mode === 'VIDEO_AD' || mode === 'AUTO_ALL') ? 'block' : 'none';
+  }
+
+  function renderPadPosterPreview() {
+    const wrap = document.getElementById('padPosterPreviewWrap');
+    const img = document.getElementById('padPosterPreviewImg');
+    const clr = document.getElementById('btnClearPadPoster');
+    if (DRAFT_PAD_POSTER_DATA && DRAFT_PAD_POSTER_DATA.startsWith('data:image/')) {
+      img.src = DRAFT_PAD_POSTER_DATA;
+      wrap.style.display = 'block';
+      clr.style.display = 'inline-flex';
+    } else {
+      wrap.style.display = 'none';
+      clr.style.display = 'none';
+    }
+  }
+
+  async function handlePassbookAdPosterPick(ev) {
+    const file = ev.target.files[0];
+    ev.target.value = '';
+    if (!file) return;
+    DRAFT_PAD_POSTER_DATA = await compressProductPackPhoto(file, 540);
+    renderPadPosterPreview();
+    toast('🖼️ Ad Poster Ready — Save पर क्लिक करें!');
+  }
+
+  function clearPassbookAdPoster() {
+    DRAFT_PAD_POSTER_DATA = '';
+    renderPadPosterPreview();
+  }
+
+  async function savePassbookAdSettings() {
+    const enabled = document.getElementById('padEnabledSel').value === '0' ? '0' : '1';
+    const mode = document.getElementById('padModeSel').value || 'AUTO_ALL';
+    const intervalSec = Math.max(2, Number(document.getElementById('padIntervalSel').value) || 4);
+    const headline = document.getElementById('padHeadlineInp').value.trim();
+    const subtext = document.getElementById('padSubInp').value.trim();
+    const videoUrl = document.getElementById('padVideoUrlInp').value.trim();
+    const waPhone = document.getElementById('padWaPhoneInp').value.trim();
+    const ctaLabel = document.getElementById('padCtaLabelInp').value.trim() || '📲 WhatsApp पर ऑर्डर लिखवाएँ';
+    const posterPic = DRAFT_PAD_POSTER_DATA
+      ? await shrinkExistingDataUrlForCloud(DRAFT_PAD_POSTER_DATA, 500)
+      : '';
+
+    Object.assign(STATE.settings, {
+      passbook_ad_enabled: enabled,
+      passbook_ad_mode: mode,
+      passbook_ad_interval_sec: intervalSec,
+      passbook_ad_headline: headline,
+      passbook_ad_subtext: subtext,
+      passbook_ad_video_url: videoUrl,
+      passbook_ad_whatsapp: waPhone,
+      passbook_ad_cta_label: ctaLabel,
+      passbook_ad_poster_pic: posterPic
+    });
+
+    try {
+      await api('/api/settings', 'POST', {
+        passbook_ad_enabled: enabled,
+        passbook_ad_mode: mode,
+        passbook_ad_interval_sec: String(intervalSec),
+        passbook_ad_headline: headline,
+        passbook_ad_subtext: subtext,
+        passbook_ad_video_url: videoUrl,
+        passbook_ad_whatsapp: waPhone,
+        passbook_ad_cta_label: ctaLabel,
+        passbook_ad_poster_pic: posterPic
+      });
+      closeModal('passbookAdStudioModal');
+      toast('✅ Passbook Automatic Ad Banner सक्रिय हो गया!');
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  function previewPassbookPortalInNewTab() {
+    const sampleR = STATE.summaryRows[0] || null;
+    const url = sampleR ? getPersonalPartyPortalUrl(sampleR) : (getEffectivePublicBaseUrl() + '?check=1');
+    window.open(url, '_blank');
+  }
+
+  // Builds the list of automatic ad slides for the Retailer Passbook Portal
+  function buildPublicPassbookAdSlides() {
+    const s = STATE.settings || {};
+    const mode = s.passbook_ad_mode || 'AUTO_ALL';
+    const customPoster = s.passbook_ad_poster_pic || '';
+    const customVid = (s.passbook_ad_video_url || '').trim();
+    const customHeadline = (s.passbook_ad_headline || '').trim();
+    const customSub = (s.passbook_ad_subtext || '').trim();
+
+    const slides = [];
+
+    // 1. Auto-play MP4 Video Ad slide if configured
+    if ((mode === 'VIDEO_AD' || mode === 'AUTO_ALL') && customVid) {
+      slides.push({
+        kind: 'VIDEO',
+        kicker: '🎬 विशेष विज्ञापन • ARYUSH RASOI DHAN',
+        title: customHeadline || 'आर्युष रसोई धन — शुद्धता और विश्वास की परंपरा',
+        sub: customSub || '100% शुद्ध कच्ची घानी सरसों तेल एवं उच्च गुणवत्ता वाले मसाले',
+        videoUrl: customVid
+      });
+      if (mode === 'VIDEO_AD') return slides;
+    }
+
+    // 2. Custom Special Offer Poster / New Launch Banner slide if uploaded or headline written
+    if (customPoster || customHeadline || mode === 'CUSTOM_POSTER') {
+      slides.push({
+        kind: 'POSTER',
+        kicker: '🔥 विशेष व्यापारिक ऑफर • ARYUSH FOODS',
+        title: customHeadline || 'आर्युष रसोई धन — हर 210 kg पर पक्का कूपन + 7 पर 1 FREE!',
+        sub: customSub || 'आज ही अपना अगला ऑर्डर बुक करें और 301 निश्चित पुरस्कारों में अपनी भागीदारी बढ़ाएँ।',
+        posterPic: customPoster
+      });
+      if (mode === 'CUSTOM_POSTER') return slides;
+    }
+
+    // 3. Automatic Product Portfolio Slides (Every Product with Uploaded Pack Photo, Tagline & Key Highlights!)
+    ARYUSH_PRODUCTS.forEach((p, idx) => {
+      const kList = getProductKhasiyatList(p).slice(0, 2);
+      const pVid = (p.videoUrl || '').trim();
+      slides.push({
+        kind: 'PRODUCT',
+        prodIdx: idx,
+        kicker: `✨ हमारा शुद्ध उत्पाद (${idx + 1}/${ARYUSH_PRODUCTS.length})`,
+        title: p.hi,
+        sub: `${p.name} • ${p.tag}`,
+        photoData: (p.photoData && p.photoData.startsWith('data:image/')) ? p.photoData : '',
+        icon: p.icon || '🌶️',
+        bg: p.bg || 'linear-gradient(135deg,#eab308,#ca8a04)',
+        usps: kList,
+        videoUrl: pVid
+      });
+    });
+
+    return slides;
+  }
+
+  function triggerPassbookAdOrderWhatsApp(itemTitle) {
+    const s = STATE.settings || {};
+    const rawPhone = String(s.passbook_ad_whatsapp || '').replace(/[^0-9]/g, '');
+    const waPhone = rawPhone.length === 10 ? ('91' + rawPhone) : rawPhone;
+    const partyPart = PUB_AD_ACTIVE_RETAILER_NAME ? ` (${PUB_AD_ACTIVE_RETAILER_NAME})` : '';
+    const msg =
+      `🙏 नमस्कार *${s.company_name || 'ARYUSH FOODS'}* टीम!
+
+` +
+      `मैं${partyPart} अपनी डिजिटल पासबुक देख रहा हूँ और *${itemTitle || 'आर्युष रसोई धन उत्पादों'}* के नए ऑर्डर / रेट की जानकारी चाहता हूँ।`;
+    window.open(waPhone ? `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}` : `https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function jumpToPublicAdSlide(idx) {
+    PUB_AD_CUR_IDX = idx;
+    renderCurrentPublicAdSlide(true);
+  }
+
+  function renderPublicPassbookAutoAdBanner(activePartyName = '') {
+    if (activePartyName) PUB_AD_ACTIVE_RETAILER_NAME = activePartyName;
+    const slot = document.getElementById('pubAutoAdBannerSlot');
+    if (!slot) return;
+
+    const s = STATE.settings || {};
+    if (String(s.passbook_ad_enabled ?? '1') === '0') {
+      slot.style.display = 'none';
+      if (PUB_AD_SLIDE_TIMER) { clearInterval(PUB_AD_SLIDE_TIMER); PUB_AD_SLIDE_TIMER = null; }
+      return;
+    }
+
+    const slides = buildPublicPassbookAdSlides();
+    if (!slides.length) {
+      slot.style.display = 'none';
+      return;
+    }
+
+    slot.style.display = 'block';
+    renderCurrentPublicAdSlide(false);
+
+    if (PUB_AD_SLIDE_TIMER) clearInterval(PUB_AD_SLIDE_TIMER);
+    const intervalMs = Math.max(2500, (Number(s.passbook_ad_interval_sec) || 4) * 1000);
+    if (slides.length > 1) {
+      PUB_AD_SLIDE_TIMER = setInterval(() => {
+        // Pause auto-advance if a video inside the ad banner is actively playing
+        const vEl = document.getElementById('pubInlineAdVideoEl');
+        if (vEl && !vEl.paused && !vEl.ended) return;
+        PUB_AD_CUR_IDX = (PUB_AD_CUR_IDX + 1) % slides.length;
+        renderCurrentPublicAdSlide(false);
+      }, intervalMs);
+    }
+  }
+
+  function renderCurrentPublicAdSlide(resetTimer = false) {
+    const slot = document.getElementById('pubAutoAdBannerSlot');
+    if (!slot) return;
+    const slides = buildPublicPassbookAdSlides();
+    if (!slides.length) return;
+
+    const s = STATE.settings || {};
+    const curIdx = ((PUB_AD_CUR_IDX % slides.length) + slides.length) % slides.length;
+    const slide = slides[curIdx];
+    const ctaLabel = s.passbook_ad_cta_label || '📲 WhatsApp पर ऑर्डर लिखवाएँ';
+
+    let bodyHtml = '';
+    if (slide.kind === 'VIDEO') {
+      bodyHtml = `
+        <div>
+          <video id="pubInlineAdVideoEl" class="pub-ad-video-player" src="${esc(slide.videoUrl)}" autoplay muted loop playsinline controls></video>
+          <div class="pub-ad-title">${esc(slide.title)}</div>
+          <div class="pub-ad-sub">${esc(slide.sub)}</div>
+        </div>
+      `;
+    } else if (slide.kind === 'POSTER') {
+      bodyHtml = `
+        <div>
+          ${slide.posterPic ? `<img src="${slide.posterPic}" class="pub-ad-full-poster" alt="${esc(slide.title)}" />` : ''}
+          <div class="pub-ad-title">${esc(slide.title)}</div>
+          <div class="pub-ad-sub" style="margin-top:4px;line-height:1.4;">${esc(slide.sub)}</div>
+        </div>
+      `;
+    } else {
+      const clickZoom = slide.prodIdx !== undefined ? `onclick="previewSingleProductMedia(${slide.prodIdx})" style="cursor:pointer;"` : '';
+      bodyHtml = `
+        <div class="pub-ad-body" ${clickZoom}>
+          <div class="pub-ad-img-frame" style="${slide.photoData ? '' : `background:${slide.bg};border-color:rgba(255,255,255,0.4);`}">
+            ${slide.photoData
+              ? `<img src="${slide.photoData}" alt="${esc(slide.title)}" />`
+              : `<span style="font-size:40px;">${esc(slide.icon)}</span>`
+            }
+          </div>
+          <div style="min-width:0;">
+            <div class="pub-ad-title">${esc(slide.title)}</div>
+            <div class="pub-ad-sub">${esc(slide.sub)}</div>
+            <div class="pub-ad-usp-list">
+              ${(slide.usps || []).map(u => `<div class="pub-ad-usp-item"><b>✓</b> <span>${esc(u)}</span></div>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    const dotsHtml = slides.length > 1
+      ? `<div class="pub-ad-dots">` +
+        slides.map((_, i) => `<span class="pub-ad-dot ${i === curIdx ? 'active' : ''}" onclick="jumpToPublicAdSlide(${i})"></span>`).join('') +
+        `</div>`
+      : `<span></span>`;
+
+    slot.innerHTML = `
+      <div class="pub-ad-card">
+        <div class="pub-ad-top-row">
+          <span class="pub-ad-kicker">${esc(slide.kicker)}</span>
+          ${slides.length > 1 ? `
+            <div style="display:flex;gap:4px;">
+              <button type="button" class="btn btn-outline btn-xs" style="padding:2px 7px;font-size:10px;background:rgba(255,255,255,0.08);color:#fde68a;border-color:rgba(253,224,71,0.3);" onclick="jumpToPublicAdSlide(${curIdx - 1})">◀</button>
+              <button type="button" class="btn btn-outline btn-xs" style="padding:2px 7px;font-size:10px;background:rgba(255,255,255,0.08);color:#fde68a;border-color:rgba(253,224,71,0.3);" onclick="jumpToPublicAdSlide(${curIdx + 1})">▶</button>
+            </div>
+          ` : ''}
+        </div>
+        ${bodyHtml}
+        <div class="pub-ad-foot">
+          ${dotsHtml}
+          <button type="button" class="pub-ad-order-btn" onclick="triggerPassbookAdOrderWhatsApp('${esc(slide.title)}')">
+            ${esc(ctaLabel)}
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
   function sharePublicCheckLink() {
     const pubUrl = getEffectivePublicBaseUrl() + '?check=1';
     const msg =
@@ -10841,6 +11396,7 @@
         renderBrandIdentityAndProducts();
         document.getElementById('pubHdrTitle').textContent = `${res.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
       }
+      renderPublicPassbookAutoAdBanner((res.matches && res.matches[0]) ? res.matches[0].name : '');
 
       let list = res.matches || [];
       // If opened via personal token/direct link, narrow strictly to the exact party so neighbor shops never appear!
@@ -11032,6 +11588,7 @@
           document.getElementById('pubHdrTitle').textContent = `${initPub.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
         }
       } catch (e) {}
+      renderPublicPassbookAutoAdBanner('');
 
       let rememberedId = '';
       try { rememberedId = localStorage.getItem(PUB_REMEMBER_PARTY_KEY) || ''; } catch (e) {}

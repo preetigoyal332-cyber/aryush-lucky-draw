@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Aryush Foods • Aryush Rasoi Dhan — Lucky Draw ERP v11.6</title>
+  <title>ARYUSH FOODS • आर्युष रसोई धन | आधिकारिक डिजिटल पासबुक</title>
+  <meta name="description" content="आर्युष फूड्स (आर्युष रसोई धन) — आधिकारिक माल खाता पासबुक, लकी कूपन एवं मेगा लकी ड्रॉ स्टेटमेंट" />
+  <meta property="og:title" content="ARYUSH FOODS • आर्युष रसोई धन" />
+  <meta property="og:description" content="आधिकारिक डिजिटल माल खाता पासबुक एवं लकी ड्रॉ कूपन स्टेटमेंट" />
+  <meta property="og:image" content="/icon-512.png" />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -1150,7 +1155,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v11.6 Pro</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v11.7 Pro</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -2053,7 +2058,7 @@
 
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px;">
         <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Sabse zyada maal lene wali Top 5 parties kaun si hain?')">🏆 Top 5 Parties</button>
-        <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Kaun si parties 1 ya 2 bori aur lete hi naya coupon jeet lengi?')">🎯 Near Coupon Shops</button>
+        <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Kaun si parties 1 ya 2 bag aur lete hi naya coupon jeet lengi?')">🎯 Near Coupon Shops</button>
         <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Area wise kul kitne kg maal aur kitne coupons gaye hain?')">📍 Area Summary</button>
         <button class="badge b-ai" style="cursor:pointer;padding:6px 9px;" onclick="askQuickMunim('Abhi kitne prizes deliver hona pending hain?')">⏳ Pending Prizes</button>
       </div>
@@ -2366,10 +2371,25 @@
     <div class="modal" style="max-width:680px;">
       <div class="modal-hd">
         <div>
-          <h3 style="font-size:16px;font-weight:900;color:#15803d;">📲 Customize WhatsApp Target & Draw Fayde Message</h3>
-          <div style="font-size:11.5px;color:var(--muted);">Apne hisab se message badlein — har party ka Maal, Baki KG/Bori aur Coupons apne aap jud jayega!</div>
+          <h3 style="font-size:16px;font-weight:900;color:#15803d;">📲 Official WhatsApp Statement & Link Settings</h3>
+          <div style="font-size:11.5px;color:var(--muted);">Apne hisab se message badlein — har party ka Maal, Baki KG/Bag aur Coupons apne aap jud jayega!</div>
         </div>
         <button class="btn btn-outline btn-xs" onclick="closeModal('waTemplateModal')">✕</button>
+      </div>
+
+      <!-- Link ON/OFF & Custom Clean Domain Bar (Solves top worker-name preview box!) -->
+      <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:12px;padding:10px 12px;margin-bottom:10px;" class="form-grid cols-2">
+        <div class="field">
+          <label>🔗 WhatsApp में पासबुक लिंक भेजें?</label>
+          <select id="waIncludeLinkSel" onchange="updateWaLivePreview()" style="font-weight:700;font-size:12.5px;padding:7px 9px;">
+            <option value="1">✅ हाँ — लिंक के साथ भेजें</option>
+            <option value="0">🚫 नहीं — बिना लिंक (ऊपर प्रीव्यू बॉक्स नहीं आएगा)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>🌐 Custom Clean Domain (Optional)</label>
+          <input type="url" id="waCustomDomainInp" oninput="updateWaLivePreview()" placeholder="e.g. https://aryushfoods.workers.dev" style="font-size:12.5px;padding:7px 9px;" />
+        </div>
       </div>
 
       <div style="margin-bottom:8px;">
@@ -2377,11 +2397,11 @@
         <div style="display:flex;flex-wrap:wrap;gap:5px;">
           <span class="var-chip" onclick="insertWaTag('{SHOP}')">{SHOP} (दुकान नाम)</span>
           <span class="var-chip" onclick="insertWaTag('{TOTAL_KG}')">{TOTAL_KG} (कुल KG)</span>
-          <span class="var-chip" onclick="insertWaTag('{TOTAL_BAGS}')">{TOTAL_BAGS} (कुल बोरी)</span>
+          <span class="var-chip" onclick="insertWaTag('{TOTAL_BAGS}')">{TOTAL_BAGS} (कुल बैग)</span>
           <span class="var-chip" onclick="insertWaTag('{LAST_ENTRY_LINE}')">{LAST_ENTRY_LINE} (पिछली एंट्री)</span>
           <span class="var-chip" onclick="insertWaTag('{COUPONS}')">{COUPONS} (पक्के कूपन)</span>
           <span class="var-chip" onclick="insertWaTag('{NEED_KG}')">{NEED_KG} (बाकी KG)</span>
-          <span class="var-chip" onclick="insertWaTag('{NEED_BAGS}')">{NEED_BAGS} (बाकी बोरी)</span>
+          <span class="var-chip" onclick="insertWaTag('{NEED_BAGS}')">{NEED_BAGS} (बाकी बैग)</span>
           <span class="var-chip" onclick="insertWaTag('{NEXT_COUPON_NO}')">{NEXT_COUPON_NO} (अगला कूपन #)</span>
           <span class="var-chip" onclick="insertWaTag('{BASE_COUPONS}')">{BASE_COUPONS} (बेस कूपन)</span>
           <span class="var-chip" onclick="insertWaTag('{BONUS_COUPONS}')">{BONUS_COUPONS} (फ्री बोनस कूपन)</span>
@@ -3202,47 +3222,93 @@
     }
   }
 
-  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v11_5_wa_bonus_template';
+  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v11_7_wa_corp_template';
 
-  function getPersonalPartyPortalUrl(r) {
-    const base = (window.location.origin && window.location.origin !== 'null')
-      ? (window.location.origin + window.location.pathname)
-      : 'https://aryushfoods.pages.dev/';
-    if (r && r.id && r.name) return `${base}?check=1&id=${encodeURIComponent(r.id)}&q=${encodeURIComponent(r.name)}`;
-    if (r && r.id) return `${base}?check=1&id=${encodeURIComponent(r.id)}`;
-    if (r && r.name) return `${base}?check=1&q=${encodeURIComponent(r.name)}`;
+  function encodePartyPassbookToken(r) {
+    try {
+      const payload = `${r.id || 0}|${r.name || ''}`;
+      const bytes = new TextEncoder().encode(payload);
+      let bin = '';
+      bytes.forEach(b => { bin += String.fromCharCode(b); });
+      return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function decodePartyPassbookToken(tok) {
+    try {
+      let b64 = String(tok || '').replace(/-/g, '+').replace(/_/g, '/');
+      while (b64.length % 4) b64 += '=';
+      const bin = atob(b64);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      const decoded = new TextDecoder().decode(bytes);
+      const sep = decoded.indexOf('|');
+      if (sep === -1) return null;
+      return {
+        id: decoded.slice(0, sep),
+        name: decoded.slice(sep + 1)
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getEffectivePublicBaseUrl(overrideDomain = null) {
+    const customDom = (overrideDomain !== null ? overrideDomain : (STATE.settings?.custom_public_domain || '')).trim();
+    if (customDom) {
+      const withProto = /^https?:\/\//i.test(customDom) ? customDom : ('https://' + customDom);
+      return withProto.replace(/\/+$/, '') + '/';
+    }
+    if (window.location.origin && window.location.origin !== 'null') {
+      return window.location.origin + window.location.pathname;
+    }
+    return 'https://aryushfoods.workers.dev/';
+  }
+
+  function getPersonalPartyPortalUrl(r, overrideDomain = null) {
+    const base = getEffectivePublicBaseUrl(overrideDomain);
+    if (r && (r.id || r.name)) {
+      const tok = encodePartyPassbookToken(r);
+      if (tok) return `${base}?k=${tok}`;
+    }
     return `${base}?check=1`;
+  }
+
+  function isWaLinkEnabled() {
+    const v = STATE.settings?.wa_include_link;
+    if (v === undefined || v === null || v === '') return true;
+    return String(v) !== '0';
   }
 
   function getDefaultWaTargetTemplate() {
     return (
       `*{COMPANY} • आर्युष रसोई धन*\n` +
-      `_आधिकारिक लकी ड्रॉ एवं बोनस कूपन अपडेट_\n` +
+      `_आधिकारिक लकी ड्रॉ एवं माल खाता विवरण_\n` +
       `━━━━━━━━━━━━━━━━━━━━\n` +
       `🙏 *सादर नमस्कार, {SHOP} जी* {AREA_TAG}\n\n` +
-      `📊 *आपका वर्तमान माल विवरण:*\n` +
+      `📦 *आपका माल खाता विवरण:*\n` +
       `{LAST_ENTRY_LINE}` +
-      `• कुल प्राप्त माल: *{TOTAL_KG} kg ({TOTAL_BAGS} बोरी)*\n` +
+      `• कुल प्राप्त माल: *{TOTAL_KG} kg ({TOTAL_BAGS} बैग)*\n` +
       `• कुल पक्के लकी कूपन: *{COUPONS} कूपन* {BONUS_EARNED_TAG} {COUPON_CODES_LINE}\n\n` +
-      `🎯 *अगला कूपन लक्ष्य:*\n` +
-      `• आपका अगला कूपन पूरा होने में मात्र *{NEED_KG} kg (लगभग {NEED_BAGS} बोरी)* शेष है।\n` +
+      `🎯 *अगला लकी कूपन लक्ष्य:*\n` +
+      `• अगला कूपन ({KG_PER_COUPON} kg) पूरा होने में मात्र *{NEED_KG} kg (लगभग {NEED_BAGS} बैग)* शेष है।\n` +
       `{BONUS_OFFER_BLOCK}\n` +
-      `🏆 *मेगा ड्रॉ इनाम योजना ({MAX_COUPONS} कूपन = {MAX_COUPONS} पक्के इनाम):*\n` +
-      `▸ *1st:* Maruti Alto K10 कार (1)\n` +
-      `▸ *2nd & 3rd:* Honda Activa (2) • HF Deluxe बाइक (2)\n` +
-      `▸ *चाँदी उपहार (200g से 20g तक):* 200g (2), 100g (5), 50g (11), 30g (25), 25g (30), 20g (40)\n` +
+      `🏆 *मेगा लकी ड्रॉ उपहार योजना ({MAX_COUPONS} कूपन = {MAX_COUPONS} पक्के इनाम):*\n` +
+      `▸ *1st पुरस्कार:* Maruti Alto K10 कार (1)\n` +
+      `▸ *2nd व 3rd:* Honda Activa (2) • HF Deluxe बाइक (2)\n` +
+      `▸ *चाँदी उपहार (200g से 20g तक):* 200g (2), 100g (5), 50g (11), 30g (25), 25g (30) व 20g (40)\n` +
       `▸ *होम अप्लायंसेज:* 10 Lloyd फ्रिज • 21 Voltas वाशिंग मशीन\n` +
-      `▸ *गारंटीड उपहार:* 51 हल्दी (25kg) व 101 धनिया (30kg) — _एक भी कूपन खाली नहीं!_\n` +
-      `━━━━━━━━━━━━━━━━━━━━\n` +
-      `📲 *बिना सर्च किए अपना सीधा लाइव खाता व बोनस प्रोग्रेस देखें:*\n` +
-      `👉 {CHECK_LINK}\n\n` +
+      `▸ *गारंटीड उपहार:* 51 हल्दी (25kg) व 101 धनिया (30kg) — _प्रत्येक कूपन पर निश्चित उपहार!_\n` +
+      `{LINK_SECTION}` +
       `_{SIGNATORY}_`
     );
   }
 
   function getActiveWaTemplate() {
-    if (STATE.settings && STATE.settings.wa_target_template_v11_5 && String(STATE.settings.wa_target_template_v11_5).trim()) {
-      return String(STATE.settings.wa_target_template_v11_5);
+    if (STATE.settings && STATE.settings.wa_target_template_v11_7 && String(STATE.settings.wa_target_template_v11_7).trim()) {
+      return String(STATE.settings.wa_target_template_v11_7);
     }
     try {
       const loc = localStorage.getItem(WA_TEMPLATE_STORAGE_KEY);
@@ -3251,7 +3317,7 @@
     return getDefaultWaTargetTemplate();
   }
 
-  function buildPartyTargetWaMessage(r, customTpl = null) {
+  function buildPartyTargetWaMessage(r, customTpl = null, opts = null) {
     const s = STATE.settings;
     const cb = calcCouponBreakdown(r.total_kg || 0, s);
     const maxC = Number(s.max_coupons) || 301;
@@ -3261,34 +3327,48 @@
     const lastLine = r.last_entry
       ? `• पिछली डिलीवरी: *${r.last_entry.total_kg} kg* (${fmtDate(r.last_entry.entry_date)})\n`
       : '';
-    const areaTag = r.area ? `_(${r.area})_` : '';
-    const codesArr = (r.coupons || []).map(c => '#' + c.coupon_code);
-    const couponCodesLine = codesArr.length ? `_(No: ${codesArr.join(', ')})_` : '';
-    const bonusEarnedTag = cb.bonusEarned > 0 ? `_({BASE_COUPONS} खरीद + {BONUS_COUPONS} फ्री बोनस 🎁)_`
-      .replace('{BASE_COUPONS}', String(cb.baseEarned)).replace('{BONUS_COUPONS}', String(cb.bonusEarned)) : '';
 
-    // Smart Personalized 7-par-1-FREE Bonus Block!
+    // Avoid redundant "(KLS)" if shop name already ends with KLS!
+    const shopUpper = String(r.name || '').trim().toUpperCase();
+    const areaUpper = String(r.area || '').trim().toUpperCase();
+    const areaTag = (areaUpper && !shopUpper.endsWith(' ' + areaUpper) && shopUpper !== areaUpper)
+      ? `_(${r.area})_`
+      : '';
+
+    const codesArr = (r.coupons || []).map(c => '#' + c.coupon_code);
+    const couponCodesLine = codesArr.length ? `_(कूपन नं: ${codesArr.join(', ')})_` : '';
+    const bonusEarnedTag = cb.bonusEarned > 0
+      ? `_(${cb.baseEarned} खरीद + ${cb.bonusEarned} फ्री बोनस 🎁)_`
+      : '';
+
     let bonusBlock = '';
     if (cb.bonusEvery > 0 && cb.bonusFree > 0) {
       const targetBonusTotalKg = cb.nextBonusAtBase * cb.cupKg;
-      const targetBonusTotalBags = Math.round((targetBonusTotalKg / cb.bagKg) * 10) / 10;
-      const totalCupsAtMilestone = cb.nextBonusAtBase + ((Math.floor(cb.baseEarned / cb.bonusEvery) + 1) * cb.bonusFree);
-
       if (cb.nextMilestoneGivesBonus) {
-        // Super-excited message when the VERY NEXT coupon is the 7th (or 14th) milestone!
         bonusBlock =
-          `\n🎁 *स्पेशल महा-बोनस खुशखबरी (${cb.bonusEvery} पर +${cb.bonusFree} कूपन FREE!):*\n` +
-          `• आप बोनस के बिल्कुल करीब हैं! बस यही *${cb.needKg} kg (~${bagsNeed} बोरी)* माल और मँगवाते ही आपके *${cb.nextBonusAtBase} कूपन (${targetBonusTotalKg} kg)* पूरे हो जाएँगे और आपको *+${cb.bonusFree} एक्स्ट्रा लकी कूपन बिल्कुल FREE* मिलेगा — यानी एक साथ *${1 + cb.bonusFree} नए कूपन* पक्के! 🔥\n`;
+          `\n🎁 *स्पेशल महा-बोनस अवसर (${cb.bonusEvery} कूपन पर +${cb.bonusFree} कूपन FREE):*\n` +
+          `• आप बोनस के बिल्कुल करीब हैं! मात्र *${cb.needKg} kg (लगभग ${bagsNeed} बैग)* माल और मँगवाते ही आपके *${cb.nextBonusAtBase} कूपन (${targetBonusTotalKg} kg)* पूरे हो जाएँगे और आपको *+${cb.bonusFree} अतिरिक्त लकी कूपन निःशुल्क (FREE)* प्राप्त होगा — यानी एक साथ *${1 + cb.bonusFree} नए कूपन*!\n`;
       } else {
         bonusBlock =
-          `\n🎁 *स्पेशल बोनस ऑफर (${cb.bonusEvery} कूपन पर +${cb.bonusFree} कूपन FREE!):*\n` +
-          `• *${cb.bonusEvery} कूपन (${cb.bonusEvery * cb.cupKg} kg / ${Math.round((cb.bonusEvery * cb.cupKg) / cb.bagKg)} बोरी)* का माल पूरा होते ही कंपनी की तरफ से *+${cb.bonusFree} एक्स्ट्रा लकी कूपन बिल्कुल FREE* मिलता है (यानी 7 की जगह सीधे *${cb.bonusEvery + cb.bonusFree} पक्के कूपन*!)\n` +
-          `• आपके *${cb.nextBonusAtBase} कूपन + फ्री बोनस* के लिए मात्र *${cb.needKgForBonus} kg (~${cb.needBagsForBonus} बोरी)* और शेष है।\n`;
+          `\n🎁 *स्पेशल बोनस स्कीम (${cb.bonusEvery} कूपन पर +${cb.bonusFree} कूपन FREE):*\n` +
+          `• *${cb.bonusEvery} कूपन (${cb.bonusEvery * cb.cupKg} kg / ${Math.round((cb.bonusEvery * cb.cupKg) / cb.bagKg)} बैग)* का माल पूरा होने पर कंपनी की ओर से *+${cb.bonusFree} अतिरिक्त लकी कूपन निःशुल्क (FREE)* दिया जाता है (यानी ${cb.bonusEvery} की जगह सीधे *${cb.bonusEvery + cb.bonusFree} पक्के कूपन*!)।\n` +
+          `• आपके *${cb.nextBonusAtBase} कूपन + फ्री बोनस* लक्ष्य हेतु *${cb.needKgForBonus} kg (लगभग ${cb.needBagsForBonus} बैग)* शेष है।\n`;
       }
     }
 
-    const directPersonalUrl = getPersonalPartyPortalUrl(r);
-    const tpl = customTpl !== null ? customTpl : getActiveWaTemplate();
+    const includeLink = opts && opts.includeLink !== undefined ? opts.includeLink : isWaLinkEnabled();
+    const overrideDom = opts && opts.customDomain !== undefined ? opts.customDomain : null;
+    const directPersonalUrl = getPersonalPartyPortalUrl(r, overrideDom);
+
+    const linkSection = includeLink
+      ? `━━━━━━━━━━━━━━━━━━━━\n📲 *ऑनलाइन खाता पासबुक एवं कूपन स्टेटमेंट:*\n👉 ${directPersonalUrl}\n\n`
+      : `━━━━━━━━━━━━━━━━━━━━\n`;
+
+    let tpl = customTpl !== null ? customTpl : getActiveWaTemplate();
+    // If user customized template with {CHECK_LINK} directly and turned off link, strip link line cleanly
+    if (!includeLink && tpl.includes('{CHECK_LINK}')) {
+      tpl = tpl.replace(/.*\{CHECK_LINK\}.*\n?/g, '');
+    }
 
     return tpl
       .replace(/\{SHOP\}/g, r.name || 'व्यापारी बंधु')
@@ -3312,11 +3392,16 @@
       .replace(/\{MAX_COUPONS\}/g, String(maxC))
       .replace(/\{COMPANY\}/g, s.company_name || 'ARYUSH FOODS')
       .replace(/\{SIGNATORY\}/g, s.signatory || 'सौजन्य: आर्युष फूड्स (कैलारस, मुरैना)')
-      .replace(/\{CHECK_LINK\}/g, directPersonalUrl);
+      .replace(/\{LINK_SECTION\}/g, linkSection)
+      .replace(/\{CHECK_LINK\}/g, includeLink ? directPersonalUrl : '');
   }
 
   function openWaTemplateModal() {
     document.getElementById('waTemplateBox').value = getActiveWaTemplate();
+    const linkSel = document.getElementById('waIncludeLinkSel');
+    const domInp = document.getElementById('waCustomDomainInp');
+    if (linkSel) linkSel.value = isWaLinkEnabled() ? '1' : '0';
+    if (domInp) domInp.value = STATE.settings?.custom_public_domain || '';
     updateWaLivePreview();
     openModal('waTemplateModal');
   }
@@ -3333,7 +3418,7 @@
 
   function updateWaLivePreview() {
     const sampleParty = STATE.summaryRows.find(x => x.total_kg > 0) || {
-      id: 101,
+      id: 14,
       name: 'SHARMA KIRANA STORE',
       area: 'KAILARAS',
       total_kg: 1260,
@@ -3342,27 +3427,41 @@
       last_entry: { total_kg: 210, entry_date: todayISO() }
     };
     const draft = document.getElementById('waTemplateBox').value;
-    document.getElementById('waLivePreviewBox').textContent = buildPartyTargetWaMessage(sampleParty, draft);
+    const includeLink = document.getElementById('waIncludeLinkSel')?.value !== '0';
+    const customDomain = document.getElementById('waCustomDomainInp')?.value || '';
+    document.getElementById('waLivePreviewBox').textContent = buildPartyTargetWaMessage(sampleParty, draft, { includeLink, customDomain });
   }
 
   async function saveCustomWaTemplate() {
     const txt = document.getElementById('waTemplateBox').value.trim();
     if (!txt) return toast('Message khali nahi ho sakta!', true);
+    const incLink = document.getElementById('waIncludeLinkSel')?.value === '0' ? '0' : '1';
+    const custDom = (document.getElementById('waCustomDomainInp')?.value || '').trim();
+
     try { localStorage.setItem(WA_TEMPLATE_STORAGE_KEY, txt); } catch (e) {}
-    STATE.settings.wa_target_template_v11_5 = txt;
-    try { await api('/api/settings', 'POST', { wa_target_template_v11_5: txt }); } catch (e) {}
+    STATE.settings.wa_target_template_v11_7 = txt;
+    STATE.settings.wa_include_link = incLink;
+    STATE.settings.custom_public_domain = custDom;
+
+    try {
+      await api('/api/settings', 'POST', {
+        wa_target_template_v11_7: txt,
+        wa_include_link: incLink,
+        custom_public_domain: custDom
+      });
+    } catch (e) {}
     closeModal('waTemplateModal');
-    toast('✅ Custom WhatsApp Message (7+1 Bonus Offer) Save Ho Gaya!');
+    toast('✅ Official WhatsApp Statement & Link Settings Saved!');
   }
 
   async function resetDefaultWaTemplate() {
     const def = getDefaultWaTargetTemplate();
     document.getElementById('waTemplateBox').value = def;
     try { localStorage.removeItem(WA_TEMPLATE_STORAGE_KEY); } catch (e) {}
-    STATE.settings.wa_target_template_v11_5 = def;
-    try { await api('/api/settings', 'POST', { wa_target_template_v11_5: def }); } catch (e) {}
+    STATE.settings.wa_target_template_v11_7 = def;
+    try { await api('/api/settings', 'POST', { wa_target_template_v11_7: def }); } catch (e) {}
     updateWaLivePreview();
-    toast('↺ Default 7+1 Bonus Executive Message Set Ho Gaya!');
+    toast('↺ Default Official Statement (बैग + 7 पर 1 फ्री) Set Ho Gaya!');
   }
 
   function openAiTargetCoachModal() {
@@ -3400,14 +3499,14 @@
           <div>
             <div class="ret-name">${esc(r.name)} ${r.area ? `<span class="badge b-area">📍 ${esc(r.area)}</span>` : ''} ${bonusHint}</div>
             <div style="font-size:12px;color:#166534;font-weight:800;margin-top:4px;">
-              📦 कुल माल: <b>${r.total_kg} kg (${r.bags_eq} बोरी)</b> • 🎟️ कुल कूपन: <b>${r.earned}</b> • 🎯 अगला कूपन: <b>${r.need_kg} kg (~${bagsNeeded} बोरी)</b>
+              📦 कुल माल: <b>${r.total_kg} kg (${r.bags_eq} बैग)</b> • 🎟️ कुल कूपन: <b>${r.earned}</b> • 🎯 अगला कूपन: <b>${r.need_kg} kg (लगभग ${bagsNeeded} बैग)</b>
             </div>
             <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">
-              7 पर +1 FREE बोनस के लिए बाकी: <b>${r.need_kg_for_bonus} kg (~${r.need_bags_for_bonus} बोरी)</b>
+              7 पर +1 FREE बोनस के लिए शेष: <b>${r.need_kg_for_bonus} kg (लगभग ${r.need_bags_for_bonus} बैग)</b>
             </div>
           </div>
           <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
-            <button class="btn btn-wa btn-xs" onclick="sendAiTargetWhatsApp(${r.id})">📲 Send 7+1 Offer WTS</button>
+            <button class="btn btn-wa btn-xs" onclick="sendAiTargetWhatsApp(${r.id})">📲 Send Official WTS</button>
             <button class="btn btn-brand btn-xs" onclick="closeModal('aiTargetCoachModal');jumpToDelivery('${esc(r.name)}')">+ Maal Entry</button>
           </div>
         </div>
@@ -6271,16 +6370,22 @@
     if (!r) return;
     const s = STATE.settings;
     const directUrl = getPersonalPartyPortalUrl(r);
+    const shopUpper = String(r.name || '').trim().toUpperCase();
+    const areaUpper = String(r.area || '').trim().toUpperCase();
+    const areaTag = (areaUpper && !shopUpper.endsWith(' ' + areaUpper) && shopUpper !== areaUpper) ? `_(${r.area})_` : '';
     const cupLines = r.coupons.map(c => c.prize_title ? `▸ कूपन *#${c.coupon_code}* — 🏆 *${c.prize_title}*` : `▸ कूपन *#${c.coupon_code}* _(ड्रॉ में शामिल)_`).join('\n');
+    const linkPart = isWaLinkEnabled()
+      ? `\n📲 *ऑनलाइन खाता पासबुक एवं कूपन स्टेटमेंट:*\n👉 ${directUrl}\n`
+      : '';
     const msg =
       `*${s.company_name} • आर्युष रसोई धन*\n` +
       `_आधिकारिक कूपन एवं खाता पासबुक_\n` +
       `━━━━━━━━━━━━━━━━━━━━\n` +
-      `🏪 *${r.name}* ${r.area ? `_(${r.area})_` : ''}\n` +
-      `📦 कुल प्राप्त माल: *${r.total_kg} kg* (${r.bags_eq} बोरी)\n` +
+      `🏪 *${r.name}* ${areaTag}\n` +
+      `📦 कुल प्राप्त माल: *${r.total_kg} kg* (${r.bags_eq} बैग)\n` +
       `🎟️ जारी लकी कूपन: *${r.issued}* (अर्जित: ${r.earned})\n` +
       (cupLines ? `\n*कूपन एवं इनाम विवरण:*\n${cupLines}\n` : '') +
-      `\n📲 *अपनी लाइव डिजिटल पासबुक यहाँ खोलें (बिना सर्च किए):*\n👉 ${directUrl}\n` +
+      linkPart +
       `━━━━━━━━━━━━━━━━━━━━\n_${s.signatory}_`;
     const digits = String(r.phone || '').replace(/[^0-9]/g, '');
     const waPhone = digits.length === 10 ? '91' + digits : digits;
@@ -8492,21 +8597,21 @@
     }
   }
 
+  function bagsNeedLabel(b){ return b + " बैग"; }
+  const PUB_REMEMBER_PARTY_KEY = 'aryush_pub_last_party_id';
+
   function sharePublicCheckLink() {
-    const pubUrl = window.location.origin + window.location.pathname + '?check=1';
+    const pubUrl = getEffectivePublicBaseUrl() + '?check=1';
     const msg =
       `🏆 *${STATE.settings.company_name} — ${STATE.settings.campaign_name}*\n\n` +
-      `Sabhi dukandar bhai apna *Kul Maal Khata, Lucky Coupon Numbers aur Jeeta Hua Inam* niche diye link par apna Naam ya Coupon # daal kar live dekh sakte hain:\n` +
+      `सभी व्यापारी बंधु अपना *माल खाता, लकी कूपन नंबर और इनाम स्टेटस* नीचे दिए गए आधिकारिक पोर्टल लिंक पर देख सकते हैं:\n` +
       `👉 ${pubUrl}`;
     if (navigator.share) {
-      navigator.share({ title: 'Check Lucky Draw Khata & Result', text: msg, url: pubUrl }).catch(() => {});
+      navigator.share({ title: `${STATE.settings.company_name} — आधिकारिक डिजिटल पासबुक`, text: msg }).catch(() => {});
     } else {
       window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
     }
   }
-
-  function bagsNeedLabel(b){ return b + " बोरी"; }
-  const PUB_REMEMBER_PARTY_KEY = 'aryush_pub_last_party_id';
 
   function showPublicManualSearchBox() {
     const sc = document.getElementById('pubSearchBoxCard');
@@ -8517,12 +8622,12 @@
     if (inp) inp.focus();
   }
 
-  async function runPublicCheck(directId = null, autoQuery = null) {
+  async function runPublicCheck(directId = null, autoQuery = null, isPrivateToken = false) {
     const q = autoQuery !== null ? String(autoQuery).trim() : document.getElementById('pubSearchInp').value.trim();
     if (!directId && !q) return toast('अपनी दुकान का नाम, मोबाइल या कूपन # डालें!', true);
 
     const box = document.getElementById('pubResultsBox');
-    box.innerHTML = `<div class="card" style="text-align:center;padding:28px;color:var(--muted);font-weight:700;">⏳ आपका डिजिटल खाता खुल रहा है...</div>`;
+    box.innerHTML = `<div class="card" style="text-align:center;padding:28px;color:var(--muted);font-weight:700;">⏳ आधिकारिक डिजिटल पासबुक लोड हो रही है...</div>`;
 
     try {
       const endpoint = directId
@@ -8543,7 +8648,15 @@
         }
       }
 
-      const list = res.matches || [];
+      let list = res.matches || [];
+      // If opened via personal token/direct link, narrow strictly to the exact party so neighbor shops never appear!
+      if ((isPrivateToken || directId) && list.length > 1) {
+        const exactById = directId ? list.filter(m => String(m.id || '') === String(directId)) : [];
+        const exactByName = q ? list.filter(m => String(m.name || '').trim().toUpperCase() === q.toUpperCase()) : [];
+        if (exactById.length === 1) list = exactById;
+        else if (exactByName.length === 1) list = exactByName;
+      }
+
       if (!list.length) {
         showPublicManualSearchBox();
         box.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:24px;">कोई रिकॉर्ड नहीं मिला। कृपया अपनी दुकान का नाम या कूपन नंबर ऊपर बॉक्स में लिखें।</div>`;
@@ -8554,76 +8667,72 @@
         try { localStorage.setItem(PUB_REMEMBER_PARTY_KEY, String(list[0].id)); } catch (e) {}
       }
 
-      if (directId && list.length > 0) {
+      if ((directId || isPrivateToken) && list.length > 0) {
         const sc = document.getElementById('pubSearchBoxCard');
         const ws = document.getElementById('pubDirectWelcomeStrip');
         if (sc) sc.style.display = 'none';
-        if (ws) ws.style.display = 'flex';
+        // On private WhatsApp token links (?k=...), keep it 100% clean like a private bank statement (hide "search other party")
+        if (ws) ws.style.display = isPrivateToken ? 'none' : 'flex';
       }
 
       const cupKg = Number(STATE.settings.kg_per_coupon) || 210;
       const bagKg = Number(STATE.settings.kg_per_bag) || 30;
 
       box.innerHTML = list.map(r => {
-        const remKg = r.rem_kg !== undefined ? r.rem_kg : Math.round(((r.total_kg || 0) % cupKg) * 10) / 10;
-        const needKg = r.need_kg !== undefined ? r.need_kg : Math.round((cupKg - remKg) * 10) / 10;
+        const cbPub = calcCouponBreakdown(r.total_kg || 0, STATE.settings);
+        const remKg = r.rem_kg !== undefined ? r.rem_kg : cbPub.remKg;
+        const needKg = r.need_kg !== undefined ? r.need_kg : cbPub.needKg;
         const needBags = Math.max(0.5, Math.round((needKg / bagKg) * 10) / 10);
-        const pct = r.pct !== undefined ? r.pct : Math.min(100, Math.round((remKg / cupKg) * 100));
+        const pct = r.pct !== undefined ? r.pct : cbPub.pct;
+        const totalEarned = cbPub.totalEarned;
         const dels = r.recent_deliveries || [];
 
         return `
-        <div class="card" style="padding:18px;border:1.5px solid #cbd5e1;">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-bottom:12px;border-bottom:1px solid #f1f5f9;">
+        <div class="card" style="padding:20px;border:1px solid #cbd5e1;box-shadow:0 8px 26px rgba(15,23,42,0.06);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-bottom:14px;border-bottom:1px solid #e2e8f0;">
             <div>
-              <span class="badge b-green" style="margin-bottom:5px;">🏪 VERIFIED PARTY KHATA</span>
-              <div style="font-size:18px;font-weight:900;color:#0f172a;line-height:1.25;">${esc(r.name)}</div>
-              <div style="font-size:12px;color:#64748b;font-weight:700;margin-top:3px;">📍 क्षेत्र / एरिया: ${esc(r.area || '-')}</div>
+              <span class="badge b-green" style="margin-bottom:6px;">✅ OFFICIAL PARTY STATEMENT</span>
+              <div style="font-size:18.5px;font-weight:900;color:#0f172a;line-height:1.25;">${esc(r.name)}</div>
+              <div style="font-size:12px;color:#64748b;font-weight:700;margin-top:4px;">📍 क्षेत्र / एरिया: ${esc(r.area || '-')}</div>
             </div>
-            <div style="text-align:right;background:#f0fdf4;border:1px solid #bbf7d0;padding:8px 12px;border-radius:12px;flex-shrink:0;">
-              <div style="font-size:10px;font-weight:800;color:#166534;text-transform:uppercase;">कुल माल</div>
+            <div style="text-align:right;background:#f0fdf4;border:1px solid #bbf7d0;padding:9px 14px;border-radius:12px;flex-shrink:0;">
+              <div style="font-size:10px;font-weight:800;color:#166534;text-transform:uppercase;">कुल प्राप्त माल</div>
               <div style="font-size:20px;font-weight:900;color:#15803d;">${r.total_kg} kg</div>
-              <div style="font-size:11px;color:#166534;font-weight:700;">${r.bags_eq} बोरी</div>
+              <div style="font-size:11.5px;color:#166534;font-weight:700;">${r.bags_eq} बैग</div>
             </div>
           </div>
 
-          <div class="khata-stats-3" style="margin-top:12px;background:#f8fafc;padding:10px 6px;border-radius:12px;border:1px solid #e2e8f0;">
+          <div class="khata-stats-3" style="margin-top:14px;background:#f8fafc;padding:11px 6px;border-radius:12px;border:1px solid #e2e8f0;">
             <div class="khata-stat-col">
               <div class="khata-stat-lbl">कुल पक्के कूपन</div>
-              <div class="khata-stat-val" style="color:#1d4ed8;">${r.earned}</div>
-              <div class="khata-stat-sub">${(r.bonus_earned || 0) > 0 ? `${r.base_earned} + ${r.bonus_earned} फ्री बोनस 🎁` : `${cupKg} kg / कूपन`}</div>
+              <div class="khata-stat-val" style="color:#1d4ed8;">${totalEarned}</div>
+              <div class="khata-stat-sub">${cbPub.bonusEarned > 0 ? `${cbPub.baseEarned} + ${cbPub.bonusEarned} फ्री बोनस 🎁` : `${cupKg} kg / कूपन`}</div>
             </div>
             <div class="khata-stat-col">
-              <div class="khata-stat-lbl">जारी कूपन #</div>
+              <div class="khata-stat-lbl">जारी कूपन नं.</div>
               <div class="khata-stat-val" style="color:#0f172a;">${(r.coupons || []).length}</div>
               <div class="khata-stat-sub">ड्रॉ में शामिल</div>
             </div>
             <div class="khata-stat-col">
               <div class="khata-stat-lbl">अगले कूपन हेतु</div>
               <div class="khata-stat-val" style="color:#d97706;">${needKg} kg</div>
-              <div class="khata-stat-sub">~${needBags} बोरी शेष</div>
+              <div class="khata-stat-sub">लगभग ${needBags} बैग शेष</div>
             </div>
           </div>
 
-          <div style="margin-top:12px;padding:11px 13px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;">
+          <div style="margin-top:12px;padding:12px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;">
             <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#92400e;">
               <span>🎯 अगला कूपन प्रोग्रेस: ${remKg} / ${cupKg} kg (${pct}%)</span>
-              <span>बस ${needBags} बोरी और!</span>
+              <span>मात्र ${needBags} बैग शेष</span>
             </div>
             <div class="prog-bar" style="height:8px;margin-top:6px;background:#fef3c7;">
               <div class="prog-fill" style="width:${pct}%;background:linear-gradient(90deg,#f59e0b,#16a34a);"></div>
             </div>
-            ${(() => {
-              const bEv = parseInt(STATE.settings.bonus_every_coupons ?? 7, 10);
-              const bFr = parseInt(STATE.settings.bonus_free_coupons ?? 1, 10);
-              if (bEv > 0 && bFr > 0) {
-                const cbPub = calcCouponBreakdown(r.total_kg || 0, STATE.settings);
-                return `<div style="margin-top:8px;padding-top:7px;border-top:1px dashed #fcd34d;font-size:11.5px;font-weight:800;color:#15803d;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-                  <span>🎁 <b>${bEv} कूपन पर +${bFr} कूपन FREE ऑफर:</b></span>
-                  <span>${cbPub.nextMilestoneGivesBonus ? `🔥 यही ${bagsNeedLabel(needBags)} मँगवाते ही +${bFr} FREE कूपन मिलेगा!` : `बोनस हेतु मात्र ${cbPub.needKgForBonus} kg (~${cbPub.needBagsForBonus} बोरी) शेष`}</span>
-                </div>`;
-              }
-              return '';
-            })()}
+            ${(cbPub.bonusEvery > 0 && cbPub.bonusFree > 0) ? `
+              <div style="margin-top:8px;padding-top:7px;border-top:1px dashed #fcd34d;font-size:11.5px;font-weight:800;color:#15803d;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
+                <span>🎁 <b>${cbPub.bonusEvery} कूपन पर +${cbPub.bonusFree} कूपन FREE स्कीम:</b></span>
+                <span>${cbPub.nextMilestoneGivesBonus ? `🔥 यही ${bagsNeedLabel(needBags)} मँगवाते ही +${cbPub.bonusFree} FREE कूपन मिलेगा!` : `बोनस हेतु ${cbPub.needKgForBonus} kg (लगभग ${cbPub.needBagsForBonus} बैग) शेष`}</span>
+              </div>` : ''}
           </div>
 
           <div style="margin-top:14px;">
@@ -8632,7 +8741,7 @@
               ${(r.coupons || []).map(c => c.prize_title
                 ? `<span class="badge b-green" style="font-size:12.5px;padding:6px 11px;border:1px solid #86efac;">🎟️ #${esc(c.coupon_code)} — 🏆 ${esc(c.prize_title)} (${c.prize_status === 'DELIVERED' ? 'प्राप्त' : 'विजेता!'})</span>`
                 : `<span class="badge b-navy" style="font-size:12.5px;padding:6px 11px;">🎟️ कूपन #${esc(c.coupon_code)} (लकी ड्रॉ में शामिल)</span>`
-              ).join('') || '<span style="font-size:12px;color:var(--muted);background:#f8fafc;padding:8px 12px;border-radius:9px;border:1px dashed #cbd5e1;">अभी कूपन नंबर अलॉट होना शेष है</span>'}
+              ).join('') || '<span style="font-size:12px;color:var(--muted);background:#f8fafc;padding:8px 12px;border-radius:9px;border:1px dashed #cbd5e1;">कूपन आवंटन प्रक्रिया में है</span>'}
             </div>
           </div>
 
@@ -8642,7 +8751,7 @@
               <div class="passbook" style="border-radius:11px;">
                 <div class="pb-head" style="grid-template-columns:1.1fr 1fr 1fr;background:#f1f5f9;color:#334155;border-color:#e2e8f0;">
                   <div>तारीख</div>
-                  <div>बोरी / खुला</div>
+                  <div>बैग / खुला</div>
                   <div style="text-align:right;">कुल वजन</div>
                 </div>
                 ${dels.map((d, idx) => `
@@ -8651,7 +8760,7 @@
                       ${fmtDate(d.entry_date)} ${idx === 0 ? '<span class="b-latest" style="font-size:9px;">NEW</span>' : ''}
                     </div>
                     <div style="font-size:12px;color:#475569;font-weight:600;">
-                      ${d.bags || 0} बोरी${d.loose_kg ? ` + ${d.loose_kg}kg` : ''}
+                      ${d.bags || 0} बैग${d.loose_kg ? ` + ${d.loose_kg}kg` : ''}
                     </div>
                     <div style="text-align:right;font-size:13.5px;font-weight:800;color:#15803d;">
                       +${d.total_kg} kg
@@ -8694,10 +8803,21 @@
 
   window.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('check') === '1') {
+    const kToken = params.get('k');
+    if (kToken || params.get('check') === '1') {
       document.body.classList.add('public-mode');
       syncV10SettingsFromState();
       renderBrandIdentityAndProducts();
+
+      const decodedTok = kToken ? decodePartyPassbookToken(kToken) : null;
+      const directIdParam = decodedTok?.id || params.get('id');
+      const queryParam = decodedTok?.name || params.get('q');
+
+      if (kToken || directIdParam || queryParam) {
+        const sc = document.getElementById('pubSearchBoxCard');
+        if (sc) sc.style.display = 'none';
+      }
+
       try {
         const initPub = await api('/api/public/check?q=');
         if (initPub.settings) {
@@ -8710,22 +8830,20 @@
           }
         }
       } catch (e) {}
-      const directIdParam = params.get('id');
-      const queryParam = params.get('q');
+
       let rememberedId = '';
       try { rememberedId = localStorage.getItem(PUB_REMEMBER_PARTY_KEY) || ''; } catch (e) {}
 
-      if (directIdParam) {
-        document.getElementById('pubSearchBoxCard').style.display = 'none';
-        runPublicCheck(directIdParam, queryParam || null);
+      if (decodedTok) {
+        runPublicCheck(decodedTok.id || null, decodedTok.name || null, true);
+      } else if (directIdParam) {
+        runPublicCheck(directIdParam, queryParam || null, true);
       } else if (queryParam) {
         document.getElementById('pubSearchInp').value = queryParam;
-        document.getElementById('pubSearchBoxCard').style.display = 'none';
-        document.getElementById('pubDirectWelcomeStrip').style.display = 'flex';
-        runPublicCheck(null, queryParam);
+        runPublicCheck(null, queryParam, true);
       } else if (rememberedId) {
         document.getElementById('pubSearchBoxCard').style.display = 'none';
-        runPublicCheck(rememberedId, null);
+        runPublicCheck(rememberedId, null, false);
       }
       return;
     }

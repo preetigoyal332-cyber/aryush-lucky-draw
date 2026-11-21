@@ -1,8 +1,8 @@
 {
   "name": "ARYUSH FOODS • आर्युष रसोई धन",
   "short_name": "Aryush Foods",
-  "description": "आर्युष फूड्स (आर्युष रसोई धन) — आधिकारिक डिजिटल पार्टी पासबुक एवं सप्लाई स्टेटमेंट",
-  "start_url": "/?v=16.0",
+  "description": "आर्युष फूड्स (आर्युष रसोई धन) — सुरक्षित डिजिटल पासबुक एवं लकी ड्रॉ सिस्टम v16.5",
+  "start_url": "/?v=16.5",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",

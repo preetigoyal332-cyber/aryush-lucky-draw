@@ -2254,6 +2254,42 @@
       box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
     }
     .pub-ad-order-btn:active { transform: scale(0.96); }
+
+    /* ==================== v16.5 STRICT RETAILER SANDBOX & ADMIN PIN SECURITY GATE ==================== */
+    body.public-mode .modal-bg:not(#quickProdVideoModal),
+    body.public-mode #stageProjectorOverlay,
+    body.public-mode #retailerKhataModal,
+    body.public-mode #qpvAdminFooterBtns {
+      display: none !important;
+      pointer-events: none !important;
+    }
+    body.public-mode #qpvRetailerFooterBtns {
+      display: flex !important;
+    }
+    #adminLoginGateOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, #090d16 0%, #0f172a 55%, #1e293b 100%);
+      color: #ffffff;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+    #adminLoginGateOverlay.open {
+      display: flex !important;
+    }
+    .admin-gate-card {
+      width: 100%;
+      max-width: 390px;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1.5px solid rgba(245, 158, 11, 0.55);
+      border-radius: 22px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 25px 65px rgba(0, 0, 0, 0.7);
+    }
   </style>
 </head>
 <body>
@@ -2271,7 +2307,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v16.0 Corporate</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v16.5 Secure</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -3575,7 +3611,8 @@
       </div>
       <div id="qpvKhasiyatBox" style="margin-bottom:8px;display:flex;flex-direction:column;gap:5px;"></div>
       <video id="qpvVideoEl" controls playsinline style="width:100%;max-height:54vh;border-radius:12px;background:#000;"></video>
-      <div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px;flex-wrap:wrap;">
+      <!-- Admin-Only Footer (Automatically Hidden on Retailer Passbook!) -->
+      <div id="qpvAdminFooterBtns" style="display:flex;justify-content:space-between;gap:8px;margin-top:10px;flex-wrap:wrap;">
         <label class="btn btn-wa btn-xs" id="qpvQuickUploadBtn" style="cursor:pointer;">
           📸 Upload / Change Pack Photo
           <input type="file" accept="image/*" style="display:none;" id="qpvQuickUploadInp" />
@@ -3584,6 +3621,13 @@
           <button class="btn btn-outline btn-xs" style="color:#fde68a;border-color:#f59e0b;" onclick="closeQuickProdVideoModal();openProductStudioModal();">✏️ All Products</button>
           <button class="btn btn-brand btn-xs" onclick="closeQuickProdVideoModal();openStageProjector();startFullScreenVideoAdLoop();">📺 Stage LED TV</button>
         </div>
+      </div>
+      <!-- Retailer-Only Footer (Shown on Passbook Link!) -->
+      <div id="qpvRetailerFooterBtns" style="display:none;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;">
+        <button type="button" class="pub-ad-order-btn" style="flex:1;justify-content:center;padding:10px 14px;" id="qpvRetailerOrderBtn">
+          📲 WhatsApp पर ऑर्डर लिखवाएँ
+        </button>
+        <button type="button" class="btn btn-outline btn-xs" style="color:#cbd5e1;border-color:#475569;padding:9px 14px;" onclick="closeQuickProdVideoModal()">बंद करें</button>
       </div>
     </div>
   </div>
@@ -3995,6 +4039,23 @@
       <div id="pubAutoAdBannerSlot" class="pub-ad-showcase-wrap" style="display:none;"></div>
 
       <div id="pubResultsBox" style="display:flex;flex-direction:column;gap:12px;"></div>
+    </div>
+  </div>
+
+  <!-- ==================== FULL-SCREEN ADMIN LOGIN GATE (BLOCKS RETAILERS WHO EDIT URL TO `/`) ==================== -->
+  <div id="adminLoginGateOverlay">
+    <div class="admin-gate-card">
+      <div class="logo-crest" style="width:68px;height:68px;margin:0 auto 12px;padding:3px;cursor:default;">
+        <img src="/logo.png" alt="Aryush" />
+      </div>
+      <div style="font-size:10.5px;font-weight:800;letter-spacing:1.6px;color:#fcd34d;text-transform:uppercase;">AUTHORIZED STAFF ACCESS ONLY</div>
+      <h2 style="font-size:19px;font-weight:900;color:#ffffff;margin:4px 0 6px;">ARYUSH FOODS — ADMIN PANEL</h2>
+      <p style="font-size:12px;color:#94a3b8;margin-bottom:16px;line-height:1.45;">यह एडमिन पैनल केवल कंपनी स्टाफ के लिए सुरक्षित है। खोलने के लिए अपना Admin PIN दर्ज करें:</p>
+      <input type="password" inputmode="numeric" id="adminGatePinInp" maxlength="8" placeholder="••••" onkeydown="if(event.key==='Enter') submitAdminGatePin()" style="text-align:center;font-size:24px;font-weight:900;letter-spacing:8px;background:#050811;color:#fde047;border:1.5px solid #f59e0b;border-radius:12px;padding:10px;margin-bottom:12px;" />
+      <button type="button" class="btn btn-brand" style="width:100%;padding:12px;font-size:14.5px;font-weight:800;" onclick="submitAdminGatePin()">🔓 Unlock Admin Panel</button>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);">
+        <a href="?check=1" style="font-size:12px;font-weight:700;color:#38bdf8;text-decoration:none;">🏪 व्यापारी पासबुक पोर्टल पर जाएँ &rarr;</a>
+      </div>
     </div>
   </div>
 
@@ -4596,6 +4657,10 @@
   }
 
   function openModal(id) {
+    // STRICT SANDBOX LOCK: Retailers in public passbook mode can NEVER open any Admin Modal!
+    if (document.body.classList.contains('public-mode') && id !== 'quickProdVideoModal') {
+      return;
+    }
     const el = document.getElementById(id);
     if (!el) return;
     const wasOpen = el.classList.contains('open');
@@ -8612,6 +8677,7 @@
   }
 
   function openProductStudioModal() {
+    if (document.body.classList.contains('public-mode')) return;
     clearProdForm();
     refreshStageVideosFromIDB();
     renderProductStudioUI();
@@ -8844,8 +8910,19 @@
     const upBtn = document.getElementById('qpvQuickUploadBtn');
     const upInp = document.getElementById('qpvQuickUploadInp');
 
-    if (upBtn && upInp) {
-      upBtn.style.display = isPublicMode ? 'none' : 'inline-flex';
+    const admFoot = document.getElementById('qpvAdminFooterBtns');
+    const retFoot = document.getElementById('qpvRetailerFooterBtns');
+    const retOrdBtn = document.getElementById('qpvRetailerOrderBtn');
+    if (admFoot) admFoot.style.display = isPublicMode ? 'none' : 'flex';
+    if (retFoot) retFoot.style.display = isPublicMode ? 'flex' : 'none';
+    if (retOrdBtn) {
+      retOrdBtn.onclick = () => {
+        closeQuickProdVideoModal();
+        triggerPassbookAdOrderWhatsApp(p.hi || p.name);
+      };
+    }
+    if (upBtn && upInp && !isPublicMode) {
+      upBtn.style.display = 'inline-flex';
       upInp.onchange = async (ev) => {
         await quickUploadPhotoForProduct(idx, ev);
         previewSingleProductMedia(idx);
@@ -10001,6 +10078,7 @@
   }
 
   function openStageProjector() {
+    if (document.body.classList.contains('public-mode')) return;
     clearStageTimers();
     STAGE_REVEAL_BUSY = false;
     document.getElementById('projHeaderTitle').textContent =
@@ -11012,8 +11090,42 @@
     }).join('') || `<span style="color:#64748b;font-size:12px;font-weight:600;">Official Winner Declarations Will Appear Here Live</span>`;
   }
 
+  const ADMIN_UNLOCK_TOKEN_KEY = 'aryush_admin_device_unlocked';
   let ADMIN_SESSION_UNLOCKED = false;
+  try { ADMIN_SESSION_UNLOCKED = (localStorage.getItem(ADMIN_UNLOCK_TOKEN_KEY) === '1'); } catch (e) {}
+
+  async function submitAdminGatePin() {
+    const inp = document.getElementById('adminGatePinInp');
+    const pin = (inp?.value || '').trim();
+    if (!pin) return toast('Please enter Admin PIN', true);
+    try {
+      const res = await api('/api/verify-pin', 'POST', { pin });
+      if (res.valid) {
+        ADMIN_SESSION_UNLOCKED = true;
+        try { localStorage.setItem(ADMIN_UNLOCK_TOKEN_KEY, '1'); } catch (e) {}
+        document.getElementById('adminLoginGateOverlay').classList.remove('open');
+        if (inp) inp.value = '';
+        updatePinBadgeUI();
+        toast('🔓 Admin Panel Unlocked');
+      } else {
+        toast('❌ Invalid Admin PIN', true);
+      }
+    } catch (e) {
+      toast(e.message, true);
+    }
+  }
+
+  function enforceAdminRootGateIfPinSet() {
+    if (document.body.classList.contains('public-mode') || document.body.classList.contains('live-led-receiver')) return;
+    if (STATE.settings && STATE.settings.pin_enabled && !ADMIN_SESSION_UNLOCKED) {
+      document.getElementById('adminLoginGateOverlay').classList.add('open');
+    } else {
+      document.getElementById('adminLoginGateOverlay').classList.remove('open');
+    }
+  }
+
   function updatePinBadgeUI() {
+    enforceAdminRootGateIfPinSet();
     const btn = document.getElementById('btnPinBadge');
     if (!btn) return;
     if (!STATE.settings.pin_enabled) {
@@ -11029,6 +11141,7 @@
     if (!STATE.settings.pin_enabled) return;
     if (ADMIN_SESSION_UNLOCKED) {
       ADMIN_SESSION_UNLOCKED = false;
+      try { localStorage.removeItem(ADMIN_UNLOCK_TOKEN_KEY); } catch (e) {}
       updatePinBadgeUI();
       toast('🔒 Switched to Staff Mode (Delete & Settings Locked)');
     } else {
@@ -11044,6 +11157,7 @@
       const res = await api('/api/verify-pin', 'POST', { pin });
       if (res.valid) {
         ADMIN_SESSION_UNLOCKED = true;
+        try { localStorage.setItem(ADMIN_UNLOCK_TOKEN_KEY, '1'); } catch (e) {}
         updatePinBadgeUI();
         toast('🔓 Admin Mode Unlocked!');
         return true;

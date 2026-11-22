@@ -1,5 +1,5 @@
-const CACHE_NAME = 'aryush-draw-erp-v20.0-jumbohd';
-const STATIC_ASSETS = ['/manifest.json', '/logo.png', '/icon-192.png', '/icon-512.png'];
+const CACHE_NAME = 'aryush-draw-erp-v24-syncfix';
+const STATIC_ASSETS = ['/', '/index.html', '/manifest.json', '/logo.png', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -19,20 +19,6 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET' || req.url.includes('/api/')) return;
-
-  if (req.mode === 'navigate' || req.destination === 'document' || req.url.endsWith('.html')) {
-    event.respondWith(
-      fetch(req, { cache: 'no-store' })
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => {});
-          return res;
-        })
-        .catch(() => caches.match(req))
-    );
-    return;
-  }
-
   event.respondWith(
     fetch(req)
       .then((res) => {

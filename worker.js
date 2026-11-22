@@ -32,7 +32,15 @@ async function ensureTables(db) {
 }
 
 async function loadAllSettings(db, includeSecrets = false) {
-  const { results } = await db.prepare(`SELECT key, val FROM settings`).all();
+  let keyCol = 'key';
+  let valCol = 'val';
+  try {
+    const info = await db.prepare(`PRAGMA table_info(settings)`).all();
+    const cols = (info.results || []).map(c => c.name);
+    if (!cols.includes('val') && cols.includes('value')) valCol = 'value';
+    if (!cols.includes('key') && cols.includes('name')) keyCol = 'name';
+  } catch (e) {}
+  const { results } = await db.prepare(`SELECT ${keyCol} AS key, ${valCol} AS val FROM settings`).all();
   const out = {};
   let hasPin = false;
   let hasGemini = false;
@@ -206,10 +214,18 @@ async function handleApiRequest(request, env, url) {
   // 6. SETTINGS SAVE
   if (path === '/api/settings' && method === 'POST') {
     const body = await request.json();
+    let keyCol = 'key';
+    let valCol = 'val';
+    try {
+      const info = await db.prepare(`PRAGMA table_info(settings)`).all();
+      const cols = (info.results || []).map(c => c.name);
+      if (!cols.includes('val') && cols.includes('value')) valCol = 'value';
+      if (!cols.includes('key') && cols.includes('name')) keyCol = 'name';
+    } catch (e) {}
     const stmts = [];
     for (const [k, v] of Object.entries(body || {})) {
       stmts.push(
-        db.prepare(`INSERT INTO settings (key, val) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET val = excluded.val`)
+        db.prepare(`INSERT INTO settings (${keyCol}, ${valCol}) VALUES (?, ?) ON CONFLICT(${keyCol}) DO UPDATE SET ${valCol} = excluded.${valCol}`)
           .bind(String(k), v === null || v === undefined ? '' : String(v))
       );
     }

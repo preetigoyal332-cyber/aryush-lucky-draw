@@ -8987,6 +8987,12 @@
     }
 
     // Rehydrate split per-product photos from STATE.settings (prod_pic_0, prod_pic_1, ...)
+    if (!Array.isArray(cloudList) || !cloudList.length) {
+      const hasAnySplitPic = Object.keys(STATE.settings || {}).some(k => k.startsWith('prod_pic_') && STATE.settings[k]);
+      if (hasAnySplitPic) {
+        cloudList = JSON.parse(JSON.stringify(ARYUSH_PRODUCTS));
+      }
+    }
     const baseCatalogForPics = (Array.isArray(cloudList) && cloudList.length) ? cloudList : ARYUSH_PRODUCTS;
     if (Array.isArray(baseCatalogForPics) && baseCatalogForPics.length) {
       baseCatalogForPics.forEach((p, idx) => {

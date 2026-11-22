@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS deliveries (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   dl_code TEXT DEFAULT '',
   entry_date TEXT NOT NULL,
-  retailer_id INTEGER NOT NULL,
+  retailer_id INTEGER NOT NULL REFERENCES retailers(id) ON DELETE CASCADE,
   bags REAL DEFAULT 0,
   loose_kg REAL DEFAULT 0,
   total_kg REAL NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS coupons (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   coupon_num INTEGER NOT NULL UNIQUE,
   coupon_code TEXT NOT NULL,
-  retailer_id INTEGER NOT NULL,
+  retailer_id INTEGER NOT NULL REFERENCES retailers(id) ON DELETE CASCADE,
   issue_date TEXT NOT NULL,
   prize_rank INTEGER DEFAULT 999,
   prize_title TEXT DEFAULT '',
@@ -52,3 +52,8 @@ CREATE TABLE IF NOT EXISTS media_chunks (
   data_b64 TEXT NOT NULL,
   PRIMARY KEY (media_key, chunk_idx)
 );
+
+CREATE INDEX IF NOT EXISTS idx_deliveries_retailer ON deliveries(retailer_id);
+CREATE INDEX IF NOT EXISTS idx_deliveries_date ON deliveries(entry_date);
+CREATE INDEX IF NOT EXISTS idx_coupons_retailer ON coupons(retailer_id);
+CREATE INDEX IF NOT EXISTS idx_coupons_prize_status ON coupons(prize_status);

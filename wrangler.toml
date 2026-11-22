@@ -9,4 +9,4 @@ binding = "ASSETS"
 [[d1_databases]]
 binding = "DB"
 database_name = "aryush-lucky-draw-db"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "20a78cd1-a0fa-4a3c-8476-68a6ab85ed12"

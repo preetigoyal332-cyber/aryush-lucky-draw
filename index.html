@@ -2483,6 +2483,102 @@
       box-shadow: 0 0 6px #4ade80;
       animation: pulseLiveDot 1.6s infinite;
     }
+
+    /* ==================== v19.5 PROMINENT LARGE PRODUCT PACK PHOTO SHOWCASE ==================== */
+    .prod-ribbon {
+      gap: 10px !important;
+      padding: 6px 2px 10px !important;
+    }
+    .prod-chip {
+      min-width: 196px !important;
+      padding: 9px 12px !important;
+      border-radius: 14px !important;
+      gap: 11px !important;
+      align-items: center !important;
+    }
+    .prod-ico {
+      width: 50px !important;
+      height: 50px !important;
+      font-size: 24px !important;
+      border-radius: 12px !important;
+    }
+    .prod-ico.has-photo {
+      width: 74px !important;
+      height: 74px !important;
+      padding: 4px !important;
+      border-radius: 13px !important;
+      border: 2px solid #f59e0b !important;
+      background: #ffffff !important;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.14) !important;
+    }
+    /* Even Larger Vertical E-Commerce Style Pack Cards on Retailer Digital Passbook Header! */
+    #pubProdRibbon .prod-chip {
+      flex-direction: column !important;
+      text-align: center !important;
+      min-width: 138px !important;
+      max-width: 152px !important;
+      padding: 10px 9px !important;
+      gap: 7px !important;
+      background: rgba(255, 255, 255, 0.97) !important;
+      border: 1.5px solid #fde047 !important;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22) !important;
+    }
+    #pubProdRibbon .prod-ico.has-photo {
+      width: 96px !important;
+      height: 96px !important;
+      padding: 5px !important;
+      border-radius: 14px !important;
+      border: 1.5px solid #fcd34d !important;
+    }
+    #pubProdRibbon .prod-nm {
+      font-size: 12.5px !important;
+      line-height: 1.2 !important;
+      color: #0f172a !important;
+    }
+    #pubProdRibbon .prod-tag {
+      font-size: 10px !important;
+      color: #64748b !important;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Prominent Large Pack Photo inside Retailer Passbook Automatic Ad Banner */
+    .pub-ad-body {
+      grid-template-columns: 152px 1fr !important;
+      gap: 16px !important;
+    }
+    .pub-ad-img-frame {
+      width: 152px !important;
+      height: 152px !important;
+      padding: 6px !important;
+      border-radius: 16px !important;
+      border: 2.5px solid #fde047 !important;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45) !important;
+    }
+    @media (max-width: 460px) {
+      .pub-ad-body {
+        grid-template-columns: 128px 1fr !important;
+        gap: 13px !important;
+      }
+      .pub-ad-img-frame {
+        width: 128px !important;
+        height: 128px !important;
+      }
+    }
+    .pub-ad-full-poster {
+      max-height: 310px !important;
+    }
+
+    /* Enlarged Stage LED Full-Screen & Split-Screen Pack Photos */
+    .stage-pack-hero-img {
+      max-height: 56vh !important;
+      max-width: 92% !important;
+    }
+    .side-pack-slide-img {
+      height: 310px !important;
+    }
   </style>
 </head>
 <body>
@@ -2500,7 +2596,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v18.5 Universal</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v19.5 HD Packs</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -3800,7 +3896,7 @@
         <button class="btn btn-danger btn-xs" onclick="closeQuickProdVideoModal()">✕</button>
       </div>
       <div id="qpvImgWrap" style="display:none;text-align:center;background:#ffffff;padding:14px;border-radius:14px;margin-bottom:8px;border:2px solid #fde047;">
-        <img id="qpvImgEl" src="" alt="Product Pack" style="max-width:100%;max-height:42vh;object-fit:contain;border-radius:10px;" />
+        <img id="qpvImgEl" src="" alt="Product Pack" style="max-width:100%;max-height:56vh;object-fit:contain;border-radius:10px;" />
       </div>
       <div id="qpvKhasiyatBox" style="margin-bottom:8px;display:flex;flex-direction:column;gap:5px;"></div>
       <video id="qpvVideoEl" controls playsinline style="width:100%;max-height:54vh;border-radius:12px;background:#000;"></video>
@@ -8707,7 +8803,7 @@
   }
 
   // Cloud-Optimized Crisp Product Pack Photo processor: guarantees <32KB per image so Cloudflare D1 syncs 100% reliably across Phone, PC & LED TV!
-  async function compressProductPackPhoto(file, maxDim = 360) {
+  async function compressProductPackPhoto(file, maxDim = 540) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -8725,10 +8821,10 @@
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(0, 0, w, h);
           ctx.drawImage(img, 0, 0, w, h);
-          let q = 0.80;
+          let q = 0.86;
           let out = canvas.toDataURL('image/jpeg', q);
-          while (out.length > 52000 && q > 0.45) {
-            q -= 0.1;
+          while (out.length > 74000 && q > 0.52) {
+            q -= 0.08;
             out = canvas.toDataURL('image/jpeg', q);
           }
           resolve(out);
@@ -8741,9 +8837,9 @@
     });
   }
 
-  // Re-compress any oversized existing base64 string on Phone before pushing to D1 Cloud
-  async function shrinkExistingDataUrlForCloud(dataUrl, maxDim = 340) {
-    if (!dataUrl || !dataUrl.startsWith('data:image/') || dataUrl.length <= 48000) return dataUrl;
+  // Re-compress any oversized existing base64 string on Phone before pushing to D1 Cloud (up to 74KB safe per D1 row!)
+  async function shrinkExistingDataUrlForCloud(dataUrl, maxDim = 520) {
+    if (!dataUrl || !dataUrl.startsWith('data:image/') || dataUrl.length <= 74000) return dataUrl;
     return new Promise((resolve) => {
       const img = new Image();
       img.onload = () => {
@@ -9756,7 +9852,7 @@
             <!-- Left Pedestal: Full Pack Photo or Royal Crest -->
             <div class="usp-pack-pedestal">
               ${hasPic
-                ? `<img src="${p.photoData}" class="stage-pack-hero-img" style="max-height:225px;max-width:94%;" alt="${esc(p.hi)}" />`
+                ? `<img src="${p.photoData}" class="stage-pack-hero-img" style="max-height:320px;max-width:96%;" alt="${esc(p.hi)}" />`
                 : `<div style="width:130px;height:130px;border-radius:50%;background:${p.bg};border:3px solid #fde047;display:flex;align-items:center;justify-content:center;font-size:58px;box-shadow:0 12px 35px rgba(0,0,0,0.6);">${esc(p.icon || '🌶️')}</div>`
               }
               <div class="corp-prize-rank-ribbon" style="margin-top:14px;">100% PURE & HYGIENIC</div>
@@ -9963,14 +10059,14 @@
           <div style="font-size:10.5px;font-weight:800;letter-spacing:2.2px;color:#94a3b8;text-transform:uppercase;margin-bottom:10px;">
             OUR SIGNATURE PRODUCT PORTFOLIO • ${s.max_coupons} GUARANTEED PRIZES SCHEME
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;">
             ${ARYUSH_PRODUCTS.map((p, idx) => {
               const hasVid = Boolean(resolveProductVideoSrc(p));
               const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
               return `
               <div style="background:rgba(15,23,42,0.75);border:1px solid rgba(212,175,55,0.28);border-radius:12px;padding:10px;cursor:pointer;transition:border-color 0.2s;" onclick="${(hasVid || hasPic) ? `STAGE_CUR_VID_INDEX=${idx};startFullScreenVideoAdLoop();` : `openProductStudioModal();editProductStudioItem(${idx});`}">
                 ${hasPic
-                  ? `<div style="width:68px;height:68px;background:#fff;border-radius:10px;padding:4px;margin:0 auto 7px;border:1.5px solid #fde047;"><img src="${p.photoData}" style="width:100%;height:100%;object-fit:contain;" /></div>`
+                  ? `<div style="width:118px;height:118px;background:#fff;border-radius:14px;padding:6px;margin:0 auto 9px;border:2px solid #fde047;box-shadow:0 8px 20px rgba(0,0,0,0.45);"><img src="${p.photoData}" style="width:100%;height:100%;object-fit:contain;" /></div>`
                   : `<div style="width:42px;height:42px;border-radius:50%;background:rgba(217,119,6,0.18);border:1px solid rgba(250,204,21,0.45);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;color:#fde047;font-size:15px;margin:0 auto 7px;">AR</div>`
                 }
                 <div style="font-size:13px;font-weight:800;color:#f8fafc;">${esc(p.hi)}</div>
@@ -11365,7 +11461,7 @@
           ${ARYUSH_PRODUCTS.some(p => p.photoData) ? `
             <div style="display:flex;gap:6px;align-items:center;">
               ${ARYUSH_PRODUCTS.filter(p => p.photoData).slice(0, 7).map(p => `
-                <img src="${p.photoData}" title="${esc(p.hi)}" style="width:34px;height:34px;object-fit:contain;background:#fff;padding:2px;border-radius:6px;border:1px solid #fde047;" />
+                <img src="${p.photoData}" title="${esc(p.hi)}" style="width:48px;height:48px;object-fit:contain;background:#fff;padding:3px;border-radius:8px;border:1.5px solid #fde047;" />
               `).join('')}
             </div>
           ` : `<div style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:#fcd34d;">100% PURE KACCHI GHANI MUSTARD OIL & AUTHENTIC SPICES</div>`}
@@ -11642,7 +11738,9 @@
     }
   }
 
-  // ==================== UNIVERSAL D1 `/api/settings` CLOUD MP4 VIDEO ENGINE (ZERO CUSTOM API ROUTES NEEDED!) ====================
+  // ==================== v19.0 HYBRID DUAL-ENGINE CLOUD MP4 VIDEO UPLOAD & STREAMING ====================
+  // Automatically uses `/api/media/upload-chunk` + HTTP 206 `/api/media/stream` on updated Workers,
+  // AND seamlessly falls back to `/api/settings` chunk storage on older Workers with ZERO errors!
   let REASSEMBLED_CLOUD_VID_META = '';
   let REASSEMBLED_CLOUD_VID_BLOB_URL = '';
 
@@ -11668,7 +11766,7 @@
       let totalLen = 0;
       for (let i = 0; i < count; i++) {
         const b64 = s['pad_vid_c_' + i];
-        if (!b64) return ''; // Wait until all chunks are present in STATE.settings
+        if (!b64) return '';
         const bin = atob(b64);
         const u8 = new Uint8Array(bin.length);
         for (let k = 0; k < bin.length; k++) u8[k] = bin.charCodeAt(k);
@@ -11696,11 +11794,14 @@
   function getEffectivePassbookVideoUrl() {
     const s = STATE.settings || {};
     if (LOCAL_PREVIEW_PAD_VID_BLOB_URL) return LOCAL_PREVIEW_PAD_VID_BLOB_URL;
-    const reassembledBlob = ensureCloudVideoReassembledFromSettings();
-    if (reassembledBlob) return reassembledBlob;
-    if (s.passbook_ad_cloud_vid_url && String(s.passbook_ad_cloud_vid_url).trim() && !String(s.passbook_ad_cloud_vid_url).startsWith('/api/media/')) {
+    // 1. If native stream URL from updated Worker is saved, use direct HTTP 206 streaming!
+    if (s.passbook_ad_cloud_vid_url && String(s.passbook_ad_cloud_vid_url).trim()) {
       return String(s.passbook_ad_cloud_vid_url).trim();
     }
+    // 2. Otherwise reassemble from universal `/api/settings` chunks (for older Workers)!
+    const reassembledBlob = ensureCloudVideoReassembledFromSettings();
+    if (reassembledBlob) return reassembledBlob;
+    // 3. Optional external MP4 link
     if (s.passbook_ad_video_url && String(s.passbook_ad_video_url).trim()) {
       return String(s.passbook_ad_video_url).trim();
     }
@@ -11723,15 +11824,14 @@
     }
   }
 
-  // Uploads MP4 directly via universal `/api/settings` route in 48KB chunks — Works 100% on BOTH Old & New Cloudflare Workers!
   async function handleDirectCloudAdVideoUpload(ev) {
     const file = ev.target.files[0];
     ev.target.value = '';
     if (!file) return;
 
-    const maxBytes = 16 * 1024 * 1024; // Up to 16 MB MP4 commercial supported cleanly!
+    const maxBytes = 18 * 1024 * 1024;
     if (file.size > maxBytes) {
-      return toast('कृपया 16 MB से छोटा विज्ञापन वीडियो (.mp4) चुनें।', true);
+      return toast('कृपया 18 MB से छोटा विज्ञापन वीडियो (.mp4) चुनें।', true);
     }
 
     const progBox = document.getElementById('cloudVidUploadProgBox');
@@ -11750,80 +11850,120 @@
         LOCAL_PREVIEW_PAD_VID_BLOB_URL = URL.createObjectURL(file);
         STATE.settings.passbook_ad_cloud_vid_url = LOCAL_PREVIEW_PAD_VID_BLOB_URL;
       } else {
-        // Clear any old excess chunks first if previous video had more chunks
-        let prevChunks = 0;
-        if (STATE.settings && STATE.settings.pad_vid_meta) {
-          try { prevChunks = Number(JSON.parse(STATE.settings.pad_vid_meta).chunks) || 0; } catch (e) {}
-        }
-
         const buf = await file.arrayBuffer();
         const bytes = new Uint8Array(buf);
-        const CHUNK_RAW_BYTES = 49152; // 48 KB raw -> exact 65,536 chars base64 (safely under D1 100KB row limit!)
+        const CHUNK_RAW_BYTES = 49152; // 48 KB raw -> exact 65,536 chars Base64
         const totalChunks = Math.ceil(bytes.byteLength / CHUNK_RAW_BYTES);
         const mimeType = file.type || 'video/mp4';
 
-        // Upload 2 chunks per `/api/settings` POST (~131 KB total HTTP payload -> super fast & reliable!)
-        const STEP = 2;
-        for (let i = 0; i < totalChunks; i += STEP) {
-          const payload = {};
-          for (let c = i; c < Math.min(totalChunks, i + STEP); c++) {
-            const sub = bytes.subarray(c * CHUNK_RAW_BYTES, Math.min(bytes.byteLength, (c + 1) * CHUNK_RAW_BYTES));
-            let bin = '';
-            for (let k = 0; k < sub.byteLength; k += 8192) {
-              bin += String.fromCharCode.apply(null, sub.subarray(k, Math.min(sub.byteLength, k + 8192)));
-            }
-            const b64 = btoa(bin);
-            payload['pad_vid_c_' + c] = b64;
-            STATE.settings['pad_vid_c_' + c] = b64;
+        const encodeSliceB64 = (cIdx) => {
+          const sub = bytes.subarray(cIdx * CHUNK_RAW_BYTES, Math.min(bytes.byteLength, (cIdx + 1) * CHUNK_RAW_BYTES));
+          let bin = '';
+          for (let k = 0; k < sub.byteLength; k += 8192) {
+            bin += String.fromCharCode.apply(null, sub.subarray(k, Math.min(sub.byteLength, k + 8192)));
           }
-          await api('/api/settings', 'POST', payload);
-
-          const done = Math.min(totalChunks, i + STEP);
-          const pct = Math.min(98, Math.round((done / totalChunks) * 100));
-          if (fillBar) fillBar.style.width = pct + '%';
-          if (pctTxt) pctTxt.textContent = pct + '%';
-        }
-
-        // Clean up any leftover higher-index chunks from an older larger video
-        if (prevChunks > totalChunks) {
-          const cleanPayload = {};
-          for (let oldIdx = totalChunks; oldIdx < prevChunks; oldIdx++) {
-            cleanPayload['pad_vid_c_' + oldIdx] = '';
-            STATE.settings['pad_vid_c_' + oldIdx] = '';
-          }
-          await api('/api/settings', 'POST', cleanPayload);
-        }
-
-        const metaObj = {
-          v: Date.now(),
-          name: file.name,
-          mime: mimeType,
-          size: bytes.byteLength,
-          chunks: totalChunks
+          return btoa(bin);
         };
-        const metaStr = JSON.stringify(metaObj);
-        STATE.settings.pad_vid_meta = metaStr;
-        STATE.settings.passbook_ad_cloud_vid_url = '';
-        STATE.settings.passbook_ad_enabled = '1';
-        if (STATE.settings.passbook_ad_mode === 'CUSTOM_POSTER' || STATE.settings.passbook_ad_mode === 'AUTO_ALL') {
-          STATE.settings.passbook_ad_mode = 'VIDEO_AND_SLIDES';
-          const mSel = document.getElementById('padModeSel');
-          if (mSel) mSel.value = 'VIDEO_AND_SLIDES';
+
+        // Probe chunk 0 on `/api/media/upload-chunk`; if older Worker returns Unknown API route, auto-switch to `/api/settings`!
+        let useNativeMediaStream = true;
+        try {
+          await api('/api/media/upload-chunk', 'POST', {
+            media_key: 'passbook_ad_video',
+            mime_type: mimeType,
+            reset: true,
+            chunks: [{ idx: 0, b64: encodeSliceB64(0) }]
+          });
+        } catch (probeErr) {
+          useNativeMediaStream = false;
         }
 
-        await api('/api/settings', 'POST', {
-          pad_vid_meta: metaStr,
-          passbook_ad_cloud_vid_url: '',
-          passbook_ad_enabled: '1',
-          passbook_ad_mode: STATE.settings.passbook_ad_mode
-        });
+        if (useNativeMediaStream) {
+          // Path A: Native `media_chunks` table + fast HTTP 206 `/api/media/stream`!
+          const BATCH = 4;
+          for (let startIdx = 1; startIdx < totalChunks; startIdx += BATCH) {
+            const batchChunks = [];
+            for (let c = startIdx; c < Math.min(totalChunks, startIdx + BATCH); c++) {
+              batchChunks.push({ idx: c, b64: encodeSliceB64(c) });
+            }
+            await api('/api/media/upload-chunk', 'POST', {
+              media_key: 'passbook_ad_video',
+              mime_type: mimeType,
+              reset: false,
+              chunks: batchChunks
+            });
+            const pct = Math.min(98, Math.round((Math.min(totalChunks, startIdx + BATCH) / totalChunks) * 100));
+            if (fillBar) fillBar.style.width = pct + '%';
+            if (pctTxt) pctTxt.textContent = pct + '%';
+          }
+          const streamUrl = `/api/media/stream?key=passbook_ad_video&v=${Date.now()}`;
+          STATE.settings.passbook_ad_cloud_vid_url = streamUrl;
+          STATE.settings.pad_vid_meta = '';
+          STATE.settings.passbook_ad_enabled = '1';
+          if (STATE.settings.passbook_ad_mode === 'CUSTOM_POSTER' || STATE.settings.passbook_ad_mode === 'AUTO_ALL') {
+            STATE.settings.passbook_ad_mode = 'VIDEO_AND_SLIDES';
+            const mSel = document.getElementById('padModeSel');
+            if (mSel) mSel.value = 'VIDEO_AND_SLIDES';
+          }
+          await api('/api/settings', 'POST', {
+            passbook_ad_cloud_vid_url: streamUrl,
+            pad_vid_meta: '',
+            passbook_ad_enabled: '1',
+            passbook_ad_mode: STATE.settings.passbook_ad_mode
+          });
+        } else {
+          // Path B: Universal `/api/settings` Fallback (Works on ANY older Cloudflare Worker!)
+          if (file.size > 6 * 1024 * 1024) {
+            throw new Error('पुराने बैकएंड वर्कर पर 6 MB तक का वीडियो सपोर्ट है (बड़े वीडियो के लिए GitHub पर functions फोल्डर भी अपडेट करें)।');
+          }
+          let prevChunks = 0;
+          if (STATE.settings && STATE.settings.pad_vid_meta) {
+            try { prevChunks = Number(JSON.parse(STATE.settings.pad_vid_meta).chunks) || 0; } catch (e) {}
+          }
+          const STEP = 2;
+          for (let i = 0; i < totalChunks; i += STEP) {
+            const payload = {};
+            for (let c = i; c < Math.min(totalChunks, i + STEP); c++) {
+              const b64 = encodeSliceB64(c);
+              payload['pad_vid_c_' + c] = b64;
+              STATE.settings['pad_vid_c_' + c] = b64;
+            }
+            await api('/api/settings', 'POST', payload);
+            const pct = Math.min(98, Math.round((Math.min(totalChunks, i + STEP) / totalChunks) * 100));
+            if (fillBar) fillBar.style.width = pct + '%';
+            if (pctTxt) pctTxt.textContent = pct + '%';
+          }
+          if (prevChunks > totalChunks) {
+            const cleanPayload = {};
+            for (let oldIdx = totalChunks; oldIdx < prevChunks; oldIdx++) {
+              cleanPayload['pad_vid_c_' + oldIdx] = '';
+              STATE.settings['pad_vid_c_' + oldIdx] = '';
+            }
+            await api('/api/settings', 'POST', cleanPayload);
+          }
+          const metaStr = JSON.stringify({ v: Date.now(), name: file.name, mime: mimeType, size: bytes.byteLength, chunks: totalChunks });
+          STATE.settings.pad_vid_meta = metaStr;
+          STATE.settings.passbook_ad_cloud_vid_url = '';
+          STATE.settings.passbook_ad_enabled = '1';
+          if (STATE.settings.passbook_ad_mode === 'CUSTOM_POSTER' || STATE.settings.passbook_ad_mode === 'AUTO_ALL') {
+            STATE.settings.passbook_ad_mode = 'VIDEO_AND_SLIDES';
+            const mSel = document.getElementById('padModeSel');
+            if (mSel) mSel.value = 'VIDEO_AND_SLIDES';
+          }
+          await api('/api/settings', 'POST', {
+            pad_vid_meta: metaStr,
+            passbook_ad_cloud_vid_url: '',
+            passbook_ad_enabled: '1',
+            passbook_ad_mode: STATE.settings.passbook_ad_mode
+          });
+        }
       }
 
       if (statusTxt) statusTxt.textContent = '✅ विज्ञापन वीडियो क्लाउड पर 100% सेव हो गया!';
       if (pctTxt) pctTxt.textContent = '100%';
       if (fillBar) fillBar.style.width = '100%';
       renderAdminCloudVidPreview();
-      toast('🎬 विज्ञापन वीडियो सफलतापूर्वक सेव हो गया — अब हर दुकानदार के फोन में चलेगा!');
+      toast('🎬 विज्ञापन वीडियो सेव हो गया — अब हर दुकानदार के फोन में ऑटोमैटिक चलेगा!');
     } catch (err) {
       if (statusTxt) statusTxt.textContent = '❌ अपलोड त्रुटि: ' + err.message;
       toast('Video Upload Error: ' + err.message, true);
@@ -11833,6 +11973,9 @@
   async function deleteCloudPassbookAdVideo() {
     if (!confirm('क्या आप सेव किए गए पासबुक विज्ञापन वीडियो को हटाना चाहते हैं?')) return;
     try {
+      if (!IS_LOCAL_PREVIEW) {
+        try { await api('/api/media/delete', 'POST', { media_key: 'passbook_ad_video' }); } catch (e) {}
+      }
       let prevChunks = 0;
       if (STATE.settings && STATE.settings.pad_vid_meta) {
         try { prevChunks = Number(JSON.parse(STATE.settings.pad_vid_meta).chunks) || 0; } catch (e) {}

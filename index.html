@@ -12,7 +12,38 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" id="appManifestLink" href="/manifest.json" />
+  <script>
+    // EARLY SYNCHRONOUS RETAILER-ONLY PWA LOCK (Executes BEFORE <body> renders!)
+    (function () {
+      try {
+        var sp = new URLSearchParams(window.location.search);
+        var isLive = sp.get('live') === '1';
+        var forceAdmin = sp.get('admin') === '1';
+        var hasPassbookParams = Boolean(sp.get('k') || sp.get('check') === '1');
+        var isAdminOwner = (localStorage.getItem('aryush_is_admin_owner_device') === '1') ||
+                           (localStorage.getItem('aryush_admin_device_unlocked') === '1');
+
+        if (forceAdmin) {
+          localStorage.removeItem('aryush_retailer_pwa_locked');
+        } else if (hasPassbookParams) {
+          var mLink = document.getElementById('appManifestLink');
+          if (mLink) mLink.href = '/api/public/manifest.json' + window.location.search;
+          document.documentElement.classList.add('force-public-boot');
+          if (!isAdminOwner) {
+            localStorage.setItem('aryush_retailer_pwa_locked', '1');
+            localStorage.setItem('aryush_retailer_locked_search', window.location.search);
+          }
+        } else if (!isLive && !isAdminOwner && localStorage.getItem('aryush_retailer_pwa_locked') === '1') {
+          var savedSearch = localStorage.getItem('aryush_retailer_locked_search') || '?check=1';
+          window.history.replaceState(null, '', window.location.pathname + savedSearch);
+          var mLink2 = document.getElementById('appManifestLink');
+          if (mLink2) mLink2.href = '/api/public/manifest.json' + savedSearch;
+          document.documentElement.classList.add('force-public-boot');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <meta name="theme-color" content="#0f172a" />
@@ -2378,6 +2409,65 @@
       background: linear-gradient(90deg, #f59e0b, #22c55e);
       transition: width 0.18s ease;
     }
+
+    /* ==================== v18.0 CALM READABLE SEAMLESS PATTI & RETAILER PWA BOOT LOCK ==================== */
+    html.force-public-boot .topbar,
+    html.force-public-boot .desk-nav,
+    html.force-public-boot .bnav,
+    html.force-public-boot .ai-fab,
+    html.force-public-boot main.container,
+    html.force-public-boot #adminLoginGateOverlay {
+      display: none !important;
+    }
+    html.force-public-boot #publicCheckPortal {
+      display: block !important;
+    }
+
+    @keyframes calmSeamlessMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .welcome-patti-track,
+    .pub-prod-patti-track {
+      display: inline-flex !important;
+      align-items: center;
+      padding-left: 0 !important;
+      white-space: nowrap;
+      will-change: transform;
+      animation: calmSeamlessMarquee 130s linear infinite !important;
+    }
+    .welcome-patti-viewport:hover .welcome-patti-track,
+    .welcome-patti-viewport:active .welcome-patti-track,
+    .pub-prod-patti-viewport:hover .pub-prod-patti-track,
+    .pub-prod-patti-viewport:active .pub-prod-patti-track {
+      animation-play-state: paused !important;
+    }
+    .ticker-copy-seg {
+      display: inline-block;
+      padding-right: 76px;
+    }
+    .pub-live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(34, 197, 94, 0.16);
+      border: 1px solid rgba(74, 222, 128, 0.45);
+      color: #86efac;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pub-live-pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade80;
+      animation: pulseLiveDot 1.6s infinite;
+    }
   </style>
 </head>
 <body>
@@ -2395,7 +2485,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v17.0 Pro</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v18.0 Live Sync</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -3829,9 +3919,10 @@
         <div class="field">
           <label>⚡ स्क्रॉलिंग गति (Scrolling Speed)</label>
           <select id="wpSpeedSel" style="font-weight:800;">
-            <option value="52">🐢 Slow & Royal (आराम से पढ़ने योग्य)</option>
-            <option value="38" selected>🎯 Medium Broadcast (Standard TV Speed)</option>
-            <option value="24">🚀 Fast News Ticker (तेज़ रफ़्तार)</option>
+            <option value="EXTRA_SLOW">🐢 बहुत धीमी (अत्यंत सौम्य)</option>
+            <option value="SLOW" selected>👑 धीमी और आराम से पढ़ने योग्य (Default)</option>
+            <option value="MEDIUM">🎯 सामान्य टीवी गति (Medium)</option>
+            <option value="FAST">🚀 तेज़ रफ़्तार (Fast)</option>
           </select>
         </div>
       </div>
@@ -3897,9 +3988,10 @@
           <div class="field">
             <label>स्क्रॉलिंग गति (Speed)</label>
             <select id="ppSpeedSel" style="font-weight:800;">
-              <option value="50">धीमी और सौम्य (Slow)</option>
-              <option value="38" selected>सामान्य (Standard)</option>
-              <option value="25">तेज़ (Fast)</option>
+              <option value="EXTRA_SLOW">बहुत धीमी (आराम से पढ़ने योग्य)</option>
+              <option value="SLOW" selected>धीमी और सौम्य (अनुशंसित / Default)</option>
+              <option value="MEDIUM">सामान्य गति (Medium)</option>
+              <option value="FAST">तेज़ गति (Fast)</option>
             </select>
           </div>
         </div>
@@ -4164,17 +4256,21 @@
   <!-- ==================== READ-ONLY PUBLIC RETAILER VIP PASSBOOK & PRIZE PORTAL (`?check=1`) ==================== -->
   <div id="publicCheckPortal" style="background:#f4f6f9;min-height:100vh;padding-bottom:48px;">
     <div style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:18px 16px 16px;text-align:center;border-bottom:2px solid #d97706;box-shadow:0 4px 18px rgba(15,23,42,0.12);">
-      <div style="display:flex;align-items:center;justify-content:center;gap:12px;max-width:680px;margin:0 auto;">
-        <div class="logo-crest" id="pubPortalLogo" style="width:52px;height:52px;padding:2px;cursor:default;flex-shrink:0;">
-          <img src="/logo.png" alt="Aryush Logo" />
-        </div>
-        <div style="text-align:left;min-width:0;">
-          <div style="font-size:10px;font-weight:800;color:#fcd34d;letter-spacing:1.2px;text-transform:uppercase;">
-            OFFICIAL DIGITAL PARTY PASSBOOK
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:680px;margin:0 auto;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:11px;min-width:0;">
+          <div class="logo-crest" id="pubPortalLogo" style="width:50px;height:50px;padding:2px;cursor:default;flex-shrink:0;">
+            <img src="/logo.png" alt="Aryush Logo" />
           </div>
-          <h1 style="font-size:18px;font-weight:900;letter-spacing:-0.02em;color:#ffffff;margin-top:1px;" id="pubHdrTitle">ARYUSH FOODS • आर्युष रसोई धन</h1>
-          <p style="font-size:11.5px;color:#cbd5e1;font-weight:600;margin-top:2px;" id="pubBrandSub">आधिकारिक सप्लाई खाता एवं कूपन विवरण</p>
+          <div style="text-align:left;min-width:0;">
+            <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+              <span style="font-size:10px;font-weight:800;color:#fcd34d;letter-spacing:1.1px;text-transform:uppercase;">OFFICIAL PARTY PASSBOOK</span>
+              <span class="pub-live-pill" id="pubLiveSyncPill" title="बिना रिफ्रेश किए अपने-आप लाइव अपडेट होता है">लाइव अपडेट</span>
+            </div>
+            <h1 style="font-size:17.5px;font-weight:900;letter-spacing:-0.02em;color:#ffffff;margin-top:2px;" id="pubHdrTitle">ARYUSH FOODS • आर्युष रसोई धन</h1>
+            <p style="font-size:11px;color:#cbd5e1;font-weight:600;margin-top:1px;" id="pubBrandSub">आधिकारिक सप्लाई खाता एवं कूपन विवरण</p>
+          </div>
         </div>
+        <button type="button" class="btn btn-brand btn-xs" id="btnPubPwaInstall" style="display:none;padding:7px 11px;font-weight:900;border-radius:999px;" onclick="triggerPwaInstall()">📲 पासबुक ऐप इंस्टॉल करें</button>
       </div>
       <!-- DEDICATED PRODUCT QUALITY HIGHLIGHTS PATTI (उत्पाद विशेषता पट्टी — Controlled from Admin Panel!) -->
       <div class="pub-prod-patti-bar" id="pubProdHighlightsPattiWrap">
@@ -4250,7 +4346,8 @@
       bonus_free_coupons: 1,
       reveal_duration_sec: 8,
       passbook_patti_enabled: '1',
-      passbook_patti_speed: 38,
+      passbook_patti_pace: 'SLOW',
+      passbook_patti_speed: 'SLOW',
       passbook_patti_mode: 'AUTO_SYNC',
       passbook_patti_text: '',
       passbook_ad_enabled: '1',
@@ -4264,7 +4361,8 @@
       passbook_ad_cta_label: '📲 WhatsApp पर ऑर्डर लिखवाएँ',
       passbook_ad_interval_sec: 4,
       welcome_patti_enabled: '1',
-      welcome_patti_speed: 38,
+      welcome_patti_pace: 'SLOW',
+      welcome_patti_speed: 'SLOW',
       welcome_ticker_v15_text: '🙏 हार्दिक स्वागत एवं अभिनंदन! आर्युष फूड्स (कैलारस, मुरैना) के भव्य मेगा लकी ड्रॉ समारोह में पधारे सभी सम्मानित व्यापारी बंधुओं एवं अतिथियों का सहृदय अभिनंदन!  ★  आर्युष रसोई धन की प्रमुख विशेषताएँ: 100% शुद्ध कोल्हू की कच्ची घानी सरसों तेल (प्राकृतिक तेज़ झाँझ) • उच्च गुणवत्ता वाले शुद्ध मसाले • स्पेशल पटना की कुटी मिर्ची • हाई-करक्यूमिन सेलम हल्दी • सुगंधित धनिया पाउडर • शाही गरम मसाला एवं नुखरा हींग दाना  ★  विशेष उपहार योजना: प्रत्येक 210 kg पर 1 निश्चित कूपन + 7 कूपन पर 1 अतिरिक्त कूपन निःशुल्क (FREE)!'
     },
     ai_ready: false,
@@ -4497,6 +4595,9 @@
     if (path.startsWith('/api/segments/') && method === 'DELETE') {
       db.segments = db.segments.filter(x => x.id !== Number(path.split('/').pop()));
       setLocalDB(db); return { ok: true };
+    }
+    if (path === '/api/sync-ping') {
+      return { ok: true, sig: String(db.deliveries.length) + '_' + String(db.coupons.length), ts: Date.now() };
     }
     if (path === '/api/live-poll') {
       return { ok: true, live_stage_cmd: db.settings?.live_stage_cmd || '' };
@@ -4774,7 +4875,7 @@
     }
   }
 
-  async function refreshAll() {
+  async function refreshAll(silent = false) {
     try {
       const data = await api('/api/bootstrap');
       STATE.settings = { ...STATE.settings, ...(data.settings || {}) };
@@ -4806,8 +4907,12 @@
       renderAllotTab();
       prepareSegmentSlots(STATE.activeSegmentId);
       renderPrizesTab();
+      const khModal = document.getElementById('retailerKhataModal');
+      if (silent && khModal && khModal.classList.contains('open') && CURRENT_KHATA_RET_ID) {
+        openRetailerKhata(CURRENT_KHATA_RET_ID, true);
+      }
     } catch (e) {
-      toast('Sync Error: ' + e.message, true);
+      if (!silent) toast('Sync Error: ' + e.message, true);
     }
   }
 
@@ -5937,13 +6042,15 @@
   }
 
   // ==================== INDIVIDUAL PARTY KHATA PASSBOOK ====================
-  function openRetailerKhata(retailerId) {
+  function openRetailerKhata(retailerId, preserveView = false) {
     const r = STATE.summaryRows.find(x => x.id === retailerId);
     if (!r) return;
     CURRENT_KHATA_RET_ID = retailerId;
-    document.getElementById('khataFromDate').value = '';
-    document.getElementById('khataToDate').value = '';
-    document.getElementById('khataFilterBar').style.display = 'none';
+    if (!preserveView) {
+      document.getElementById('khataFromDate').value = '';
+      document.getElementById('khataToDate').value = '';
+      document.getElementById('khataFilterBar').style.display = 'none';
+    }
 
     const sw = document.getElementById('khataQuickSwitch');
     sw.innerHTML = [...STATE.summaryRows]
@@ -9502,28 +9609,53 @@
     return custom || buildAutoWelcomeAndKhasiyatText();
   }
 
+  function normalizeTickerPaceCode(rawPace, legacyNumeric) {
+    const p = String(rawPace || '').trim().toUpperCase();
+    if (['EXTRA_SLOW', 'SLOW', 'MEDIUM', 'FAST'].includes(p)) return p;
+    const n = Number(legacyNumeric || rawPace);
+    if (!isNaN(n) && n > 0) {
+      if (n >= 50) return 'EXTRA_SLOW';
+      if (n <= 26) return 'MEDIUM';
+    }
+    return 'SLOW';
+  }
+
+  function calcCalmTickerDurationSec(text, paceCode, isBigStage = false) {
+    const cleanLen = Math.max(60, String(text || '').length);
+    const charWidthPx = isBigStage ? 9.2 : 8.0;
+    const singleCopyWidthPx = cleanLen * charWidthPx + 80;
+    const pxPerSecMap = isBigStage
+      ? { EXTRA_SLOW: 26, SLOW: 36, MEDIUM: 52, FAST: 74 }
+      : { EXTRA_SLOW: 21, SLOW: 29, MEDIUM: 43, FAST: 62 };
+    const pxPerSec = pxPerSecMap[paceCode] || (isBigStage ? 36 : 29);
+    return Math.max(28, Math.round(singleCopyWidthPx / pxPerSec));
+  }
+
   function renderAllWelcomePattis() {
-    // Welcome & Lucky Draw Ceremony Ticker is strictly for the Live Stage LED Screen ONLY!
     const s = STATE.settings || {};
     const enabled = String(s.welcome_patti_enabled ?? '1') !== '0';
-    const speedSec = Math.max(15, Number(s.welcome_patti_speed) || 38);
+    const pace = normalizeTickerPaceCode(s.welcome_patti_pace, s.welcome_patti_speed);
     const fullText = getActiveWelcomePattiText();
-    const loopStr = `${fullText}     ★     ${fullText}`;
+    const durSec = calcCalmTickerDurationSec(fullText, pace, true);
 
     if (typeof renderPassbookProductHighlightsPatti === 'function') renderPassbookProductHighlightsPatti();
     const stageBar = document.getElementById('stageWelcomePattiBar');
     const stageTrack = document.getElementById('stageWelcomePattiTrack');
     if (stageBar && stageTrack) {
       stageBar.style.display = enabled ? 'flex' : 'none';
-      stageTrack.textContent = loopStr;
-      stageTrack.style.animationDuration = `${speedSec}s`;
+      const sig = `${enabled}|${durSec}|${fullText}`;
+      if (stageTrack.dataset.sig !== sig) {
+        stageTrack.dataset.sig = sig;
+        stageTrack.innerHTML = `<span class="ticker-copy-seg">${esc(fullText)}</span><span class="ticker-copy-seg">${esc(fullText)}</span>`;
+        stageTrack.style.animationDuration = `${durSec}s`;
+      }
     }
   }
 
   function openWelcomePattiModal() {
     const s = STATE.settings || {};
     document.getElementById('wpEnabledSel').value = String(s.welcome_patti_enabled ?? '1') === '0' ? '0' : '1';
-    document.getElementById('wpSpeedSel').value = String(Number(s.welcome_patti_speed) || 38);
+    document.getElementById('wpSpeedSel').value = normalizeTickerPaceCode(s.welcome_patti_pace, s.welcome_patti_speed);
     document.getElementById('wpTextInp').value = getActiveWelcomePattiText();
     openModal('welcomePattiModal');
   }
@@ -9545,18 +9677,20 @@
 
   async function saveWelcomePattiSettings() {
     const enabled = document.getElementById('wpEnabledSel').value === '0' ? '0' : '1';
-    const speed = Number(document.getElementById('wpSpeedSel').value) || 38;
+    const pace = document.getElementById('wpSpeedSel').value || 'SLOW';
     const text = document.getElementById('wpTextInp').value.trim() || buildAutoWelcomeAndKhasiyatText();
 
     STATE.settings.welcome_patti_enabled = enabled;
-    STATE.settings.welcome_patti_speed = speed;
+    STATE.settings.welcome_patti_pace = pace;
+    STATE.settings.welcome_patti_speed = pace;
     STATE.settings.welcome_ticker_v15_text = text;
     renderAllWelcomePattis();
 
     try {
       await api('/api/settings', 'POST', {
         welcome_patti_enabled: enabled,
-        welcome_patti_speed: String(speed),
+        welcome_patti_pace: pace,
+        welcome_patti_speed: pace,
         welcome_ticker_v15_text: text
       });
       broadcastStageCommandToLiveScreens({ action: 'REFRESH_PATTI' }).catch(() => {});
@@ -11342,7 +11476,7 @@
       const res = await api('/api/verify-pin', 'POST', { pin });
       if (res.valid) {
         ADMIN_SESSION_UNLOCKED = true;
-        try { localStorage.setItem(ADMIN_UNLOCK_TOKEN_KEY, '1'); } catch (e) {}
+        try { localStorage.setItem(ADMIN_UNLOCK_TOKEN_KEY, '1'); localStorage.setItem('aryush_is_admin_owner_device', '1'); localStorage.removeItem('aryush_retailer_pwa_locked'); } catch (e) {}
         document.getElementById('adminLoginGateOverlay').classList.remove('open');
         if (inp) inp.value = '';
         updatePinBadgeUI();
@@ -11397,7 +11531,7 @@
       const res = await api('/api/verify-pin', 'POST', { pin });
       if (res.valid) {
         ADMIN_SESSION_UNLOCKED = true;
-        try { localStorage.setItem(ADMIN_UNLOCK_TOKEN_KEY, '1'); } catch (e) {}
+        try { localStorage.setItem(ADMIN_UNLOCK_TOKEN_KEY, '1'); localStorage.setItem('aryush_is_admin_owner_device', '1'); localStorage.removeItem('aryush_retailer_pwa_locked'); } catch (e) {}
         updatePinBadgeUI();
         toast('🔓 Admin Mode Unlocked!');
         return true;
@@ -11454,11 +11588,17 @@
       wrap.style.display = 'none';
       return;
     }
-    const speedSec = Math.max(18, Number(s.passbook_patti_speed) || 38);
+    const pace = normalizeTickerPaceCode(s.passbook_patti_pace, s.passbook_patti_speed);
     const txt = getEffectivePassbookPattiText();
+    const durSec = calcCalmTickerDurationSec(txt, pace, false);
     wrap.style.display = 'flex';
-    track.textContent = `${txt}     ✦     ${txt}`;
-    track.style.animationDuration = `${speedSec}s`;
+
+    const sig = `${enabled}|${durSec}|${txt}`;
+    if (track.dataset.sig !== sig) {
+      track.dataset.sig = sig;
+      track.innerHTML = `<span class="ticker-copy-seg">${esc(txt)}</span><span class="ticker-copy-seg">${esc(txt)}</span>`;
+      track.style.animationDuration = `${durSec}s`;
+    }
   }
 
   function fillPassbookPattiFromProducts() {
@@ -11625,7 +11765,7 @@
     // Section 1: Top Product Highlights Patti fields
     document.getElementById('ppEnabledSel').value = String(s.passbook_patti_enabled ?? '1') === '0' ? '0' : '1';
     document.getElementById('ppModeSel').value = s.passbook_patti_mode || 'AUTO_SYNC';
-    document.getElementById('ppSpeedSel').value = String(Number(s.passbook_patti_speed) || 38);
+    document.getElementById('ppSpeedSel').value = normalizeTickerPaceCode(s.passbook_patti_pace, s.passbook_patti_speed);
     document.getElementById('ppTextInp').value = getEffectivePassbookPattiText();
 
     // Section 2 & 3: Video & Ad Banner fields
@@ -11685,7 +11825,7 @@
   async function savePassbookAdSettings() {
     const ppEnabled = document.getElementById('ppEnabledSel').value === '0' ? '0' : '1';
     const ppMode = document.getElementById('ppModeSel').value || 'AUTO_SYNC';
-    const ppSpeed = Math.max(18, Number(document.getElementById('ppSpeedSel').value) || 38);
+    const ppPace = document.getElementById('ppSpeedSel').value || 'SLOW';
     const ppText = document.getElementById('ppTextInp').value.trim();
 
     const enabled = document.getElementById('padEnabledSel').value === '0' ? '0' : '1';
@@ -11703,7 +11843,8 @@
     Object.assign(STATE.settings, {
       passbook_patti_enabled: ppEnabled,
       passbook_patti_mode: ppMode,
-      passbook_patti_speed: ppSpeed,
+      passbook_patti_pace: ppPace,
+      passbook_patti_speed: ppPace,
       passbook_patti_text: ppText,
       passbook_ad_enabled: enabled,
       passbook_ad_mode: mode,
@@ -11720,7 +11861,8 @@
       await api('/api/settings', 'POST', {
         passbook_patti_enabled: ppEnabled,
         passbook_patti_mode: ppMode,
-        passbook_patti_speed: String(ppSpeed),
+        passbook_patti_pace: ppPace,
+        passbook_patti_speed: ppPace,
         passbook_patti_text: ppText,
         passbook_ad_enabled: enabled,
         passbook_ad_mode: mode,
@@ -11988,12 +12130,41 @@
     if (inp) inp.focus();
   }
 
-  async function runPublicCheck(directId = null, autoQuery = null, isPrivateToken = false) {
-    const q = autoQuery !== null ? String(autoQuery).trim() : document.getElementById('pubSearchInp').value.trim();
-    if (!directId && !q) return toast('अपनी दुकान का नाम, मोबाइल या कूपन # डालें!', true);
+  // ==================== v18.0 LIVE ZERO-REFRESH PASSBOOK & ADMIN AUTO-SYNC + RETAILER PWA LOCK ====================
+  let ACTIVE_PUBLIC_SYNC_TARGET = { directId: null, q: null, isPrivateToken: false };
+  let LAST_PUB_SYNC_SIG = '';
+  let LAST_ADMIN_PING_SIG = '';
+  let AUTO_SYNC_TIMER_ID = null;
 
+  function lockDeviceToRetailerTokenIfGuest(partyObj) {
+    try {
+      const isAdminOwner = (localStorage.getItem('aryush_is_admin_owner_device') === '1') ||
+                           (localStorage.getItem('aryush_admin_device_unlocked') === '1');
+      const tok = partyObj ? encodePartyPassbookToken(partyObj) : '';
+      const cleanSearch = tok ? (`?k=${tok}`) : window.location.search;
+      const mLink = document.getElementById('appManifestLink');
+      if (mLink && cleanSearch) {
+        mLink.href = '/api/public/manifest.json' + cleanSearch;
+      }
+      if (!isAdminOwner && cleanSearch) {
+        localStorage.setItem('aryush_retailer_pwa_locked', '1');
+        localStorage.setItem('aryush_retailer_locked_search', cleanSearch);
+      }
+    } catch (e) {}
+  }
+
+  async function runPublicCheck(directId = null, autoQuery = null, isPrivateToken = false, silentBgSync = false) {
+    const q = autoQuery !== null ? String(autoQuery).trim() : (document.getElementById('pubSearchInp')?.value || '').trim();
+    if (!directId && !q) {
+      if (!silentBgSync) toast('अपनी दुकान का नाम, मोबाइल या कूपन # डालें!', true);
+      return;
+    }
+
+    ACTIVE_PUBLIC_SYNC_TARGET = { directId, q, isPrivateToken };
     const box = document.getElementById('pubResultsBox');
-    box.innerHTML = `<div class="card" style="text-align:center;padding:28px;color:var(--muted);font-weight:700;">⏳ आधिकारिक डिजिटल पासबुक लोड हो रही है...</div>`;
+    if (!silentBgSync) {
+      box.innerHTML = `<div class="card" style="text-align:center;padding:28px;color:var(--muted);font-weight:700;">⏳ आधिकारिक डिजिटल पासबुक लोड हो रही है...</div>`;
+    }
 
     try {
       const endpoint = directId
@@ -12004,6 +12175,13 @@
         res = await api(`/api/public/check?q=${encodeURIComponent(q)}`);
       }
 
+      const newSig = JSON.stringify({ s: res.settings || {}, m: res.matches || [] });
+      if (silentBgSync && newSig === LAST_PUB_SYNC_SIG) {
+        return;
+      }
+      const hadPrevSig = Boolean(LAST_PUB_SYNC_SIG);
+      LAST_PUB_SYNC_SIG = newSig;
+
       if (res.settings) {
         STATE.settings = { ...STATE.settings, ...res.settings };
         syncV10SettingsFromState();
@@ -12013,7 +12191,6 @@
       renderPublicPassbookAutoAdBanner((res.matches && res.matches[0]) ? res.matches[0].name : '');
 
       let list = res.matches || [];
-      // If opened via personal token/direct link, narrow strictly to the exact party so neighbor shops never appear!
       if ((isPrivateToken || directId) && list.length > 1) {
         const exactById = directId ? list.filter(m => String(m.id || '') === String(directId)) : [];
         const exactByName = q ? list.filter(m => String(m.name || '').trim().toUpperCase() === q.toUpperCase()) : [];
@@ -12022,23 +12199,26 @@
       }
 
       if (!list.length) {
-        showPublicManualSearchBox();
-        box.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:24px;">कोई रिकॉर्ड नहीं मिला। कृपया अपनी दुकान का नाम या कूपन नंबर ऊपर बॉक्स में लिखें।</div>`;
+        if (!silentBgSync) {
+          showPublicManualSearchBox();
+          box.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:24px;">कोई रिकॉर्ड नहीं मिला। कृपया अपनी दुकान का नाम या कूपन नंबर ऊपर बॉक्स में लिखें।</div>`;
+        }
         return;
       }
 
       if (list.length === 1 && list[0].id) {
         try { localStorage.setItem(PUB_REMEMBER_PARTY_KEY, String(list[0].id)); } catch (e) {}
+        lockDeviceToRetailerTokenIfGuest(list[0]);
       }
 
       if ((directId || isPrivateToken) && list.length > 0) {
         const sc = document.getElementById('pubSearchBoxCard');
         const ws = document.getElementById('pubDirectWelcomeStrip');
         if (sc) sc.style.display = 'none';
-        // On private WhatsApp token links (?k=...), keep it 100% clean like a private bank statement (hide "search other party")
         if (ws) ws.style.display = isPrivateToken ? 'none' : 'flex';
       }
 
+      const prevScrollY = window.scrollY;
       const cupKg = Number(STATE.settings.kg_per_coupon) || 210;
       const bagKg = Number(STATE.settings.kg_per_bag) || 30;
 
@@ -12136,19 +12316,109 @@
           ` : ''}
         </div>`;
       }).join('');
+
+      if (silentBgSync) {
+        window.scrollTo(0, prevScrollY);
+        if (hadPrevSig) {
+          const pill = document.getElementById('pubLiveSyncPill');
+          if (pill) {
+            pill.textContent = '✨ अभी अपडेट हुआ';
+            setTimeout(() => { if (pill) pill.textContent = 'लाइव अपडेट'; }, 3200);
+          }
+        }
+      }
     } catch (e) {
-      showPublicManualSearchBox();
-      box.innerHTML = `<div class="card" style="color:#dc2626;">Error: ${esc(e.message)}</div>`;
+      if (!silentBgSync) {
+        showPublicManualSearchBox();
+        box.innerHTML = `<div class="card" style="color:#dc2626;">Error: ${esc(e.message)}</div>`;
+      }
     }
   }
 
-  // ==================== PWA INSTALL & INIT ====================
+  function isAdminUserActivelyEditing() {
+    const act = document.activeElement;
+    if (act && ['INPUT', 'TEXTAREA', 'SELECT'].includes(act.tagName)) return true;
+    const busyModals = [
+      'retailerModal', 'areaManagerModal', 'segmentModal', 'manualCupModal',
+      'productStudioModal', 'welcomePattiModal', 'passbookAdStudioModal',
+      'waTemplateModal', 'beatBulkModal', 'sheetImportModal', 'handoverProofModal'
+    ];
+    for (const mId of busyModals) {
+      const mEl = document.getElementById(mId);
+      if (mEl && mEl.classList.contains('open')) return true;
+    }
+    if (PARTY_CUSTOM_COUPON_DRAFTS && PARTY_CUSTOM_COUPON_DRAFTS.size > 0) return true;
+    return false;
+  }
+
+  function startUniversalZeroRefreshSync(isPublicMode) {
+    if (AUTO_SYNC_TIMER_ID) clearInterval(AUTO_SYNC_TIMER_ID);
+
+    const runSilentTick = async () => {
+      if (document.visibilityState === 'hidden') return;
+
+      if (isPublicMode) {
+        const act = document.activeElement;
+        if (act && act.id === 'pubSearchInp') return;
+        const qpv = document.getElementById('quickProdVideoModal');
+        if (qpv && qpv.classList.contains('open')) return;
+
+        if (ACTIVE_PUBLIC_SYNC_TARGET.directId || ACTIVE_PUBLIC_SYNC_TARGET.q) {
+          await runPublicCheck(
+            ACTIVE_PUBLIC_SYNC_TARGET.directId,
+            ACTIVE_PUBLIC_SYNC_TARGET.q,
+            ACTIVE_PUBLIC_SYNC_TARGET.isPrivateToken,
+            true
+          );
+        } else {
+          try {
+            const pRes = await api('/api/public/check?q=');
+            const sSig = JSON.stringify(pRes.settings || {});
+            if (sSig !== LAST_PUB_SYNC_SIG && pRes.settings) {
+              LAST_PUB_SYNC_SIG = sSig;
+              STATE.settings = { ...STATE.settings, ...pRes.settings };
+              syncV10SettingsFromState();
+              renderBrandIdentityAndProducts();
+              renderPublicPassbookAutoAdBanner('');
+            }
+          } catch (e) {}
+        }
+      } else {
+        if (STAGE_REVEAL_BUSY || isAdminUserActivelyEditing()) return;
+        try {
+          const ping = await api('/api/sync-ping');
+          if (ping && ping.sig) {
+            if (!LAST_ADMIN_PING_SIG) {
+              LAST_ADMIN_PING_SIG = ping.sig;
+            } else if (ping.sig !== LAST_ADMIN_PING_SIG) {
+              LAST_ADMIN_PING_SIG = ping.sig;
+              await refreshAll(true);
+            }
+          }
+        } catch (e) {}
+      }
+    };
+
+    AUTO_SYNC_TIMER_ID = setInterval(runSilentTick, 6000);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') runSilentTick();
+    });
+    window.addEventListener('online', runSilentTick);
+  }
+
+  // ==================== PWA INSTALL & AUTO-UPDATE INIT ====================
   let deferredPrompt = null;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    const b = document.getElementById('btnPwaInstall');
-    if (b) b.style.display = 'inline-flex';
+    const isPub = document.body.classList.contains('public-mode') || document.documentElement.classList.contains('force-public-boot');
+    const bPub = document.getElementById('btnPubPwaInstall');
+    const bAdm = document.getElementById('btnPwaInstall');
+    if (isPub) {
+      if (bPub) bPub.style.display = 'inline-flex';
+    } else {
+      if (bAdm) bAdm.style.display = 'inline-flex';
+    }
   });
 
   async function triggerPwaInstall() {
@@ -12156,12 +12426,18 @@
     deferredPrompt.prompt();
     await deferredPrompt.userChoice;
     deferredPrompt = null;
-    document.getElementById('btnPwaInstall').style.display = 'none';
+    const bAdm = document.getElementById('btnPwaInstall');
+    const bPub = document.getElementById('btnPubPwaInstall');
+    if (bAdm) bAdm.style.display = 'none';
+    if (bPub) bPub.style.display = 'none';
   }
 
   if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').then(reg => reg.update()).catch(() => {});
+      navigator.serviceWorker.register('/sw.js').then((reg) => {
+        reg.update();
+        setInterval(() => { reg.update().catch(() => {}); }, 180000);
+      }).catch(() => {});
     });
   }
 
@@ -12178,8 +12454,10 @@
       toast('📡 LIVE LED RECEIVER ACTIVE — Waiting for Mobile/Operator Remote Commands!');
       return;
     }
+
     const kToken = params.get('k');
-    if (kToken || params.get('check') === '1') {
+    const isLockedRetailerBoot = document.documentElement.classList.contains('force-public-boot');
+    if (kToken || params.get('check') === '1' || isLockedRetailerBoot) {
       document.body.classList.add('public-mode');
       syncV10SettingsFromState();
       renderBrandIdentityAndProducts();
@@ -12208,27 +12486,50 @@
       try { rememberedId = localStorage.getItem(PUB_REMEMBER_PARTY_KEY) || ''; } catch (e) {}
 
       if (decodedTok) {
-        runPublicCheck(decodedTok.id || null, decodedTok.name || null, true);
+        await runPublicCheck(decodedTok.id || null, decodedTok.name || null, true, false);
       } else if (directIdParam) {
-        runPublicCheck(directIdParam, queryParam || null, true);
+        await runPublicCheck(directIdParam, queryParam || null, true, false);
       } else if (queryParam) {
         document.getElementById('pubSearchInp').value = queryParam;
-        runPublicCheck(null, queryParam, true);
+        await runPublicCheck(null, queryParam, true, false);
       } else if (rememberedId) {
         document.getElementById('pubSearchBoxCard').style.display = 'none';
-        runPublicCheck(rememberedId, null, false);
+        await runPublicCheck(rememberedId, null, false, false);
       }
+
+      startUniversalZeroRefreshSync(true);
       return;
     }
+
     syncV10SettingsFromState();
     refreshStageVideosFromIDB();
     document.getElementById('delDateInp').value = todayISO();
     document.getElementById('allotDateInp').value = todayISO();
-    try { window.history.replaceState({ aryushNav: 'overview' }, ''); window.history.pushState({ aryushNav: 'root-guard' }, ''); } catch (e) {}
-    if (HOME_PROD_VISIBLE) { const r = document.getElementById('homeProdRibbon'); const b = document.getElementById('btnToggleProdRibbon'); if (r) r.style.display = 'flex'; if (b) b.textContent = 'Hide ▴'; }
+    try {
+      window.history.replaceState({ aryushNav: 'overview' }, '');
+      window.history.pushState({ aryushNav: 'root-guard' }, '');
+    } catch (e) {}
+    if (HOME_PROD_VISIBLE) {
+      const r = document.getElementById('homeProdRibbon');
+      const b = document.getElementById('btnToggleProdRibbon');
+      if (r) r.style.display = 'flex';
+      if (b) b.textContent = 'Hide ▴';
+    }
     await refreshAll();
+    if (!STATE.settings.pin_enabled || ADMIN_SESSION_UNLOCKED) {
+      try {
+        localStorage.setItem('aryush_is_admin_owner_device', '1');
+        localStorage.removeItem('aryush_retailer_pwa_locked');
+      } catch (e) {}
+    }
+    try {
+      const p0 = await api('/api/sync-ping');
+      if (p0 && p0.sig) LAST_ADMIN_PING_SIG = p0.sig;
+    } catch (e) {}
     startLiveStageListener();
+    startUniversalZeroRefreshSync(false);
   });
+
 </script>
 </body>
 </html>

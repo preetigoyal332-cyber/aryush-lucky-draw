@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aryush-draw-erp-v18.0-autosync';
+const CACHE_NAME = 'aryush-draw-erp-v18.5-universal';
 const STATIC_ASSETS = ['/manifest.json', '/logo.png', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {

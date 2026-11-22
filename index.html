@@ -27,8 +27,6 @@
         if (forceAdmin) {
           localStorage.removeItem('aryush_retailer_pwa_locked');
         } else if (hasPassbookParams) {
-          var mLink = document.getElementById('appManifestLink');
-          if (mLink) mLink.href = '/api/public/manifest.json' + window.location.search;
           document.documentElement.classList.add('force-public-boot');
           if (!isAdminOwner) {
             localStorage.setItem('aryush_retailer_pwa_locked', '1');
@@ -37,9 +35,26 @@
         } else if (!isLive && !isAdminOwner && localStorage.getItem('aryush_retailer_pwa_locked') === '1') {
           var savedSearch = localStorage.getItem('aryush_retailer_locked_search') || '?check=1';
           window.history.replaceState(null, '', window.location.pathname + savedSearch);
-          var mLink2 = document.getElementById('appManifestLink');
-          if (mLink2) mLink2.href = '/api/public/manifest.json' + savedSearch;
           document.documentElement.classList.add('force-public-boot');
+        }
+        if (document.documentElement.classList.contains('force-public-boot')) {
+          var originBase = window.location.origin;
+          var sQuery = window.location.search || '?check=1';
+          var dynMan = {
+            name: 'ARYUSH FOODS — डिजिटल पासबुक',
+            short_name: 'आर्युष पासबुक',
+            start_url: originBase + window.location.pathname + sQuery,
+            scope: originBase + '/',
+            display: 'standalone',
+            background_color: '#0f172a',
+            theme_color: '#0f172a',
+            icons: [
+              { src: originBase + '/icon-192.png', sizes: '192x192', type: 'image/png' },
+              { src: originBase + '/icon-512.png', sizes: '512x512', type: 'image/png' }
+            ]
+          };
+          var mEl = document.getElementById('appManifestLink');
+          if (mEl) mEl.href = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(dynMan));
         }
       } catch (e) {}
     })();
@@ -2485,7 +2500,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v18.0 Live Sync</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v18.5 Universal</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -11627,10 +11642,63 @@
     }
   }
 
+  // ==================== UNIVERSAL D1 `/api/settings` CLOUD MP4 VIDEO ENGINE (ZERO CUSTOM API ROUTES NEEDED!) ====================
+  let REASSEMBLED_CLOUD_VID_META = '';
+  let REASSEMBLED_CLOUD_VID_BLOB_URL = '';
+
+  function ensureCloudVideoReassembledFromSettings() {
+    const s = STATE.settings || {};
+    const metaRaw = s.pad_vid_meta || '';
+    if (!metaRaw) {
+      if (REASSEMBLED_CLOUD_VID_BLOB_URL) {
+        try { URL.revokeObjectURL(REASSEMBLED_CLOUD_VID_BLOB_URL); } catch (e) {}
+        REASSEMBLED_CLOUD_VID_BLOB_URL = '';
+        REASSEMBLED_CLOUD_VID_META = '';
+      }
+      return '';
+    }
+    if (REASSEMBLED_CLOUD_VID_META === metaRaw && REASSEMBLED_CLOUD_VID_BLOB_URL) {
+      return REASSEMBLED_CLOUD_VID_BLOB_URL;
+    }
+    try {
+      const meta = JSON.parse(metaRaw);
+      const count = Number(meta.chunks) || 0;
+      if (count <= 0) return '';
+      const arrays = [];
+      let totalLen = 0;
+      for (let i = 0; i < count; i++) {
+        const b64 = s['pad_vid_c_' + i];
+        if (!b64) return ''; // Wait until all chunks are present in STATE.settings
+        const bin = atob(b64);
+        const u8 = new Uint8Array(bin.length);
+        for (let k = 0; k < bin.length; k++) u8[k] = bin.charCodeAt(k);
+        arrays.push(u8);
+        totalLen += u8.byteLength;
+      }
+      const merged = new Uint8Array(totalLen);
+      let offset = 0;
+      for (const a of arrays) {
+        merged.set(a, offset);
+        offset += a.byteLength;
+      }
+      if (REASSEMBLED_CLOUD_VID_BLOB_URL) {
+        try { URL.revokeObjectURL(REASSEMBLED_CLOUD_VID_BLOB_URL); } catch (e) {}
+      }
+      const blob = new Blob([merged], { type: meta.mime || 'video/mp4' });
+      REASSEMBLED_CLOUD_VID_BLOB_URL = URL.createObjectURL(blob);
+      REASSEMBLED_CLOUD_VID_META = metaRaw;
+      return REASSEMBLED_CLOUD_VID_BLOB_URL;
+    } catch (e) {
+      return '';
+    }
+  }
+
   function getEffectivePassbookVideoUrl() {
     const s = STATE.settings || {};
     if (LOCAL_PREVIEW_PAD_VID_BLOB_URL) return LOCAL_PREVIEW_PAD_VID_BLOB_URL;
-    if (s.passbook_ad_cloud_vid_url && String(s.passbook_ad_cloud_vid_url).trim()) {
+    const reassembledBlob = ensureCloudVideoReassembledFromSettings();
+    if (reassembledBlob) return reassembledBlob;
+    if (s.passbook_ad_cloud_vid_url && String(s.passbook_ad_cloud_vid_url).trim() && !String(s.passbook_ad_cloud_vid_url).startsWith('/api/media/')) {
       return String(s.passbook_ad_cloud_vid_url).trim();
     }
     if (s.passbook_ad_video_url && String(s.passbook_ad_video_url).trim()) {
@@ -11655,15 +11723,15 @@
     }
   }
 
-  // Direct Chunked MP4 Video Upload to Cloudflare D1 (49,152 raw bytes = exact 64KB Base64 chunks -> Zero padding issues & Zero 100KB limit errors!)
+  // Uploads MP4 directly via universal `/api/settings` route in 48KB chunks — Works 100% on BOTH Old & New Cloudflare Workers!
   async function handleDirectCloudAdVideoUpload(ev) {
     const file = ev.target.files[0];
     ev.target.value = '';
     if (!file) return;
 
-    const maxBytes = 22 * 1024 * 1024; // Up to 22 MB MP4 commercial supported!
+    const maxBytes = 16 * 1024 * 1024; // Up to 16 MB MP4 commercial supported cleanly!
     if (file.size > maxBytes) {
-      return toast('कृपया 22 MB से छोटा विज्ञापन वीडियो (.mp4) चुनें।', true);
+      return toast('कृपया 16 MB से छोटा विज्ञापन वीडियो (.mp4) चुनें।', true);
     }
 
     const progBox = document.getElementById('cloudVidUploadProgBox');
@@ -11672,8 +11740,8 @@
     const fillBar = document.getElementById('cloudVidUploadFill');
 
     if (progBox) progBox.style.display = 'block';
-    if (fillBar) fillBar.style.width = '2%';
-    if (pctTxt) pctTxt.textContent = '2%';
+    if (fillBar) fillBar.style.width = '3%';
+    if (pctTxt) pctTxt.textContent = '3%';
     if (statusTxt) statusTxt.textContent = `⏳ "${file.name}" क्लाउड पर सेव हो रहा है...`;
 
     try {
@@ -11682,58 +11750,80 @@
         LOCAL_PREVIEW_PAD_VID_BLOB_URL = URL.createObjectURL(file);
         STATE.settings.passbook_ad_cloud_vid_url = LOCAL_PREVIEW_PAD_VID_BLOB_URL;
       } else {
+        // Clear any old excess chunks first if previous video had more chunks
+        let prevChunks = 0;
+        if (STATE.settings && STATE.settings.pad_vid_meta) {
+          try { prevChunks = Number(JSON.parse(STATE.settings.pad_vid_meta).chunks) || 0; } catch (e) {}
+        }
+
         const buf = await file.arrayBuffer();
         const bytes = new Uint8Array(buf);
-        const CHUNK_RAW_BYTES = 49152; // Exact multiple of 3 bytes (16384 * 3) => clean 65,536 base64 chars per D1 row!
+        const CHUNK_RAW_BYTES = 49152; // 48 KB raw -> exact 65,536 chars base64 (safely under D1 100KB row limit!)
         const totalChunks = Math.ceil(bytes.byteLength / CHUNK_RAW_BYTES);
         const mimeType = file.type || 'video/mp4';
 
-        const BATCH_SIZE = 4; // 4 chunks = ~256 KB per fast HTTP POST
-        for (let startIdx = 0; startIdx < totalChunks; startIdx += BATCH_SIZE) {
-          const batchChunks = [];
-          for (let cIdx = startIdx; cIdx < Math.min(totalChunks, startIdx + BATCH_SIZE); cIdx++) {
-            const sub = bytes.subarray(cIdx * CHUNK_RAW_BYTES, Math.min(bytes.byteLength, (cIdx + 1) * CHUNK_RAW_BYTES));
+        // Upload 2 chunks per `/api/settings` POST (~131 KB total HTTP payload -> super fast & reliable!)
+        const STEP = 2;
+        for (let i = 0; i < totalChunks; i += STEP) {
+          const payload = {};
+          for (let c = i; c < Math.min(totalChunks, i + STEP); c++) {
+            const sub = bytes.subarray(c * CHUNK_RAW_BYTES, Math.min(bytes.byteLength, (c + 1) * CHUNK_RAW_BYTES));
             let bin = '';
-            const subLen = sub.byteLength;
-            for (let k = 0; k < subLen; k += 8192) {
-              bin += String.fromCharCode.apply(null, sub.subarray(k, Math.min(subLen, k + 8192)));
+            for (let k = 0; k < sub.byteLength; k += 8192) {
+              bin += String.fromCharCode.apply(null, sub.subarray(k, Math.min(sub.byteLength, k + 8192)));
             }
-            batchChunks.push({ idx: cIdx, b64: btoa(bin) });
+            const b64 = btoa(bin);
+            payload['pad_vid_c_' + c] = b64;
+            STATE.settings['pad_vid_c_' + c] = b64;
           }
+          await api('/api/settings', 'POST', payload);
 
-          await api('/api/media/upload-chunk', 'POST', {
-            media_key: 'passbook_ad_video',
-            mime_type: mimeType,
-            reset: (startIdx === 0),
-            chunks: batchChunks
-          });
-
-          const doneCnt = Math.min(totalChunks, startIdx + BATCH_SIZE);
-          const pct = Math.round((doneCnt / totalChunks) * 100);
+          const done = Math.min(totalChunks, i + STEP);
+          const pct = Math.min(98, Math.round((done / totalChunks) * 100));
           if (fillBar) fillBar.style.width = pct + '%';
           if (pctTxt) pctTxt.textContent = pct + '%';
         }
 
-        const streamUrl = `/api/media/stream?key=passbook_ad_video&v=${Date.now()}`;
-        STATE.settings.passbook_ad_cloud_vid_url = streamUrl;
+        // Clean up any leftover higher-index chunks from an older larger video
+        if (prevChunks > totalChunks) {
+          const cleanPayload = {};
+          for (let oldIdx = totalChunks; oldIdx < prevChunks; oldIdx++) {
+            cleanPayload['pad_vid_c_' + oldIdx] = '';
+            STATE.settings['pad_vid_c_' + oldIdx] = '';
+          }
+          await api('/api/settings', 'POST', cleanPayload);
+        }
+
+        const metaObj = {
+          v: Date.now(),
+          name: file.name,
+          mime: mimeType,
+          size: bytes.byteLength,
+          chunks: totalChunks
+        };
+        const metaStr = JSON.stringify(metaObj);
+        STATE.settings.pad_vid_meta = metaStr;
+        STATE.settings.passbook_ad_cloud_vid_url = '';
         STATE.settings.passbook_ad_enabled = '1';
         if (STATE.settings.passbook_ad_mode === 'CUSTOM_POSTER' || STATE.settings.passbook_ad_mode === 'AUTO_ALL') {
           STATE.settings.passbook_ad_mode = 'VIDEO_AND_SLIDES';
           const mSel = document.getElementById('padModeSel');
           if (mSel) mSel.value = 'VIDEO_AND_SLIDES';
         }
+
         await api('/api/settings', 'POST', {
-          passbook_ad_cloud_vid_url: streamUrl,
+          pad_vid_meta: metaStr,
+          passbook_ad_cloud_vid_url: '',
           passbook_ad_enabled: '1',
           passbook_ad_mode: STATE.settings.passbook_ad_mode
         });
       }
 
-      if (statusTxt) statusTxt.textContent = '✅ विज्ञापन वीडियो क्लाउड पर सफलतापूर्वक सेव हो गया!';
+      if (statusTxt) statusTxt.textContent = '✅ विज्ञापन वीडियो क्लाउड पर 100% सेव हो गया!';
       if (pctTxt) pctTxt.textContent = '100%';
       if (fillBar) fillBar.style.width = '100%';
       renderAdminCloudVidPreview();
-      toast('🎬 विज्ञापन वीडियो सेव हो गया — अब हर दुकानदार के फोन में चलेगा!');
+      toast('🎬 विज्ञापन वीडियो सफलतापूर्वक सेव हो गया — अब हर दुकानदार के फोन में चलेगा!');
     } catch (err) {
       if (statusTxt) statusTxt.textContent = '❌ अपलोड त्रुटि: ' + err.message;
       toast('Video Upload Error: ' + err.message, true);
@@ -11743,12 +11833,24 @@
   async function deleteCloudPassbookAdVideo() {
     if (!confirm('क्या आप सेव किए गए पासबुक विज्ञापन वीडियो को हटाना चाहते हैं?')) return;
     try {
-      if (!IS_LOCAL_PREVIEW) {
-        await api('/api/media/delete', 'POST', { media_key: 'passbook_ad_video' });
+      let prevChunks = 0;
+      if (STATE.settings && STATE.settings.pad_vid_meta) {
+        try { prevChunks = Number(JSON.parse(STATE.settings.pad_vid_meta).chunks) || 0; } catch (e) {}
       }
-      LOCAL_PREVIEW_PAD_VID_BLOB_URL = '';
+      const clearPayload = { pad_vid_meta: '', passbook_ad_cloud_vid_url: '' };
+      for (let i = 0; i < prevChunks; i++) {
+        clearPayload['pad_vid_c_' + i] = '';
+        delete STATE.settings['pad_vid_c_' + i];
+      }
+      STATE.settings.pad_vid_meta = '';
       STATE.settings.passbook_ad_cloud_vid_url = '';
-      await api('/api/settings', 'POST', { passbook_ad_cloud_vid_url: '' });
+      LOCAL_PREVIEW_PAD_VID_BLOB_URL = '';
+      if (REASSEMBLED_CLOUD_VID_BLOB_URL) {
+        try { URL.revokeObjectURL(REASSEMBLED_CLOUD_VID_BLOB_URL); } catch (e) {}
+        REASSEMBLED_CLOUD_VID_BLOB_URL = '';
+        REASSEMBLED_CLOUD_VID_META = '';
+      }
+      await api('/api/settings', 'POST', clearPayload);
       const progBox = document.getElementById('cloudVidUploadProgBox');
       if (progBox) progBox.style.display = 'none';
       renderAdminCloudVidPreview();
@@ -12136,6 +12238,26 @@
   let LAST_ADMIN_PING_SIG = '';
   let AUTO_SYNC_TIMER_ID = null;
 
+
+  async function hydrateFullPublicSettingsIfNeeded(pubSettingsObj) {
+    // Older Cloudflare Workers only returned 7 basic keys in `/api/public/check`.
+    // If `passbook_patti_enabled` AND `custom_products_meta` AND `pad_vid_meta` are all undefined, hydrate settings from `/api/bootstrap` (which ALREADY deletes admin_pin & gemini_api_key server-side!).
+    if (pubSettingsObj && (
+      pubSettingsObj.passbook_patti_enabled !== undefined ||
+      pubSettingsObj.pad_vid_meta !== undefined ||
+      pubSettingsObj.custom_products_meta !== undefined
+    )) {
+      return pubSettingsObj;
+    }
+    try {
+      const boot = await api('/api/bootstrap');
+      if (boot && boot.settings) {
+        return { ...boot.settings, ...(pubSettingsObj || {}) };
+      }
+    } catch (e) {}
+    return pubSettingsObj || {};
+  }
+
   function lockDeviceToRetailerTokenIfGuest(partyObj) {
     try {
       const isAdminOwner = (localStorage.getItem('aryush_is_admin_owner_device') === '1') ||
@@ -12175,19 +12297,23 @@
         res = await api(`/api/public/check?q=${encodeURIComponent(q)}`);
       }
 
-      const newSig = JSON.stringify({ s: res.settings || {}, m: res.matches || [] });
+      const fullPubSettings = await hydrateFullPublicSettingsIfNeeded(res.settings || {});
+      // Exclude gigantic base64 chunk bodies from string sig; `pad_vid_meta` already has timestamp `v`!
+      const lightSigSettings = {};
+      for (const [k, v] of Object.entries(fullPubSettings)) {
+        if (!k.startsWith('pad_vid_c_') && !k.startsWith('prod_pic_')) lightSigSettings[k] = v;
+      }
+      const newSig = JSON.stringify({ s: lightSigSettings, m: res.matches || [] });
       if (silentBgSync && newSig === LAST_PUB_SYNC_SIG) {
         return;
       }
       const hadPrevSig = Boolean(LAST_PUB_SYNC_SIG);
       LAST_PUB_SYNC_SIG = newSig;
 
-      if (res.settings) {
-        STATE.settings = { ...STATE.settings, ...res.settings };
-        syncV10SettingsFromState();
-        renderBrandIdentityAndProducts();
-        document.getElementById('pubHdrTitle').textContent = `${res.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
-      }
+      STATE.settings = { ...STATE.settings, ...fullPubSettings };
+      syncV10SettingsFromState();
+      renderBrandIdentityAndProducts();
+      document.getElementById('pubHdrTitle').textContent = `${STATE.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
       renderPublicPassbookAutoAdBanner((res.matches && res.matches[0]) ? res.matches[0].name : '');
 
       let list = res.matches || [];
@@ -12386,12 +12512,20 @@
       } else {
         if (STAGE_REVEAL_BUSY || isAdminUserActivelyEditing()) return;
         try {
-          const ping = await api('/api/sync-ping');
-          if (ping && ping.sig) {
+          let curSig = '';
+          try {
+            const ping = await api('/api/sync-ping');
+            curSig = ping?.sig || '';
+          } catch (pingErr) {
+            // Fallback for older Worker without `/api/sync-ping`: check lightweight signature from bootstrap!
+            const boot = await api('/api/bootstrap');
+            curSig = `${(boot.deliveries || []).length}:${(boot.deliveries?.[0]?.id) || 0}:${(boot.coupons || []).length}:${boot.settings?.pad_vid_meta || ''}:${boot.settings?.passbook_patti_text || ''}`;
+          }
+          if (curSig) {
             if (!LAST_ADMIN_PING_SIG) {
-              LAST_ADMIN_PING_SIG = ping.sig;
-            } else if (ping.sig !== LAST_ADMIN_PING_SIG) {
-              LAST_ADMIN_PING_SIG = ping.sig;
+              LAST_ADMIN_PING_SIG = curSig;
+            } else if (curSig !== LAST_ADMIN_PING_SIG) {
+              LAST_ADMIN_PING_SIG = curSig;
               await refreshAll(true);
             }
           }
@@ -12473,12 +12607,11 @@
 
       try {
         const initPub = await api('/api/public/check?q=');
-        if (initPub.settings) {
-          STATE.settings = { ...STATE.settings, ...initPub.settings };
-          syncV10SettingsFromState();
-          renderBrandIdentityAndProducts();
-          document.getElementById('pubHdrTitle').textContent = `${initPub.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
-        }
+        const fullInitSet = await hydrateFullPublicSettingsIfNeeded(initPub.settings || {});
+        STATE.settings = { ...STATE.settings, ...fullInitSet };
+        syncV10SettingsFromState();
+        renderBrandIdentityAndProducts();
+        document.getElementById('pubHdrTitle').textContent = `${STATE.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
       } catch (e) {}
       renderPublicPassbookAutoAdBanner('');
 

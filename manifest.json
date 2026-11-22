@@ -1,8 +1,8 @@
 {
   "name": "ARYUSH FOODS — Admin ERP",
   "short_name": "Aryush Admin",
-  "description": "आर्युष फूड्स (आर्युष रसोई धन) — आधिकारिक लकी ड्रॉ एवं सप्लाई प्रबंधन ERP v21.0",
-  "start_url": "/?v=21.0",
+  "description": "आर्युष फूड्स (आर्युष रसोई धन) — आधिकारिक लकी ड्रॉ एवं सप्लाई प्रबंधन ERP v20.0",
+  "start_url": "/?v=20.0",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",

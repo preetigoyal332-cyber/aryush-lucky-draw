@@ -2645,7 +2645,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v21.0 Video Fix</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v20.0 Jumbo HD</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -11963,20 +11963,16 @@
   function getEffectivePassbookVideoUrl() {
     const s = STATE.settings || {};
     if (LOCAL_PREVIEW_PAD_VID_BLOB_URL) return LOCAL_PREVIEW_PAD_VID_BLOB_URL;
-    // 1. Native Cloudflare D1 stream URL (works across ALL devices & retailers once `functions/api/[[path]].js` is deployed!)
+    // 1. If native stream URL from updated Worker is saved, use direct HTTP 206 streaming!
     if (s.passbook_ad_cloud_vid_url && String(s.passbook_ad_cloud_vid_url).trim()) {
       return String(s.passbook_ad_cloud_vid_url).trim();
     }
-    // 2. Reassembled from settings chunks (if stored in settings)
+    // 2. Otherwise reassemble from universal `/api/settings` chunks (for older Workers)!
     const reassembledBlob = ensureCloudVideoReassembledFromSettings();
     if (reassembledBlob) return reassembledBlob;
-    // 3. Direct external .mp4 URL
+    // 3. Optional external MP4 link
     if (s.passbook_ad_video_url && String(s.passbook_ad_video_url).trim()) {
       return String(s.passbook_ad_video_url).trim();
-    }
-    // 4. Local device fallback if uploaded via `🎬 + MP4 Ad Videos` in Product Studio
-    if (Array.isArray(STAGE_VIDEO_BLOBS) && STAGE_VIDEO_BLOBS.length > 0 && STAGE_VIDEO_BLOBS[0].blobUrl) {
-      return STAGE_VIDEO_BLOBS[0].blobUrl;
     }
     return '';
   }
@@ -12417,9 +12413,9 @@
       return;
     }
 
+    const mode = s.passbook_ad_mode || 'VIDEO_AND_SLIDES';
     const effVidUrl = getEffectivePassbookVideoUrl();
-    const rawMode = s.passbook_ad_mode || 'VIDEO_AND_SLIDES';
-    const mode = (effVidUrl && (rawMode === 'SLIDES_ONLY' || rawMode === 'CUSTOM_POSTER')) ? 'VIDEO_AND_SLIDES' : rawMode;
+    // Show video automatically whenever any video is saved (even if legacy mode was 'AUTO_ALL'!), unless explicitly set to 'SLIDES_ONLY' or 'CUSTOM_POSTER'
     const showVideo = Boolean(effVidUrl && mode !== 'SLIDES_ONLY' && mode !== 'CUSTOM_POSTER');
     const slides = buildPublicPassbookRotatingSlides();
 
@@ -12445,9 +12441,6 @@
           <div class="pub-vid-box-wrap">
             <button type="button" class="pub-vid-unmute-pill" id="btnPubVidSound" onclick="togglePassbookVideoSound()">🔊 आवाज़ सुनें</button>
             <video id="pubPersistentVideoEl" src="${esc(effVidUrl)}" autoplay muted loop playsinline webkit-playsinline preload="auto" controls style="width:100%;max-height:310px;display:block;object-fit:contain;background:#000;"></video>
-            <div id="pubVidFallbackNote" style="display:none;padding:8px 12px;background:#450a0a;color:#fecaca;font-size:11.5px;font-weight:700;text-align:center;">
-              ⚠️ वीडियो स्ट्रीमिंग के लिए कृपया ZIP की <code>functions/api/[[path]].js</code> फाइल भी Cloudflare / GitHub पर अपलोड करें।
-            </div>
           </div>
           ${(customHeadline || mode === 'VIDEO_AD') ? `
             <div style="margin-bottom:${slides.length ? '14px' : '4px'};">
@@ -12470,9 +12463,6 @@
             if (fallbackBlob && vEl.src !== fallbackBlob) {
               vEl.src = fallbackBlob;
               forceAutoPlayPassbookVideo(vEl);
-            } else {
-              const fn = document.getElementById('pubVidFallbackNote');
-              if (fn) fn.style.display = 'block';
             }
           };
           forceAutoPlayPassbookVideo(vEl);
@@ -12605,18 +12595,17 @@
   let CACHED_BOOT_SETTINGS_FOR_PUB = null;
   let LAST_BOOT_HYDRATE_AT = 0;
 
-  let CACHED_BOOT_SETTINGS_FOR_PUB = null;
-  let LAST_BOOT_HYDRATE_AT = 0;
-
   async function hydrateFullPublicSettingsIfNeeded(pubSettingsObj) {
-    const merged = { ...(pubSettingsObj || {}) };
-    const hasDirectStream = Boolean(merged.passbook_ad_cloud_vid_url);
-    const hasChunksInline = Boolean(merged.pad_vid_meta && merged.pad_vid_c_0);
+    // CRITICAL FIX: Older Cloudflare Workers (v16/v17/v18) return `custom_products_meta`,
+    // BUT they strip `pad_vid_meta`, `pad_vid_c_*`, and `passbook_patti_*` from `/api/public/check`!
+    // Whenever `passbook_ad_cloud_vid_url` is missing AND `pad_vid_c_0` wasn't included, fetch `/api/bootstrap` settings (cached for 15s) so Cloud Video & Patti ALWAYS load 100%!
+    const hasDirectStream = Boolean(pubSettingsObj && pubSettingsObj.passbook_ad_cloud_vid_url);
+    const hasChunksInline = Boolean(pubSettingsObj && pubSettingsObj.pad_vid_meta && pubSettingsObj.pad_vid_c_0);
     if (hasDirectStream || hasChunksInline) {
-      return merged;
+      return pubSettingsObj;
     }
     const now = Date.now();
-    if (!CACHED_BOOT_SETTINGS_FOR_PUB || (now - LAST_BOOT_HYDRATE_AT) > 12000) {
+    if (!CACHED_BOOT_SETTINGS_FOR_PUB || (now - LAST_BOOT_HYDRATE_AT) > 15000) {
       try {
         const boot = await api('/api/bootstrap');
         if (boot && boot.settings) {
@@ -12626,9 +12615,9 @@
       } catch (e) {}
     }
     if (CACHED_BOOT_SETTINGS_FOR_PUB) {
-      return { ...CACHED_BOOT_SETTINGS_FOR_PUB, ...merged };
+      return { ...CACHED_BOOT_SETTINGS_FOR_PUB, ...(pubSettingsObj || {}) };
     }
-    return merged;
+    return pubSettingsObj || {};
   }
 
   function lockDeviceToRetailerTokenIfGuest(partyObj) {

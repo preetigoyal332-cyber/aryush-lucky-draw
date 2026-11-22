@@ -7418,8 +7418,15 @@
     const validNums = combined.filter(n => allottedSet.has(n));
     if (!validNums.length) return toast('Entered coupon numbers are not yet allotted to any party.', true);
 
-    if (validNums.length > maxQty) {
-      return toast(`⚠️ "${act.title}" me kul ${maxQty} hi prize hain! Aapne ${validNums.length} coupon dale hain — kripya ${maxQty} hi rakhein.`, true);
+    const qStatRapid = getSegmentQuotaStatus(act);
+    const netNewRapid = validNums.filter(n => !qStatRapid.existingNums.has(n));
+    if (netNewRapid.length > qStatRapid.remainingSlots) {
+      return toast(
+        qStatRapid.remainingSlots === 0
+          ? `⚠️ "${act.title}" ke sabhi ${qStatRapid.maxQty} prizes pehle hi pure ho chuke hain!`
+          : `⚠️ "${act.title}" me sirf ${qStatRapid.remainingSlots} prize baki hain (Kul: ${qStatRapid.maxQty}), aapne ${netNewRapid.length} naye coupon dale hain!`,
+        true
+      );
     }
 
     const prize_status = document.getElementById('rapidHandoverSel').value;
@@ -11202,10 +11209,7 @@
     if (!nums.length) return toast('Please enter at least one coupon number.', true);
 
     const cByNum = new Map(STATE.coupons.map(c => [Number(c.coupon_num), c]));
-    const validNums = nums.filter(n => cByNum.has(n));
-    if (!validNums.length) {
-      return toast('Entered coupon number(s) are not allotted to any party.', true);
-    }
+    const validNums = nums;
     const qStat = getSegmentQuotaStatus(seg);
     const netNewNums = validNums.filter(n => !qStat.existingNums.has(n));
     if (netNewNums.length > qStat.remainingSlots) {
@@ -11459,10 +11463,7 @@
     }
 
     const cByNum = new Map(STATE.coupons.map(c => [Number(c.coupon_num), c]));
-    const validNums = parsedNums.filter(n => cByNum.has(n));
-    if (!validNums.length) {
-      return toast(`Coupon #${padCup(parsedNums[0])} abhi kisi party ko allot nahi hai!`, true);
-    }
+    const validNums = parsedNums;
     const qStat = getSegmentQuotaStatus(seg);
     const netNewNums = validNums.filter(n => !qStat.existingNums.has(n));
     if (netNewNums.length > qStat.remainingSlots) {

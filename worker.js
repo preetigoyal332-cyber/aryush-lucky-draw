@@ -431,9 +431,23 @@ async function handleApiRequest(request, env, url) {
       if (stmts.length) await db.batch(stmts);
       return jsonRes({ ok: true, updated: stmts.length });
     }
-    const stmts = (body.coupon_nums || []).map(num =>
+    const newTitle = String(body.prize_title || '').trim();
+    const nums = Array.from(new Set((body.coupon_nums || []).map(Number).filter(n => n > 0)));
+    if (newTitle) {
+      const segRow = await db.prepare(`SELECT target_qty FROM segments WHERE title = ?`).bind(newTitle).first();
+      const maxQty = segRow ? Math.max(1, Number(segRow.target_qty) || 1) : 9999;
+      const { results: curSegWinners } = await db.prepare(
+        `SELECT coupon_num FROM coupons WHERE prize_title = ? AND prize_status != 'NONE'`
+      ).bind(newTitle).all();
+      const existingSet = new Set((curSegWinners || []).map(r => Number(r.coupon_num)));
+      const netAdditions = nums.filter(n => !existingSet.has(n));
+      if (existingSet.size + netAdditions.length > maxQty) {
+        return jsonRes({ error: `Segment "${newTitle}" quota exceeded (max ${maxQty}).` }, 400);
+      }
+    }
+    const stmts = nums.map(num =>
       db.prepare(`UPDATE coupons SET prize_title = ?, prize_rank = ?, prize_status = ?, draw_date = ? WHERE coupon_num = ?`)
-        .bind(body.prize_title || '', body.prize_title ? Number(body.prize_rank) : 999, body.prize_title ? (body.prize_status || 'WON') : 'NONE', body.draw_date || '', Number(num))
+        .bind(newTitle, newTitle ? Number(body.prize_rank) : 999, newTitle ? (body.prize_status || 'WON') : 'NONE', body.draw_date || '', Number(num))
     );
     if (stmts.length) await db.batch(stmts);
     return jsonRes({ ok: true, updated: stmts.length });

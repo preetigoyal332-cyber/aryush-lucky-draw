@@ -4716,7 +4716,18 @@
     if (path === '/api/live-poll') {
       return { ok: true, live_stage_cmd: db.settings?.live_stage_cmd || '' };
     }
-    if (path === '/api/media/upload-chunk' || path === '/api/media/delete') {
+    if (path === '/api/media/upload-chunk') {
+      db.media_chunks = db.media_chunks || {};
+      const mk = String(body.media_key || 'default');
+      db.media_chunks[mk] = db.media_chunks[mk] || { mime: body.mime_type || 'video/mp4', chunks: {} };
+      db.media_chunks[mk].chunks[String(body.chunk_idx)] = body.data_b64;
+      setLocalDB(db);
+      return { ok: true };
+    }
+    if (path === '/api/media/delete') {
+      db.media_chunks = db.media_chunks || {};
+      delete db.media_chunks[String(body.media_key || 'default')];
+      setLocalDB(db);
       return { ok: true };
     }
     if (path === '/api/coupons/allot') {
@@ -8959,6 +8970,10 @@
   let AUTO_CLOUD_MIGRATED_ONCE = false;
 
   function syncV10SettingsFromState() {
+    STATE.settings.pin_enabled = Boolean(
+      STATE.settings.pin_enabled ||
+      (STATE.settings.admin_pin && String(STATE.settings.admin_pin) !== '0000')
+    );
     if (!STATE.settings.brand_logo_data || !STATE.settings.brand_logo_data.startsWith('data:image/')) {
       STATE.settings.brand_logo_data = DEFAULT_OFFICIAL_LOGO_DATA;
     }
@@ -11913,21 +11928,65 @@
     const file = ev.target.files[0];
     ev.target.value = '';
     if (!file) return;
+    if (file.size > 18 * 1024 * 1024) {
+      return toast('⚠️ कृपया 18 MB से छोटा MP4 वीडियो चुनें।', true);
+    }
     const progBox = document.getElementById('cloudVidUploadProgBox');
     const statusTxt = document.getElementById('cloudVidUploadStatusTxt');
     const pctTxt = document.getElementById('cloudVidUploadPctTxt');
     const fillBar = document.getElementById('cloudVidUploadFill');
     if (progBox) progBox.style.display = 'block';
-    if (fillBar) fillBar.style.width = '100%';
-    if (pctTxt) pctTxt.textContent = '100%';
+
     try {
+      const buf = await file.arrayBuffer();
+      const bytes = new Uint8Array(buf);
+      let bin = '';
+      const step = 0x8000;
+      for (let i = 0; i < bytes.length; i += step) {
+        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + step));
+      }
+      const fullB64 = btoa(bin);
+      const chunkSize = 60000;
+      const totalChunks = Math.ceil(fullB64.length / chunkSize);
+      const mimeType = file.type || 'video/mp4';
+
+      try {
+        await api('/api/media/delete', 'POST', { media_key: 'passbook_ad_video' });
+      } catch (e) {}
+
+      for (let idx = 0; idx < totalChunks; idx++) {
+        const slice = fullB64.slice(idx * chunkSize, (idx + 1) * chunkSize);
+        const pct = Math.round(((idx + 1) / totalChunks) * 100);
+        if (fillBar) fillBar.style.width = pct + '%';
+        if (pctTxt) pctTxt.textContent = pct + '%';
+        if (statusTxt) statusTxt.textContent = `⏳ क्लाउड पर अपलोड हो रहा है (${idx + 1}/${totalChunks})...`;
+
+        await api('/api/media/upload-chunk', 'POST', {
+          media_key: 'passbook_ad_video',
+          chunk_idx: idx,
+          total_chunks: totalChunks,
+          mime_type: mimeType,
+          data_b64: slice
+        });
+        await api('/api/settings', 'POST', { ['pad_vid_c_' + idx]: slice });
+      }
+
+      const streamUrl = `/api/media/stream?key=passbook_ad_video&v=${Date.now()}`;
+      const metaStr = JSON.stringify({ chunks: totalChunks, mime: mimeType, ts: Date.now() });
+      await api('/api/settings', 'POST', {
+        passbook_ad_cloud_vid_url: streamUrl,
+        pad_vid_meta: metaStr
+      });
+
+      STATE.settings.passbook_ad_cloud_vid_url = streamUrl;
+      STATE.settings.pad_vid_meta = metaStr;
       const saved = await saveVideoBlobToIDB(file);
       if (saved && saved.blobUrl) {
         LOCAL_PREVIEW_PAD_VID_BLOB_URL = saved.blobUrl;
       }
-      if (statusTxt) statusTxt.textContent = '✅ लोकल डिवाइस पर वीडियो सेव हो गया (ऑनलाइन लिंक के लिए नीचे Direct MP4 URL डालें)।';
+      if (statusTxt) statusTxt.textContent = '✅ वीडियो क्लाउड D1 पर सेव हो गया — अब सभी पासबुक पर चलेगा!';
       renderAdminCloudVidPreview();
-      toast('🎬 वीडियो सेव हो गया! अन्य फोन के लिए नीचे Direct MP4 URL भी सेव कर सकते हैं।');
+      toast('🎬 वीडियो क्लाउड D1 पर सफलतापूर्वक सेव हो गया!');
     } catch (err) {
       if (statusTxt) statusTxt.textContent = '❌ त्रुटि: ' + err.message;
       toast(err.message, true);
@@ -11938,9 +11997,13 @@
     LOCAL_PREVIEW_PAD_VID_BLOB_URL = '';
     STATE.settings.passbook_ad_cloud_vid_url = '';
     STATE.settings.passbook_ad_video_url = '';
+    STATE.settings.pad_vid_meta = '';
     const inp = document.getElementById('padVideoUrlInp');
     if (inp) inp.value = '';
-    try { await api('/api/settings', 'POST', { passbook_ad_cloud_vid_url: '', passbook_ad_video_url: '' }); } catch (e) {}
+    try {
+      await api('/api/media/delete', 'POST', { media_key: 'passbook_ad_video' });
+      await api('/api/settings', 'POST', { passbook_ad_cloud_vid_url: '', passbook_ad_video_url: '', pad_vid_meta: '' });
+    } catch (e) {}
     renderAdminCloudVidPreview();
     toast('🗑️ वीडियो हटा दिया गया।');
   }
@@ -12168,6 +12231,31 @@
     if (vEl.readyState >= 2) tryPlay();
     else vEl.addEventListener('loadeddata', tryPlay, { once: true });
     tryPlay();
+  }
+
+  function ensureCloudVideoReassembledFromSettings() {
+    try {
+      const s = STATE.settings || {};
+      if (!s.pad_vid_meta) return '';
+      const meta = JSON.parse(s.pad_vid_meta);
+      const total = Number(meta.chunks) || 0;
+      if (!total) return '';
+      const b64Parts = [];
+      for (let i = 0; i < total; i++) {
+        const part = s['pad_vid_c_' + i];
+        if (!part) return '';
+        b64Parts.push(part);
+      }
+      const fullB64 = b64Parts.join('');
+      const bin = atob(fullB64);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      const blob = new Blob([bytes], { type: meta.mime || 'video/mp4' });
+      LOCAL_PREVIEW_PAD_VID_BLOB_URL = URL.createObjectURL(blob);
+      return LOCAL_PREVIEW_PAD_VID_BLOB_URL;
+    } catch (e) {
+      return '';
+    }
   }
 
   function renderPublicPassbookAutoAdBanner(activePartyName = '') {
@@ -12430,7 +12518,7 @@
         res = await api(`/api/public/check?q=${encodeURIComponent(q)}`);
       }
       if (res.settings) {
-        STATE.settings = { ...STATE.settings, ...res.settings };
+        STATE.settings = await hydrateFullPublicSettingsIfNeeded({ ...STATE.settings, ...res.settings });
         syncV10SettingsFromState();
         renderBrandIdentityAndProducts();
         document.getElementById('pubHdrTitle').textContent = `${STATE.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
@@ -12619,7 +12707,7 @@
       try {
         const initPub = await api('/api/public/check?q=');
         if (initPub.settings) {
-          STATE.settings = { ...STATE.settings, ...initPub.settings };
+          STATE.settings = await hydrateFullPublicSettingsIfNeeded({ ...STATE.settings, ...initPub.settings });
           syncV10SettingsFromState();
           renderBrandIdentityAndProducts();
           document.getElementById('pubHdrTitle').textContent = `${STATE.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;

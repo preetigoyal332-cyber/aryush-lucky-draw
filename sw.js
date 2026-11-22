@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aryush-draw-erp-v24-syncfix';
+const CACHE_NAME = 'aryush-draw-erp-v25-mediafix';
 const STATIC_ASSETS = ['/', '/index.html', '/manifest.json', '/logo.png', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {
@@ -22,8 +22,10 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(req)
       .then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => {});
+        if (res && res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => {});
+        }
         return res;
       })
       .catch(() => caches.match(req))

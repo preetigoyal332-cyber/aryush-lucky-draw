@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aryush-draw-erp-v19.5-hdpacks';
+const CACHE_NAME = 'aryush-draw-erp-v20.0-jumbohd';
 const STATIC_ASSETS = ['/manifest.json', '/logo.png', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (event) => {

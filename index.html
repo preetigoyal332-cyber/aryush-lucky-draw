@@ -2484,100 +2484,149 @@
       animation: pulseLiveDot 1.6s infinite;
     }
 
-    /* ==================== v19.5 PROMINENT LARGE PRODUCT PACK PHOTO SHOWCASE ==================== */
+    /* ==================== v20.0 JUMBO 2-COLUMN E-COMMERCE PRODUCT CATALOG & HERO AD STAGE ==================== */
     .prod-ribbon {
       gap: 10px !important;
       padding: 6px 2px 10px !important;
     }
     .prod-chip {
-      min-width: 196px !important;
-      padding: 9px 12px !important;
-      border-radius: 14px !important;
-      gap: 11px !important;
+      min-width: 210px !important;
+      padding: 10px 12px !important;
+      border-radius: 15px !important;
+      gap: 12px !important;
       align-items: center !important;
     }
-    .prod-ico {
-      width: 50px !important;
-      height: 50px !important;
-      font-size: 24px !important;
-      border-radius: 12px !important;
-    }
     .prod-ico.has-photo {
-      width: 74px !important;
-      height: 74px !important;
-      padding: 4px !important;
+      width: 86px !important;
+      height: 86px !important;
+      padding: 3px !important;
       border-radius: 13px !important;
       border: 2px solid #f59e0b !important;
       background: #ffffff !important;
-      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.14) !important;
     }
-    /* Even Larger Vertical E-Commerce Style Pack Cards on Retailer Digital Passbook Header! */
-    #pubProdRibbon .prod-chip {
-      flex-direction: column !important;
-      text-align: center !important;
-      min-width: 138px !important;
-      max-width: 152px !important;
-      padding: 10px 9px !important;
-      gap: 7px !important;
-      background: rgba(255, 255, 255, 0.97) !important;
-      border: 1.5px solid #fde047 !important;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22) !important;
+
+    /* RETAILER PASSBOOK: BOLD 2-COLUMN JUMBO CATALOG GRID (Zero cut-off cards, Zero tiny inner box!) */
+    #pubProdRibbon {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 12px !important;
+      overflow-x: visible !important;
+      padding: 6px 0 2px !important;
+      margin-top: 12px !important;
     }
-    #pubProdRibbon .prod-ico.has-photo {
-      width: 96px !important;
-      height: 96px !important;
-      padding: 5px !important;
-      border-radius: 14px !important;
-      border: 1.5px solid #fcd34d !important;
+    @media (min-width: 620px) {
+      #pubProdRibbon {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      }
     }
-    #pubProdRibbon .prod-nm {
-      font-size: 12.5px !important;
-      line-height: 1.2 !important;
-      color: #0f172a !important;
+    .pub-jumbo-prod-card {
+      background: #ffffff;
+      border: 2px solid #fbbf24;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
     }
-    #pubProdRibbon .prod-tag {
-      font-size: 10px !important;
-      color: #64748b !important;
+    .pub-jumbo-prod-card:active {
+      transform: scale(0.98);
+    }
+    .pub-jumbo-img-stage {
+      width: 100%;
+      height: 190px;
+      background: #ffffff;
+      padding: 8px 8px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 390px) {
+      .pub-jumbo-img-stage { height: 172px; }
+    }
+    .pub-jumbo-img-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .pub-jumbo-caption {
+      padding: 8px 10px 10px;
+      background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+      border-top: 1px solid #fef3c7;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .pub-jumbo-nm {
+      font-size: 14px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.22;
+    }
+    .pub-jumbo-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #92400e;
+      margin-top: 3px;
+      line-height: 1.25;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+    .pub-catalog-more-btn {
+      background: rgba(254, 240, 138, 0.16);
+      color: #fde047;
+      border: 1.5px solid rgba(250, 204, 21, 0.55);
+      border-radius: 999px;
+      padding: 7px 18px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
 
-    /* Prominent Large Pack Photo inside Retailer Passbook Automatic Ad Banner */
-    .pub-ad-body {
-      grid-template-columns: 152px 1fr !important;
-      gap: 16px !important;
+    /* FULL-WIDTH JUMBO HERO PRODUCT STAGE IN ROTATING AD CARD */
+    .pub-ad-hero-showcase {
+      display: flex;
+      flex-direction: column;
+      animation: appSlide 0.28s ease-out;
     }
-    .pub-ad-img-frame {
-      width: 152px !important;
-      height: 152px !important;
-      padding: 6px !important;
-      border-radius: 16px !important;
-      border: 2.5px solid #fde047 !important;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45) !important;
+    .pub-ad-hero-stage {
+      width: 100%;
+      height: 235px;
+      background: #ffffff;
+      border-radius: 15px;
+      border: 2.5px solid #fde047;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.42);
     }
-    @media (max-width: 460px) {
-      .pub-ad-body {
-        grid-template-columns: 128px 1fr !important;
-        gap: 13px !important;
-      }
-      .pub-ad-img-frame {
-        width: 128px !important;
-        height: 128px !important;
-      }
+    .pub-ad-hero-stage img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    @media (min-width: 560px) {
+      .pub-ad-hero-stage { height: 270px; }
     }
     .pub-ad-full-poster {
-      max-height: 310px !important;
+      max-height: 320px !important;
     }
-
-    /* Enlarged Stage LED Full-Screen & Split-Screen Pack Photos */
     .stage-pack-hero-img {
-      max-height: 56vh !important;
-      max-width: 92% !important;
+      max-height: 58vh !important;
+      max-width: 94% !important;
     }
     .side-pack-slide-img {
-      height: 310px !important;
+      height: 315px !important;
     }
   </style>
 </head>
@@ -2596,7 +2645,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v19.5 HD Packs</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v20.0 Jumbo HD</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -4155,9 +4204,9 @@
           <div class="field">
             <label>🎯 डिस्प्ले मोड (Display Mode)</label>
             <select id="padModeSel" onchange="togglePassbookAdModeFields()" style="font-weight:800;">
-              <option value="VIDEO_AND_SLIDES">🎬 + 🔄 वीडियो + उत्पाद स्लाइडर (दोनों साथ चलें)</option>
+              <option value="VIDEO_AND_SLIDES">🎬 + 🔄 वीडियो + बड़ा उत्पाद स्लाइडर (दोनों साथ चलें)</option>
               <option value="VIDEO_AD">🎬 केवल ऑटो-प्ले विज्ञापन वीडियो</option>
-              <option value="AUTO_ALL">🔄 केवल उत्पाद विशेषता स्लाइडर + पोस्टर</option>
+              <option value="SLIDES_ONLY">🔄 केवल बड़ा उत्पाद स्लाइडर (वीडियो छुपाएँ)</option>
               <option value="CUSTOM_POSTER">🖼️ केवल स्पेशल ऑफर पोस्टर</option>
             </select>
           </div>
@@ -8803,30 +8852,122 @@
   }
 
   // Cloud-Optimized Crisp Product Pack Photo processor: guarantees <32KB per image so Cloudflare D1 syncs 100% reliably across Phone, PC & LED TV!
-  async function compressProductPackPhoto(file, maxDim = 540) {
+  // Automatically detects & crops empty white/near-white margins around bottles & pouches so the product pack looks HUGE!
+  function drawAutoCroppedPackToCanvas(img, maxDim = 600) {
+    const scanW = Math.min(img.width, 360);
+    const scanH = Math.max(1, Math.round((img.height * scanW) / Math.max(1, img.width)));
+    const tmp = document.createElement('canvas');
+    tmp.width = scanW; tmp.height = scanH;
+    const tCtx = tmp.getContext('2d');
+    tCtx.fillStyle = '#ffffff';
+    tCtx.fillRect(0, 0, scanW, scanH);
+    tCtx.drawImage(img, 0, 0, scanW, scanH);
+
+    let minX = scanW, minY = scanH, maxX = 0, maxY = 0, found = false;
+    try {
+      const data = tCtx.getImageData(0, 0, scanW, scanH).data;
+      for (let y = 0; y < scanH; y++) {
+        for (let x = 0; x < scanW; x++) {
+          const idx = (y * scanW + x) * 4;
+          const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+          // Non-white pixel threshold (handles off-white studio backgrounds too)
+          if (r < 244 || g < 244 || b < 244) {
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+            found = true;
+          }
+        }
+      }
+    } catch (e) {}
+
+    let sx = 0, sy = 0, sw = img.width, sh = img.height;
+    if (found && (maxX - minX) > 24 && (maxY - minY) > 24) {
+      const scaleX = img.width / scanW;
+      const scaleY = img.height / scanH;
+      const padX = Math.round((maxX - minX) * scaleX * 0.03);
+      const padY = Math.round((maxY - minY) * scaleY * 0.03);
+      sx = Math.max(0, Math.floor(minX * scaleX) - padX);
+      sy = Math.max(0, Math.floor(minY * scaleY) - padY);
+      const ex = Math.min(img.width, Math.ceil(maxX * scaleX) + padX);
+      const ey = Math.min(img.height, Math.ceil(maxY * scaleY) + padY);
+      sw = Math.max(1, ex - sx);
+      sh = Math.max(1, ey - sy);
+    }
+
+    let w = sw, h = sh;
+    if (w > maxDim || h > maxDim) {
+      if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+      else { w = Math.round((w * maxDim) / h); h = maxDim; }
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, w, h);
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+    return canvas;
+  }
+
+  const CROPPED_PACK_MEM_CACHE = new Map();
+  let CROPPING_IN_FLIGHT = false;
+
+  // Live Client-Side Enhancer: Automatically crops excess white margins from ALREADY-UPLOADED product photos!
+  function autoEnhanceLoadedProductPhotosInMemory() {
+    if (CROPPING_IN_FLIGHT || !Array.isArray(ARYUSH_PRODUCTS)) return;
+    const pending = ARYUSH_PRODUCTS.filter(p => p && p.photoData && p.photoData.startsWith('data:image/') && !CROPPED_PACK_MEM_CACHE.has(p.photoData));
+    if (!pending.length) {
+      let swapped = false;
+      ARYUSH_PRODUCTS.forEach(p => {
+        if (p && p.photoData && CROPPED_PACK_MEM_CACHE.has(p.photoData)) {
+          const cUrl = CROPPED_PACK_MEM_CACHE.get(p.photoData);
+          if (cUrl && cUrl !== p.photoData) { p.photoData = cUrl; swapped = true; }
+        }
+      });
+      return;
+    }
+    CROPPING_IN_FLIGHT = true;
+    Promise.all(pending.map(p => new Promise((resolve) => {
+      const orig = p.photoData;
+      const im = new Image();
+      im.onload = () => {
+        try {
+          const c = drawAutoCroppedPackToCanvas(im, 580);
+          const cropped = c.toDataURL('image/jpeg', 0.86);
+          CROPPED_PACK_MEM_CACHE.set(orig, cropped);
+          CROPPED_PACK_MEM_CACHE.set(cropped, cropped);
+          p.photoData = cropped;
+        } catch (e) {
+          CROPPED_PACK_MEM_CACHE.set(orig, orig);
+        }
+        resolve();
+      };
+      im.onerror = () => { CROPPED_PACK_MEM_CACHE.set(orig, orig); resolve(); };
+      im.src = orig;
+    }))).then(() => {
+      CROPPING_IN_FLIGHT = false;
+      renderBrandIdentityAndProducts();
+      if (document.body.classList.contains('public-mode')) {
+        renderCurrentPublicAdSlide();
+      }
+    });
+  }
+
+  async function compressProductPackPhoto(file, maxDim = 600) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const img = new Image();
         img.onload = () => {
-          let w = img.width, h = img.height;
-          if (w > maxDim || h > maxDim) {
-            if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
-            else { w = Math.round((w * maxDim) / h); h = maxDim; }
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = w;
-          canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, w, h);
-          ctx.drawImage(img, 0, 0, w, h);
+          const canvas = drawAutoCroppedPackToCanvas(img, maxDim);
           let q = 0.86;
           let out = canvas.toDataURL('image/jpeg', q);
-          while (out.length > 74000 && q > 0.52) {
+          while (out.length > 76000 && q > 0.52) {
             q -= 0.08;
             out = canvas.toDataURL('image/jpeg', q);
           }
+          CROPPED_PACK_MEM_CACHE.set(out, out);
           resolve(out);
         };
         img.onerror = reject;
@@ -8903,6 +9044,7 @@
         setTimeout(() => { forcePushAllMediaToCloud(true); }, 900);
       }
     }
+    setTimeout(autoEnhanceLoadedProductPhotosInMemory, 40);
   }
 
   // Saves Product Metadata + Each Product Photo in SEPARATE D1 Rows so D1 100KB row limit is NEVER exceeded!
@@ -9671,14 +9813,11 @@
     const tl = document.getElementById('homeBrandTagline');
     if (tl) tl.textContent = s.brand_tagline || '100% Pure Kacchi Ghani Mustard Oil & Authentic Packaged Spices';
 
-    const buildChips = (isPublic) => ARYUSH_PRODUCTS.map((p, idx) => {
+    const buildAdminChips = () => ARYUSH_PRODUCTS.map((p, idx) => {
       const hasVid = Boolean(resolveProductVideoSrc(p));
       const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
-      const clickAttr = isPublic
-        ? (hasPic ? `onclick="previewSingleProductMedia(${idx})"` : '')
-        : `onclick="onHomeProductChipClick(${idx})"`;
       return `
-      <div class="prod-chip" ${clickAttr} title="${esc(p.hi)}">
+      <div class="prod-chip" onclick="onHomeProductChipClick(${idx})" title="${esc(p.hi)}">
         ${hasVid ? `<span class="vid-dot">▶ AD</span>` : ''}
         <div class="prod-ico ${hasPic ? 'has-photo' : ''}" style="background:${p.bg};">
           ${hasPic ? `<img src="${p.photoData}" alt="${esc(p.hi)}" />` : esc(p.icon)}
@@ -9686,15 +9825,45 @@
         <div>
           <div class="prod-nm">${esc(p.hi)}</div>
           <div class="prod-tag">${esc(p.tag)}</div>
-          ${(!isPublic && !hasPic) ? `<span class="pic-add-hint">📸 Tap to Add Pic</span>` : ''}
+          ${!hasPic ? `<span class="pic-add-hint">📸 Tap to Add Pic</span>` : ''}
         </div>
       </div>`;
     }).join('');
 
+    const buildPublicJumboCatalog = () => {
+      const showAll = Boolean(window.PUB_CATALOG_EXPANDED);
+      const visibleList = showAll ? ARYUSH_PRODUCTS : ARYUSH_PRODUCTS.slice(0, 4);
+      const cardsHtml = visibleList.map((p, idx) => {
+        const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
+        return `
+        <div class="pub-jumbo-prod-card" onclick="previewSingleProductMedia(${idx})">
+          <div class="pub-jumbo-img-stage" style="${hasPic ? '' : `background:${p.bg};`}">
+            ${hasPic
+              ? `<img src="${p.photoData}" alt="${esc(p.hi)}" />`
+              : `<span style="font-size:64px;">${esc(p.icon || '🌶️')}</span>`
+            }
+          </div>
+          <div class="pub-jumbo-caption">
+            <div class="pub-jumbo-nm">${esc(p.hi)}</div>
+            <div class="pub-jumbo-tag">${esc(p.tag)}</div>
+          </div>
+        </div>`;
+      }).join('');
+
+      const moreBtn = ARYUSH_PRODUCTS.length > 4
+        ? `<div style="grid-column:1 / -1;text-align:center;margin-top:4px;">
+             <button type="button" class="pub-catalog-more-btn" onclick="window.PUB_CATALOG_EXPANDED=!window.PUB_CATALOG_EXPANDED;renderBrandIdentityAndProducts();">
+               ${showAll ? '▴ छोटा करें (प्रमुख 4 उत्पाद दिखाएँ)' : `▾ हमारे सभी ${ARYUSH_PRODUCTS.length} उत्पाद बड़े साइज़ में देखें`}
+             </button>
+           </div>`
+        : '';
+      return cardsHtml + moreBtn;
+    };
+
     const homeRib = document.getElementById('homeProdRibbon');
-    if (homeRib) homeRib.innerHTML = buildChips(false);
+    if (homeRib) homeRib.innerHTML = buildAdminChips();
     const pubRib = document.getElementById('pubProdRibbon');
-    if (pubRib) pubRib.innerHTML = buildChips(true);
+    if (pubRib) pubRib.innerHTML = buildPublicJumboCatalog();
 
     renderAllWelcomePattis();
   }
@@ -12201,6 +12370,33 @@
     renderCurrentPublicAdSlide();
   }
 
+  function forceAutoPlayPassbookVideo(vEl) {
+    if (!vEl) return;
+    vEl.muted = true;
+    vEl.defaultMuted = true;
+    vEl.setAttribute('muted', '');
+    vEl.setAttribute('playsinline', '');
+    vEl.setAttribute('webkit-playsinline', '');
+    const tryPlay = () => {
+      const p = vEl.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // Retry on first user scroll/touch if mobile Data-Saver blocked initial autoplay
+          const unlockOnce = () => {
+            if (vEl.paused) { vEl.muted = true; vEl.play().catch(() => {}); }
+            window.removeEventListener('touchstart', unlockOnce);
+            window.removeEventListener('scroll', unlockOnce);
+          };
+          window.addEventListener('touchstart', unlockOnce, { passive: true });
+          window.addEventListener('scroll', unlockOnce, { passive: true });
+        });
+      }
+    };
+    if (vEl.readyState >= 2) tryPlay();
+    else vEl.addEventListener('loadeddata', tryPlay, { once: true });
+    tryPlay();
+  }
+
   function renderPublicPassbookAutoAdBanner(activePartyName = '') {
     if (activePartyName) PUB_AD_ACTIVE_RETAILER_NAME = activePartyName;
     renderPassbookProductHighlightsPatti();
@@ -12219,7 +12415,8 @@
 
     const mode = s.passbook_ad_mode || 'VIDEO_AND_SLIDES';
     const effVidUrl = getEffectivePassbookVideoUrl();
-    const showVideo = Boolean(effVidUrl && (mode === 'VIDEO_AND_SLIDES' || mode === 'VIDEO_AD'));
+    // Show video automatically whenever any video is saved (even if legacy mode was 'AUTO_ALL'!), unless explicitly set to 'SLIDES_ONLY' or 'CUSTOM_POSTER'
+    const showVideo = Boolean(effVidUrl && mode !== 'SLIDES_ONLY' && mode !== 'CUSTOM_POSTER');
     const slides = buildPublicPassbookRotatingSlides();
 
     if (!showVideo && !slides.length) {
@@ -12228,7 +12425,7 @@
     }
     slot.style.display = 'block';
 
-    // 1. Render Persistent Auto-Play Video Section (Never interrupted when product slides rotate below!)
+    // 1. Persistent Full-Width Auto-Play HD Video Player
     if (showVideo) {
       vidSec.style.display = 'block';
       if (LAST_RENDERED_PERSISTENT_VID_URL !== effVidUrl || !document.getElementById('pubPersistentVideoEl')) {
@@ -12239,14 +12436,14 @@
 
         vidSec.innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span class="pub-ad-kicker">🎬 विशेष उत्पाद प्रस्तुति • ARYUSH RASOI DHAN</span>
+            <span class="pub-ad-kicker">🎬 विशेष वीडियो विज्ञापन • ARYUSH RASOI DHAN</span>
           </div>
           <div class="pub-vid-box-wrap">
             <button type="button" class="pub-vid-unmute-pill" id="btnPubVidSound" onclick="togglePassbookVideoSound()">🔊 आवाज़ सुनें</button>
-            <video id="pubPersistentVideoEl" src="${esc(effVidUrl)}" autoplay muted loop playsinline controls style="width:100%;max-height:260px;display:block;object-fit:contain;background:#000;"></video>
+            <video id="pubPersistentVideoEl" src="${esc(effVidUrl)}" autoplay muted loop playsinline webkit-playsinline preload="auto" controls style="width:100%;max-height:310px;display:block;object-fit:contain;background:#000;"></video>
           </div>
           ${(customHeadline || mode === 'VIDEO_AD') ? `
-            <div style="margin-bottom:${slides.length ? '12px' : '4px'};">
+            <div style="margin-bottom:${slides.length ? '14px' : '4px'};">
               <div class="pub-ad-title">${esc(customHeadline || 'आर्युष रसोई धन — शुद्धता और विश्वास की पहचान')}</div>
               ${customSub ? `<div class="pub-ad-sub">${esc(customSub)}</div>` : ''}
               ${!slides.length ? `
@@ -12254,12 +12451,25 @@
                   <span></span>
                   <button type="button" class="pub-ad-order-btn" onclick="triggerPassbookAdOrderWhatsApp('${esc(customHeadline || 'आर्युष रसोई धन उत्पाद')}')">${esc(ctaLabel)}</button>
                 </div>
-              ` : `<div style="height:1px;background:rgba(255,255,255,0.14);margin-top:10px;"></div>`}
+              ` : `<div style="height:1px;background:rgba(255,255,255,0.16);margin-top:12px;"></div>`}
             </div>
-          ` : (slides.length ? `<div style="height:1px;background:rgba(255,255,255,0.14);margin:10px 0;"></div>` : '')}
+          ` : (slides.length ? `<div style="height:1px;background:rgba(255,255,255,0.16);margin:12px 0;"></div>` : '')}
         `;
         const vEl = document.getElementById('pubPersistentVideoEl');
-        if (vEl) vEl.play().catch(() => {});
+        if (vEl) {
+          // If `/api/media/stream` failed on an older Worker while `pad_vid_meta` exists, seamlessly switch to reassembled Blob!
+          vEl.onerror = () => {
+            const fallbackBlob = ensureCloudVideoReassembledFromSettings();
+            if (fallbackBlob && vEl.src !== fallbackBlob) {
+              vEl.src = fallbackBlob;
+              forceAutoPlayPassbookVideo(vEl);
+            }
+          };
+          forceAutoPlayPassbookVideo(vEl);
+        }
+      } else {
+        const existingVel = document.getElementById('pubPersistentVideoEl');
+        if (existingVel && existingVel.paused) forceAutoPlayPassbookVideo(existingVel);
       }
     } else {
       vidSec.style.display = 'none';
@@ -12267,12 +12477,12 @@
       LAST_RENDERED_PERSISTENT_VID_URL = '';
     }
 
-    // 2. Render Rotating Product Highlights / Poster Slides Section
+    // 2. Rotating Jumbo Hero Product Highlights / Poster Slides
     if (slides.length > 0) {
       slideSec.style.display = 'block';
       renderCurrentPublicAdSlide();
       if (PUB_AD_SLIDE_TIMER) clearInterval(PUB_AD_SLIDE_TIMER);
-      const intervalMs = Math.max(2500, (Number(s.passbook_ad_interval_sec) || 4) * 1000);
+      const intervalMs = Math.max(3000, (Number(s.passbook_ad_interval_sec) || 4) * 1000);
       if (slides.length > 1) {
         PUB_AD_SLIDE_TIMER = setInterval(() => {
           PUB_AD_CUR_IDX = (PUB_AD_CUR_IDX + 1) % slides.length;
@@ -12309,17 +12519,17 @@
     } else {
       const clickZoom = slide.prodIdx !== undefined ? `onclick="previewSingleProductMedia(${slide.prodIdx})" style="cursor:pointer;"` : '';
       bodyHtml = `
-        <div class="pub-ad-body" ${clickZoom}>
-          <div class="pub-ad-img-frame" style="${slide.photoData ? '' : `background:${slide.bg};border-color:rgba(255,255,255,0.4);`}">
+        <div class="pub-ad-hero-showcase" ${clickZoom}>
+          <div class="pub-ad-hero-stage" style="${slide.photoData ? '' : `background:${slide.bg};`}">
             ${slide.photoData
               ? `<img src="${slide.photoData}" alt="${esc(slide.title)}" />`
-              : `<span style="font-size:40px;">${esc(slide.icon)}</span>`
+              : `<span style="font-size:68px;">${esc(slide.icon)}</span>`
             }
           </div>
-          <div style="min-width:0;">
-            <div class="pub-ad-title">${esc(slide.title)}</div>
+          <div style="margin-top:11px;">
+            <div class="pub-ad-title" style="font-size:18px;">${esc(slide.title)}</div>
             <div class="pub-ad-sub">${esc(slide.sub)}</div>
-            <div class="pub-ad-usp-list">
+            <div class="pub-ad-usp-list" style="margin-top:8px;">
               ${(slide.usps || []).map(u => `<div class="pub-ad-usp-item"><b>✓</b> <span>${esc(u)}</span></div>`).join('')}
             </div>
           </div>
@@ -12337,9 +12547,9 @@
       <div class="pub-ad-top-row">
         <span class="pub-ad-kicker">${esc(slide.kicker)}</span>
         ${slides.length > 1 ? `
-          <div style="display:flex;gap:4px;">
-            <button type="button" class="btn btn-outline btn-xs" style="padding:2px 7px;font-size:10px;background:rgba(255,255,255,0.08);color:#fde68a;border-color:rgba(253,224,71,0.3);" onclick="jumpToPublicAdSlide(${curIdx - 1})">◀</button>
-            <button type="button" class="btn btn-outline btn-xs" style="padding:2px 7px;font-size:10px;background:rgba(255,255,255,0.08);color:#fde68a;border-color:rgba(253,224,71,0.3);" onclick="jumpToPublicAdSlide(${curIdx + 1})">▶</button>
+          <div style="display:flex;gap:5px;">
+            <button type="button" class="btn btn-outline btn-xs" style="padding:3px 9px;font-size:11px;background:rgba(255,255,255,0.08);color:#fde68a;border-color:rgba(253,224,71,0.35);" onclick="jumpToPublicAdSlide(${curIdx - 1})">◀</button>
+            <button type="button" class="btn btn-outline btn-xs" style="padding:3px 9px;font-size:11px;background:rgba(255,255,255,0.08);color:#fde68a;border-color:rgba(253,224,71,0.35);" onclick="jumpToPublicAdSlide(${curIdx + 1})">▶</button>
           </div>
         ` : ''}
       </div>
@@ -12382,22 +12592,31 @@
   let AUTO_SYNC_TIMER_ID = null;
 
 
+  let CACHED_BOOT_SETTINGS_FOR_PUB = null;
+  let LAST_BOOT_HYDRATE_AT = 0;
+
   async function hydrateFullPublicSettingsIfNeeded(pubSettingsObj) {
-    // Older Cloudflare Workers only returned 7 basic keys in `/api/public/check`.
-    // If `passbook_patti_enabled` AND `custom_products_meta` AND `pad_vid_meta` are all undefined, hydrate settings from `/api/bootstrap` (which ALREADY deletes admin_pin & gemini_api_key server-side!).
-    if (pubSettingsObj && (
-      pubSettingsObj.passbook_patti_enabled !== undefined ||
-      pubSettingsObj.pad_vid_meta !== undefined ||
-      pubSettingsObj.custom_products_meta !== undefined
-    )) {
+    // CRITICAL FIX: Older Cloudflare Workers (v16/v17/v18) return `custom_products_meta`,
+    // BUT they strip `pad_vid_meta`, `pad_vid_c_*`, and `passbook_patti_*` from `/api/public/check`!
+    // Whenever `passbook_ad_cloud_vid_url` is missing AND `pad_vid_c_0` wasn't included, fetch `/api/bootstrap` settings (cached for 15s) so Cloud Video & Patti ALWAYS load 100%!
+    const hasDirectStream = Boolean(pubSettingsObj && pubSettingsObj.passbook_ad_cloud_vid_url);
+    const hasChunksInline = Boolean(pubSettingsObj && pubSettingsObj.pad_vid_meta && pubSettingsObj.pad_vid_c_0);
+    if (hasDirectStream || hasChunksInline) {
       return pubSettingsObj;
     }
-    try {
-      const boot = await api('/api/bootstrap');
-      if (boot && boot.settings) {
-        return { ...boot.settings, ...(pubSettingsObj || {}) };
-      }
-    } catch (e) {}
+    const now = Date.now();
+    if (!CACHED_BOOT_SETTINGS_FOR_PUB || (now - LAST_BOOT_HYDRATE_AT) > 15000) {
+      try {
+        const boot = await api('/api/bootstrap');
+        if (boot && boot.settings) {
+          CACHED_BOOT_SETTINGS_FOR_PUB = boot.settings;
+          LAST_BOOT_HYDRATE_AT = now;
+        }
+      } catch (e) {}
+    }
+    if (CACHED_BOOT_SETTINGS_FOR_PUB) {
+      return { ...CACHED_BOOT_SETTINGS_FOR_PUB, ...(pubSettingsObj || {}) };
+    }
     return pubSettingsObj || {};
   }
 

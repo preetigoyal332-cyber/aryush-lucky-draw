@@ -1,4 +1,13 @@
+node_modules
+node_modules/
+**/node_modules/**
+.git
+.wrangler
 worker.js
 wrangler.toml
 schema.sql
-.git
+package.json
+package-lock.json
+bun.lock
+bun.lockb
+functions

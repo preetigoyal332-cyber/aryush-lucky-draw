@@ -2583,372 +2583,71 @@
       height: 315px !important;
     }
 
-    /* ==================== v23.0 EXECUTIVE BANKING & VIP PASSBOOK UI OVERHAUL ==================== */
-    #publicCheckPortal {
-      background: #f1f5f9 !important;
-      color: #0f172a;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    .pub-pro-header {
-      background: radial-gradient(circle at 85% 15%, rgba(217, 119, 6, 0.22) 0%, transparent 52%),
-                  linear-gradient(135deg, #070b14 0%, #0f172a 55%, #172033 100%) !important;
-      color: #ffffff;
-      padding: 20px 16px 20px;
-      border-bottom: 2px solid #d97706;
-      box-shadow: 0 10px 32px rgba(9, 13, 22, 0.18);
-      position: relative;
-    }
-    .pub-pro-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.4px;
-      color: #fde68a;
-      text-transform: uppercase;
-      background: rgba(217, 119, 6, 0.16);
-      border: 1px solid rgba(251, 191, 36, 0.35);
-      padding: 2px 9px;
-      border-radius: 999px;
-    }
-    .pub-vip-card {
+    /* ==================== v23.0 PREMIUM FINTECH LIVE PASSBOOK UI ==================== */
+    .vip-pb-shell {
       background: #ffffff;
       border-radius: 22px;
-      border: 1px solid rgba(203, 213, 225, 0.9);
-      box-shadow: 0 14px 38px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.03);
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-    .pub-vip-card-hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #ffffff;
-      padding: 20px 20px 18px;
-      position: relative;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    }
-    .pub-vip-card-hero::after {
-      content: "";
-      position: absolute;
-      top: 0; right: 0; bottom: 0; width: 42%;
-      background: radial-gradient(circle at 80% 30%, rgba(251, 191, 36, 0.16), transparent 70%);
-      pointer-events: none;
-    }
-    .pub-vip-verified-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(34, 197, 94, 0.18);
-      border: 1px solid rgba(74, 222, 128, 0.45);
-      color: #86efac;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.7px;
-      padding: 3px 10px;
-      border-radius: 999px;
-    }
-    .pub-vip-shop-name {
-      font-size: 20px;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: -0.02em;
-      line-height: 1.24;
-      margin-top: 8px;
-    }
-    .pub-vip-area-line {
-      font-size: 12px;
-      font-weight: 600;
-      color: #cbd5e1;
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .pub-vip-supply-tile {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-      border: 1px solid rgba(253, 224, 71, 0.42);
-      border-radius: 15px;
-      padding: 10px 14px;
-      text-align: right;
-      flex-shrink: 0;
-      backdrop-filter: blur(6px);
-    }
-    .pub-vip-supply-lbl {
-      font-size: 9.5px;
-      font-weight: 800;
-      letter-spacing: 0.9px;
-      color: #fde68a;
-      text-transform: uppercase;
-    }
-    .pub-vip-supply-val {
-      font-size: 21px;
-      font-weight: 900;
-      color: #ffffff;
-      margin-top: 1px;
-      font-variant-numeric: tabular-nums;
-    }
-    .pub-vip-supply-sub {
-      font-size: 11px;
-      font-weight: 700;
-      color: #86efac;
-      margin-top: 1px;
-    }
-    .pub-vip-body {
-      padding: 18px;
-    }
-    .pub-kpi-trio {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-    }
-    .pub-kpi-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 11px 8px;
-      text-align: center;
-    }
-    .pub-kpi-box.highlight-blue {
-      background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
-      border-color: #bfdbfe;
-    }
-    .pub-kpi-box.highlight-amber {
-      background: linear-gradient(180deg, #fffbeb 0%, #f8fafc 100%);
-      border-color: #fde68a;
-    }
-    .pub-kpi-lbl {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #64748b;
-    }
-    .pub-kpi-num {
-      font-size: 20px;
-      font-weight: 900;
-      margin-top: 3px;
-      font-variant-numeric: tabular-nums;
-    }
-    .pub-kpi-sub {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #475569;
-      margin-top: 2px;
-    }
-    .pub-milestone-panel {
-      margin-top: 14px;
-      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-      border: 1px solid #fcd34d;
-      border-radius: 15px;
-      padding: 13px 15px;
-    }
-    .pub-coupon-ticket-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .pub-coupon-ticket {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #fde047;
-      border: 1.5px solid #d97706;
-      border-radius: 12px;
-      padding: 8px 11px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      position: relative;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
-    }
-    .pub-coupon-ticket.winner {
-      background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
-      border-color: #34d399;
-      color: #ffffff;
-      grid-column: 1 / -1;
-    }
-    .pub-coupon-ticket-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-    }
-    .pub-coupon-ticket-tag {
-      font-size: 10px;
-      font-weight: 700;
-      color: #cbd5e1;
-    }
-    .pub-section-heading {
-      font-size: 12px;
-      font-weight: 900;
-      color: #1e293b;
-      letter-spacing: 0.3px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .pub-passbook-table {
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #ffffff;
-    }
-    .pub-pb-hdr {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr 0.95fr;
-      padding: 10px 14px;
-      background: #0f172a;
-      color: #fde68a;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.4px;
-    }
-    .pub-pb-row {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr 0.95fr;
-      padding: 11px 14px;
-      border-bottom: 1px solid #f1f5f9;
-      align-items: center;
-    }
-    .pub-pb-row:nth-child(even) {
-      background: #fafbfc;
-    }
-    .pub-pb-row.latest-row {
-      background: #f0fdf4;
-    }
-    .pub-pb-row:last-child {
-      border-bottom: none;
-    }
-    .pub-action-bar {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid #e2e8f0;
-    }
-    .pub-action-btn {
-      border: none;
-      border-radius: 12px;
-      padding: 11px 12px;
-      font-size: 12.5px;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: transform 0.14s ease;
-    }
-    .pub-action-btn:active {
-      transform: scale(0.97);
-    }
-    .pub-action-btn.wa {
-      background: #16a34a;
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
-    }
-    .pub-action-btn.refresh {
-      background: #0f172a;
-      color: #fde68a;
-    }
-    .pub-trust-footer {
-      text-align: center;
-      padding: 18px 14px 8px;
-      color: #64748b;
-      font-size: 11.5px;
-      font-weight: 600;
-      line-height: 1.5;
-    }
-
-
-    /* ==================== v24.0 PASSBOOK PRODUCT VIDEO & PACK SHOWCASE STUDIO ==================== */
-    .pub-media-suite {
-      margin-top: 16px;
-      background: linear-gradient(145deg, #090d16 0%, #111827 100%);
-      border: 1.5px solid rgba(212, 175, 55, 0.45);
-      border-radius: 16px;
-      padding: 14px;
-      color: #ffffff;
-    }
-    .pub-media-suite-hd {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-    .pub-media-suite-title {
-      font-size: 12.5px;
-      font-weight: 900;
-      color: #fde047;
-      letter-spacing: 0.3px;
-    }
-    .pub-media-pills-row {
-      display: flex;
-      gap: 7px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 4px;
-    }
-    .pub-media-pills-row::-webkit-scrollbar { display: none; }
-    .pub-prod-media-chip {
-      flex-shrink: 0;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(253, 224, 71, 0.32);
-      border-radius: 12px;
-      padding: 7px 10px;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .pub-prod-media-chip:active {
-      transform: scale(0.97);
-      border-color: #fde047;
-    }
-    .pub-prod-media-thumb {
-      width: 44px;
-      height: 44px;
-      border-radius: 9px;
-      background: #ffffff;
-      padding: 2px;
-      border: 1.5px solid #fde047;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .pub-prod-media-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-    .pub-card-mini-actions {
-      display: flex;
-      gap: 6px;
-      margin-top: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .pub-mini-media-btn {
-      background: rgba(15, 23, 42, 0.06);
-      color: #0f172a;
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 4px 8px;
-      font-size: 10.5px;
-      font-weight: 800;
-      cursor: pointer;
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
     }
-    .pub-mini-media-btn.vid {
-      background: #fef2f2;
-      color: #b91c1c;
-      border-color: #fecaca;
+    .vip-pb-hero {
+      background: linear-gradient(135deg, #090d16 0%, #1e293b 58%, #064e3b 100%);
+      color: #ffffff;
+      padding: 20px 18px 18px;
+      border-bottom: 2.5px solid #f59e0b;
+      position: relative;
     }
-
+    .vip-pb-verified {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(34, 197, 94, 0.2); border: 1px solid rgba(74, 222, 128, 0.55);
+      color: #86efac; font-size: 10.5px; font-weight: 800;
+      padding: 3px 10px; border-radius: 999px; letter-spacing: 0.4px;
+    }
+    .vip-pb-firm {
+      font-size: clamp(19px, 5vw, 24px);
+      font-weight: 900; color: #ffffff; margin-top: 7px; line-height: 1.22;
+    }
+    .vip-pb-vol-box {
+      background: rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(253, 224, 71, 0.55);
+      border-radius: 15px; padding: 10px 14px; text-align: right; flex-shrink: 0;
+    }
+    .vip-ticket-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(142px, 1fr));
+      gap: 9px; margin-top: 8px;
+    }
+    .vip-coupon-ticket {
+      position: relative;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1.5px dashed #d97706;
+      border-radius: 12px; padding: 9px 12px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .vip-coupon-ticket.won {
+      background: linear-gradient(135deg, #ecfdf5 0%, #dcfce7 100%);
+      border: 1.5px solid #16a34a;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.14);
+    }
+    .vip-ticket-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16.5px; font-weight: 900; color: #78350f; margin-top: 2px;
+    }
+    .vip-coupon-ticket.won .vip-ticket-code { color: #14532d; }
+    .vip-pb-tabs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+      background: #f1f5f9; padding: 4px; border-radius: 11px; margin-top: 16px;
+    }
+    .vip-pb-tab-btn {
+      border: none; background: transparent; padding: 8px 10px;
+      border-radius: 8px; font-size: 12px; font-weight: 800; color: #64748b; cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .vip-pb-tab-btn.active {
+      background: #0f172a; color: #fde047;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.16);
+    }
   </style>
 </head>
 <body>
@@ -2966,7 +2665,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v22.0 Video Ready</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v23.0 Pro Final</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -4223,6 +3922,7 @@
         <div style="font-size:11px;font-weight:800;color:#334155;margin-bottom:5px;">👇 Tap करके कोई भी Auto-Tag मैसेज में जोड़ें:</div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;">
           <span class="var-chip" onclick="insertWaTag('{SHOP}')">{SHOP} (दुकान नाम)</span>
+          <span class="var-chip" onclick="insertWaTag('{TOP_LINK_BLOCK}')">{TOP_LINK_BLOCK} (ऊपर पासबुक लिंक)</span>
           <span class="var-chip" onclick="insertWaTag('{TOTAL_KG}')">{TOTAL_KG} (कुल KG)</span>
           <span class="var-chip" onclick="insertWaTag('{TOTAL_BAGS}')">{TOTAL_BAGS} (कुल बैग)</span>
           <span class="var-chip" onclick="insertWaTag('{LAST_ENTRY_LINE}')">{LAST_ENTRY_LINE} (पिछली एंट्री)</span>
@@ -4250,7 +3950,7 @@
 
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button type="button" class="btn btn-wa" style="flex:1;padding:12px;" onclick="saveCustomWaTemplate()">💾 Save Custom WhatsApp Message</button>
-        <button type="button" class="btn btn-outline" onclick="resetDefaultWaTemplate()">↺ Reset Default (200g–20g Chandi)</button>
+        <button type="button" class="btn btn-outline" onclick="resetDefaultWaTemplate()">↺ Reset Default (Short & Link-First)</button>
       </div>
     </div>
   </div>
@@ -4488,7 +4188,7 @@
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
           <div>
             <div style="font-size:13px;font-weight:900;color:#1e3a8a;">🎬 2. विज्ञापन वीडियो सीधे अपलोड व सेव करें (Direct MP4 Video Save):</div>
-            <div style="font-size:11px;color:#334155;">चैट से डाउनलोड किया हुआ MP4 वीडियो यहाँ से चुनें — यह सीधे क्लाउड पर सेव हो जाएगा और हर दुकानदार के फोन में चलेगा!</div>
+            <div style="font-size:11px;color:#334155;">कोई भी बड़ा MP4 वीडियो चुनें — ऐप उसे अपने-आप छोटा (Auto-Compress 720p) करके क्लाउड पर सेव कर देगा!</div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
             <label class="btn btn-navy btn-xs" style="cursor:pointer;padding:8px 12px;">
@@ -4735,37 +4435,35 @@
   </div>
 
   <!-- ==================== READ-ONLY PUBLIC RETAILER VIP PASSBOOK & PRIZE PORTAL (`?check=1`) ==================== -->
-  <div id="publicCheckPortal" style="min-height:100vh;padding-bottom:48px;">
-    <div class="pub-pro-header" style="text-align:center;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:680px;margin:0 auto;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:12px;min-width:0;">
-          <div class="logo-crest" id="pubPortalLogo" style="width:54px;height:54px;padding:2.5px;cursor:default;flex-shrink:0;box-shadow:0 4px 16px rgba(245,158,11,0.35);">
+  <div id="publicCheckPortal" style="background:#f1f5f9;min-height:100vh;padding-bottom:52px;">
+    <div style="background:linear-gradient(135deg,#090d16 0%,#1e293b 100%);color:#fff;padding:14px 14px 13px;border-bottom:2px solid #f59e0b;position:sticky;top:0;z-index:55;box-shadow:0 4px 18px rgba(15,23,42,0.18);">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:680px;margin:0 auto;">
+        <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+          <div class="logo-crest" id="pubPortalLogo" style="width:44px;height:44px;padding:2px;cursor:default;flex-shrink:0;">
             <img src="/logo.png" alt="Aryush Logo" />
           </div>
           <div style="text-align:left;min-width:0;">
-            <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
-              <span class="pub-pro-kicker">👑 OFFICIAL DIGITAL PASSBOOK</span>
-              <span class="pub-live-pill" id="pubLiveSyncPill" title="लाइव सिंक सक्रिय">LIVE</span>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span style="font-size:9.5px;font-weight:800;color:#fcd34d;letter-spacing:1px;text-transform:uppercase;">OFFICIAL PARTY PASSBOOK</span>
+              <span class="pub-live-pill" id="pubLiveSyncPill" title="बिना रिफ्रेश किए अपने-आप लाइव अपडेट होता है">लाइव अपडेट</span>
             </div>
-            <h1 style="font-size:18px;font-weight:900;letter-spacing:-0.02em;color:#ffffff;margin-top:4px;" id="pubHdrTitle">ARYUSH FOODS • आर्युष रसोई धन</h1>
-            <p style="font-size:11.5px;color:#cbd5e1;font-weight:600;margin-top:1px;" id="pubBrandSub">आधिकारिक सप्लाई लेजर, कूपन एवं पुरस्कार पोर्टल</p>
+            <h1 style="font-size:15.5px;font-weight:900;letter-spacing:-0.02em;color:#ffffff;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="pubHdrTitle">ARYUSH FOODS • आर्युष रसोई धन</h1>
+            <p style="font-size:10.5px;color:#cbd5e1;font-weight:600;display:none;" id="pubBrandSub">आधिकारिक सप्लाई खाता एवं कूपन विवरण</p>
           </div>
         </div>
-        <button type="button" class="btn btn-brand btn-xs" id="btnPubPwaInstall" style="display:none;padding:8px 13px;font-weight:900;border-radius:999px;" onclick="triggerPwaInstall()">📲 ऐप इंस्टॉल करें</button>
+        <button type="button" class="btn btn-brand btn-xs" id="btnPubPwaInstall" style="display:none;padding:7px 11px;font-weight:900;border-radius:999px;" onclick="triggerPwaInstall()">📲 ऐप इंस्टॉल</button>
       </div>
-      <!-- DEDICATED PRODUCT QUALITY HIGHLIGHTS PATTI (उत्पाद विशेषता पट्टी — Controlled from Admin Panel!) -->
-      <div class="pub-prod-patti-bar" id="pubProdHighlightsPattiWrap">
+      <div class="pub-prod-patti-bar" id="pubProdHighlightsPattiWrap" style="margin-top:9px;">
         <span class="pub-prod-patti-badge">✦ उत्पाद विशेषताएँ</span>
         <div class="pub-prod-patti-viewport">
           <div class="pub-prod-patti-track" id="pubProdHighlightsPattiTrack"></div>
         </div>
       </div>
-      <div class="prod-ribbon" id="pubProdRibbon" style="max-width:680px;margin:10px auto 0;justify-content:flex-start;"></div>
     </div>
 
-    <div style="max-width:680px;margin:16px auto;padding:0 12px;">
-      <!-- Search Bar (Automatically Hidden when Direct Personal Link ?check=1&id=XX is opened!) -->
-      <div class="card" id="pubSearchBoxCard" style="padding:14px;">
+    <div style="max-width:680px;margin:14px auto;padding:0 12px;">
+      <!-- 1. Search Bar (Automatically Hidden on Personal ?k=... Links) -->
+      <div class="card" id="pubSearchBoxCard" style="padding:14px;margin-bottom:12px;">
         <div style="font-size:11.5px;font-weight:800;color:#475569;margin-bottom:6px;">🔍 अपनी दुकान का नाम, मोबाइल या कूपन नंबर डालें:</div>
         <div style="display:flex;gap:8px;">
           <input type="text" id="pubSearchInp" placeholder="e.g. Sharma Kirana or 045" onkeydown="if(event.key==='Enter') runPublicCheck()" style="font-weight:700;font-size:14.5px;" />
@@ -4773,13 +4471,16 @@
         </div>
       </div>
 
-      <!-- Direct Personal Link Toggle Banner (Shown when opened via personal WhatsApp link) -->
-      <div id="pubDirectWelcomeStrip" style="display:none;justify-content:space-between;align-items:center;gap:8px;background:#ecfdf5;border:1px solid #86efac;border-radius:12px;padding:9px 13px;margin-bottom:12px;">
-        <span style="font-size:12px;font-weight:800;color:#065f46;">✅ Verified Personal Digital Passbook</span>
+      <!-- Direct Personal Link Toggle Banner -->
+      <div id="pubDirectWelcomeStrip" style="display:none;justify-content:space-between;align-items:center;gap:8px;background:#ecfdf5;border:1px solid #86efac;border-radius:12px;padding:8px 12px;margin-bottom:10px;">
+        <span style="font-size:11.5px;font-weight:800;color:#065f46;">✅ सत्यापित व्यक्तिगत डिजिटल पासबुक</span>
         <button type="button" class="btn btn-outline btn-xs" style="padding:4px 9px;font-size:11px;" onclick="showPublicManualSearchBox()">🔍 दूसरी पार्टी खोजें</button>
       </div>
 
-      <!-- AUTOMATIC RETAILER PASSBOOK VIDEO AD + PRODUCT HIGHLIGHTS CAROUSEL -->
+      <!-- 2. RETAILER'S OWN VIP PASSBOOK & LUCKY COUPON TICKETS FIRST! -->
+      <div id="pubResultsBox" style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px;"></div>
+
+      <!-- 3. AUTO-PLAY VIDEO COMMERCIAL & PRODUCT HIGHLIGHTS CAROUSEL -->
       <div id="pubAutoAdBannerSlot" class="pub-ad-showcase-wrap" style="display:none;">
         <div class="pub-ad-card">
           <div id="pubPersistentVideoSection" style="display:none;"></div>
@@ -4787,7 +4488,17 @@
         </div>
       </div>
 
-      <div id="pubResultsBox" style="display:flex;flex-direction:column;gap:12px;"></div>
+      <!-- 4. CLEAN 2-COLUMN PRODUCT PORTFOLIO CATALOG -->
+      <div class="card" style="padding:15px;background:linear-gradient(145deg,#0f172a,#1e293b);border:1.5px solid rgba(245,158,11,0.55);color:#fff;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <div>
+            <div style="font-size:10px;font-weight:800;color:#fcd34d;letter-spacing:1px;">OUR PURE PRODUCTS</div>
+            <div style="font-size:15px;font-weight:900;color:#ffffff;">🌶️ आर्युष रसोई धन उत्पाद श्रृंखला</div>
+          </div>
+          <span style="font-size:10.5px;color:#fde68a;font-weight:700;">फोटो पर टैप करें</span>
+        </div>
+        <div class="prod-ribbon" id="pubProdRibbon"></div>
+      </div>
     </div>
   </div>
 
@@ -5564,7 +5275,7 @@
     }
   }
 
-  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v15_0_wa_corp_template';
+  const WA_TEMPLATE_STORAGE_KEY = 'aryush_v23_wa_short_tpl';
 
   function encodePartyPassbookToken(r) {
     try {
@@ -5588,10 +5299,7 @@
       const decoded = new TextDecoder().decode(bytes);
       const sep = decoded.indexOf('|');
       if (sep === -1) return null;
-      return {
-        id: decoded.slice(0, sep),
-        name: decoded.slice(sep + 1)
-      };
+      return { id: decoded.slice(0, sep), name: decoded.slice(sep + 1) };
     } catch (e) {
       return null;
     }
@@ -5627,30 +5335,22 @@
   function getDefaultWaTargetTemplate() {
     return (
       `*{COMPANY} • आर्युष रसोई धन*\n` +
-      `_आधिकारिक सप्लाई खाता एवं लकी ड्रॉ स्टेटमेंट_\n` +
-      `━━━━━━━━━━━━━━━━━━━━\n` +
-      `🙏 *सादर नमस्कार, {SHOP} जी* {AREA_TAG}\n\n` +
-      `📦 *आपका आधिकारिक सप्लाई विवरण:*\n` +
+      `🙏 नमस्कार *{SHOP}* जी {AREA_TAG}\n` +
+      `{TOP_LINK_BLOCK}\n` +
+      `📦 *आपका सप्लाई खाता विवरण:*\n` +
       `{LAST_ENTRY_LINE}` +
-      `• कुल प्राप्त सप्लाई: *{TOTAL_KG} kg ({TOTAL_BAGS} बैग)*\n` +
-      `• कुल पक्के लकी कूपन: *{COUPONS} कूपन* {BONUS_EARNED_TAG} {COUPON_CODES_LINE}\n\n` +
-      `🎯 *अगला लकी कूपन लक्ष्य:*\n` +
-      `• अगला कूपन ({KG_PER_COUPON} kg) पूरा होने में मात्र *{NEED_KG} kg (लगभग {NEED_BAGS} बैग)* शेष है।\n` +
+      `• कुल सप्लाई: *{TOTAL_KG} kg ({TOTAL_BAGS} बैग)*\n` +
+      `• पक्के लकी कूपन: *{COUPONS}* {BONUS_EARNED_TAG} {COUPON_CODES_LINE}\n` +
+      `🎯 अगला कूपन: मात्र *{NEED_KG} kg ({NEED_BAGS} बैग)* शेष\n` +
       `{BONUS_OFFER_BLOCK}\n` +
-      `🏆 *मेगा लकी ड्रॉ उपहार योजना ({MAX_COUPONS} कूपन = {MAX_COUPONS} पक्के इनाम):*\n` +
-      `▸ *1st पुरस्कार:* Maruti Alto K10 कार (1)\n` +
-      `▸ *2nd व 3rd:* Honda Activa (2) • HF Deluxe बाइक (2)\n` +
-      `▸ *चाँदी उपहार (200g से 20g तक):* 200g (2), 100g (5), 50g (11), 30g (25), 25g (30) व 20g (40)\n` +
-      `▸ *होम अप्लायंसेज:* 10 Lloyd फ्रिज • 21 Voltas वाशिंग मशीन\n` +
-      `▸ *गारंटीड उपहार:* 51 हल्दी (25kg) व 101 धनिया (30kg) — _प्रत्येक कूपन पर निश्चित उपहार!_\n` +
-      `{LINK_SECTION}` +
+      `🏆 *मेगा ड्रॉ ({MAX_COUPONS} पक्के इनाम):* Alto K10 कार, Activa, बाइक, चाँदी व हर कूपन पर निश्चित उपहार!\n` +
       `_{SIGNATORY}_`
     );
   }
 
   function getActiveWaTemplate() {
-    if (STATE.settings && STATE.settings.wa_target_template_v15_0 && String(STATE.settings.wa_target_template_v15_0).trim()) {
-      return String(STATE.settings.wa_target_template_v15_0);
+    if (STATE.settings && STATE.settings.wa_target_template_v23_short && String(STATE.settings.wa_target_template_v23_short).trim()) {
+      return String(STATE.settings.wa_target_template_v23_short);
     }
     try {
       const loc = localStorage.getItem(WA_TEMPLATE_STORAGE_KEY);
@@ -5670,44 +5370,32 @@
       ? `• पिछली डिलीवरी: *${r.last_entry.total_kg} kg* (${fmtDate(r.last_entry.entry_date)})\n`
       : '';
 
-    // Avoid redundant "(KLS)" if shop name already ends with KLS!
     const shopUpper = String(r.name || '').trim().toUpperCase();
     const areaUpper = String(r.area || '').trim().toUpperCase();
-    const areaTag = (areaUpper && !shopUpper.endsWith(' ' + areaUpper) && shopUpper !== areaUpper)
-      ? `_(${r.area})_`
-      : '';
+    const areaTag = (areaUpper && !shopUpper.endsWith(' ' + areaUpper) && shopUpper !== areaUpper) ? `_(${r.area})_` : '';
 
     const codesArr = (r.coupons || []).map(c => '#' + c.coupon_code);
-    const couponCodesLine = codesArr.length ? `_(कूपन नं: ${codesArr.join(', ')})_` : '';
-    const bonusEarnedTag = cb.bonusEarned > 0
-      ? `_(${cb.baseEarned} खरीद + ${cb.bonusEarned} फ्री बोनस 🎁)_`
+    const couponCodesLine = codesArr.length
+      ? `_(${codesArr.slice(0, 6).join(', ')}${codesArr.length > 6 ? ` +${codesArr.length - 6}` : ''})_`
       : '';
+    const bonusEarnedTag = cb.bonusEarned > 0 ? `_(+${cb.bonusEarned} फ्री 🎁)_` : '';
 
     let bonusBlock = '';
     if (cb.bonusEvery > 0 && cb.bonusFree > 0) {
-      const targetBonusTotalKg = cb.nextBonusAtBase * cb.cupKg;
-      if (cb.nextMilestoneGivesBonus) {
-        bonusBlock =
-          `\n🎁 *स्पेशल महा-बोनस अवसर (${cb.bonusEvery} कूपन पर +${cb.bonusFree} कूपन FREE):*\n` +
-          `• आप बोनस के बिल्कुल करीब हैं! मात्र *${cb.needKg} kg (लगभग ${bagsNeed} बैग)* की सप्लाई और जुड़ते ही आपके *${cb.nextBonusAtBase} कूपन (${targetBonusTotalKg} kg)* पूरे हो जाएँगे और आपको *+${cb.bonusFree} अतिरिक्त लकी कूपन निःशुल्क (FREE)* प्राप्त होगा — यानी एक साथ *${1 + cb.bonusFree} नए कूपन*!\n`;
-      } else {
-        bonusBlock =
-          `\n🎁 *स्पेशल बोनस स्कीम (${cb.bonusEvery} कूपन पर +${cb.bonusFree} कूपन FREE):*\n` +
-          `• *${cb.bonusEvery} कूपन (${cb.bonusEvery * cb.cupKg} kg / ${Math.round((cb.bonusEvery * cb.cupKg) / cb.bagKg)} बैग)* की कुल सप्लाई पूरी होने पर कंपनी की ओर से *+${cb.bonusFree} अतिरिक्त लकी कूपन निःशुल्क (FREE)* दिया जाता है (यानी ${cb.bonusEvery} की जगह सीधे *${cb.bonusEvery + cb.bonusFree} पक्के कूपन*!)।\n` +
-          `• आपके *${cb.nextBonusAtBase} कूपन + फ्री बोनस* लक्ष्य हेतु *${cb.needKgForBonus} kg (लगभग ${cb.needBagsForBonus} बैग)* शेष है।\n`;
-      }
+      bonusBlock = cb.nextMilestoneGivesBonus
+        ? `🎁 *बोनस अवसर:* मात्र *${bagsNeed} बैग* और लेते ही *+${cb.bonusFree} कूपन FREE* मिलेगा!`
+        : `🎁 *बोनस स्कीम:* ${cb.bonusEvery} कूपन पर *+${cb.bonusFree} कूपन FREE* (शेष: ${cb.needBagsForBonus} बैग)`;
     }
 
     const includeLink = opts && opts.includeLink !== undefined ? opts.includeLink : isWaLinkEnabled();
     const overrideDom = opts && opts.customDomain !== undefined ? opts.customDomain : null;
     const directPersonalUrl = getPersonalPartyPortalUrl(r, overrideDom);
 
-    const linkSection = includeLink
-      ? `━━━━━━━━━━━━━━━━━━━━\n📲 *ऑनलाइन खाता पासबुक एवं कूपन स्टेटमेंट:*\n👉 ${directPersonalUrl}\n\n`
-      : `━━━━━━━━━━━━━━━━━━━━\n`;
+    const topLinkBlock = includeLink
+      ? `\n📲 *लाइव डिजिटल पासबुक व कूपन देखें:*\n👉 ${directPersonalUrl}\n`
+      : '';
 
     let tpl = customTpl !== null ? customTpl : getActiveWaTemplate();
-    // If user customized template with {CHECK_LINK} directly and turned off link, strip link line cleanly
     if (!includeLink && tpl.includes('{CHECK_LINK}')) {
       tpl = tpl.replace(/.*\{CHECK_LINK\}.*\n?/g, '');
     }
@@ -5716,6 +5404,8 @@
       .replace(/\{SHOP\}/g, r.name || 'व्यापारी बंधु')
       .replace(/\{AREA\}/g, r.area || '')
       .replace(/\{AREA_TAG\}/g, areaTag)
+      .replace(/\{TOP_LINK_BLOCK\}/g, topLinkBlock)
+      .replace(/\{LINK_SECTION\}/g, topLinkBlock)
       .replace(/\{LAST_ENTRY_LINE\}/g, lastLine)
       .replace(/\{LAST_KG\}/g, r.last_entry ? String(r.last_entry.total_kg) : '0')
       .replace(/\{LAST_DATE\}/g, r.last_entry ? fmtDate(r.last_entry.entry_date) : '-')
@@ -5733,8 +5423,7 @@
       .replace(/\{KG_PER_COUPON\}/g, String(cb.cupKg))
       .replace(/\{MAX_COUPONS\}/g, String(maxC))
       .replace(/\{COMPANY\}/g, s.company_name || 'ARYUSH FOODS')
-      .replace(/\{SIGNATORY\}/g, s.signatory || 'सौजन्य: आर्युष फूड्स (कैलारस, मुरैना)')
-      .replace(/\{LINK_SECTION\}/g, linkSection)
+      .replace(/\{SIGNATORY\}/g, s.signatory || 'सौजन्य: आर्युष फूड्स (कैलारस)')
       .replace(/\{CHECK_LINK\}/g, includeLink ? directPersonalUrl : '');
   }
 
@@ -5765,7 +5454,7 @@
       area: 'KAILARAS',
       total_kg: 1260,
       bags_eq: 42,
-      coupons: [],
+      coupons: [{ coupon_code: '005' }, { coupon_code: '018' }],
       last_entry: { total_kg: 210, entry_date: todayISO() }
     };
     const draft = document.getElementById('waTemplateBox').value;
@@ -5781,29 +5470,29 @@
     const custDom = (document.getElementById('waCustomDomainInp')?.value || '').trim();
 
     try { localStorage.setItem(WA_TEMPLATE_STORAGE_KEY, txt); } catch (e) {}
-    STATE.settings.wa_target_template_v15_0 = txt;
+    STATE.settings.wa_target_template_v23_short = txt;
     STATE.settings.wa_include_link = incLink;
     STATE.settings.custom_public_domain = custDom;
 
     try {
       await api('/api/settings', 'POST', {
-        wa_target_template_v15_0: txt,
+        wa_target_template_v23_short: txt,
         wa_include_link: incLink,
         custom_public_domain: custDom
       });
     } catch (e) {}
     closeModal('waTemplateModal');
-    toast('✅ Official WhatsApp Statement & Link Settings Saved!');
+    toast('✅ नया शॉर्ट WhatsApp मैसेज व लिंक सेटिंग सेव हो गई!');
   }
 
   async function resetDefaultWaTemplate() {
     const def = getDefaultWaTargetTemplate();
     document.getElementById('waTemplateBox').value = def;
     try { localStorage.removeItem(WA_TEMPLATE_STORAGE_KEY); } catch (e) {}
-    STATE.settings.wa_target_template_v15_0 = def;
-    try { await api('/api/settings', 'POST', { wa_target_template_v15_0: def }); } catch (e) {}
+    STATE.settings.wa_target_template_v23_short = def;
+    try { await api('/api/settings', 'POST', { wa_target_template_v23_short: def }); } catch (e) {}
     updateWaLivePreview();
-    toast('↺ Default Official Statement (बैग + 7 पर 1 फ्री) Set Ho Gaya!');
+    toast('↺ डिफ़ॉल्ट शॉर्ट व लिंक-ऊपर वाला मैसेज सेट हो गया!');
   }
 
   function openAiTargetCoachModal() {
@@ -8874,30 +8563,7 @@
   }
 
   function sendRetailerWhatsAppText(retailerId) {
-    const r = STATE.summaryRows.find(x => x.id === retailerId);
-    if (!r) return;
-    const s = STATE.settings;
-    const directUrl = getPersonalPartyPortalUrl(r);
-    const shopUpper = String(r.name || '').trim().toUpperCase();
-    const areaUpper = String(r.area || '').trim().toUpperCase();
-    const areaTag = (areaUpper && !shopUpper.endsWith(' ' + areaUpper) && shopUpper !== areaUpper) ? `_(${r.area})_` : '';
-    const cupLines = r.coupons.map(c => c.prize_title ? `▸ कूपन *#${c.coupon_code}* — 🏆 *${c.prize_title}*` : `▸ कूपन *#${c.coupon_code}* _(ड्रॉ में शामिल)_`).join('\n');
-    const linkPart = isWaLinkEnabled()
-      ? `\n📲 *ऑनलाइन खाता पासबुक एवं कूपन स्टेटमेंट:*\n👉 ${directUrl}\n`
-      : '';
-    const msg =
-      `*${s.company_name} • आर्युष रसोई धन*\n` +
-      `_आधिकारिक कूपन एवं खाता पासबुक_\n` +
-      `━━━━━━━━━━━━━━━━━━━━\n` +
-      `🏪 *${r.name}* ${areaTag}\n` +
-      `📦 कुल प्राप्त सप्लाई: *${r.total_kg} kg* (${r.bags_eq} बैग)\n` +
-      `🎟️ जारी लकी कूपन: *${r.issued}* (अर्जित: ${r.earned})\n` +
-      (cupLines ? `\n*कूपन एवं इनाम विवरण:*\n${cupLines}\n` : '') +
-      linkPart +
-      `━━━━━━━━━━━━━━━━━━━━\n_${s.signatory}_`;
-    const digits = String(r.phone || '').replace(/[^0-9]/g, '');
-    const waPhone = digits.length === 10 ? '91' + digits : digits;
-    window.open(waPhone ? `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}` : `https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    sendAiTargetWhatsApp(retailerId);
   }
 
   async function generateAreaPrizePDF(share = false) {
@@ -9293,18 +8959,22 @@
     });
   }
 
-  async function compressProductPackPhoto(file, maxDim = 600) {
+  // Auto-Cropped Crisp WebP/JPEG Photo Compressor (~22-36 KB per product image)
+  async function compressProductPackPhoto(file, maxDim = 480) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const img = new Image();
         img.onload = () => {
           const canvas = drawAutoCroppedPackToCanvas(img, maxDim);
-          let q = 0.86;
-          let out = canvas.toDataURL('image/jpeg', q);
-          while (out.length > 76000 && q > 0.52) {
+          let q = 0.82;
+          let out = canvas.toDataURL('image/webp', q);
+          if (!out.startsWith('data:image/webp')) out = canvas.toDataURL('image/jpeg', q);
+          while (out.length > 46000 && q > 0.46) {
             q -= 0.08;
-            out = canvas.toDataURL('image/jpeg', q);
+            out = out.startsWith('data:image/webp')
+              ? canvas.toDataURL('image/webp', q)
+              : canvas.toDataURL('image/jpeg', q);
           }
           CROPPED_PACK_MEM_CACHE.set(out, out);
           resolve(out);
@@ -9314,6 +8984,105 @@
       };
       reader.onerror = reject;
       reader.readAsDataURL(file);
+    });
+  }
+
+  // Automatic In-Browser 720p Video Compressor (Compresses 10MB–80MB videos down to ~1.5–4MB automatically!)
+  async function autoCompressVideoFile(file, onProgress = null) {
+    if (!file || file.size <= 2.2 * 1048576 || typeof MediaRecorder === 'undefined') {
+      return file;
+    }
+    const candidates = [
+      'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+      'video/mp4',
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/webm'
+    ];
+    const mime = candidates.find(m => MediaRecorder.isTypeSupported(m));
+    if (!mime) return file;
+
+    return new Promise((resolve) => {
+      const srcUrl = URL.createObjectURL(file);
+      const vid = document.createElement('video');
+      vid.src = srcUrl;
+      vid.playsInline = true;
+      vid.preload = 'auto';
+
+      const finish = (outBlob) => {
+        try { URL.revokeObjectURL(srcUrl); } catch (e) {}
+        resolve(outBlob || file);
+      };
+
+      vid.onerror = () => finish(file);
+      vid.onloadedmetadata = () => {
+        const dur = Number(vid.duration) || 0;
+        if (!dur || dur > 90) return finish(file);
+
+        const maxSide = 720;
+        let w = vid.videoWidth || 720, h = vid.videoHeight || 1280;
+        if (w > maxSide || h > maxSide) {
+          if (w > h) { h = Math.round((h * maxSide) / w); w = maxSide; }
+          else { w = Math.round((w * maxSide) / h); h = maxSide; }
+        }
+        w -= (w % 2); h -= (h % 2);
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        const stream = canvas.captureStream(24);
+
+        let audioCtx = null;
+        try {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) {
+            audioCtx = new AC();
+            const sn = audioCtx.createMediaElementSource(vid);
+            const dn = audioCtx.createMediaStreamDestination();
+            sn.connect(dn);
+            dn.stream.getAudioTracks().forEach(t => stream.addTrack(t));
+          }
+        } catch (e) {
+          vid.muted = true;
+        }
+
+        const chunks = [];
+        let rec;
+        try {
+          rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 850000, audioBitsPerSecond: 64000 });
+        } catch (e) {
+          if (audioCtx) audioCtx.close().catch(() => {});
+          return finish(file);
+        }
+
+        rec.ondataavailable = (ev) => { if (ev.data && ev.data.size > 0) chunks.push(ev.data); };
+        rec.onstop = () => {
+          if (audioCtx) audioCtx.close().catch(() => {});
+          const outType = mime.split(';')[0];
+          const blob = new Blob(chunks, { type: outType });
+          if (blob.size > 20000 && blob.size < file.size * 0.92) {
+            const ext = outType.includes('mp4') ? '.mp4' : '.webm';
+            finish(new File([blob], file.name.replace(/\.[^.]+$/, '') + '_compressed' + ext, { type: outType }));
+          } else {
+            finish(file);
+          }
+        };
+
+        const drawLoop = () => {
+          if (!vid.paused && !vid.ended) {
+            ctx.drawImage(vid, 0, 0, w, h);
+            if (onProgress && dur > 0) onProgress(Math.min(99, Math.round((vid.currentTime / dur) * 100)));
+            requestAnimationFrame(drawLoop);
+          }
+        };
+
+        vid.onended = () => { if (rec.state !== 'inactive') rec.stop(); };
+        rec.start(250);
+        vid.play().then(drawLoop).catch(() => {
+          if (rec.state !== 'inactive') rec.stop();
+          finish(file);
+        });
+      };
     });
   }
 
@@ -9523,9 +9292,11 @@
     ev.target.value = '';
     if (!files.length) return;
     for (const f of files) {
-      await saveVideoBlobToIDB(f);
+      toast(`🗜️ वीडियो ऑटो-कम्प्रेस हो रहा है (${(f.size / 1048576).toFixed(1)} MB)...`);
+      const cf = await autoCompressVideoFile(f);
+      await saveVideoBlobToIDB(cf);
     }
-    toast(`🎬 ${files.length} HD Product Video(s) Saved!`);
+    toast(`🎬 ${files.length} Product Video(s) Auto-Compressed & Saved!`);
     if (STAGE_SPLIT_VIDEO_ON) startSideStageVideoPlayer();
   }
 
@@ -9682,13 +9453,16 @@
   }
 
   async function handleProdVideoPick(ev) {
-    const file = ev.target.files[0];
+    const rawFile = ev.target.files[0];
     ev.target.value = '';
-    if (!file) return;
+    if (!rawFile) return;
+    toast(`🗜️ वीडियो ऑटो-कम्प्रेस हो रहा है (${(rawFile.size / 1048576).toFixed(1)} MB)...`);
+    const file = await autoCompressVideoFile(rawFile);
     const saved = await saveVideoBlobToIDB(file);
     DRAFT_PROD_VID_ID = saved.id;
-    DRAFT_PROD_VID_NAME = saved.name;
+    DRAFT_PROD_VID_NAME = `${saved.name} (${(file.size / 1048576).toFixed(1)} MB)`;
     showProdDraftMediaStatus();
+    toast(`✅ वीडियो कम्प्रेस व सेव: ${(rawFile.size / 1048576).toFixed(1)} MB → ${(file.size / 1048576).toFixed(1)} MB`);
   }
 
   function showProdDraftMediaStatus() {
@@ -10185,7 +9959,6 @@
       const visibleList = showAll ? ARYUSH_PRODUCTS : ARYUSH_PRODUCTS.slice(0, 4);
       const cardsHtml = visibleList.map((p, idx) => {
         const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
-        const hasVid = Boolean(resolveProductVideoSrc(p) || getEffectivePassbookVideoUrl());
         return `
         <div class="pub-jumbo-prod-card" onclick="previewSingleProductMedia(${idx})">
           <div class="pub-jumbo-img-stage" style="${hasPic ? '' : `background:${p.bg};`}">
@@ -10197,10 +9970,6 @@
           <div class="pub-jumbo-caption">
             <div class="pub-jumbo-nm">${esc(p.hi)}</div>
             <div class="pub-jumbo-tag">${esc(p.tag)}</div>
-            <div class="pub-card-mini-actions" onclick="event.stopPropagation()">
-              <button type="button" class="pub-mini-media-btn" onclick="previewSingleProductMedia(${idx})">🖼️ फोटो व गुण</button>
-              ${hasVid ? `<button type="button" class="pub-mini-media-btn vid" onclick="openPassbookProductVideo(${idx})">▶ वीडियो</button>` : ''}
-            </div>
           </div>
         </div>`;
       }).join('');
@@ -12304,12 +12073,10 @@
   }
 
   async function handleDirectCloudAdVideoUpload(ev) {
-    const file = ev.target.files[0];
+    const rawFile = ev.target.files[0];
     ev.target.value = '';
-    if (!file) return;
-    if (file.size > 18 * 1024 * 1024) {
-      return toast('⚠️ कृपया 18 MB से छोटा MP4 वीडियो चुनें।', true);
-    }
+    if (!rawFile) return;
+
     const progBox = document.getElementById('cloudVidUploadProgBox');
     const statusTxt = document.getElementById('cloudVidUploadStatusTxt');
     const pctTxt = document.getElementById('cloudVidUploadPctTxt');
@@ -12317,28 +12084,37 @@
     if (progBox) progBox.style.display = 'block';
 
     try {
+      const origMB = (rawFile.size / 1048576).toFixed(1);
+      if (statusTxt) statusTxt.textContent = `🗜️ वीडियो ऑटो-कम्प्रेस हो रहा है (${origMB} MB)...`;
+      const file = await autoCompressVideoFile(rawFile, (p) => {
+        if (fillBar) fillBar.style.width = Math.round(p * 0.45) + '%';
+        if (pctTxt) pctTxt.textContent = p + '%';
+      });
+
+      if (file.size > 18 * 1024 * 1024) {
+        return toast('⚠️ कम्प्रेस करने के बाद भी वीडियो 18 MB से बड़ा है। कृपया छोटा क्लिप चुनें।', true);
+      }
+
+      const finalMB = (file.size / 1048576).toFixed(1);
       const buf = await file.arrayBuffer();
       const bytes = new Uint8Array(buf);
       let bin = '';
-      const step = 0x8000;
-      for (let i = 0; i < bytes.length; i += step) {
-        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + step));
+      for (let i = 0; i < bytes.length; i += 0x8000) {
+        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
       }
       const fullB64 = btoa(bin);
-      const chunkSize = 60000;
+      const chunkSize = 65000;
       const totalChunks = Math.ceil(fullB64.length / chunkSize);
       const mimeType = file.type || 'video/mp4';
 
-      try {
-        await api('/api/media/delete', 'POST', { media_key: 'passbook_ad_video' });
-      } catch (e) {}
+      try { await api('/api/media/delete', 'POST', { media_key: 'passbook_ad_video' }); } catch (e) {}
 
       for (let idx = 0; idx < totalChunks; idx++) {
         const slice = fullB64.slice(idx * chunkSize, (idx + 1) * chunkSize);
-        const pct = Math.round(((idx + 1) / totalChunks) * 100);
+        const pct = 45 + Math.round(((idx + 1) / totalChunks) * 55);
         if (fillBar) fillBar.style.width = pct + '%';
         if (pctTxt) pctTxt.textContent = pct + '%';
-        if (statusTxt) statusTxt.textContent = `⏳ क्लाउड पर अपलोड हो रहा है (${idx + 1}/${totalChunks})...`;
+        if (statusTxt) statusTxt.textContent = `☁️ क्लाउड पर सेव हो रहा है (${idx + 1}/${totalChunks}) [${origMB}MB → ${finalMB}MB]...`;
 
         await api('/api/media/upload-chunk', 'POST', {
           media_key: 'passbook_ad_video',
@@ -12347,25 +12123,22 @@
           mime_type: mimeType,
           data_b64: slice
         });
-        await api('/api/settings', 'POST', { ['pad_vid_c_' + idx]: slice });
       }
 
       const streamUrl = `/api/media/stream?key=passbook_ad_video&v=${Date.now()}`;
-      const metaStr = JSON.stringify({ chunks: totalChunks, mime: mimeType, ts: Date.now() });
       await api('/api/settings', 'POST', {
         passbook_ad_cloud_vid_url: streamUrl,
-        pad_vid_meta: metaStr
+        pad_vid_meta: ''
       });
 
       STATE.settings.passbook_ad_cloud_vid_url = streamUrl;
-      STATE.settings.pad_vid_meta = metaStr;
+      STATE.settings.pad_vid_meta = '';
       const saved = await saveVideoBlobToIDB(file);
-      if (saved && saved.blobUrl) {
-        LOCAL_PREVIEW_PAD_VID_BLOB_URL = saved.blobUrl;
-      }
-      if (statusTxt) statusTxt.textContent = '✅ वीडियो क्लाउड D1 पर सेव हो गया — अब सभी पासबुक पर चलेगा!';
+      if (saved && saved.blobUrl) LOCAL_PREVIEW_PAD_VID_BLOB_URL = saved.blobUrl;
+
+      if (statusTxt) statusTxt.textContent = `✅ ऑटो-कम्प्रेस (${origMB}MB → ${finalMB}MB) व क्लाउड सेव सफल!`;
       renderAdminCloudVidPreview();
-      toast('🎬 वीडियो क्लाउड D1 पर सफलतापूर्वक सेव हो गया!');
+      toast(`🎬 वीडियो ऑटो-कम्प्रेस (${origMB}MB → ${finalMB}MB) होकर लाइव सेव हो गया!`);
     } catch (err) {
       if (statusTxt) statusTxt.textContent = '❌ त्रुटि: ' + err.message;
       toast(err.message, true);
@@ -12565,55 +12338,6 @@
     });
 
     return slides;
-  }
-
-
-  function openPassbookProductVideo(idx) {
-    const p = ARYUSH_PRODUCTS[idx];
-    const directVid = resolveProductVideoSrc(p);
-    const fallbackAdVid = getEffectivePassbookVideoUrl();
-    const targetVid = directVid || fallbackAdVid;
-    if (targetVid && p) {
-      const prevVidUrl = p.videoUrl;
-      if (!directVid) p.videoUrl = fallbackAdVid;
-      previewSingleProductMedia(idx);
-      if (!directVid) p.videoUrl = prevVidUrl;
-      const vEl = document.getElementById('qpvVideoEl');
-      if (vEl) { vEl.muted = false; vEl.play().catch(() => { vEl.muted = true; vEl.play().catch(() => {}); }); }
-    } else {
-      previewSingleProductMedia(idx);
-    }
-  }
-
-  function renderPassbookCardProductMediaSuite() {
-    const adVid = getEffectivePassbookVideoUrl();
-    const items = ARYUSH_PRODUCTS.map((p, idx) => {
-      const hasPic = Boolean(p.photoData && p.photoData.startsWith('data:image/'));
-      const hasVid = Boolean(resolveProductVideoSrc(p) || adVid);
-      return `
-        <div class="pub-prod-media-chip" onclick="previewSingleProductMedia(${idx})">
-          <div class="pub-prod-media-thumb" style="${hasPic ? '' : `background:${p.bg};`}">
-            ${hasPic ? `<img src="${p.photoData}" alt="${esc(p.hi)}" />` : `<span style="font-size:20px;">${esc(p.icon || '🌶️')}</span>`}
-          </div>
-          <div style="min-width:0;">
-            <div style="font-size:12px;font-weight:900;color:#ffffff;white-space:nowrap;">${esc(p.hi)}</div>
-            <div style="font-size:10px;font-weight:700;color:${hasVid ? '#4ade80' : '#fde68a'};margin-top:1px;">
-              ${hasVid ? '▶ फोटो व वीडियो देखें' : '🖼️ पैक फोटो व गुण देखें'}
-            </div>
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    return `
-      <div class="pub-media-suite">
-        <div class="pub-media-suite-hd">
-          <span class="pub-media-suite-title">🎬 आर्युष रसोई धन — उत्पाद पैक फोटो व वीडियो गैलरी</span>
-          ${adVid ? `<button type="button" class="btn btn-brand btn-xs" style="padding:4px 10px;font-size:10.5px;" onclick="const v=document.getElementById('pubPersistentVideoEl');if(v){v.scrollIntoView({behavior:'smooth',block:'center'});v.muted=false;v.play().catch(()=>{});}">▶ मुख्य वीडियो चलाएँ</button>` : ''}
-        </div>
-        <div class="pub-media-pills-row">${items}</div>
-      </div>
-    `;
   }
 
   function triggerPassbookAdOrderWhatsApp(itemTitle) {
@@ -12890,26 +12614,11 @@
   let CACHED_BOOT_SETTINGS_FOR_PUB = null;
   let LAST_BOOT_HYDRATE_AT = 0;
 
+  let LAST_PUB_PARTIES_CACHE = [];
+
+  // Security Fix: Public retailer portal never fetches /api/bootstrap!
   async function hydrateFullPublicSettingsIfNeeded(pubSettingsObj) {
-    const merged = { ...(pubSettingsObj || {}) };
-    const hasChunksInline = Boolean(merged.pad_vid_meta && merged.pad_vid_c_0);
-    if (hasChunksInline) {
-      return merged;
-    }
-    const now = Date.now();
-    if (!CACHED_BOOT_SETTINGS_FOR_PUB || (now - LAST_BOOT_HYDRATE_AT) > 12000) {
-      try {
-        const boot = await api('/api/bootstrap');
-        if (boot && boot.settings) {
-          CACHED_BOOT_SETTINGS_FOR_PUB = boot.settings;
-          LAST_BOOT_HYDRATE_AT = now;
-        }
-      } catch (e) {}
-    }
-    if (CACHED_BOOT_SETTINGS_FOR_PUB) {
-      return { ...CACHED_BOOT_SETTINGS_FOR_PUB, ...merged };
-    }
-    return merged;
+    return { ...(pubSettingsObj || {}) };
   }
 
   function lockDeviceToRetailerTokenIfGuest(partyObj) {
@@ -12929,14 +12638,61 @@
     } catch (e) {}
   }
 
-  async function runPublicCheck(directId = null, autoQuery = null, isPrivateToken = false) {
+  function switchVipPassbookInnerTab(retId, tabName) {
+    const showEntries = (tabName === 'ENTRIES');
+    const ePane = document.getElementById(`vipPaneEntries_${retId}`);
+    const pPane = document.getElementById(`vipPanePrizes_${retId}`);
+    const bEnt = document.getElementById(`vipBtnEntries_${retId}`);
+    const bPrz = document.getElementById(`vipBtnPrizes_${retId}`);
+    if (ePane) ePane.style.display = showEntries ? 'block' : 'none';
+    if (pPane) pPane.style.display = showEntries ? 'none' : 'block';
+    if (bEnt) bEnt.classList.toggle('active', showEntries);
+    if (bPrz) bPrz.classList.toggle('active', !showEntries);
+  }
+
+  async function downloadPublicPassbookPDF(retId) {
+    const r = LAST_PUB_PARTIES_CACHE.find(x => Number(x.id) === Number(retId));
+    if (!r || !window.jspdf) return toast('PDF तैयार हो रहा है...', true);
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    addPdfBanner(doc, 'OFFICIAL DIGITAL PASSBOOK & LUCKY COUPON STATEMENT', `1 Coupon / ${STATE.settings.kg_per_coupon || 210} kg  |  Date: ${fmtDate(todayISO())}`);
+    doc.setTextColor(15, 23, 42);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text(cleanPdfStr(`${r.name}  (${r.area || 'KAILARAS'})`), 14, 38);
+    doc.setFontSize(9.5);
+    doc.text(cleanPdfStr(`Total Supply: ${r.total_kg} kg (${r.bags_eq} Bags)  |  Earned Coupons: ${r.earned}  |  Issued: ${(r.coupons || []).length}`), 14, 45);
+
+    const cupRows = (r.coupons || []).length
+      ? r.coupons.map((c, i) => [i + 1, `#${cleanPdfStr(c.coupon_code)}`, fmtDate(c.issue_date), cleanPdfStr(c.prize_title || 'Active in Lucky Draw')])
+      : [['-', '-', '-', 'Pending Allotment']];
+    doc.autoTable({ startY: 50, head: [['#', 'Coupon No.', 'Issue Date', 'Prize / Status']], body: cupRows, theme: 'grid' });
+
+    const dels = [...(r.recent_deliveries || [])].reverse();
+    if (dels.length) {
+      let run = 0;
+      const dBody = dels.map((d, i) => {
+        run = Math.round((run + Number(d.total_kg || 0)) * 100) / 100;
+        return [i + 1, fmtDate(d.entry_date), `${d.bags || 0} Bags`, `+${d.total_kg} kg`, `${run} kg`];
+      });
+      doc.autoTable({ startY: doc.lastAutoTable.finalY + 8, head: [['#', 'Date', 'Bags', 'Supply KG', 'Running Total']], body: dBody, theme: 'grid' });
+    }
+    addPdfFooters(doc);
+    doc.save(`Aryush_Passbook_${cleanPdfStr(r.name).replace(/\W+/g, '_')}.pdf`);
+  }
+
+  async function runPublicCheck(directId = null, autoQuery = null, isPrivateToken = false, silentRefresh = false) {
     const q = autoQuery !== null ? String(autoQuery).trim() : (document.getElementById('pubSearchInp')?.value || '').trim();
     if (!directId && !q) {
-      toast('अपनी दुकान का नाम, मोबाइल या कूपन # डालें!', true);
+      if (!silentRefresh) toast('अपनी दुकान का नाम, मोबाइल या कूपन # डालें!', true);
       return;
     }
+    ACTIVE_PUBLIC_SYNC_TARGET = { directId, q, isPrivateToken };
     const box = document.getElementById('pubResultsBox');
-    box.innerHTML = `<div class="card" style="text-align:center;padding:28px;color:var(--muted);font-weight:700;">⏳ आधिकारिक डिजिटल पासबुक लोड हो रही है...</div>`;
+    if (!silentRefresh) {
+      box.innerHTML = `<div class="card" style="text-align:center;padding:28px;color:var(--muted);font-weight:700;">⏳ आधिकारिक डिजिटल पासबुक लोड हो रही है...</div>`;
+    }
+
     try {
       const endpoint = directId
         ? `/api/public/check?id=${encodeURIComponent(directId)}${q ? '&q=' + encodeURIComponent(q) : ''}`
@@ -12946,12 +12702,12 @@
         res = await api(`/api/public/check?q=${encodeURIComponent(q)}`);
       }
       if (res.settings) {
-        STATE.settings = await hydrateFullPublicSettingsIfNeeded({ ...STATE.settings, ...res.settings });
+        STATE.settings = { ...STATE.settings, ...res.settings };
+        if (Array.isArray(res.segments) && res.segments.length) STATE.segments = res.segments;
         syncV10SettingsFromState();
         renderBrandIdentityAndProducts();
         document.getElementById('pubHdrTitle').textContent = `${STATE.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
       }
-      renderPublicPassbookAutoAdBanner((res.matches && res.matches[0]) ? res.matches[0].name : '');
 
       let list = res.matches || [];
       if ((isPrivateToken || directId) && list.length > 1) {
@@ -12961,6 +12717,9 @@
         else if (exactByName.length === 1) list = exactByName;
       }
 
+      LAST_PUB_PARTIES_CACHE = list;
+      renderPublicPassbookAutoAdBanner(list[0] ? list[0].name : '');
+
       if (!list.length) {
         showPublicManualSearchBox();
         box.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:24px;">कोई रिकॉर्ड नहीं मिला। कृपया अपनी दुकान का नाम या कूपन नंबर ऊपर बॉक्स में लिखें।</div>`;
@@ -12969,6 +12728,7 @@
 
       if (list.length === 1 && list[0].id) {
         try { localStorage.setItem(PUB_REMEMBER_PARTY_KEY, String(list[0].id)); } catch (e) {}
+        lockDeviceToRetailerTokenIfGuest(list[0]);
       }
 
       if ((directId || isPrivateToken) && list.length > 0) {
@@ -12980,6 +12740,7 @@
 
       const cupKg = Number(STATE.settings.kg_per_coupon) || 210;
       const bagKg = Number(STATE.settings.kg_per_bag) || 30;
+      const segList = (STATE.segments && STATE.segments.length) ? STATE.segments : getLocalDB().segments;
 
       box.innerHTML = list.map(r => {
         const cbPub = calcCouponBreakdown(r.total_kg || 0, STATE.settings);
@@ -12987,155 +12748,163 @@
         const needKg = r.need_kg !== undefined ? r.need_kg : cbPub.needKg;
         const needBags = Math.max(0.5, Math.round((needKg / bagKg) * 10) / 10);
         const pct = r.pct !== undefined ? r.pct : cbPub.pct;
-        const totalEarned = cbPub.totalEarned;
         const dels = r.recent_deliveries || [];
 
         return `
-        <div class="pub-vip-card">
-          <!-- Premium Navy & Gold VIP Account Header -->
-          <div class="pub-vip-card-hero">
+        <div class="vip-pb-shell">
+          <div class="vip-pb-hero">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-              <div style="min-width:0;flex:1;">
-                <span class="pub-vip-verified-pill">✓ VERIFIED PARTY ACCOUNT</span>
-                <div class="pub-vip-shop-name">${esc(r.name)}</div>
-                <div class="pub-vip-area-line">
-                  <span>📍 क्षेत्र: <b style="color:#fde68a;">${esc(r.area || '-')}</b></span>
-                  <span>•</span>
-                  <span>खाता ID: #${r.id}</span>
-                </div>
+              <div style="min-width:0;">
+                <span class="vip-pb-verified">✓ सत्यापित व्यापारिक खाता</span>
+                <div class="vip-pb-firm">${esc(r.name)}</div>
+                <div style="font-size:12px;color:#cbd5e1;font-weight:700;margin-top:4px;">📍 क्षेत्र: ${esc(r.area || 'कैलारस')}</div>
               </div>
-              <div class="pub-vip-supply-tile">
-                <div class="pub-vip-supply-lbl">कुल सप्लाई</div>
-                <div class="pub-vip-supply-val">${r.total_kg} kg</div>
-                <div class="pub-vip-supply-sub">${r.bags_eq} बैग</div>
+              <div class="vip-pb-vol-box">
+                <div style="font-size:9.5px;font-weight:800;color:#fde047;letter-spacing:0.6px;">कुल प्राप्त सप्लाई</div>
+                <div style="font-size:21px;font-weight:900;color:#ffffff;margin-top:2px;">${r.total_kg} kg</div>
+                <div style="font-size:11px;color:#86efac;font-weight:800;">${r.bags_eq} बैग</div>
               </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-xs" style="background:#fde047;color:#0f172a;font-weight:900;padding:7px 13px;border-radius:999px;" onclick="downloadPublicPassbookPDF(${r.id})">📄 पासबुक PDF डाउनलोड</button>
+              <button type="button" class="btn btn-xs" style="background:rgba(34,197,94,0.22);color:#bbf7d0;border:1px solid rgba(74,222,128,0.5);font-weight:800;padding:7px 13px;border-radius:999px;" onclick="triggerPassbookAdOrderWhatsApp('नया सप्लाई ऑर्डर')">📲 WhatsApp ऑर्डर लिखवाएँ</button>
             </div>
           </div>
 
-          <div class="pub-vip-body">
-            <!-- 3 Crisp KPI Stat Cards -->
-            <div class="pub-kpi-trio">
-              <div class="pub-kpi-box highlight-blue">
-                <div class="pub-kpi-lbl">कुल पक्के कूपन</div>
-                <div class="pub-kpi-num" style="color:#1d4ed8;">${totalEarned}</div>
-                <div class="pub-kpi-sub">${cbPub.bonusEarned > 0 ? `${cbPub.baseEarned} + ${cbPub.bonusEarned} बोनस 🎁` : `${cupKg} kg / कूपन`}</div>
+          <div style="padding:16px;">
+            <div class="khata-stats-3" style="background:#f8fafc;padding:11px 6px;border-radius:14px;border:1px solid #e2e8f0;">
+              <div class="khata-stat-col">
+                <div class="khata-stat-lbl">पक्के कूपन</div>
+                <div class="khata-stat-val" style="color:#1d4ed8;">${cbPub.totalEarned}</div>
+                <div class="khata-stat-sub">${cbPub.bonusEarned > 0 ? `${cbPub.baseEarned} + ${cbPub.bonusEarned} फ्री 🎁` : `${cupKg} kg / कूपन`}</div>
               </div>
-              <div class="pub-kpi-box">
-                <div class="pub-kpi-lbl">जारी कूपन नं.</div>
-                <div class="pub-kpi-num" style="color:#0f172a;">${(r.coupons || []).length}</div>
-                <div class="pub-kpi-sub">ड्रॉ में शामिल</div>
+              <div class="khata-stat-col">
+                <div class="khata-stat-lbl">जारी कूपन नं.</div>
+                <div class="khata-stat-val" style="color:#0f172a;">${(r.coupons || []).length}</div>
+                <div class="khata-stat-sub">ड्रॉ में शामिल</div>
               </div>
-              <div class="pub-kpi-box highlight-amber">
-                <div class="pub-kpi-lbl">अगले कूपन हेतु</div>
-                <div class="pub-kpi-num" style="color:#b45309;">${needKg} kg</div>
-                <div class="pub-kpi-sub">मात्र ${needBags} बैग शेष</div>
+              <div class="khata-stat-col">
+                <div class="khata-stat-lbl">अगला कूपन शेष</div>
+                <div class="khata-stat-val" style="color:#d97706;">${needKg} kg</div>
+                <div class="khata-stat-sub">~${needBags} बैग</div>
               </div>
             </div>
 
-            <!-- Next Coupon Milestone Progress Bar -->
-            <div class="pub-milestone-panel">
-              <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:800;color:#78350f;gap:6px;flex-wrap:wrap;">
-                <span>🎯 अगला कूपन लक्ष्य: ${remKg} / ${cupKg} kg (${pct}%)</span>
-                <span style="background:#ffffff;padding:2px 8px;border-radius:999px;border:1px solid #fcd34d;color:#b45309;">${needBags} बैग शेष</span>
+            <div style="margin-top:12px;padding:12px 14px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fcd34d;border-radius:14px;">
+              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#78350f;">
+                <span>🎯 अगला कूपन प्रोग्रेस: ${remKg} / ${cupKg} kg (${pct}%)</span>
+                <span>मात्र ${needBags} बैग शेष</span>
               </div>
-              <div class="prog-bar" style="height:9px;margin-top:8px;background:rgba(255,255,255,0.75);border:1px solid #fde68a;">
+              <div class="prog-bar" style="height:8px;margin-top:6px;background:#fde68a;">
                 <div class="prog-fill" style="width:${pct}%;background:linear-gradient(90deg,#d97706,#16a34a);"></div>
               </div>
               ${(cbPub.bonusEvery > 0 && cbPub.bonusFree > 0) ? `
-                <div style="margin-top:9px;padding-top:8px;border-top:1px dashed #f59e0b;font-size:11.5px;font-weight:800;color:#15803d;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-                  <span>🎁 <b>${cbPub.bonusEvery} कूपन पर +${cbPub.bonusFree} कूपन FREE:</b></span>
-                  <span>${cbPub.nextMilestoneGivesBonus ? `🔥 यही ${bagsNeedLabel(needBags)} जुड़ते ही +${cbPub.bonusFree} FREE बोनस कूपन मिलेगा!` : `बोनस हेतु ${cbPub.needKgForBonus} kg (${cbPub.needBagsForBonus} बैग) शेष`}</span>
+                <div style="margin-top:8px;padding-top:7px;border-top:1px dashed #f59e0b;font-size:11.5px;font-weight:800;color:#15803d;">
+                  🎁 <b>${cbPub.bonusEvery} पर +${cbPub.bonusFree} FREE बोनस:</b> ${cbPub.nextMilestoneGivesBonus ? `🔥 यही ${needBags} बैग जुड़ते ही +${cbPub.bonusFree} FREE कूपन मिलेगा!` : `फ्री बोनस हेतु ${cbPub.needKgForBonus} kg (~${cbPub.needBagsForBonus} बैग) शेष`}
                 </div>` : ''}
             </div>
 
-            <!-- VIP Lucky Draw Coupon Tickets -->
-            <div style="margin-top:16px;">
-              <div class="pub-section-heading">
-                <span>🎟️ आपके आधिकारिक लकी कूपन एवं पुरस्कार स्थिति</span>
-                <span class="badge b-navy">${(r.coupons || []).length} कूपन</span>
-              </div>
-              ${(r.coupons || []).length > 0 ? `
-                <div class="pub-coupon-ticket-grid">
-                  ${r.coupons.map(c => c.prize_title
-                    ? `<div class="pub-coupon-ticket winner">
-                         <div style="display:flex;justify-content:space-between;align-items:center;">
-                           <span class="pub-coupon-ticket-code">🎟️ कूपन #${esc(c.coupon_code)}</span>
-                           <span class="badge" style="background:#fde047;color:#0f172a;font-weight:900;">${c.prize_status === 'DELIVERED' ? '✅ पुरस्कार प्राप्त' : '🏆 विजेता घोषित!'}</span>
-                         </div>
-                         <div style="font-size:13.5px;font-weight:900;color:#fde047;margin-top:3px;">🏆 ${esc(c.prize_title)}</div>
-                       </div>`
-                    : `<div class="pub-coupon-ticket">
-                         <div class="pub-coupon-ticket-code">#${esc(c.coupon_code)}</div>
-                         <div class="pub-coupon-ticket-tag">लकी ड्रॉ में शामिल ✓</div>
-                       </div>`
-                  ).join('')}
+            <div style="margin-top:15px;">
+              <div style="font-size:11.5px;font-weight:800;color:#475569;text-transform:uppercase;">🎟️ आपके लकी कूपन टिकट्स (${(r.coupons || []).length}):</div>
+              ${(r.coupons || []).length ? `
+                <div class="vip-ticket-grid">
+                  ${r.coupons.map(c => `
+                    <div class="vip-coupon-ticket ${c.prize_title ? 'won' : ''}">
+                      <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-size:9.5px;font-weight:800;color:#92400e;">LUCKY COUPON</span>
+                        <span style="font-size:9.5px;font-weight:700;color:#64748b;">${fmtDate(c.issue_date)}</span>
+                      </div>
+                      <div class="vip-ticket-code">#${esc(c.coupon_code)}</div>
+                      <div style="font-size:10.5px;font-weight:800;margin-top:3px;color:${c.prize_title ? '#15803d' : '#b45309'};">
+                        ${c.prize_title ? `🏆 ${esc(c.prize_title)} (${c.prize_status === 'DELIVERED' ? 'प्राप्त' : 'विजेता!'})` : '✓ ड्रॉ में शामिल'}
+                      </div>
+                    </div>
+                  `).join('')}
                 </div>
-              ` : `<div style="font-size:12px;color:#64748b;background:#f8fafc;padding:10px 12px;border-radius:11px;border:1px dashed #cbd5e1;text-align:center;">कूपन आवंटन प्रक्रिया में है</div>`}
+              ` : `<div style="margin-top:6px;font-size:12px;color:var(--muted);background:#f8fafc;padding:10px 12px;border-radius:10px;border:1px dashed #cbd5e1;">कूपन नंबर आवंटन प्रक्रिया में है।</div>`}
             </div>
 
-            <!-- Official Supply Passbook Ledger Table -->
-            ${dels.length > 0 ? `
-              <div style="margin-top:18px;">
-                <div class="pub-section-heading">
-                  <span>📒 आधिकारिक सप्लाई पासबुक विवरण</span>
-                  <span style="font-size:11px;color:#64748b;font-weight:700;">कुल ${dels.length} प्रविष्टियाँ</span>
-                </div>
-                <div class="pub-passbook-table">
-                  <div class="pub-pb-hdr">
-                    <div>तारीख / विवरण</div>
+            <div class="vip-pb-tabs">
+              <button type="button" class="vip-pb-tab-btn active" id="vipBtnEntries_${r.id}" onclick="switchVipPassbookInnerTab(${r.id}, 'ENTRIES')">📦 सप्लाई पासबुक (${dels.length})</button>
+              <button type="button" class="vip-pb-tab-btn" id="vipBtnPrizes_${r.id}" onclick="switchVipPassbookInnerTab(${r.id}, 'PRIZES')">🏆 301 इनाम योजना देखें</button>
+            </div>
+
+            <div id="vipPaneEntries_${r.id}" style="margin-top:10px;">
+              ${dels.length > 0 ? `
+                <div class="passbook" style="border-radius:12px;">
+                  <div class="pb-head" style="grid-template-columns:1.1fr 1fr 0.9fr;background:#f8fafc;color:#334155;">
+                    <div>तारीख</div>
                     <div>बैग / खुला</div>
-                    <div style="text-align:right;">सप्लाई वजन</div>
+                    <div style="text-align:right;">वजन (+)</div>
                   </div>
                   ${dels.map((d, idx) => `
-                    <div class="pub-pb-row ${idx === 0 ? 'latest-row' : ''}">
-                      <div>
-                        <div style="font-size:12.5px;font-weight:800;color:#0f172a;">
-                          ${fmtDate(d.entry_date)} ${idx === 0 ? '<span class="b-latest" style="font-size:9px;margin-left:4px;">NEW</span>' : ''}
-                        </div>
-                        ${d.remarks ? `<div style="font-size:10.5px;color:#64748b;margin-top:1px;">${esc(d.remarks)}</div>` : ''}
+                    <div class="pb-row" style="grid-template-columns:1.1fr 1fr 0.9fr;padding:9px 12px;${idx === 0 ? 'background:#f0fdf4;' : ''}">
+                      <div style="font-size:12.5px;font-weight:700;color:#0f172a;">
+                        ${fmtDate(d.entry_date)} ${idx === 0 ? '<span class="b-latest" style="font-size:9px;">NEW</span>' : ''}
                       </div>
-                      <div style="font-size:12px;color:#334155;font-weight:700;">
+                      <div style="font-size:12px;color:#475569;font-weight:600;">
                         ${d.bags || 0} बैग${d.loose_kg ? ` + ${d.loose_kg}kg` : ''}
                       </div>
-                      <div style="text-align:right;font-size:14px;font-weight:900;color:#15803d;font-variant-numeric:tabular-nums;">
+                      <div style="text-align:right;font-size:13.5px;font-weight:800;color:#15803d;">
                         +${d.total_kg} kg
                       </div>
                     </div>
                   `).join('')}
                 </div>
+              ` : `<div style="text-align:center;padding:18px;color:var(--muted);font-size:12.5px;">अभी कोई डिलीवरी प्रविष्टि नहीं है।</div>`}
+            </div>
+
+            <div id="vipPanePrizes_${r.id}" style="display:none;margin-top:10px;">
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                ${segList.map(s => `
+                  <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 11px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:12.5px;">
+                    <span style="font-weight:800;color:#0f172a;">${esc(s.icon || '🏆')} ${esc(s.title)}</span>
+                    <span class="badge b-amber">${s.target_qty} इनाम</span>
+                  </div>
+                `).join('')}
               </div>
-            ` : ''}
-
-${renderPassbookCardProductMediaSuite()}
-
-            <!-- Quick Action Bar -->
-            <div class="pub-action-bar">
-              <button type="button" class="pub-action-btn wa" onclick="triggerPassbookAdOrderWhatsApp('नया ऑर्डर / रेट जानकारी')">
-                📲 नया ऑर्डर लिखवाएँ
-              </button>
-              <button type="button" class="pub-action-btn refresh" onclick="runPublicCheck(${r.id}, '${esc(r.name)}', ${isPrivateToken})">
-                ↻ खाता रिफ्रेश करें
-              </button>
             </div>
           </div>
-        </div>
-        <div class="pub-trust-footer">
-          <b>${esc(STATE.settings.company_name || 'ARYUSH FOODS')} • आर्युष रसोई धन</b><br/>
-          ${esc(STATE.settings.signatory || 'आधिकारिक डिजिटल व्यापारिक पासबुक • कैलारस, मुरैना (म.प्र.)')}
         </div>`;
       }).join('');
     } catch (e) {
-      showPublicManualSearchBox();
-      box.innerHTML = `<div class="card" style="color:#dc2626;">Error: ${esc(e.message)}</div>`;
+      if (!silentRefresh) {
+        showPublicManualSearchBox();
+        box.innerHTML = `<div class="card" style="color:#dc2626;">Error: ${esc(e.message)}</div>`;
+      }
     }
+  }
+
+  function startZeroRefreshSyncLoop() {
+    if (AUTO_SYNC_TIMER_ID) clearInterval(AUTO_SYNC_TIMER_ID);
+    AUTO_SYNC_TIMER_ID = setInterval(async () => {
+      if (document.hidden) return;
+      try {
+        const ping = await api('/api/sync-ping');
+        if (!ping.sig) return;
+        if (document.body.classList.contains('public-mode')) {
+          if (LAST_PUB_SYNC_SIG && ping.sig !== LAST_PUB_SYNC_SIG && (ACTIVE_PUBLIC_SYNC_TARGET.directId || ACTIVE_PUBLIC_SYNC_TARGET.q)) {
+            await runPublicCheck(ACTIVE_PUBLIC_SYNC_TARGET.directId, ACTIVE_PUBLIC_SYNC_TARGET.q, ACTIVE_PUBLIC_SYNC_TARGET.isPrivateToken, true);
+          }
+          LAST_PUB_SYNC_SIG = ping.sig;
+        } else if (!STAGE_REVEAL_BUSY) {
+          if (LAST_ADMIN_PING_SIG && ping.sig !== LAST_ADMIN_PING_SIG) {
+            await refreshAll(true);
+          }
+          LAST_ADMIN_PING_SIG = ping.sig;
+        }
+      } catch (e) {}
+    }, 9000);
   }
 
   let deferredPrompt = null;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    const b = document.getElementById('btnPwaInstall');
-    if (b) b.style.display = 'inline-flex';
+    ['btnPwaInstall', 'btnPubPwaInstall'].forEach(id => {
+      const b = document.getElementById(id);
+      if (b) b.style.display = 'inline-flex';
+    });
   });
 
   async function triggerPwaInstall() {
@@ -13143,8 +12912,10 @@ ${renderPassbookCardProductMediaSuite()}
     deferredPrompt.prompt();
     await deferredPrompt.userChoice;
     deferredPrompt = null;
-    const b = document.getElementById('btnPwaInstall');
-    if (b) b.style.display = 'none';
+    ['btnPwaInstall', 'btnPubPwaInstall'].forEach(id => {
+      const b = document.getElementById(id);
+      if (b) b.style.display = 'none';
+    });
   }
 
   if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
@@ -13163,7 +12934,7 @@ ${renderPassbookCardProductMediaSuite()}
       openStageProjector();
       document.getElementById('stageProjectorOverlay').classList.add('audience-clean');
       startLiveStageListener();
-      toast('📡 LIVE LED RECEIVER ACTIVE — Waiting for Mobile/Operator Remote Commands!');
+      toast('📡 LIVE LED RECEIVER ACTIVE — Waiting for Remote Commands!');
       return;
     }
     const kToken = params.get('k');
@@ -13184,7 +12955,8 @@ ${renderPassbookCardProductMediaSuite()}
       try {
         const initPub = await api('/api/public/check?q=');
         if (initPub.settings) {
-          STATE.settings = await hydrateFullPublicSettingsIfNeeded({ ...STATE.settings, ...initPub.settings });
+          STATE.settings = { ...STATE.settings, ...initPub.settings };
+          if (Array.isArray(initPub.segments) && initPub.segments.length) STATE.segments = initPub.segments;
           syncV10SettingsFromState();
           renderBrandIdentityAndProducts();
           document.getElementById('pubHdrTitle').textContent = `${STATE.settings.company_name || 'ARYUSH FOODS'} • आर्युष रसोई धन`;
@@ -13206,6 +12978,7 @@ ${renderPassbookCardProductMediaSuite()}
         document.getElementById('pubSearchBoxCard').style.display = 'none';
         runPublicCheck(rememberedId, null, false);
       }
+      startZeroRefreshSyncLoop();
       return;
     }
 
@@ -13222,6 +12995,7 @@ ${renderPassbookCardProductMediaSuite()}
     }
     await refreshAll();
     startLiveStageListener();
+    startZeroRefreshSyncLoop();
   });
 
 </script>

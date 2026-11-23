@@ -1,8 +1,4 @@
 worker.js
 wrangler.toml
-package.json
 schema.sql
-README.md
-standalone-preview.html
 .git
-node_modules

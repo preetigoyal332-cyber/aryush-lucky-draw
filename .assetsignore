@@ -4,6 +4,9 @@ node_modules/
 .git
 .wrangler
 worker.js
+_worker.js
+functions
+functions/
 wrangler.toml
 schema.sql
 package.json

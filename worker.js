@@ -320,8 +320,19 @@ async function handleApiRequest(request, env, url) {
 
   // 7. LIVE POLL & SYNC PING
   if (path === '/api/live-poll' && method === 'GET') {
-    const row = await db.prepare(`SELECT val FROM settings WHERE key = 'live_stage_cmd'`).first();
-    return jsonRes({ ok: true, live_stage_cmd: row?.val || '' });
+    if (url.searchParams.get('role') === 'tv') {
+      const nowTs = String(Date.now());
+      await db.prepare(`INSERT INTO settings (key, val) VALUES ('live_tv_heartbeat', ?) ON CONFLICT(key) DO UPDATE SET val = excluded.val`).bind(nowTs).run();
+    }
+    const [cmdRow, hbRow] = await Promise.all([
+      db.prepare(`SELECT val FROM settings WHERE key = 'live_stage_cmd'`).first(),
+      db.prepare(`SELECT val FROM settings WHERE key = 'live_tv_heartbeat'`).first()
+    ]);
+    return jsonRes({
+      ok: true,
+      live_stage_cmd: cmdRow?.val || '',
+      tv_heartbeat_ts: Number(hbRow?.val || 0)
+    });
   }
 
   if (path === '/api/sync-ping' && method === 'GET') {
@@ -643,6 +654,25 @@ async function handleApiRequest(request, env, url) {
     if (path === '/api/ai/ask-munim') {
       const ans = await callGeminiFromWorker(apiKey, [{ text: `आप आर्युष फूड्स (कैलारस) के बिज़नेस AI असिस्टेंट हैं। डेटा: ${JSON.stringify(body.stats_context)}। प्रश्न: "${body.question}"। संक्षिप्त हिंदी/हिंग्लिश में उत्तर दें।` }], false);
       return jsonRes({ ok: true, answer: ans });
+    }
+    if (path === '/api/ai/product-khasiyat') {
+      const p = await callGeminiFromWorker(apiKey, [
+        { text: `Analyze this Aryush Rasoi Dhan food/spice/mustard oil product pack image (or product name hint: "${body.hint || ''}"). Return pure professional Hindi product details in JSON: {"hi":"हिंदी नाम","name":"English Name","tag":"छोटी आकर्षक टैगलाइन (अधिकतम 7 शब्द)","khasiyat":["विशेषता 1","विशेषता 2","विशेषता 3"]}` },
+        ...(body.image_base64 ? [{ inlineData: { mimeType: body.mime_type || 'image/jpeg', data: body.image_base64 } }] : [])
+      ], true);
+      return jsonRes({ ok: true, ...p });
+    }
+    if (path === '/api/ai/stage-commentary') {
+      const ans = await callGeminiFromWorker(apiKey, [{
+        text: `आप आर्युष फूड्स (कैलारस, मुरैना) के भव्य लकी ड्रॉ स्टेज शो के ऊर्जावान एंकर हैं। विजेता फर्म: "${body.shop}" (क्षेत्र: ${body.area}, कुल सप्लाई: ${body.total_kg || 0} kg), लकी कूपन नं: #${body.coupon}, जीता गया पुरस्कार: "${body.prize}"। उनके लिए मात्र 2 जोशीली, सम्मानजनक और ताली बजवाने वाली शुद्ध हिंदी पंक्तियाँ लिखें (बिना किसी अतिरिक्त भूमिका के)।`
+      }], false);
+      return jsonRes({ ok: true, speech: ans });
+    }
+    if (path === '/api/ai/campaign-copy') {
+      const ans = await callGeminiFromWorker(apiKey, [{
+        text: `आर्युष फूड्स (आर्युष रसोई धन — शुद्ध कच्ची घानी सरसों तेल व मसाले) के दुकानदारों के लिए "${body.topic || 'त्योहारी धमाका व लकी कूपन ऑफर'}" विषय पर एक छोटा (अधिकतम 8 लाइन), आकर्षक और प्रोफेशनल हिंदी WhatsApp प्रमोशनल मैसेज लिखें।`
+      }], false);
+      return jsonRes({ ok: true, copy: ans });
     }
   }
 

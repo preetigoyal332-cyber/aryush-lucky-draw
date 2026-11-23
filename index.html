@@ -2665,7 +2665,7 @@
         <div style="min-width:0;">
           <div class="brand-h1">
             <span id="hdrCompany">ARYUSH FOODS — MEGA ALTO LUCKY DRAW</span>
-            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v23.0 Pro Final</span>
+            <span class="ver-tag" style="background:#fde047;color:#450a0a;">v28.0 Pro Event Ready</span>
           </div>
           <div class="brand-sub" id="hdrSub">Aryush Rasoi Dhan • 1 Coupon / 210 kg (7 Bags) • 301 Prizes</div>
         </div>
@@ -4700,9 +4700,17 @@
 
   async function api(path, method = 'GET', body = null) {
     if (!IS_LOCAL_PREVIEW) {
-      const opts = { method, headers: { 'Content-Type': 'application/json' } };
+      const opts = { method, headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } };
       if (body) opts.body = JSON.stringify(body);
       const res = await fetch(path, opts);
+      const cType = (res.headers.get('content-type') || '').toLowerCase();
+      if (!cType.includes('application/json')) {
+        const rawTxt = await res.text();
+        if (rawTxt.trim().startsWith('<!DOCTYPE') || rawTxt.trim().startsWith('<html')) {
+          throw new Error('बैकएंड API कनेक्ट नहीं हुआ (wrangler.toml में run_worker_first अपडेट करके दोबारा Deploy करें)');
+        }
+        throw new Error('Server response error (' + res.status + ')');
+      }
       const data = await res.json();
       if (!res.ok || data.error) throw new Error(data.error || 'Request failed');
       return data;
@@ -11561,7 +11569,7 @@
       try {
         let rawCmd = '';
         try {
-          const pollRes = await api('/api/live-poll');
+          const pollRes = await api('/api/live-poll?role=tv');
           rawCmd = pollRes.live_stage_cmd || '';
         } catch (err) {
           // Fallback for older D1 worker without /api/live-poll: check bootstrap settings!
@@ -12999,5 +13007,430 @@
   });
 
 </script>
+
+  <!-- ==================== v28.0 EXECUTIVE ADMIN UI + BULLETPROOF LIVE EVENT + AI STUDIO UPGRADE ==================== -->
+  <style>
+    /* 1. Refined Executive SaaS Admin Panel */
+    body:not(.public-mode):not(.live-led-receiver) {
+      background: linear-gradient(180deg, #e8eef6 0%, #f4f7fb 280px, #f8fafc 100%) !important;
+    }
+    .topbar {
+      background: linear-gradient(90deg, #070b14 0%, #0f172a 55%, #1e293b 100%) !important;
+      border-bottom: 1.5px solid rgba(245, 158, 11, 0.5) !important;
+      box-shadow: 0 8px 28px rgba(9, 13, 22, 0.22) !important;
+    }
+    .desk-nav {
+      background: rgba(255, 255, 255, 0.94) !important;
+      backdrop-filter: blur(14px) !important;
+      border-bottom: 1px solid #cbd5e1 !important;
+    }
+    .dtab {
+      border-radius: 11px !important;
+      padding: 9px 16px !important;
+      font-weight: 800 !important;
+    }
+    .dtab.active {
+      background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+      color: #fde047 !important;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.22) !important;
+    }
+
+    /* Executive Command Center Hero Card */
+    .exec-hero-summary {
+      background: radial-gradient(circle at 92% 10%, rgba(245, 158, 11, 0.22), transparent 46%),
+                  radial-gradient(circle at 8% 90%, rgba(37, 99, 235, 0.16), transparent 45%),
+                  linear-gradient(135deg, #070b14 0%, #0f172a 55%, #1e293b 100%) !important;
+      border: 1.5px solid rgba(245, 158, 11, 0.45) !important;
+      border-radius: 22px !important;
+      padding: 18px !important;
+      box-shadow: 0 16px 38px rgba(15, 23, 42, 0.18) !important;
+    }
+    .exec-m-item {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 14px !important;
+      padding: 10px 6px !important;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease !important;
+    }
+    .exec-m-item:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-color: rgba(253, 224, 71, 0.55) !important;
+    }
+    .exec-m-val { font-size: 20px !important; }
+
+    /* Clean Bento Quick-Actions Grid (Replaces cramped horizontal strip) */
+    .quick-tools-bar {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
+      overflow: visible !important;
+      padding: 4px 0 12px !important;
+    }
+    @media (min-width: 640px) {
+      .quick-tools-bar { grid-template-columns: repeat(4, 1fr) !important; }
+    }
+    @media (min-width: 920px) {
+      .quick-tools-bar { grid-template-columns: repeat(6, 1fr) !important; }
+    }
+    .qtool-btn {
+      justify-content: center !important;
+      padding: 10px 10px !important;
+      border-radius: 12px !important;
+      font-size: 12px !important;
+      font-weight: 800 !important;
+      border: 1px solid #dbe3ee !important;
+      background: #ffffff !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+      transition: all 0.15s ease !important;
+    }
+    .qtool-btn:hover {
+      transform: translateY(-1px);
+      border-color: #94a3b8 !important;
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08) !important;
+    }
+    .qtool-btn.primary {
+      background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+      color: #ffffff !important;
+      border-color: #d97706 !important;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.28) !important;
+    }
+    .qtool-btn.wa {
+      background: linear-gradient(135deg, #16a34a, #15803d) !important;
+      color: #ffffff !important;
+      border-color: #15803d !important;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.24) !important;
+    }
+
+    /* Elevated Party Ledger Rows */
+    .party-row {
+      border-radius: 16px !important;
+      padding: 13px 15px !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03) !important;
+    }
+    .party-row:hover {
+      border-color: #f59e0b !important;
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.11) !important;
+    }
+    .tv-conn-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 800;
+    }
+    .tv-conn-pill.online { background: rgba(34,197,94,0.2); color: #86efac; border: 1px solid rgba(74,222,128,0.5); }
+    .tv-conn-pill.idle { background: rgba(148,163,184,0.16); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.35); }
+  </style>
+
+  <script>
+  (function() {
+    // ==================== 1. VISIBLE PHOTO & VIDEO COMPRESSION PROOF ====================
+    const _basePhotoCompressor = window.compressProductPackPhoto;
+    if (typeof _basePhotoCompressor === 'function') {
+      window.compressProductPackPhoto = async function(file, maxDim = 480) {
+        const origKB = Math.max(1, Math.round((file?.size || 0) / 1024));
+        const dataUrl = await _basePhotoCompressor(file, maxDim);
+        const commaIdx = dataUrl.indexOf(',');
+        const newKB = Math.max(1, Math.round(((dataUrl.length - (commaIdx + 1)) * 3) / 4 / 1024));
+        const savedPct = origKB > newKB ? Math.round(((origKB - newKB) / origKB) * 100) : 0;
+        setTimeout(() => {
+          toast(`🗜️ Photo Auto-Compressed: ${origKB > 1024 ? (origKB/1024).toFixed(1)+' MB' : origKB+' KB'} → ${newKB} KB ${savedPct > 0 ? '(-'+savedPct+'%)' : ''}`);
+        }, 220);
+        return dataUrl;
+      };
+    }
+
+    // ==================== 2. SCREEN WAKE LOCK FOR NON-STOP LIVE DRAW EVENT ====================
+    let STAGE_WAKE_LOCK = null;
+    async function requestStageWakeLock() {
+      if ('wakeLock' in navigator) {
+        try { STAGE_WAKE_LOCK = await navigator.wakeLock.request('screen'); } catch (e) {}
+      }
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && (document.body.classList.contains('live-led-receiver') || document.getElementById('stageProjectorOverlay')?.classList.contains('open'))) {
+        requestStageWakeLock();
+      }
+    });
+
+    const _origOpenProj = window.openStageProjector;
+    if (typeof _origOpenProj === 'function') {
+      window.openStageProjector = function() {
+        _origOpenProj();
+        requestStageWakeLock();
+      };
+    }
+
+    // ==================== 3. AI HINDI STAGE ANCHOR VOICE + OPTIONAL GEMINI COMMENTARY ====================
+    window.STAGE_AI_VOICE_ON = true;
+    window.toggleStageAiVoice = function() {
+      window.STAGE_AI_VOICE_ON = !window.STAGE_AI_VOICE_ON;
+      const btn = document.getElementById('btnStageAiVoice');
+      if (btn) {
+        btn.textContent = window.STAGE_AI_VOICE_ON ? '🎙️ Anchor: ON' : '🎙️ Anchor: OFF';
+        btn.style.color = window.STAGE_AI_VOICE_ON ? '#fde047' : '#94a3b8';
+      }
+      toast(window.STAGE_AI_VOICE_ON ? '🎙️ AI हिंदी एंकर अनाउंसमेंट चालू!' : '🎙️ AI एंकर आवाज़ बंद');
+    };
+
+    async function speakHindiWinnerAnnouncement(seg, c, r) {
+      if (!window.STAGE_AI_VOICE_ON || !STAGE_SOUND_ON || !('speechSynthesis' in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const firm = (r && r.name) ? r.name : 'विजेता पार्टी';
+        const area = (r && r.area) ? (', क्षेत्र ' + r.area) : '';
+        const prizeClean = String(seg?.title || 'लकी पुरस्कार').replace(/^\d+\w+\s*Prize\s*-\s*/i, '');
+        let speechTxt = `बधाई हो! कूपन नंबर ${c.coupon_code} के विजेता हैं, ${firm}${area}। आपको मिलता है, ${prizeClean}!`;
+
+        // For Top-5 Grand Prizes, enrich with Gemini Stage Commentary if AI key is configured!
+        if (STATE.ai_ready && Number(seg?.rank || 99) <= 5) {
+          try {
+            const aiRes = await api('/api/ai/stage-commentary', 'POST', {
+              shop: firm,
+              area: r?.area || 'कैलारस',
+              total_kg: r?.total_kg || 0,
+              coupon: c.coupon_code,
+              prize: prizeClean
+            });
+            if (aiRes && aiRes.speech) {
+              speechTxt = aiRes.speech.replace(/[*#_]/g, '');
+              const certFoot = document.querySelector('.corp-cert-footer');
+              if (certFoot) {
+                const subNote = document.createElement('div');
+                subNote.style.cssText = 'width:100%;margin-top:8px;padding:8px 12px;background:rgba(250,204,21,0.1);border-left:3px solid #fde047;border-radius:6px;font-size:13px;font-weight:700;color:#fef08a;';
+                subNote.textContent = '🎙️ ' + speechTxt;
+                certFoot.appendChild(subNote);
+              }
+            }
+          } catch (e) {}
+        }
+
+        const utter = new SpeechSynthesisUtterance(speechTxt);
+        utter.lang = 'hi-IN';
+        utter.rate = 0.94;
+        utter.pitch = 1.04;
+        const voices = window.speechSynthesis.getVoices() || [];
+        const hiVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('hi'));
+        if (hiVoice) utter.voice = hiVoice;
+        setTimeout(() => window.speechSynthesis.speak(utter), 550);
+      } catch (e) {}
+    }
+
+    const _origRenderWinnerCard = window.renderFinalStageWinnerCard;
+    if (typeof _origRenderWinnerCard === 'function') {
+      window.renderFinalStageWinnerCard = function(seg, c, r, isDemo = false) {
+        _origRenderWinnerCard(seg, c, r, isDemo);
+        if (!isDemo) speakHindiWinnerAnnouncement(seg, c, r);
+      };
+    }
+
+    // ==================== 4. STRICT LIVE DRAW SAFETY (BLOCKS UNALLOTTED & DUPLICATE WINNERS + QUEUE) ====================
+    function validateStageCouponsBeforeFire(seg, nums) {
+      if (!STATE.coupons || STATE.coupons.length === 0) {
+        toast('⛔ अभी एक भी कूपन अलॉट नहीं हुआ है! पहले Coupons टैब में कूपन जारी करें।', true);
+        return false;
+      }
+      const cByNum = new Map(STATE.coupons.map(c => [Number(c.coupon_num), c]));
+      const unallotted = nums.filter(n => !cByNum.has(n));
+      if (unallotted.length > 0) {
+        toast(`⛔ रुकिए! कूपन #${unallotted.map(padCup).join(', #')} किसी भी पार्टी को अलॉट नहीं है!`, true);
+        return false;
+      }
+      const alreadyWonOther = nums.filter(n => {
+        const c = cByNum.get(n);
+        return c && c.prize_status !== 'NONE' && c.prize_title && c.prize_title !== seg.title;
+      });
+      if (alreadyWonOther.length > 0) {
+        const firstC = cByNum.get(alreadyWonOther[0]);
+        if (!confirm(`⚠️ सावधान! कूपन #${firstC.coupon_code} पहले ही "${firstC.prize_title}" जीत चुका है। क्या आप वाकई इसका इनाम बदलना चाहते हैं?`)) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    const _origFireRemote = window.fireLiveRemoteReveal;
+    if (typeof _origFireRemote === 'function') {
+      window.fireLiveRemoteReveal = async function(alsoOpenHere = false) {
+        const segId = Number(document.getElementById('remSegSelect').value);
+        const seg = STATE.segments.find(s => s.id === segId);
+        const nums = parseFlexibleCouponNumbers(document.getElementById('remMultiCupInp').value);
+        if (seg && nums.length && !validateStageCouponsBeforeFire(seg, nums)) return;
+        return await _origFireRemote(alsoOpenHere);
+      };
+    }
+
+    const _origRevealStage = window.revealAndSaveStageWinner;
+    if (typeof _origRevealStage === 'function') {
+      window.revealAndSaveStageWinner = async function() {
+        if (STAGE_REVEAL_BUSY) return _origRevealStage();
+        const segId = Number(document.getElementById('projSegSelect').value);
+        const seg = STATE.segments.find(s => s.id === segId);
+        const nums = parseFlexibleCouponNumbers(document.getElementById('projCupInp').value);
+        if (seg && nums.length && !validateStageCouponsBeforeFire(seg, nums)) return;
+        return await _origRevealStage();
+      };
+    }
+
+    // Queue rapid stage commands so back-to-back draws never drop a winner!
+    let PENDING_LIVE_CMD_QUEUE = [];
+    const _origExecLive = window.executeIncomingLiveCommand;
+    if (typeof _origExecLive === 'function') {
+      window.executeIncomingLiveCommand = async function(cmd, forceRun = false) {
+        if (STAGE_REVEAL_BUSY && !forceRun) {
+          if (cmd && cmd.ts > LAST_EXECUTED_LIVE_TS && !PENDING_LIVE_CMD_QUEUE.some(x => x.ts === cmd.ts)) {
+            PENDING_LIVE_CMD_QUEUE.push(cmd);
+          }
+          return;
+        }
+        await _origExecLive(cmd, forceRun);
+        while (PENDING_LIVE_CMD_QUEUE.length > 0 && !STAGE_REVEAL_BUSY) {
+          const nextCmd = PENDING_LIVE_CMD_QUEUE.shift();
+          await _origExecLive(nextCmd, true);
+        }
+      };
+    }
+
+    // Live LED TV Heartbeat Status Indicator inside Mobile Live Remote Modal
+    let REM_HB_TIMER = null;
+    const _origOpenRem = window.openMobileLiveRemoteModal;
+    if (typeof _origOpenRem === 'function') {
+      window.openMobileLiveRemoteModal = function() {
+        _origOpenRem();
+        checkLedTvHeartbeatOnce();
+        if (REM_HB_TIMER) clearInterval(REM_HB_TIMER);
+        REM_HB_TIMER = setInterval(() => {
+          if (!document.getElementById('mobileLiveRemoteModal')?.classList.contains('open')) {
+            clearInterval(REM_HB_TIMER);
+            return;
+          }
+          checkLedTvHeartbeatOnce();
+        }, 4000);
+      };
+    }
+
+    async function checkLedTvHeartbeatOnce() {
+      const badge = document.getElementById('remTvHeartbeatPill');
+      if (!badge) return;
+      try {
+        const res = await api('/api/live-poll');
+        const diff = Date.now() - Number(res.tv_heartbeat_ts || 0);
+        if (res.tv_heartbeat_ts && diff < 12000) {
+          badge.className = 'tv-conn-pill online';
+          badge.innerHTML = '● LED TV CONNECTED';
+        } else {
+          badge.className = 'tv-conn-pill idle';
+          badge.innerHTML = '○ LED TV Waiting (?live=1 खोलें)';
+        }
+      } catch (e) {}
+    }
+
+    // ==================== 5. AI AUTO-FILL PRODUCT DETAILS FROM PACK PHOTO ====================
+    window.aiAutoFillProductFromPhoto = async function() {
+      const hint = (document.getElementById('prodHiInp')?.value || document.getElementById('prodEnInp')?.value || '').trim();
+      if (!DRAFT_PROD_PHOTO && !hint) {
+        return toast('पहले प्रोडक्ट फोटो चुनें या थोड़ा नाम लिखें!', true);
+      }
+      toast('🤖 Gemini AI प्रोडक्ट की शुद्ध हिंदी विशेषताएँ लिख रहा है...');
+      try {
+        let b64 = '', mime = 'image/jpeg';
+        if (DRAFT_PROD_PHOTO && DRAFT_PROD_PHOTO.includes(',')) {
+          b64 = DRAFT_PROD_PHOTO.split(',')[1];
+          const m = DRAFT_PROD_PHOTO.match(/^data:([^;]+);/);
+          if (m) mime = m[1];
+        }
+        const res = await api('/api/ai/product-khasiyat', 'POST', { hint, image_base64: b64, mime_type: mime });
+        if (res.hi) document.getElementById('prodHiInp').value = res.hi;
+        if (res.name) document.getElementById('prodEnInp').value = res.name;
+        if (res.tag) document.getElementById('prodTagInp').value = res.tag;
+        if (Array.isArray(res.khasiyat) && res.khasiyat.length) {
+          document.getElementById('prodKhasiyatInp').value = res.khasiyat.join(', ');
+        }
+        toast('✨ AI ने प्रोडक्ट का नाम, टैगलाइन और विशेषताएँ तैयार कर दीं!');
+      } catch (e) {
+        toast(e.message, true);
+      }
+    };
+
+    // ==================== 6. 1-CLICK PRE-DRAW EVENT READINESS AUDIT ====================
+    window.runPreDrawReadinessAudit = function() {
+      const maxC = Number(STATE.settings.max_coupons) || 301;
+      const allotted = STATE.coupons.length;
+      const pendingParties = STATE.summaryRows.filter(r => r.pending > 0);
+      const pendingTotal = pendingParties.reduce((s, r) => s + r.pending, 0);
+      const dups = detectDuplicatePartyPairs();
+      const noArea = STATE.summaryRows.filter(r => r.total_kg > 0 && !r.area).length;
+      const segTargetSum = STATE.segments.reduce((s, x) => s + Number(x.target_qty || 0), 0);
+      const declaredWins = STATE.coupons.filter(c => c.prize_status !== 'NONE' && c.prize_title).length;
+
+      const report = [
+        `🛡️ PRE-DRAW EVENT READINESS CHECK:`,
+        `━━━━━━━━━━━━━━━━━━━━`,
+        `• कूपन पूल स्थिति: ${allotted} / ${maxC} अलॉट (घोषित विजेता: ${declaredWins})`,
+        pendingTotal > 0 ? `⚠️ पेंडिंग अलॉटमेंट: ${pendingParties.length} पार्टियों के ${pendingTotal} कूपन अभी जारी करना बाकी हैं!` : `✅ पेंडिंग अलॉटमेंट: शून्य (सभी अर्जित कूपन जारी हैं)`,
+        segTargetSum !== maxC ? `⚠️ इनाम सेगमेंट योग (${segTargetSum}) कुल पूल (${maxC}) से अलग है` : `✅ इनाम सेगमेंट: सभी ${segTargetSum} पुरस्कार सही सेट हैं`,
+        dups.length > 0 ? `⚠️ डुप्लीकेट जाँच: ${dups.length} मिलते-जुलते पार्टी नाम मिले` : `✅ डुप्लीकेट जाँच: सभी पार्टी खाते साफ हैं`,
+        noArea > 0 ? `ℹ️ एरिया जाँच: ${noArea} सक्रिय पार्टियों का एरिया खाली है` : `✅ एरिया जाँच: सभी सक्रिय पार्टियों का एरिया सेट है`,
+        `• ऑटो मीडिया कम्प्रेशन: चालू (Photo WebP/JPEG ~30KB, Video 720p)`
+      ].join('\n');
+
+      alert(report);
+    };
+
+    // Inject UI Controls cleanly on DOM ready
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. Add Pre-Draw Check button in Admin Quick Tools Grid
+      const qBar = document.querySelector('.quick-tools-bar');
+      if (qBar) {
+        const auditBtn = document.createElement('button');
+        auditBtn.type = 'button';
+        auditBtn.className = 'qtool-btn';
+        auditBtn.style.cssText = 'background:#eef2ff !important;color:#312e81 !important;border-color:#c7d2fe !important;';
+        auditBtn.innerHTML = '🛡️ Pre-Draw Audit';
+        auditBtn.onclick = window.runPreDrawReadinessAudit;
+        qBar.appendChild(auditBtn);
+      }
+
+      // 2. Add AI Anchor Voice button in Stage Projector Topbar
+      const sndBtn = document.getElementById('btnProjSound');
+      if (sndBtn && sndBtn.parentNode) {
+        const vBtn = document.createElement('button');
+        vBtn.type = 'button';
+        vBtn.id = 'btnStageAiVoice';
+        vBtn.className = 'btn btn-outline btn-xs';
+        vBtn.style.cssText = 'background:rgba(255,255,255,0.06);color:#fde047;border-color:rgba(253,224,71,0.35);';
+        vBtn.textContent = '🎙️ Anchor: ON';
+        vBtn.onclick = window.toggleStageAiVoice;
+        sndBtn.parentNode.insertBefore(vBtn, sndBtn);
+      }
+
+      // 3. Add LED TV Live Connection Pill in Mobile Remote Header
+      const remDot = document.querySelector('#mobileLiveRemoteModal .bcast-live-dot');
+      if (remDot && remDot.parentNode) {
+        const hbSpan = document.createElement('span');
+        hbSpan.id = 'remTvHeartbeatPill';
+        hbSpan.className = 'tv-conn-pill idle';
+        hbSpan.textContent = '○ Checking LED TV...';
+        remDot.parentNode.appendChild(hbSpan);
+      }
+
+      // 4. Add ✨ AI Auto-Write Hindi Highlights button in Product Studio
+      const prodFormHd = document.getElementById('prodFormHeading');
+      if (prodFormHd) {
+        prodFormHd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;';
+        const aiBtn = document.createElement('button');
+        aiBtn.type = 'button';
+        aiBtn.className = 'btn btn-ai btn-xs';
+        aiBtn.innerHTML = '✨ AI से नाम व विशेषताएँ लिखें';
+        aiBtn.onclick = window.aiAutoFillProductFromPhoto;
+        prodFormHd.appendChild(aiBtn);
+      }
+
+      if (document.body.classList.contains('live-led-receiver')) {
+        requestStageWakeLock();
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
